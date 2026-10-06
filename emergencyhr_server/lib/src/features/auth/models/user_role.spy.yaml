@@ -1,0 +1,8 @@
+enum: UserRole
+values:
+  - public
+  - hospitalAdmin
+  - deskStaff
+  - fieldAgent
+  - doctor
+  - platformAdmin

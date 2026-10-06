@@ -1,0 +1,7 @@
+enum: VerificationStatus
+values:
+  - seeded
+  - pending
+  - verified
+  - rejected
+  - suspended

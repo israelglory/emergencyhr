@@ -1,0 +1,6 @@
+enum: FacilitySource
+values:
+  - seeded
+  - fieldAgent
+  - selfSignup
+  - claim

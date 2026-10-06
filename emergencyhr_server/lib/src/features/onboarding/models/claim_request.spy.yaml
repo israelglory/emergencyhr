@@ -1,0 +1,17 @@
+class: ClaimRequest
+table: claim_request
+fields:
+  facilityId: int, relation(parent=facility, onDelete=Cascade)
+  userId: int, relation(parent=app_user, onDelete=Cascade)
+  contactName: String
+  ### Storage paths of uploaded documents.
+  documents: List<String>
+  deskPhoneVerified: bool, default=false
+  status: ClaimStatus
+  reviewedByUserId: int?
+  reason: String?
+  createdAt: DateTime, default=now
+  reviewedAt: DateTime?
+indexes:
+  claim_request_status_idx:
+    fields: status, createdAt

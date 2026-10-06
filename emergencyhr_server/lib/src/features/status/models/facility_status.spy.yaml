@@ -1,0 +1,18 @@
+### Live availability, set only by verified staff of the facility.
+class: FacilityStatus
+table: facility_status
+fields:
+  facilityId: int, relation(parent=facility, onDelete=Cascade)
+  accepting: bool
+  erBedsFree: int
+  icuBedsFree: int
+  doctorOnDuty: bool
+  depositRequired: bool
+  updatedByUserId: int?
+  updatedAt: DateTime
+indexes:
+  facility_status_facility_idx:
+    fields: facilityId
+    unique: true
+  facility_status_updated_idx:
+    fields: updatedAt

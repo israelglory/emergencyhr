@@ -1,0 +1,15 @@
+### A one-time code sent by SMS. Only the hash of the code is stored.
+class: OtpChallenge
+table: otp_challenge
+serverOnly: true
+fields:
+  phone: String
+  purpose: OtpPurpose
+  codeHash: String
+  expiresAt: DateTime
+  attempts: int, default=0
+  createdAt: DateTime, default=now
+  consumedAt: DateTime?
+indexes:
+  otp_challenge_phone_idx:
+    fields: phone, purpose, createdAt

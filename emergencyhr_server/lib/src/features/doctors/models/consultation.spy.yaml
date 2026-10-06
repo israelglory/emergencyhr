@@ -1,0 +1,11 @@
+### V2 only.
+class: Consultation
+table: consultation
+fields:
+  userId: int, relation(parent=app_user, onDelete=Cascade)
+  doctorId: int, relation(parent=doctor_profile, onDelete=Cascade)
+  status: ConsultationStatus
+  feeNgn: int
+  startedAt: DateTime?
+  endedAt: DateTime?
+  note: String?

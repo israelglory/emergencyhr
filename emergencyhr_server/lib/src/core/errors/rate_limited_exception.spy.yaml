@@ -1,0 +1,6 @@
+### Thrown when a caller exceeds a rate limit (OTP, chat, reports).
+exception: RateLimitedException
+fields:
+  code: AppErrorCode
+  message: String
+  retryAfterSeconds: int?

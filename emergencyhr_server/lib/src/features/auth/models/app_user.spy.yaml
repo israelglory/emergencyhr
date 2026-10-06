@@ -1,0 +1,19 @@
+### One account per person, identified by phone number.
+class: AppUser
+table: app_user
+fields:
+  ### The Serverpod auth user this account signs in as.
+  authUser: module:serverpod_auth_core:AuthUser?, relation(onDelete=Cascade)
+  ### E.164 phone number, e.g. +2348012345678.
+  phone: String
+  name: String?
+  createdAt: DateTime, default=now
+  suspendedAt: DateTime?
+  suspendReason: String?
+indexes:
+  app_user_phone_idx:
+    fields: phone
+    unique: true
+  app_user_auth_user_idx:
+    fields: authUserId
+    unique: true

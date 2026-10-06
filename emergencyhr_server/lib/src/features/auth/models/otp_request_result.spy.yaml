@@ -1,0 +1,7 @@
+### Returned after a code is sent.
+class: OtpRequestResult
+fields:
+  phone: String
+  expiresAt: DateTime
+  codeLength: int
+  resendAvailableAt: DateTime

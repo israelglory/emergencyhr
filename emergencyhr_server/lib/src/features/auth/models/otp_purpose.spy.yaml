@@ -1,0 +1,4 @@
+enum: OtpPurpose
+values:
+  - signIn
+  - deskPhone

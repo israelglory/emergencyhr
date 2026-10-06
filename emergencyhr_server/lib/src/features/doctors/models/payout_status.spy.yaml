@@ -1,0 +1,5 @@
+enum: PayoutStatus
+values:
+  - pending
+  - paid
+  - failed

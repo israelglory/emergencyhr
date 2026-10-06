@@ -1,0 +1,12 @@
+class: OnboardingEvent
+table: onboarding_event
+fields:
+  facilityId: int, relation(parent=facility, onDelete=Cascade)
+  fromStage: OnboardingStage?
+  toStage: OnboardingStage
+  byUserId: int?
+  note: String?
+  at: DateTime
+indexes:
+  onboarding_event_facility_idx:
+    fields: facilityId, at

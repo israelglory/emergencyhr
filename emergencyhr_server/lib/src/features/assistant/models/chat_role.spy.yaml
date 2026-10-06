@@ -1,0 +1,4 @@
+enum: ChatRole
+values:
+  - user
+  - assistant

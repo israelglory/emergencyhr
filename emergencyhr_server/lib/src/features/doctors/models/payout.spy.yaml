@@ -1,0 +1,9 @@
+### V2 only.
+class: Payout
+table: payout
+fields:
+  doctorId: int, relation(parent=doctor_profile, onDelete=Cascade)
+  amountNgn: int
+  commissionNgn: int
+  status: PayoutStatus
+  providerRef: String?

@@ -1,0 +1,7 @@
+### "received" stands for the spec's "new", which is a reserved word in Dart.
+enum: JoinRequestStatus
+values:
+  - received
+  - contacted
+  - converted
+  - closed

@@ -1,0 +1,13 @@
+### Message content is encrypted at rest.
+class: AiMessage
+table: ai_message
+fields:
+  conversationId: int, relation(parent=ai_conversation, onDelete=Cascade)
+  role: ChatRole
+  contentEnc: String, scope=serverOnly
+  redFlagDetected: bool, default=false
+  suggestedEmergencyType: EmergencyType?
+  createdAt: DateTime, default=now
+indexes:
+  ai_message_conversation_idx:
+    fields: conversationId, createdAt

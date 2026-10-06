@@ -1,0 +1,14 @@
+### A file stored in Serverpod private storage.
+class: FacilityDocument
+table: facility_document
+fields:
+  facilityId: int?, relation(parent=facility, onDelete=Cascade)
+  claimRequestId: int?
+  kind: DocumentKind
+  storagePath: String
+  fileName: String
+  uploadedByUserId: int?
+  createdAt: DateTime, default=now
+indexes:
+  facility_document_facility_idx:
+    fields: facilityId

@@ -1,0 +1,13 @@
+### Stable error codes the client maps to user-facing messages.
+enum: AppErrorCode
+values:
+  - notAuthenticated
+  - notAuthorized
+  - validation
+  - notFound
+  - rateLimited
+  - conflict
+  - invalidState
+  - otpInvalid
+  - otpExpired
+  - featureDisabled

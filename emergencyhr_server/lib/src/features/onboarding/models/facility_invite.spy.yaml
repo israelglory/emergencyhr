@@ -1,0 +1,24 @@
+### Single-use invite for a facility role. Only the token hash is stored.
+class: FacilityInvite
+table: facility_invite
+fields:
+  facilityId: int, relation(parent=facility, onDelete=Cascade)
+  role: UserRole
+  phone: String?
+  tokenHash: String, scope=serverOnly
+  shortCode: String
+  createdByUserId: int
+  expiresAt: DateTime
+  usedAt: DateTime?
+  usedByUserId: int?
+  revokedAt: DateTime?
+  createdAt: DateTime, default=now
+indexes:
+  facility_invite_token_idx:
+    fields: tokenHash
+    unique: true
+  facility_invite_code_idx:
+    fields: shortCode
+    unique: true
+  facility_invite_facility_idx:
+    fields: facilityId

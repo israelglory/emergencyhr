@@ -1,0 +1,16 @@
+### Health data, encrypted field by field. Saved only after explicit consent.
+class: MedicalProfile
+table: medical_profile
+serverOnly: true
+fields:
+  userId: int, relation(parent=app_user, onDelete=Cascade)
+  bloodGroupEnc: String?
+  allergiesEnc: String?
+  conditionsEnc: String?
+  medicationsEnc: String?
+  consentAt: DateTime
+  updatedAt: DateTime, default=now
+indexes:
+  medical_profile_user_idx:
+    fields: userId
+    unique: true

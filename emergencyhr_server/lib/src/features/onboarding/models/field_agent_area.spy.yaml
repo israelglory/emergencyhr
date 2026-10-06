@@ -1,0 +1,10 @@
+### A pilot area assigned to a field agent.
+class: FieldAgentArea
+table: field_agent_area
+fields:
+  userId: int, relation(parent=app_user, onDelete=Cascade)
+  area: String
+indexes:
+  field_agent_area_unique_idx:
+    fields: userId, area
+    unique: true

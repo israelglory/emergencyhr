@@ -1,0 +1,13 @@
+enum: Capability
+values:
+  - generalEmergency
+  - trauma
+  - obstetrics
+  - paediatrics
+  - cardiac
+  - burns
+  - icu
+  - theatre
+  - bloodBank
+  - oxygen
+  - ambulance

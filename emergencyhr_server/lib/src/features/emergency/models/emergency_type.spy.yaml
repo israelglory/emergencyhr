@@ -1,0 +1,12 @@
+enum: EmergencyType
+values:
+  - roadAccident
+  - severeBleeding
+  - burns
+  - chestPain
+  - pregnancy
+  - child
+  - unconscious
+  - breathingDifficulty
+  - other
+  - skipped

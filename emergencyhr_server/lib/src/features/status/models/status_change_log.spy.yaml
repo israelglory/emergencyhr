@@ -1,0 +1,14 @@
+### Audit log entry for every status change. oldValue and newValue are JSON.
+class: StatusChangeLog
+table: status_change_log
+fields:
+  facilityId: int, relation(parent=facility, onDelete=Cascade)
+  userId: int?
+  oldValue: String?
+  newValue: String
+  ### Training-mode updates are logged but never shown to the public.
+  practice: bool, default=false
+  at: DateTime
+indexes:
+  status_change_log_facility_idx:
+    fields: facilityId, at

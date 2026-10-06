@@ -1,0 +1,18 @@
+### A role held by a user. facilityId is set for facility-scoped roles.
+class: RoleAssignment
+table: role_assignment
+fields:
+  userId: int, relation(parent=app_user, onDelete=Cascade)
+  role: UserRole
+  facilityId: int?, relation(parent=facility, onDelete=Cascade)
+  createdAt: DateTime, default=now
+  createdByUserId: int?
+indexes:
+  role_assignment_user_facility_idx:
+    fields: userId, facilityId
+  role_assignment_unique_idx:
+    fields: userId, role, facilityId
+    unique: true
+    nulls_distinct: false
+  role_assignment_facility_idx:
+    fields: facilityId, role

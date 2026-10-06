@@ -1,0 +1,20 @@
+### One use of the Emergency flow. startedAt to actedAt is the north star metric.
+class: EmergencySession
+table: emergency_session
+fields:
+  userId: int?, relation(parent=app_user, onDelete=SetNull)
+  ### Lets a guest update their own session without an account.
+  accessTokenHash: String, scope=serverOnly
+  lat: double
+  lng: double
+  area: String?
+  emergencyType: EmergencyType
+  resultsShown: List<int>
+  emptyResult: bool, default=false
+  action: EmergencyAction
+  facilityId: int?, relation(parent=facility, onDelete=SetNull)
+  startedAt: DateTime
+  actedAt: DateTime?
+indexes:
+  emergency_session_started_idx:
+    fields: startedAt

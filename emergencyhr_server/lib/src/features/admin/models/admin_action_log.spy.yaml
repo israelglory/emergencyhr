@@ -1,0 +1,13 @@
+### Every admin and agent action, with actor and time.
+class: AdminActionLog
+table: admin_action_log
+fields:
+  actorUserId: int
+  action: String
+  targetType: String
+  targetId: int
+  reason: String?
+  at: DateTime
+indexes:
+  admin_action_log_target_idx:
+    fields: targetType, targetId, at

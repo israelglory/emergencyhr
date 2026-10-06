@@ -1,0 +1,35 @@
+class: Facility
+table: facility
+fields:
+  name: String
+  type: FacilityType
+  address: String
+  ### Pilot area name, e.g. "Ikeja".
+  area: String
+  lat: double
+  lng: double
+  deskPhone: String?
+  deskPhoneConfirmedAt: DateTime?
+  contactName: String?
+  contactPhone: String?
+  verificationStatus: VerificationStatus
+  onboardingStage: OnboardingStage
+  source: FacilitySource
+  liveAt: DateTime?
+  openingHours: OpeningHours?
+  trainingCompletedAt: DateTime?
+  ### Set when three wrong-status reports arrive within 24 hours.
+  flaggedAt: DateTime?
+  suspendedAt: DateTime?
+  suspendReason: String?
+  createdAt: DateTime, default=now
+  updatedAt: DateTime, default=now
+indexes:
+  facility_location_idx:
+    fields: lat, lng
+  facility_name_idx:
+    fields: name
+  facility_area_idx:
+    fields: area
+  facility_stage_idx:
+    fields: onboardingStage

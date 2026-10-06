@@ -1,0 +1,6 @@
+enum: ConsultationStatus
+values:
+  - requested
+  - active
+  - completed
+  - cancelled

@@ -1,0 +1,8 @@
+### Decrypted medical profile as shown to its owner.
+class: MedicalProfileData
+fields:
+  bloodGroup: String?
+  allergies: String?
+  conditions: String?
+  medications: String?
+  consentAt: DateTime?

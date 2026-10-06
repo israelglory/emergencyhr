@@ -1,0 +1,9 @@
+class: FacilityCapability
+table: facility_capability
+fields:
+  facilityId: int, relation(parent=facility, onDelete=Cascade)
+  capability: Capability
+indexes:
+  facility_capability_unique_idx:
+    fields: facilityId, capability
+    unique: true

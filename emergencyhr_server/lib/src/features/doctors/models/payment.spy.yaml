@@ -1,0 +1,8 @@
+### V2 only.
+class: Payment
+table: payment
+fields:
+  consultationId: int, relation(parent=consultation, onDelete=Cascade)
+  amountNgn: int
+  providerRef: String
+  status: PaymentStatus

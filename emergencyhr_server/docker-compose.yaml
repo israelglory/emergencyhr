@@ -1,0 +1,44 @@
+services:
+  # Development services
+  postgres:
+    image: ghcr.io/serverpod/postgres:16
+    ports:
+      - "8090:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: emergencyhr
+      POSTGRES_PASSWORD: "DlHbjEDeXv9iAbyS9Yl46n9UyixJjvSX"
+    volumes:
+      - emergencyhr_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:6.2.6
+    ports:
+      - "8091:6379"
+    command: redis-server --requirepass "Wx9e6XZ0ojqOJGRSIgN1IZybOi308zk5"
+    environment:
+      - REDIS_REPLICATION_MODE=master
+
+  # Test services
+  postgres_test:
+    image: ghcr.io/serverpod/postgres:16
+    ports:
+      - "9090:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: emergencyhr_test
+      POSTGRES_PASSWORD: "20aE7cK7I2ihthOF1Iw8b1jwtuUenM1w"
+    volumes:
+      - emergencyhr_test_data:/var/lib/postgresql/data
+
+  redis_test:
+    image: redis:6.2.6
+    ports:
+      - "9091:6379"
+    command: redis-server --requirepass "wRoU94cMYFUlQoUf3WmkIDFMMaWj4wZp"
+    environment:
+      - REDIS_REPLICATION_MODE=master
+
+volumes:
+  emergencyhr_data:
+  emergencyhr_test_data:

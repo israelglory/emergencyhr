@@ -1,0 +1,16 @@
+### A user's report that a facility's status was wrong.
+class: StatusReport
+table: status_report
+fields:
+  sessionId: int, relation(parent=emergency_session, onDelete=Cascade)
+  facilityId: int, relation(parent=facility, onDelete=Cascade)
+  userId: int?
+  reason: String
+  createdAt: DateTime
+  reviewedAt: DateTime?
+  reviewedByUserId: int?
+indexes:
+  status_report_facility_idx:
+    fields: facilityId, createdAt
+  status_report_session_idx:
+    fields: sessionId

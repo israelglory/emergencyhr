@@ -1,0 +1,9 @@
+### V2 only.
+class: DoctorAvailability
+table: doctor_availability
+fields:
+  doctorId: int, relation(parent=doctor_profile, onDelete=Cascade)
+  weekday: int
+  startMinute: int
+  endMinute: int
+  onlineNow: bool, default=false

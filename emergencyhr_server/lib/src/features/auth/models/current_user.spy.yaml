@@ -1,0 +1,6 @@
+### The signed-in user with their roles and the facilities those roles cover.
+class: CurrentUser
+fields:
+  user: AppUser
+  roles: List<RoleAssignment>
+  facilities: List<FacilitySummary>

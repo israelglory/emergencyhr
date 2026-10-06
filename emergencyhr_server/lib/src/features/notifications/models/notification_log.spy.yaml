@@ -1,0 +1,14 @@
+### Outbound SMS/WhatsApp record, used to avoid spamming reminders.
+class: NotificationLog
+table: notification_log
+serverOnly: true
+fields:
+  facilityId: int?
+  toPhone: String
+  kind: String
+  channel: ContactChannel
+  success: bool
+  sentAt: DateTime
+indexes:
+  notification_log_facility_idx:
+    fields: facilityId, kind, sentAt

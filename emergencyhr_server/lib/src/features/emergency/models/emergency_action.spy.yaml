@@ -1,0 +1,6 @@
+enum: EmergencyAction
+values:
+  - call
+  - directions
+  - call112
+  - none

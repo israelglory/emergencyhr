@@ -1,0 +1,15 @@
+class: JoinRequest
+table: join_request
+fields:
+  hospitalName: String
+  contactName: String
+  phone: String
+  area: String
+  message: String?
+  status: JoinRequestStatus
+  facilityId: int?, relation(parent=facility, onDelete=SetNull)
+  createdAt: DateTime, default=now
+  updatedAt: DateTime, default=now
+indexes:
+  join_request_status_idx:
+    fields: status, createdAt

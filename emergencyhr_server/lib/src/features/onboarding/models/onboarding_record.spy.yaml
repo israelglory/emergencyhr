@@ -1,0 +1,17 @@
+class: OnboardingRecord
+table: onboarding_record
+fields:
+  facilityId: int, relation(parent=facility, onDelete=Cascade)
+  stage: OnboardingStage
+  assignedAgentUserId: int?
+  notes: String?
+  nextActionAt: DateTime?
+  submittedAt: DateTime?
+  submittedByUserId: int?
+  updatedAt: DateTime, default=now
+indexes:
+  onboarding_record_facility_idx:
+    fields: facilityId
+    unique: true
+  onboarding_record_agent_idx:
+    fields: assignedAgentUserId

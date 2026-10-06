@@ -1,0 +1,16 @@
+### V2 only. Schema exists so the doctor launch needs no migration.
+class: DoctorProfile
+table: doctor_profile
+fields:
+  userId: int, relation(parent=app_user, onDelete=Cascade)
+  mdcnNumber: String
+  licenceExpiry: DateTime
+  specialty: String
+  feeNgn: int
+  sessionMinutes: int
+  facilityId: int?, relation(parent=facility, onDelete=SetNull)
+  verificationStatus: VerificationStatus
+indexes:
+  doctor_profile_user_idx:
+    fields: userId
+    unique: true

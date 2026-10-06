@@ -1,0 +1,11 @@
+class: EmergencyContact
+table: emergency_contact
+fields:
+  userId: int, relation(parent=app_user, onDelete=Cascade)
+  name: String
+  phone: String
+  channel: ContactChannel
+  createdAt: DateTime, default=now
+indexes:
+  emergency_contact_user_idx:
+    fields: userId

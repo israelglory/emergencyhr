@@ -1,0 +1,7 @@
+### Typed error sent to the client. Never carries stack traces or database errors.
+exception: InvalidStateException
+fields:
+  code: AppErrorCode
+  message: String
+  ### Optional name of the input field that failed, for form errors.
+  field: String?

@@ -1,0 +1,7 @@
+### One opening window. weekday is 1 (Monday) to 7 (Sunday), minutes are
+### minutes after midnight in Africa/Lagos time.
+class: OpeningPeriod
+fields:
+  weekday: int
+  openMinute: int
+  closeMinute: int

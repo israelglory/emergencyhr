@@ -1,0 +1,4 @@
+class: OpeningHours
+fields:
+  alwaysOpen: bool
+  periods: List<OpeningPeriod>

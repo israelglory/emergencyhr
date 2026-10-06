@@ -1,0 +1,10 @@
+enum: OnboardingStage
+values:
+  - seeded
+  - contacted
+  - visited
+  - staffTrained
+  - verified
+  - live
+  - paused
+  - declined

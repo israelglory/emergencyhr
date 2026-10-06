@@ -1,0 +1,8 @@
+### Lightweight facility reference for lists and role context.
+class: FacilitySummary
+fields:
+  id: int
+  name: String
+  area: String
+  onboardingStage: OnboardingStage
+  verificationStatus: VerificationStatus
