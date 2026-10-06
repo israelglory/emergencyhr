@@ -1,0 +1,8 @@
+### Onboarding pipeline with counts against the pilot target.
+class: PipelineBoard
+fields:
+  counts: List<StageCount>
+  liveCount: int
+  targetMin: int
+  targetMax: int
+  rows: List<PipelineRow>

@@ -1,0 +1,20 @@
+{
+  "type": "pregnancy",
+  "title": "Pregnancy emergency",
+  "summary": "Heavy bleeding, severe pain or fits in pregnancy need a hospital with maternity care now.",
+  "doSteps": [
+    "Help her lie on her left side.",
+    "Keep her warm and calm.",
+    "If there is bleeding, place a clean pad or cloth and keep it, so staff can see it.",
+    "If the baby is coming, support the baby as it is born and keep it warm against the mother.",
+    "Bring her antenatal card or notes if you can."
+  ],
+  "dontSteps": [
+    "Do not put anything into the vagina.",
+    "Do not pull on the baby or the cord.",
+    "Do not give food or drink."
+  ],
+  "reviewedBy": null,
+  "reviewedAt": null,
+  "version": 1
+}

@@ -1,10 +1,14 @@
 import 'dart:io';
 
 import 'package:serverpod_auth_idp_server/core.dart';
-import 'package:serverpod_auth_idp_server/providers/email.dart';
 import 'package:serverpod_cloud_storage/serverpod_cloud_storage.dart';
 
 import 'src/cache_busting.dart';
+import 'src/core/app_config.dart';
+import 'src/features/admin/seed/seeder.dart';
+import 'src/features/auth/phone_idp.dart';
+import 'src/features/notifications/reminder_future_call.dart';
+import 'src/web/routes/whatsapp_webhook_route.dart';
 import 'src/generated/serverpod.dart';
 import 'src/web/routes/app_config_route.dart';
 
@@ -13,6 +17,9 @@ void run(List<String> args) async {
   // Initialize Serverpod. The generated Serverpod class is already connected
   // with your project's generated code.
   final pod = Serverpod(args);
+
+  // App settings and feature flags for the current run mode.
+  AppConfig.instance = AppConfig.load(pod.runMode);
 
   // Initialize authentication services for the server.
   // Token managers will be used to validate and issue authentication keys,
@@ -23,15 +30,9 @@ void run(List<String> args) async {
       JwtConfigFromPasswords(),
     ],
     identityProviderBuilders: [
-      // Configure the email identity provider for email/password authentication.
-      // The default setup works with Serverpod Cloud without configuration. In
-      // development the verification codes are logged to the console, and in
-      // staging and production they are sent through the Serverpod Cloud email
-      // service. If you want to use a custom provider for sending emails, use
-      // `EmailIdpConfigFromPasswords`.
-      ServerpodCloudEmailIdpConfig(
-        appDisplayName: 'emergencyhr',
-      ),
+      // Phone number + SMS code sign-in. Codes are logged to the server
+      // console in development (see config/app_settings.yaml).
+      const PhoneIdpConfig(),
     ],
   );
 
@@ -41,6 +42,9 @@ void run(List<String> args) async {
     StaticRoute.withCacheBusting(cacheBustingConfig),
     cacheBustingConfig.mountPrefix,
   );
+
+  // WhatsApp quick status updates (behind the whatsappQuickUpdate flag).
+  pod.webServer.addRoute(WhatsAppWebhookRoute(), '/webhooks/whatsapp');
 
   // Setup the app config route.
   // We build this configuration based on the servers api url and serve it to
@@ -102,4 +106,32 @@ void run(List<String> args) async {
 
   // Start the server.
   await pod.start();
+
+  // Stale-status reminders and early-health alerts every 5 minutes. The
+  // identifier replaces any schedule left from a previous start, and the
+  // call itself is idempotent.
+  await pod.futureCalls.cancel(ReminderFutureCall.identifier);
+  await pod.futureCalls
+      .callRecurring(identifier: ReminderFutureCall.identifier)
+      .every(const Duration(minutes: 5))
+      .reminder
+      .run();
+
+  // Development only: load the fictional Lagos pilot data into an empty
+  // database, and keep the seed status ages covering every freshness tier.
+  if (pod.runMode == ServerpodRunMode.development) {
+    final session = await pod.createSession();
+    try {
+      await Seeder.run(session);
+    } catch (e, st) {
+      session.log(
+        'Seeding failed',
+        level: LogLevel.error,
+        exception: e,
+        stackTrace: st,
+      );
+    } finally {
+      await session.close();
+    }
+  }
 }

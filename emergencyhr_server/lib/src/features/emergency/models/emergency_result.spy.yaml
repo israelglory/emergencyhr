@@ -1,0 +1,23 @@
+### One hospital in the emergency results, ranked by the server.
+class: EmergencyResult
+fields:
+  facilityId: int
+  name: String
+  address: String
+  area: String
+  lat: double
+  lng: double
+  deskPhone: String?
+  distanceKm: double
+  etaMinutes: int
+  ### 1, 2 or 3. 0 means hidden by default (paused or flagged).
+  rankTier: int
+  freshness: FreshnessTier
+  statusUpdatedAt: DateTime?
+  erBedsFree: int?
+  icuBedsFree: int?
+  doctorOnDuty: bool?
+  depositRequired: bool?
+  capabilities: List<Capability>
+  match: CapabilityMatch
+  flagged: bool

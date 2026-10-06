@@ -1,0 +1,7 @@
+class: DirectoryRow
+fields:
+  facility: FacilitySummary
+  address: String
+  source: FacilitySource
+  suspended: bool
+  flagged: bool

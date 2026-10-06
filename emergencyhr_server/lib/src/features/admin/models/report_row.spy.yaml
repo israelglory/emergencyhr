@@ -1,0 +1,7 @@
+class: ReportRow
+fields:
+  facility: FacilitySummary
+  flagged: bool
+  openReports: int
+  latestReason: String
+  latestAt: DateTime

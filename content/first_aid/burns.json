@@ -1,0 +1,20 @@
+{
+  "type": "burns",
+  "title": "Burns",
+  "summary": "Cool the burn quickly and keep it clean.",
+  "doSteps": [
+    "Move them away from the heat source safely.",
+    "Cool the burn under cool running water for 20 minutes.",
+    "Remove rings, watches or tight clothing near the burn, unless stuck to the skin.",
+    "Cover the burn loosely with clean cling film or a clean, non-fluffy cloth.",
+    "Keep the rest of the body warm."
+  ],
+  "dontSteps": [
+    "Do not put ice, butter, toothpaste, oil or palm oil on a burn.",
+    "Do not burst blisters.",
+    "Do not pull off clothing that is stuck to the skin."
+  ],
+  "reviewedBy": null,
+  "reviewedAt": null,
+  "version": 1
+}

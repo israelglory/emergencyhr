@@ -1,0 +1,7 @@
+enum: ChatEventKind
+values:
+  - started
+  - delta
+  - redFlag
+  - done
+  - error

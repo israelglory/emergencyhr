@@ -1,0 +1,20 @@
+{
+  "type": "child",
+  "title": "Child emergency",
+  "summary": "Stay calm. Children can get worse quickly, so get help early.",
+  "doSteps": [
+    "Keep the child with a parent or someone they know.",
+    "If they are choking and cannot breathe, give firm back blows between the shoulder blades.",
+    "If they have a high fever, remove extra clothing and keep them cool.",
+    "If they have a fit, move hard objects away and lay them on their side when it stops.",
+    "Bring any medicines the child takes."
+  ],
+  "dontSteps": [
+    "Do not put anything in their mouth during a fit.",
+    "Do not give adult medicines.",
+    "Do not shake a baby or child."
+  ],
+  "reviewedBy": null,
+  "reviewedAt": null,
+  "version": 1
+}

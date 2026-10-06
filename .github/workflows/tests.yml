@@ -13,6 +13,12 @@ jobs:
       VERSION: '4.0.3'
       SERVERPOD_PASSWORD_database: '20aE7cK7I2ihthOF1Iw8b1jwtuUenM1w'
       SERVERPOD_PASSWORD_redis: 'wRoU94cMYFUlQoUf3WmkIDFMMaWj4wZp'
+      # Test-only secrets. Never reuse these in staging or production.
+      SERVERPOD_PASSWORD_otpHashPepper: 'g2ko2prlEoHuKbTL3X986EnqIPDExwk_D6KJEdeiHkQ'
+      SERVERPOD_PASSWORD_dataEncryptionKey: 'a1Q/csgWwwAPCkMNlSzpy1xbiVH2joZiiDrkR9k7v7Y='
+      SERVERPOD_PASSWORD_jwtHmacSha512PrivateKey: 'nO8jwxX75O2D21kuF-esQNB54Wq7Xbc7yOrf1GLi3nvYOlUEXRwGIJHxcjYJwApJE1r8Wym9ousybHd7F10-NQ'
+      SERVERPOD_PASSWORD_jwtRefreshTokenHashPepper: 'QQewXpIcGP_kuoRhglNrTDW-6iZcwr9TblHY-OrgECo'
+      SERVERPOD_PASSWORD_emailSecretHashPepper: 'gAKKYHMvIsnrzX2MqHxX-m55X4clTl5D3ei58UKJOOI'
 
     steps:
       - uses: actions/checkout@v4
@@ -48,3 +54,23 @@ jobs:
       - name: Run tests
         working-directory: emergencyhr_server
         run: dart test
+
+  flutter-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.4'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Check first-aid content is in sync
+        run: diff -r content/first_aid emergencyhr_flutter/assets/first_aid -x README.md
+
+      - name: Run Flutter tests
+        working-directory: emergencyhr_flutter
+        run: flutter test --exclude-tags golden

@@ -1,0 +1,4 @@
+class: FamilyAlertResult
+fields:
+  message: String
+  results: List<ContactAlertResult>

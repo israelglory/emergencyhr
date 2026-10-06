@@ -1,0 +1,54 @@
+# App settings and feature flags per run mode. Secrets (API keys) belong in
+# config/passwords.yaml, never here.
+#
+# Adapters: "dev" logs messages to the server console, "live" calls the real
+# provider (SMS: Termii, WhatsApp: Meta Cloud API, AI: Anthropic).
+
+development:
+  appBaseUrl: http://localhost:9998
+  smsAdapter: dev
+  whatsappAdapter: dev
+  aiAdapter: dev
+  logOtpCodes: true
+  urbanSpeedKmh: 20
+  features:
+    whatsappQuickUpdate: true
+    doctorsV2: false
+
+test:
+  appBaseUrl: http://localhost:9998
+  smsAdapter: dev
+  whatsappAdapter: dev
+  aiAdapter: dev
+  urbanSpeedKmh: 20
+  features:
+    whatsappQuickUpdate: true
+    doctorsV2: false
+
+staging:
+  # Replace with the staging web app URL.
+  appBaseUrl: https://staging.emergencyhr.example
+  smsAdapter: live
+  whatsappAdapter: live
+  aiAdapter: live
+  smsSenderId: Emergencyhr
+  aiModel: claude-opus-5-5
+  aiEffort: low
+  urbanSpeedKmh: 20
+  features:
+    whatsappQuickUpdate: true
+    doctorsV2: false
+
+production:
+  # Replace with the production web app URL.
+  appBaseUrl: https://app.emergencyhr.example
+  smsAdapter: live
+  whatsappAdapter: live
+  aiAdapter: live
+  smsSenderId: Emergencyhr
+  aiModel: claude-opus-5-5
+  aiEffort: low
+  urbanSpeedKmh: 20
+  features:
+    whatsappQuickUpdate: false
+    doctorsV2: false

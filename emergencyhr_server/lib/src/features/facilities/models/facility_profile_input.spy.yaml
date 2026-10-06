@@ -1,0 +1,13 @@
+class: FacilityProfileInput
+fields:
+  name: String
+  type: FacilityType
+  address: String
+  area: String
+  lat: double
+  lng: double
+  deskPhone: String?
+  contactName: String?
+  contactPhone: String?
+  openingHours: OpeningHours?
+  capabilities: List<Capability>

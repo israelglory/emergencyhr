@@ -1,0 +1,20 @@
+{
+  "type": "roadAccident",
+  "title": "Road accident",
+  "summary": "Keep yourself safe first, then help the injured person until help arrives.",
+  "doSteps": [
+    "Make sure the scene is safe from traffic before you approach.",
+    "Call 112, or call the hospital you are heading to.",
+    "If they are bleeding, press firmly on the wound with a clean cloth.",
+    "Keep them still, warm and talking to you.",
+    "If they are not breathing, start chest compressions if you know how."
+  ],
+  "dontSteps": [
+    "Do not move them if you think the neck or back is hurt, unless they are in danger where they are.",
+    "Do not remove a helmet unless they are not breathing.",
+    "Do not give food or drink."
+  ],
+  "reviewedBy": null,
+  "reviewedAt": null,
+  "version": 1
+}

@@ -1,0 +1,9 @@
+### Everything staff, agents and admins need about one facility.
+class: FacilityDetail
+fields:
+  facility: Facility
+  capabilities: List<Capability>
+  status: FacilityStatus?
+  record: OnboardingRecord?
+  checklist: GoLiveChecklist
+  documents: List<FacilityDocument>

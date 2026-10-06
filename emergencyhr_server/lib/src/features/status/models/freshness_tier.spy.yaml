@@ -1,0 +1,8 @@
+### Fresh: confirmed within 30 min. Stale: 31 to 120 min. Unverified: older,
+### never confirmed, not live, or flagged. Paused: not accepting.
+enum: FreshnessTier
+values:
+  - fresh
+  - stale
+  - unverified
+  - paused

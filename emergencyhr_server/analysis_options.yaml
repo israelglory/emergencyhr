@@ -17,8 +17,13 @@ include: package:lints/recommended.yaml
 
 linter:
   rules:
+    # Tightened for Emergencyhr. Never loosen these.
     unawaited_futures: true
     avoid_print: true
+    always_declare_return_types: true
+    cancel_subscriptions: true
+    prefer_final_locals: true
+    prefer_single_quotes: true
 
 analyzer:
   exclude:

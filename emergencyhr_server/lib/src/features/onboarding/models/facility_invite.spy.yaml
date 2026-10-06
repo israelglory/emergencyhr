@@ -5,7 +5,7 @@ fields:
   facilityId: int, relation(parent=facility, onDelete=Cascade)
   role: UserRole
   phone: String?
-  tokenHash: String, scope=serverOnly
+  tokenHash: String?, scope=serverOnly
   shortCode: String
   createdByUserId: int
   expiresAt: DateTime

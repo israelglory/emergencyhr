@@ -1,0 +1,10 @@
+### One event in a streamed Health Assistant reply.
+class: ChatEvent
+fields:
+  kind: ChatEventKind
+  conversationId: int?
+  text: String?
+  ### Set on redFlag: the emergency type to pre-fill in the Emergency flow.
+  emergencyType: EmergencyType?
+  ### Set on redFlag for self-harm statements.
+  crisis: bool?

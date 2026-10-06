@@ -1,0 +1,20 @@
+{
+  "type": "unconscious",
+  "title": "Unconscious person",
+  "summary": "Check breathing first. Breathing decides what you do next.",
+  "doSteps": [
+    "Call to them and tap their shoulders.",
+    "Tilt the head back gently and look, listen and feel for breathing for 10 seconds.",
+    "If they are breathing, roll them onto their side with the top leg bent.",
+    "If they are not breathing, call 112 and push hard and fast in the centre of the chest.",
+    "Keep checking their breathing until help arrives."
+  ],
+  "dontSteps": [
+    "Do not give food or drink.",
+    "Do not leave them alone on their back.",
+    "Do not slap or splash water on them."
+  ],
+  "reviewedBy": null,
+  "reviewedAt": null,
+  "version": 1
+}

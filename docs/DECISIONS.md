@@ -1,0 +1,83 @@
+# Decisions
+
+Where the build brief and the existing project disagreed, or the brief left
+a choice open, the decision and why.
+
+## Structure
+
+1. **Existing navigation and UI services kept instead of Stacked's generated
+   router and services.** The project already had its own
+   `NavigationService`, `BottomSheetService` and `SnackbarService` on a
+   get_it locator, with no `@StackedApp` or `stacked_generator`. The existing
+   structure wins (brief section 0). Named routes plus the path URL strategy
+   give every screen a web URL and deep link. `DialogService` was added in
+   the same style.
+2. **No repository layer.** The owner's rule is View, ViewModel, Model and
+   services or APIs only. Viewmodels call `*Api` classes (wrapping the
+   Serverpod client) and services directly.
+3. **No logic in views** (owner's rule). Views only switch on enums or flags
+   that viewmodels expose. See `FLUTTER_CONVENTIONS.md`.
+4. **Samples removed rather than kept.** The brief said to keep them for a
+   later cleanup; the owner asked to remove them. A backup is in
+   `../emergencyhr_samples_backup_2026-10-06.zip` (outside the repository).
+5. **Platform system font instead of Inter.** Loading Inter through
+   google_fonts needs the network on first launch; the system font works
+   offline and keeps cold start fast. The brief allows either.
+
+## Server
+
+6. **Phone sign-in is a Serverpod identity provider** (`PhoneIdp`) on
+   Serverpod's auth core, issuing the configured JWT sessions, with
+   Serverpod's `DatabaseRateLimiter` for rate limits. This is the native
+   extension point; email sign-in was removed.
+7. **`JoinRequestStatus.received`** stands for the brief's `new`, a reserved
+   word in Dart.
+8. **Stroke, seizure, poisoning and self-harm red flags map to
+   `EmergencyType.other`** (general emergency with a doctor on duty), since
+   the nine emergency types have no specific entry for them. Self-harm also
+   shows crisis guidance.
+9. **The model's red flag is a first-line tag** (`[[flag:type]]`) that the
+   server strips while streaming. Assistant prefill is not available on
+   current models, and structured output would prevent token streaming.
+10. **Health Assistant model: Claude Opus 5.5 at low effort**, with
+    Anthropic's server-side fallback enabled for safety refusals. Set
+    `aiModel` / `aiEffort` in `app_settings.yaml` to change it.
+11. **Client-side freshness can only get worse.** The server tier is
+    authoritative; the app re-labels by age so a list left open never shows
+    a stale status as current.
+12. **"On-shift" desk staff** has no shift data in the MVP, so reminders go to
+    all desk staff of the facility, or the hospital admins if there are none.
+13. **"Quiet newcomer"** is 48 hours without an update since going live,
+    without excluding closed hours.
+14. **Approving a claim does not verify the facility.** It makes the claimant
+    the hospital admin and moves a seeded listing into onboarding; the
+    facility still goes through verification and the go-live checklist.
+15. **Self-serve creators become the hospital admin immediately.** Their
+    listing stays hidden from the public until verified and live.
+16. **Desk phone confirmation** by SMS code to the desk phone, or by a field
+    agent's recorded test call.
+17. **Guest emergency sessions** use a private access token returned once,
+    so guests can record actions without an account.
+18. **`tappedAt` from the app** is accepted as the session start only if it
+    is within the last 15 minutes, so time to action includes the time spent
+    choosing a type.
+19. **Converting a join request** creates a listing at the area centre; the
+    agent sets the exact map pin on site.
+20. **Seed refresh in development.** On each development start the demo
+    statuses are re-stamped so every freshness tier is always present. This
+    touches only seed rows never updated by a real user.
+
+## App
+
+21. **Location starts when Emergency is tapped**, in parallel with the type
+    picker, to meet the time-to-action goal.
+22. **Directions** open Apple Maps on iOS and macOS, Google Maps elsewhere.
+23. **Data export** is shown in the app with a copy button rather than saved
+    as a file.
+24. **Field agent drafts:** one unsent new-listing draft is kept on the
+    device; a failed submission retries every 30 seconds while the form is
+    open.
+25. **Admin document preview:** photos open in the app; PDFs open through
+    the browser or system viewer.
+26. **Golden tests run on macOS only.** Pixel output differs across
+    platforms, so CI skips the `golden` tag.

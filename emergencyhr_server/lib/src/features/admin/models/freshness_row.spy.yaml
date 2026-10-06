@@ -1,0 +1,6 @@
+class: FreshnessRow
+fields:
+  facility: FacilitySummary
+  lastUpdateAt: DateTime?
+  accepting: bool?
+  openNow: bool

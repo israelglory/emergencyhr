@@ -11,6 +11,103 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _ida;
+import 'dart:typed_data' as _idt;
+import 'package:emergencyhr_client/src/protocol/features/admin/models/agent_row.dart'
+    as _i3t6hodj;
+import 'package:emergencyhr_client/src/protocol/features/admin/models/claim_queue_item.dart'
+    as _ib27qxyi;
+import 'package:emergencyhr_client/src/protocol/features/admin/models/directory_row.dart'
+    as _ilxv0wae;
+import 'package:emergencyhr_client/src/protocol/features/admin/models/freshness_row.dart'
+    as _ik1xr38l;
+import 'package:emergencyhr_client/src/protocol/features/admin/models/new_hospital_row.dart'
+    as _ia6kw2vn;
+import 'package:emergencyhr_client/src/protocol/features/admin/models/pipeline_board.dart'
+    as _ii9l9p46;
+import 'package:emergencyhr_client/src/protocol/features/admin/models/platform_metrics.dart'
+    as _igrqa8vd;
+import 'package:emergencyhr_client/src/protocol/features/admin/models/report_row.dart'
+    as _i2zx97wu;
+import 'package:emergencyhr_client/src/protocol/features/admin/models/user_row.dart'
+    as _ij7c6bnu;
+import 'package:emergencyhr_client/src/protocol/features/admin/models/verification_item.dart'
+    as _ip6f1g6g;
+import 'package:emergencyhr_client/src/protocol/features/assistant/models/ai_conversation.dart'
+    as _ihn3q5hk;
+import 'package:emergencyhr_client/src/protocol/features/assistant/models/chat_event.dart'
+    as _iqngx2tf;
+import 'package:emergencyhr_client/src/protocol/features/assistant/models/chat_message_view.dart'
+    as _irdvths1;
+import 'package:emergencyhr_client/src/protocol/features/auth/models/current_user.dart'
+    as _iau1s38u;
+import 'package:emergencyhr_client/src/protocol/features/auth/models/otp_request_result.dart'
+    as _ie9uc2bd;
+import 'package:emergencyhr_client/src/protocol/features/auth/models/role_assignment.dart'
+    as _idpsepmh;
+import 'package:emergencyhr_client/src/protocol/features/auth/models/user_role.dart'
+    as _ibmnj6dm;
+import 'package:emergencyhr_client/src/protocol/features/emergency/models/emergency_action.dart'
+    as _idi0zydt;
+import 'package:emergencyhr_client/src/protocol/features/emergency/models/emergency_search.dart'
+    as _ifmldpgz;
+import 'package:emergencyhr_client/src/protocol/features/emergency/models/emergency_type.dart'
+    as _io6p8b24;
+import 'package:emergencyhr_client/src/protocol/features/emergency/models/public_facility.dart'
+    as _i3ykk0vt;
+import 'package:emergencyhr_client/src/protocol/features/facilities/models/document_kind.dart'
+    as _iadcdtur;
+import 'package:emergencyhr_client/src/protocol/features/facilities/models/duplicate_candidate.dart'
+    as _i6bzf55j;
+import 'package:emergencyhr_client/src/protocol/features/facilities/models/facility.dart'
+    as _ibcfwqdd;
+import 'package:emergencyhr_client/src/protocol/features/facilities/models/facility_detail.dart'
+    as _idntymqu;
+import 'package:emergencyhr_client/src/protocol/features/facilities/models/facility_document.dart'
+    as _ia2ku4de;
+import 'package:emergencyhr_client/src/protocol/features/facilities/models/facility_profile_input.dart'
+    as _icsjts62;
+import 'package:emergencyhr_client/src/protocol/features/facilities/models/facility_search_result.dart'
+    as _i7vk8exb;
+import 'package:emergencyhr_client/src/protocol/features/facilities/models/onboarding_stage.dart'
+    as _imd9hu5k;
+import 'package:emergencyhr_client/src/protocol/features/facilities/models/upload_ticket.dart'
+    as _i4szztal;
+import 'package:emergencyhr_client/src/protocol/features/onboarding/models/agent_facility.dart'
+    as _i4l2530l;
+import 'package:emergencyhr_client/src/protocol/features/onboarding/models/claim_request.dart'
+    as _iy913k1i;
+import 'package:emergencyhr_client/src/protocol/features/onboarding/models/claim_status.dart'
+    as _iw39ehhf;
+import 'package:emergencyhr_client/src/protocol/features/onboarding/models/facility_invite.dart'
+    as _iowxn2fh;
+import 'package:emergencyhr_client/src/protocol/features/onboarding/models/go_live_checklist.dart'
+    as _i12l59eb;
+import 'package:emergencyhr_client/src/protocol/features/onboarding/models/invite_created.dart'
+    as _i9iib0sv;
+import 'package:emergencyhr_client/src/protocol/features/onboarding/models/invite_preview.dart'
+    as _imqhjh1w;
+import 'package:emergencyhr_client/src/protocol/features/onboarding/models/join_request.dart'
+    as _iw37o6hv;
+import 'package:emergencyhr_client/src/protocol/features/onboarding/models/join_request_status.dart'
+    as _i1mjz31e;
+import 'package:emergencyhr_client/src/protocol/features/onboarding/models/onboarding_record.dart'
+    as _idy003ld;
+import 'package:emergencyhr_client/src/protocol/features/onboarding/models/staff_member.dart'
+    as _ii3vg1nr;
+import 'package:emergencyhr_client/src/protocol/features/profile/models/emergency_contact.dart'
+    as _iu611yjn;
+import 'package:emergencyhr_client/src/protocol/features/profile/models/family_alert_result.dart'
+    as _i46ar9rz;
+import 'package:emergencyhr_client/src/protocol/features/profile/models/first_aid_card.dart'
+    as _i7aojmz9;
+import 'package:emergencyhr_client/src/protocol/features/profile/models/medical_profile_data.dart'
+    as _icwufl9g;
+import 'package:emergencyhr_client/src/protocol/features/status/models/audit_entry.dart'
+    as _i6yinprw;
+import 'package:emergencyhr_client/src/protocol/features/status/models/facility_status.dart'
+    as _ikh3pjuy;
+import 'package:emergencyhr_client/src/protocol/features/status/models/status_input.dart'
+    as _ic5rdr82;
 import 'package:http/http.dart' as _i85jenna;
 import 'package:serverpod_auth_core_client/serverpod_auth_core_client.dart'
     as _iacc;
@@ -61,6 +158,1056 @@ class EndpointJwtRefresh extends _iacc.EndpointRefreshJwtTokens {
       );
 }
 
+/// The Admin shell. Who may call: platform admins only, for every method.
+/// {@category Endpoint}
+class EndpointAdmin extends _isc.EndpointRef {
+  EndpointAdmin(_isc.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'admin';
+
+  _ida.Future<List<_ip6f1g6g.VerificationItem>> verificationQueue({
+    required int limit,
+    required int offset,
+  }) => caller.callServerEndpoint<List<_ip6f1g6g.VerificationItem>>(
+    'admin',
+    'verificationQueue',
+    {
+      'limit': limit,
+      'offset': offset,
+    },
+  );
+
+  _ida.Future<_ibcfwqdd.Facility> approve(int facilityId) =>
+      caller.callServerEndpoint<_ibcfwqdd.Facility>(
+        'admin',
+        'approve',
+        {'facilityId': facilityId},
+      );
+
+  _ida.Future<_ibcfwqdd.Facility> reject(
+    int facilityId,
+    String reason,
+  ) => caller.callServerEndpoint<_ibcfwqdd.Facility>(
+    'admin',
+    'reject',
+    {
+      'facilityId': facilityId,
+      'reason': reason,
+    },
+  );
+
+  _ida.Future<List<_ilxv0wae.DirectoryRow>> directory({
+    String? query,
+    String? area,
+    _imd9hu5k.OnboardingStage? stage,
+    required int limit,
+    required int offset,
+  }) => caller.callServerEndpoint<List<_ilxv0wae.DirectoryRow>>(
+    'admin',
+    'directory',
+    {
+      'query': query,
+      'area': area,
+      'stage': stage,
+      'limit': limit,
+      'offset': offset,
+    },
+  );
+
+  _ida.Future<_ii9l9p46.PipelineBoard> pipeline({
+    String? area,
+    int? agentUserId,
+  }) => caller.callServerEndpoint<_ii9l9p46.PipelineBoard>(
+    'admin',
+    'pipeline',
+    {
+      'area': area,
+      'agentUserId': agentUserId,
+    },
+  );
+
+  _ida.Future<void> assignAgent(
+    List<int> facilityIds,
+    int agentUserId,
+  ) => caller.callServerEndpoint<void>(
+    'admin',
+    'assignAgent',
+    {
+      'facilityIds': facilityIds,
+      'agentUserId': agentUserId,
+    },
+  );
+
+  _ida.Future<List<_ib27qxyi.ClaimQueueItem>> claims({
+    required _iw39ehhf.ClaimStatus status,
+    required int limit,
+    required int offset,
+  }) => caller.callServerEndpoint<List<_ib27qxyi.ClaimQueueItem>>(
+    'admin',
+    'claims',
+    {
+      'status': status,
+      'limit': limit,
+      'offset': offset,
+    },
+  );
+
+  _ida.Future<_iy913k1i.ClaimRequest> approveClaim(int claimId) =>
+      caller.callServerEndpoint<_iy913k1i.ClaimRequest>(
+        'admin',
+        'approveClaim',
+        {'claimId': claimId},
+      );
+
+  _ida.Future<_iy913k1i.ClaimRequest> rejectClaim(
+    int claimId,
+    String reason,
+  ) => caller.callServerEndpoint<_iy913k1i.ClaimRequest>(
+    'admin',
+    'rejectClaim',
+    {
+      'claimId': claimId,
+      'reason': reason,
+    },
+  );
+
+  _ida.Future<List<_iw37o6hv.JoinRequest>> joinRequests({
+    _i1mjz31e.JoinRequestStatus? status,
+    required int limit,
+    required int offset,
+  }) => caller.callServerEndpoint<List<_iw37o6hv.JoinRequest>>(
+    'admin',
+    'joinRequests',
+    {
+      'status': status,
+      'limit': limit,
+      'offset': offset,
+    },
+  );
+
+  _ida.Future<_iw37o6hv.JoinRequest> setJoinRequestStatus(
+    int requestId,
+    _i1mjz31e.JoinRequestStatus status,
+  ) => caller.callServerEndpoint<_iw37o6hv.JoinRequest>(
+    'admin',
+    'setJoinRequestStatus',
+    {
+      'requestId': requestId,
+      'status': status,
+    },
+  );
+
+  _ida.Future<_iw37o6hv.JoinRequest> convertJoinRequest(
+    int requestId,
+    int agentUserId,
+    double lat,
+    double lng,
+    String address,
+  ) => caller.callServerEndpoint<_iw37o6hv.JoinRequest>(
+    'admin',
+    'convertJoinRequest',
+    {
+      'requestId': requestId,
+      'agentUserId': agentUserId,
+      'lat': lat,
+      'lng': lng,
+      'address': address,
+    },
+  );
+
+  _ida.Future<List<_i3t6hodj.AgentRow>> agents() =>
+      caller.callServerEndpoint<List<_i3t6hodj.AgentRow>>(
+        'admin',
+        'agents',
+        {},
+      );
+
+  _ida.Future<_i3t6hodj.AgentRow> addAgent(
+    String phone,
+    String name,
+    List<String> areas,
+  ) => caller.callServerEndpoint<_i3t6hodj.AgentRow>(
+    'admin',
+    'addAgent',
+    {
+      'phone': phone,
+      'name': name,
+      'areas': areas,
+    },
+  );
+
+  _ida.Future<void> setAgentAreas(
+    int userId,
+    List<String> areas,
+  ) => caller.callServerEndpoint<void>(
+    'admin',
+    'setAgentAreas',
+    {
+      'userId': userId,
+      'areas': areas,
+    },
+  );
+
+  _ida.Future<void> deactivateAgent(int userId) =>
+      caller.callServerEndpoint<void>(
+        'admin',
+        'deactivateAgent',
+        {'userId': userId},
+      );
+
+  _ida.Future<List<_ik1xr38l.FreshnessRow>> freshness({
+    required int limit,
+    required int offset,
+  }) => caller.callServerEndpoint<List<_ik1xr38l.FreshnessRow>>(
+    'admin',
+    'freshness',
+    {
+      'limit': limit,
+      'offset': offset,
+    },
+  );
+
+  _ida.Future<List<_i2zx97wu.ReportRow>> reports({required bool onlyFlagged}) =>
+      caller.callServerEndpoint<List<_i2zx97wu.ReportRow>>(
+        'admin',
+        'reports',
+        {'onlyFlagged': onlyFlagged},
+      );
+
+  _ida.Future<void> reviewReports(
+    int facilityId, {
+    String? note,
+  }) => caller.callServerEndpoint<void>(
+    'admin',
+    'reviewReports',
+    {
+      'facilityId': facilityId,
+      'note': note,
+    },
+  );
+
+  _ida.Future<_igrqa8vd.PlatformMetrics> metrics() =>
+      caller.callServerEndpoint<_igrqa8vd.PlatformMetrics>(
+        'admin',
+        'metrics',
+        {},
+      );
+
+  _ida.Future<List<_ia6kw2vn.NewHospitalRow>> newHospitals() =>
+      caller.callServerEndpoint<List<_ia6kw2vn.NewHospitalRow>>(
+        'admin',
+        'newHospitals',
+        {},
+      );
+
+  _ida.Future<_ibcfwqdd.Facility> setFacilitySuspended(
+    int facilityId,
+    bool suspended,
+    String reason,
+  ) => caller.callServerEndpoint<_ibcfwqdd.Facility>(
+    'admin',
+    'setFacilitySuspended',
+    {
+      'facilityId': facilityId,
+      'suspended': suspended,
+      'reason': reason,
+    },
+  );
+
+  _ida.Future<List<_ij7c6bnu.UserRow>> users({
+    String? query,
+    required int limit,
+    required int offset,
+  }) => caller.callServerEndpoint<List<_ij7c6bnu.UserRow>>(
+    'admin',
+    'users',
+    {
+      'query': query,
+      'limit': limit,
+      'offset': offset,
+    },
+  );
+
+  _ida.Future<void> setUserSuspended(
+    int userId,
+    bool suspended,
+    String reason,
+  ) => caller.callServerEndpoint<void>(
+    'admin',
+    'setUserSuspended',
+    {
+      'userId': userId,
+      'suspended': suspended,
+      'reason': reason,
+    },
+  );
+}
+
+/// The Health Assistant. Who may call: signed-in users, for their own
+/// conversations only. Rate limited.
+/// {@category Endpoint}
+class EndpointAssistant extends _isc.EndpointRef {
+  EndpointAssistant(_isc.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'assistant';
+
+  _ida.Stream<_iqngx2tf.ChatEvent> send(
+    String message, {
+    int? conversationId,
+  }) =>
+      caller.callStreamingServerEndpoint<
+        _ida.Stream<_iqngx2tf.ChatEvent>,
+        _iqngx2tf.ChatEvent
+      >(
+        'assistant',
+        'send',
+        {
+          'message': message,
+          'conversationId': conversationId,
+        },
+        {},
+      );
+
+  _ida.Future<List<_ihn3q5hk.AiConversation>> conversations() =>
+      caller.callServerEndpoint<List<_ihn3q5hk.AiConversation>>(
+        'assistant',
+        'conversations',
+        {},
+      );
+
+  _ida.Future<List<_irdvths1.ChatMessageView>> messages(int conversationId) =>
+      caller.callServerEndpoint<List<_irdvths1.ChatMessageView>>(
+        'assistant',
+        'messages',
+        {'conversationId': conversationId},
+      );
+
+  _ida.Future<void> deleteConversation(int conversationId) =>
+      caller.callServerEndpoint<void>(
+        'assistant',
+        'deleteConversation',
+        {'conversationId': conversationId},
+      );
+
+  _ida.Future<void> deleteAllConversations() => caller.callServerEndpoint<void>(
+    'assistant',
+    'deleteAllConversations',
+    {},
+  );
+}
+
+/// The signed-in user's own account. Who may call: any signed-in user.
+/// {@category Endpoint}
+class EndpointAccount extends _isc.EndpointRef {
+  EndpointAccount(_isc.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'account';
+
+  _ida.Future<_iau1s38u.CurrentUser> me() =>
+      caller.callServerEndpoint<_iau1s38u.CurrentUser>(
+        'account',
+        'me',
+        {},
+      );
+
+  _ida.Future<_iau1s38u.CurrentUser> updateName(String name) =>
+      caller.callServerEndpoint<_iau1s38u.CurrentUser>(
+        'account',
+        'updateName',
+        {'name': name},
+      );
+}
+
+/// Phone sign-in. Who may call: anyone.
+/// {@category Endpoint}
+class EndpointPhoneAuth extends _isc.EndpointRef {
+  EndpointPhoneAuth(_isc.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'phoneAuth';
+
+  /// Sends a 6-digit code to [phone] by SMS.
+  _ida.Future<_ie9uc2bd.OtpRequestResult> requestCode(String phone) =>
+      caller.callServerEndpoint<_ie9uc2bd.OtpRequestResult>(
+        'phoneAuth',
+        'requestCode',
+        {'phone': phone},
+      );
+
+  /// Signs in with the code, creating the account on first use.
+  _ida.Future<_iacc.AuthSuccess> verifyCode(
+    String phone,
+    String code,
+  ) => caller.callServerEndpoint<_iacc.AuthSuccess>(
+    'phoneAuth',
+    'verifyCode',
+    {
+      'phone': phone,
+      'code': code,
+    },
+  );
+}
+
+/// The emergency flow. Who may call: anyone, signed in or not. Session
+/// updates need the session's private access token.
+/// {@category Endpoint}
+class EndpointEmergency extends _isc.EndpointRef {
+  EndpointEmergency(_isc.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'emergency';
+
+  /// Starts a session and returns ranked results.
+  _ida.Future<_ifmldpgz.EmergencySearch> start(
+    double lat,
+    double lng,
+    _io6p8b24.EmergencyType type, {
+    String? area,
+    DateTime? tappedAt,
+  }) => caller.callServerEndpoint<_ifmldpgz.EmergencySearch>(
+    'emergency',
+    'start',
+    {
+      'lat': lat,
+      'lng': lng,
+      'type': type,
+      'area': area,
+      'tappedAt': tappedAt,
+    },
+  );
+
+  /// Fresh ranking for an existing session (pull to refresh).
+  _ida.Future<_ifmldpgz.EmergencySearch> refresh(
+    int sessionId,
+    String accessToken,
+  ) => caller.callServerEndpoint<_ifmldpgz.EmergencySearch>(
+    'emergency',
+    'refresh',
+    {
+      'sessionId': sessionId,
+      'accessToken': accessToken,
+    },
+  );
+
+  /// Re-ranks and emits whenever a listed facility changes status, so an
+  /// open results list updates within seconds.
+  _ida.Stream<_ifmldpgz.EmergencySearch> watch(
+    int sessionId,
+    String accessToken,
+  ) =>
+      caller.callStreamingServerEndpoint<
+        _ida.Stream<_ifmldpgz.EmergencySearch>,
+        _ifmldpgz.EmergencySearch
+      >(
+        'emergency',
+        'watch',
+        {
+          'sessionId': sessionId,
+          'accessToken': accessToken,
+        },
+        {},
+      );
+
+  _ida.Future<void> recordAction(
+    int sessionId,
+    String accessToken,
+    _idi0zydt.EmergencyAction action, {
+    int? facilityId,
+  }) => caller.callServerEndpoint<void>(
+    'emergency',
+    'recordAction',
+    {
+      'sessionId': sessionId,
+      'accessToken': accessToken,
+      'action': action,
+      'facilityId': facilityId,
+    },
+  );
+
+  /// Report a wrong status. Who may call: signed-in users, for 24 hours
+  /// after acting on that hospital.
+  _ida.Future<void> reportWrongStatus(
+    int sessionId,
+    String accessToken,
+    int facilityId,
+    String reason,
+  ) => caller.callServerEndpoint<void>(
+    'emergency',
+    'reportWrongStatus',
+    {
+      'sessionId': sessionId,
+      'accessToken': accessToken,
+      'facilityId': facilityId,
+      'reason': reason,
+    },
+  );
+
+  /// Texts the user's emergency contacts. Who may call: signed-in users,
+  /// for their own session.
+  _ida.Future<_i46ar9rz.FamilyAlertResult> notifyFamily(
+    int sessionId,
+    String accessToken,
+  ) => caller.callServerEndpoint<_i46ar9rz.FamilyAlertResult>(
+    'emergency',
+    'notifyFamily',
+    {
+      'sessionId': sessionId,
+      'accessToken': accessToken,
+    },
+  );
+
+  /// Hospital detail page. Who may call: anyone.
+  _ida.Future<_i3ykk0vt.PublicFacility> facility(int facilityId) =>
+      caller.callServerEndpoint<_i3ykk0vt.PublicFacility>(
+        'emergency',
+        'facility',
+        {'facilityId': facilityId},
+      );
+}
+
+/// {@category Endpoint}
+class EndpointDocument extends _isc.EndpointRef {
+  EndpointDocument(_isc.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'document';
+
+  /// Facility documents: the facility's managers. Claim documents (no
+  /// facility yet): any signed-in user, stored under their own folder.
+  _ida.Future<_i4szztal.UploadTicket> createUpload(
+    String fileName, {
+    int? facilityId,
+  }) => caller.callServerEndpoint<_i4szztal.UploadTicket>(
+    'document',
+    'createUpload',
+    {
+      'fileName': fileName,
+      'facilityId': facilityId,
+    },
+  );
+
+  /// Same callers as [createUpload].
+  _ida.Future<_ia2ku4de.FacilityDocument> confirmUpload(
+    String path,
+    _iadcdtur.DocumentKind kind, {
+    int? facilityId,
+  }) => caller.callServerEndpoint<_ia2ku4de.FacilityDocument>(
+    'document',
+    'confirmUpload',
+    {
+      'path': path,
+      'kind': kind,
+      'facilityId': facilityId,
+    },
+  );
+
+  /// Who may call: platform admins, or the facility's managers.
+  _ida.Future<_idt.ByteData> download(int documentId) =>
+      caller.callServerEndpoint<_idt.ByteData>(
+        'document',
+        'download',
+        {'documentId': documentId},
+      );
+}
+
+/// {@category Endpoint}
+class EndpointFacility extends _isc.EndpointRef {
+  EndpointFacility(_isc.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'facility';
+
+  /// Search listings by name. Who may call: anyone.
+  _ida.Future<List<_i7vk8exb.FacilitySearchResult>> search(
+    String query, {
+    String? area,
+  }) => caller.callServerEndpoint<List<_i7vk8exb.FacilitySearchResult>>(
+    'facility',
+    'search',
+    {
+      'query': query,
+      'area': area,
+    },
+  );
+
+  /// Listings within 300 m of the agent. Who may call: field agents, admins.
+  _ida.Future<List<_i7vk8exb.FacilitySearchResult>> nearby(
+    double lat,
+    double lng,
+  ) => caller.callServerEndpoint<List<_i7vk8exb.FacilitySearchResult>>(
+    'facility',
+    'nearby',
+    {
+      'lat': lat,
+      'lng': lng,
+    },
+  );
+
+  /// Who may call: any signed-in user.
+  _ida.Future<List<_i6bzf55j.DuplicateCandidate>> findDuplicates(
+    String name,
+    double lat,
+    double lng,
+  ) => caller.callServerEndpoint<List<_i6bzf55j.DuplicateCandidate>>(
+    'facility',
+    'findDuplicates',
+    {
+      'name': name,
+      'lat': lat,
+      'lng': lng,
+    },
+  );
+
+  /// Creates a listing. Field agents create agent listings, platform admins
+  /// create directory listings, anyone else creates a self-serve listing and
+  /// becomes its hospital admin. Who may call: any signed-in user.
+  _ida.Future<_ibcfwqdd.Facility> create(
+    _icsjts62.FacilityProfileInput input,
+  ) => caller.callServerEndpoint<_ibcfwqdd.Facility>(
+    'facility',
+    'create',
+    {'input': input},
+  );
+
+  /// Who may call: the facility's hospital admin, assigned field agent,
+  /// platform admins.
+  _ida.Future<_ibcfwqdd.Facility> updateProfile(
+    int facilityId,
+    _icsjts62.FacilityProfileInput input,
+  ) => caller.callServerEndpoint<_ibcfwqdd.Facility>(
+    'facility',
+    'updateProfile',
+    {
+      'facilityId': facilityId,
+      'input': input,
+    },
+  );
+
+  /// Who may call: the facility's staff, assigned agent, platform admins.
+  _ida.Future<_idntymqu.FacilityDetail> detail(int facilityId) =>
+      caller.callServerEndpoint<_idntymqu.FacilityDetail>(
+        'facility',
+        'detail',
+        {'facilityId': facilityId},
+      );
+}
+
+/// Self-serve claims. Who may call: any signed-in user.
+/// {@category Endpoint}
+class EndpointClaim extends _isc.EndpointRef {
+  EndpointClaim(_isc.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'claim';
+
+  _ida.Future<_ie9uc2bd.OtpRequestResult> requestDeskPhoneCode(
+    int facilityId,
+  ) => caller.callServerEndpoint<_ie9uc2bd.OtpRequestResult>(
+    'claim',
+    'requestDeskPhoneCode',
+    {'facilityId': facilityId},
+  );
+
+  _ida.Future<_iy913k1i.ClaimRequest> submit(
+    int facilityId,
+    String contactName,
+    List<String> documentPaths, {
+    String? deskPhoneCode,
+  }) => caller.callServerEndpoint<_iy913k1i.ClaimRequest>(
+    'claim',
+    'submit',
+    {
+      'facilityId': facilityId,
+      'contactName': contactName,
+      'documentPaths': documentPaths,
+      'deskPhoneCode': deskPhoneCode,
+    },
+  );
+
+  _ida.Future<List<_iy913k1i.ClaimRequest>> mine() =>
+      caller.callServerEndpoint<List<_iy913k1i.ClaimRequest>>(
+        'claim',
+        'mine',
+        {},
+      );
+}
+
+/// {@category Endpoint}
+class EndpointInvite extends _isc.EndpointRef {
+  EndpointInvite(_isc.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'invite';
+
+  /// Hospital admins may invite desk staff. Field agents and platform admins
+  /// may invite both roles.
+  _ida.Future<_i9iib0sv.InviteCreated> create(
+    int facilityId,
+    _ibmnj6dm.UserRole role, {
+    String? phone,
+  }) => caller.callServerEndpoint<_i9iib0sv.InviteCreated>(
+    'invite',
+    'create',
+    {
+      'facilityId': facilityId,
+      'role': role,
+      'phone': phone,
+    },
+  );
+
+  /// Who may call: the facility's managers.
+  _ida.Future<List<_iowxn2fh.FacilityInvite>> list(int facilityId) =>
+      caller.callServerEndpoint<List<_iowxn2fh.FacilityInvite>>(
+        'invite',
+        'list',
+        {'facilityId': facilityId},
+      );
+
+  /// Who may call: the facility's managers.
+  _ida.Future<_iowxn2fh.FacilityInvite> revoke(int inviteId) =>
+      caller.callServerEndpoint<_iowxn2fh.FacilityInvite>(
+        'invite',
+        'revoke',
+        {'inviteId': inviteId},
+      );
+
+  /// Shows what an invite is for before signing in. Who may call: anyone.
+  _ida.Future<_imqhjh1w.InvitePreview> preview(String code) =>
+      caller.callServerEndpoint<_imqhjh1w.InvitePreview>(
+        'invite',
+        'preview',
+        {'code': code},
+      );
+
+  /// Who may call: any signed-in user (the invite may be tied to a phone).
+  _ida.Future<_idpsepmh.RoleAssignment> accept(String code) =>
+      caller.callServerEndpoint<_idpsepmh.RoleAssignment>(
+        'invite',
+        'accept',
+        {'code': code},
+      );
+}
+
+/// Who may call: anyone. Rate limited per IP.
+/// {@category Endpoint}
+class EndpointJoinRequest extends _isc.EndpointRef {
+  EndpointJoinRequest(_isc.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'joinRequest';
+
+  _ida.Future<_iw37o6hv.JoinRequest> submit(
+    String hospitalName,
+    String contactName,
+    String phone,
+    String area, {
+    String? message,
+  }) => caller.callServerEndpoint<_iw37o6hv.JoinRequest>(
+    'joinRequest',
+    'submit',
+    {
+      'hospitalName': hospitalName,
+      'contactName': contactName,
+      'phone': phone,
+      'area': area,
+      'message': message,
+    },
+  );
+}
+
+/// {@category Endpoint}
+class EndpointOnboarding extends _isc.EndpointRef {
+  EndpointOnboarding(_isc.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'onboarding';
+
+  /// The agent's assigned facilities. Who may call: field agents.
+  _ida.Future<List<_i4l2530l.AgentFacility>> myFacilities({
+    double? lat,
+    double? lng,
+  }) => caller.callServerEndpoint<List<_i4l2530l.AgentFacility>>(
+    'onboarding',
+    'myFacilities',
+    {
+      'lat': lat,
+      'lng': lng,
+    },
+  );
+
+  /// Who may call: the facility's managers.
+  _ida.Future<_i12l59eb.GoLiveChecklist> checklist(int facilityId) =>
+      caller.callServerEndpoint<_i12l59eb.GoLiveChecklist>(
+        'onboarding',
+        'checklist',
+        {'facilityId': facilityId},
+      );
+
+  /// Who may call: the assigned field agent, platform admins.
+  _ida.Future<_ibcfwqdd.Facility> setStage(
+    int facilityId,
+    _imd9hu5k.OnboardingStage stage, {
+    String? note,
+  }) => caller.callServerEndpoint<_ibcfwqdd.Facility>(
+    'onboarding',
+    'setStage',
+    {
+      'facilityId': facilityId,
+      'stage': stage,
+      'note': note,
+    },
+  );
+
+  /// Who may call: the assigned field agent, platform admins.
+  _ida.Future<_idy003ld.OnboardingRecord> updateRecord(
+    int facilityId, {
+    String? notes,
+    DateTime? nextActionAt,
+  }) => caller.callServerEndpoint<_idy003ld.OnboardingRecord>(
+    'onboarding',
+    'updateRecord',
+    {
+      'facilityId': facilityId,
+      'notes': notes,
+      'nextActionAt': nextActionAt,
+    },
+  );
+
+  /// Who may call: the assigned field agent, the facility's hospital admin.
+  _ida.Future<_ibcfwqdd.Facility> submitForVerification(
+    int facilityId, {
+    String? notes,
+  }) => caller.callServerEndpoint<_ibcfwqdd.Facility>(
+    'onboarding',
+    'submitForVerification',
+    {
+      'facilityId': facilityId,
+      'notes': notes,
+    },
+  );
+
+  /// Sends a code to the desk phone. Who may call: the facility's managers.
+  _ida.Future<_ie9uc2bd.OtpRequestResult> requestDeskPhoneCode(
+    int facilityId,
+  ) => caller.callServerEndpoint<_ie9uc2bd.OtpRequestResult>(
+    'onboarding',
+    'requestDeskPhoneCode',
+    {'facilityId': facilityId},
+  );
+
+  /// Who may call: the facility's managers.
+  _ida.Future<_ibcfwqdd.Facility> confirmDeskPhone(
+    int facilityId,
+    String code,
+  ) => caller.callServerEndpoint<_ibcfwqdd.Facility>(
+    'onboarding',
+    'confirmDeskPhone',
+    {
+      'facilityId': facilityId,
+      'code': code,
+    },
+  );
+
+  /// The agent called the desk and someone answered. Who may call: the
+  /// assigned field agent.
+  _ida.Future<_ibcfwqdd.Facility> recordTestCall(
+    int facilityId, {
+    String? note,
+  }) => caller.callServerEndpoint<_ibcfwqdd.Facility>(
+    'onboarding',
+    'recordTestCall',
+    {
+      'facilityId': facilityId,
+      'note': note,
+    },
+  );
+}
+
+/// {@category Endpoint}
+class EndpointStaff extends _isc.EndpointRef {
+  EndpointStaff(_isc.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'staff';
+
+  /// Who may call: the facility's managers.
+  _ida.Future<List<_ii3vg1nr.StaffMember>> list(int facilityId) =>
+      caller.callServerEndpoint<List<_ii3vg1nr.StaffMember>>(
+        'staff',
+        'list',
+        {'facilityId': facilityId},
+      );
+
+  /// Who may call: the facility's managers.
+  _ida.Future<void> remove(
+    int facilityId,
+    int userId,
+    _ibmnj6dm.UserRole role,
+  ) => caller.callServerEndpoint<void>(
+    'staff',
+    'remove',
+    {
+      'facilityId': facilityId,
+      'userId': userId,
+      'role': role,
+    },
+  );
+}
+
+/// Who may call: anyone.
+/// {@category Endpoint}
+class EndpointFirstAid extends _isc.EndpointRef {
+  EndpointFirstAid(_isc.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'firstAid';
+
+  _ida.Future<List<_i7aojmz9.FirstAidCard>> cards() =>
+      caller.callServerEndpoint<List<_i7aojmz9.FirstAidCard>>(
+        'firstAid',
+        'cards',
+        {},
+      );
+}
+
+/// The signed-in user's contacts, medical profile and data rights.
+/// Who may call: any signed-in user, for their own data only.
+/// {@category Endpoint}
+class EndpointProfile extends _isc.EndpointRef {
+  EndpointProfile(_isc.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'profile';
+
+  _ida.Future<List<_iu611yjn.EmergencyContact>> contacts() =>
+      caller.callServerEndpoint<List<_iu611yjn.EmergencyContact>>(
+        'profile',
+        'contacts',
+        {},
+      );
+
+  _ida.Future<_iu611yjn.EmergencyContact> saveContact(
+    _iu611yjn.EmergencyContact contact,
+  ) => caller.callServerEndpoint<_iu611yjn.EmergencyContact>(
+    'profile',
+    'saveContact',
+    {'contact': contact},
+  );
+
+  _ida.Future<void> deleteContact(int contactId) =>
+      caller.callServerEndpoint<void>(
+        'profile',
+        'deleteContact',
+        {'contactId': contactId},
+      );
+
+  _ida.Future<_icwufl9g.MedicalProfileData> medical() =>
+      caller.callServerEndpoint<_icwufl9g.MedicalProfileData>(
+        'profile',
+        'medical',
+        {},
+      );
+
+  _ida.Future<_icwufl9g.MedicalProfileData> saveMedical(
+    _icwufl9g.MedicalProfileData data,
+    bool consent,
+  ) => caller.callServerEndpoint<_icwufl9g.MedicalProfileData>(
+    'profile',
+    'saveMedical',
+    {
+      'data': data,
+      'consent': consent,
+    },
+  );
+
+  _ida.Future<void> deleteMedical() => caller.callServerEndpoint<void>(
+    'profile',
+    'deleteMedical',
+    {},
+  );
+
+  /// All personal data as JSON.
+  _ida.Future<String> exportMyData() => caller.callServerEndpoint<String>(
+    'profile',
+    'exportMyData',
+    {},
+  );
+
+  _ida.Future<void> deleteMyAccount() => caller.callServerEndpoint<void>(
+    'profile',
+    'deleteMyAccount',
+    {},
+  );
+}
+
+/// {@category Endpoint}
+class EndpointStatus extends _isc.EndpointRef {
+  EndpointStatus(_isc.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'status';
+
+  /// Who may call: the facility's hospital admin and desk staff only.
+  _ida.Future<_ikh3pjuy.FacilityStatus> update(
+    int facilityId,
+    _ic5rdr82.StatusInput input,
+  ) => caller.callServerEndpoint<_ikh3pjuy.FacilityStatus>(
+    'status',
+    'update',
+    {
+      'facilityId': facilityId,
+      'input': input,
+    },
+  );
+
+  /// "Still accurate". Who may call: the facility's staff.
+  _ida.Future<_ikh3pjuy.FacilityStatus> confirm(int facilityId) =>
+      caller.callServerEndpoint<_ikh3pjuy.FacilityStatus>(
+        'status',
+        'confirm',
+        {'facilityId': facilityId},
+      );
+
+  /// Who may call: the facility's staff.
+  _ida.Future<_ikh3pjuy.FacilityStatus?> current(int facilityId) =>
+      caller.callServerEndpoint<_ikh3pjuy.FacilityStatus?>(
+        'status',
+        'current',
+        {'facilityId': facilityId},
+      );
+
+  /// Training mode. Who may call: the facility's staff and assigned agent.
+  _ida.Future<void> practice(
+    int facilityId,
+    _ic5rdr82.StatusInput input,
+  ) => caller.callServerEndpoint<void>(
+    'status',
+    'practice',
+    {
+      'facilityId': facilityId,
+      'input': input,
+    },
+  );
+
+  /// Who may call: the facility's staff, managers.
+  _ida.Future<List<_i6yinprw.AuditEntry>> auditLog(
+    int facilityId, {
+    required int limit,
+    required int offset,
+  }) => caller.callServerEndpoint<List<_i6yinprw.AuditEntry>>(
+    'status',
+    'auditLog',
+    {
+      'facilityId': facilityId,
+      'limit': limit,
+      'offset': offset,
+    },
+  );
+}
+
 class Modules {
   Modules(Client client) {
     serverpod_auth_idp = _iaic.Caller(client);
@@ -100,16 +1247,76 @@ class Client extends _isc.ServerpodClientShared {
          httpClientOverride: httpClientOverride,
        ) {
     jwtRefresh = EndpointJwtRefresh(this);
+    admin = EndpointAdmin(this);
+    assistant = EndpointAssistant(this);
+    account = EndpointAccount(this);
+    phoneAuth = EndpointPhoneAuth(this);
+    emergency = EndpointEmergency(this);
+    document = EndpointDocument(this);
+    facility = EndpointFacility(this);
+    claim = EndpointClaim(this);
+    invite = EndpointInvite(this);
+    joinRequest = EndpointJoinRequest(this);
+    onboarding = EndpointOnboarding(this);
+    staff = EndpointStaff(this);
+    firstAid = EndpointFirstAid(this);
+    profile = EndpointProfile(this);
+    status = EndpointStatus(this);
     modules = Modules(this);
   }
 
   late final EndpointJwtRefresh jwtRefresh;
+
+  late final EndpointAdmin admin;
+
+  late final EndpointAssistant assistant;
+
+  late final EndpointAccount account;
+
+  late final EndpointPhoneAuth phoneAuth;
+
+  late final EndpointEmergency emergency;
+
+  late final EndpointDocument document;
+
+  late final EndpointFacility facility;
+
+  late final EndpointClaim claim;
+
+  late final EndpointInvite invite;
+
+  late final EndpointJoinRequest joinRequest;
+
+  late final EndpointOnboarding onboarding;
+
+  late final EndpointStaff staff;
+
+  late final EndpointFirstAid firstAid;
+
+  late final EndpointProfile profile;
+
+  late final EndpointStatus status;
 
   late final Modules modules;
 
   @override
   Map<String, _isc.EndpointRef> get endpointRefLookup => {
     'jwtRefresh': jwtRefresh,
+    'admin': admin,
+    'assistant': assistant,
+    'account': account,
+    'phoneAuth': phoneAuth,
+    'emergency': emergency,
+    'document': document,
+    'facility': facility,
+    'claim': claim,
+    'invite': invite,
+    'joinRequest': joinRequest,
+    'onboarding': onboarding,
+    'staff': staff,
+    'firstAid': firstAid,
+    'profile': profile,
+    'status': status,
   };
 
   @override

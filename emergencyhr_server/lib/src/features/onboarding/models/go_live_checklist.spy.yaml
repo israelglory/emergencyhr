@@ -1,0 +1,6 @@
+### Computed server-side. When every item is done the facility goes live.
+class: GoLiveChecklist
+fields:
+  facilityId: int
+  items: List<ChecklistItem>
+  complete: bool

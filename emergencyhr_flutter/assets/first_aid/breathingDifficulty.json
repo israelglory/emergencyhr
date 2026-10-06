@@ -1,0 +1,20 @@
+{
+  "type": "breathingDifficulty",
+  "title": "Breathing difficulty",
+  "summary": "Help them breathe as easily as possible.",
+  "doSteps": [
+    "Help them sit upright, leaning slightly forward.",
+    "Loosen tight clothing.",
+    "If they have their own reliever inhaler, help them use it.",
+    "Open windows or move them to fresh air, away from smoke.",
+    "Stay calm and keep them calm."
+  ],
+  "dontSteps": [
+    "Do not make them lie flat.",
+    "Do not give food or drink.",
+    "Do not leave them alone."
+  ],
+  "reviewedBy": null,
+  "reviewedAt": null,
+  "version": 1
+}

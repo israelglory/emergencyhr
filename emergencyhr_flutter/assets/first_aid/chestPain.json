@@ -1,0 +1,20 @@
+{
+  "type": "chestPain",
+  "title": "Chest pain",
+  "summary": "Chest pain can be a heart attack. Get help fast and keep them calm.",
+  "doSteps": [
+    "Help them sit down and rest in a comfortable position, often half sitting.",
+    "Loosen tight clothing around the neck and chest.",
+    "If they have their own prescribed heart medicine, help them take it as their doctor told them.",
+    "Stay with them and note when the pain started.",
+    "If they stop breathing, start chest compressions if you know how."
+  ],
+  "dontSteps": [
+    "Do not let them walk around or exert themselves.",
+    "Do not give food or drink.",
+    "Do not wait to see if the pain goes away before getting help."
+  ],
+  "reviewedBy": null,
+  "reviewedAt": null,
+  "version": 1
+}

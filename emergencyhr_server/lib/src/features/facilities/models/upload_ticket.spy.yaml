@@ -1,0 +1,5 @@
+### Where and how the client uploads a document.
+class: UploadTicket
+fields:
+  uploadDescription: String
+  path: String

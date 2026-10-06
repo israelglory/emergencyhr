@@ -1,102 +1,93 @@
-import 'package:emergencyhr_flutter/core/services/image_services.dart';
-import 'package:emergencyhr_flutter/core/services/snackbar_service.dart';
-import 'package:emergencyhr_flutter/data/datasources/local/app_local_storage.dart';
-import 'package:emergencyhr_flutter/data/datasources/local/auth_local_storage.dart';
-import 'package:emergencyhr_flutter/data/datasources/local/branch_local_storage.dart';
-import 'package:emergencyhr_flutter/data/datasources/local/customer_local_storage.dart';
-import 'package:emergencyhr_flutter/data/datasources/local/expense_local_storage.dart';
-import 'package:emergencyhr_flutter/data/datasources/local/invoice_local_storage.dart';
-import 'package:emergencyhr_flutter/data/datasources/local/report_local_storage.dart';
-import 'package:emergencyhr_flutter/data/datasources/local/user_management_local_storage.dart';
-import 'package:emergencyhr_flutter/data/datasources/remote/auth_api.dart';
-import 'package:emergencyhr_flutter/data/datasources/remote/branch_api.dart';
-import 'package:emergencyhr_flutter/data/datasources/remote/customer_api.dart';
-import 'package:emergencyhr_flutter/data/datasources/remote/expense_api.dart';
-import 'package:emergencyhr_flutter/data/datasources/remote/invoice_api.dart';
-import 'package:emergencyhr_flutter/data/datasources/remote/report_api.dart';
-import 'package:emergencyhr_flutter/data/datasources/remote/user_api.dart';
-import 'package:emergencyhr_flutter/data/datasources/repo/auth_repo.dart';
-import 'package:emergencyhr_flutter/data/datasources/repo/branch_repo.dart';
-import 'package:emergencyhr_flutter/data/datasources/repo/customer_repo.dart';
-import 'package:emergencyhr_flutter/data/datasources/repo/expense_repo.dart';
-import 'package:emergencyhr_flutter/data/datasources/repo/invoice_repo.dart';
-import 'package:emergencyhr_flutter/data/datasources/repo/report_repo.dart';
-import 'package:emergencyhr_flutter/data/datasources/repo/user_repo.dart';
 import 'package:get_it/get_it.dart';
 
-import '../cores.dart';
+import '../../data/api/admin_api.dart';
+import '../../data/api/assistant_api.dart';
+import '../../data/api/auth_api.dart';
+import '../../data/api/emergency_api.dart';
+import '../../data/local/emergency_cache.dart';
+import '../../data/api/facility_api.dart';
+import '../../data/api/onboarding_api.dart';
+import '../../data/api/profile_api.dart';
+import '../../data/api/staff_api.dart';
+import '../../data/api/status_api.dart';
+import '../services/services.dart';
 
 final locator = GetIt.instance;
 
+/// Registers every service and API. Viewmodels take their dependencies as
+/// optional constructor arguments that default to these, so tests can pass
+/// mocks.
 Future<void> setupLocator() async {
-  locator.registerLazySingleton<AuthenticationDataProvider>(
-    () => AuthenticationDataProvider(),
-  );
-  locator.registerLazySingleton<CustomerDataProvider>(
-    () => CustomerDataProvider(),
-  );
-  locator.registerLazySingleton<BranchDataProvider>(() => BranchDataProvider());
-  locator.registerLazySingleton<UserDataProvider>(() => UserDataProvider());
-  locator.registerLazySingleton<InvoiceDataProvider>(
-    () => InvoiceDataProvider(),
-  );
-  locator.registerLazySingleton<ReportDataProvider>(() => ReportDataProvider());
-  locator.registerLazySingleton<ExpenseDataProvider>(
-    () => ExpenseDataProvider(),
-  );
-
+  // UI services
   locator.registerLazySingleton<NavigationService>(() => NavigationService());
   locator.registerLazySingleton<SnackbarService>(() => SnackbarService());
-  locator.registerLazySingleton<BottomSheetService>(() => BottomSheetService());
-  locator.registerLazySingleton<ImagePickerService>(() => ImagePickerService());
+  locator.registerLazySingleton<BottomSheetService>(
+    () => BottomSheetService(locator()),
+  );
+  locator.registerLazySingleton<DialogService>(() => DialogService(locator()));
+  locator.registerLazySingleton<LauncherService>(() => LauncherService());
+  locator.registerLazySingleton<LocationService>(() => LocationService());
+  locator.registerLazySingleton<FilePickService>(() => FilePickService());
+  locator.registerLazySingleton<PhoneCallService>(
+    () => PhoneCallService(locator(), locator(), locator()),
+  );
 
-  //STORAGES
-  locator.registerLazySingleton(() => AuthLocalStorage());
-  locator.registerLazySingleton(() => AppLocalStorage());
-  locator.registerLazySingleton(() => InvoiceLocalStorage());
-  locator.registerLazySingleton(() => CustomerLocalStorage());
-  locator.registerLazySingleton(() => BranchLocalStorage());
-  locator.registerLazySingleton(() => UserManagementLocalStorage());
-  locator.registerLazySingleton(() => ReportLocalStorage());
-  locator.registerLazySingleton(() => ExpenseLocalStorage());
+  // APIs (wrap the generated Serverpod client)
+  locator.registerLazySingleton<AuthApi>(() => AuthApi());
+  locator.registerLazySingleton<AdminApi>(() => AdminApi());
+  locator.registerLazySingleton<AssistantApi>(() => AssistantApi());
+  locator.registerLazySingleton<FacilityApi>(() => FacilityApi());
+  locator.registerLazySingleton<EmergencyApi>(() => EmergencyApi());
+  locator.registerLazySingleton<StatusApi>(() => StatusApi());
+  locator.registerLazySingleton<StaffApi>(() => StaffApi());
+  locator.registerLazySingleton<OnboardingApi>(() => OnboardingApi());
+  locator.registerLazySingleton<ProfileApi>(() => ProfileApi());
 
-  //GLOBALS
-  locator.registerLazySingleton(() => AppGlobals.instance);
+  // Local cache
+  locator.registerLazySingleton<EmergencyCache>(() => EmergencyCache());
 
-  //REPOS
-  locator.registerLazySingleton(() => AuthRepo());
-  locator.registerLazySingleton(() => CustomerRepo());
-  locator.registerLazySingleton(() => BranchRepo());
-  locator.registerLazySingleton(() => UserRepo());
-  locator.registerLazySingleton(() => InvoiceRepo());
-  locator.registerLazySingleton(() => ReportRepo());
-  locator.registerLazySingleton(() => ExpenseRepo());
+  locator.registerLazySingleton<FirstAidService>(
+    () => FirstAidService(locator()),
+  );
+
+  // App state
+  locator.registerLazySingleton<EmergencySessionService>(
+    () => EmergencySessionService(),
+  );
+  locator.registerLazySingleton<SessionService>(
+    () => SessionService(locator()),
+  );
+  locator.registerLazySingleton<AccessService>(
+    () => AccessService(locator(), locator(), locator()),
+  );
 }
 
-//GLOBALS
-AppGlobals appGlobals = locator.get<AppGlobals>();
+// UI services
+NavigationService get navigationService => locator<NavigationService>();
+SnackbarService get snackbarService => locator<SnackbarService>();
+BottomSheetService get bottomSheetService => locator<BottomSheetService>();
+DialogService get dialogService => locator<DialogService>();
+LauncherService get launcherService => locator<LauncherService>();
+PhoneCallService get phoneCallService => locator<PhoneCallService>();
+LocationService get locationService => locator<LocationService>();
+FilePickService get filePickService => locator<FilePickService>();
 
-NavigationService navigationService = locator.get<NavigationService>();
-SnackbarService snackbarService = locator.get<SnackbarService>();
-BottomSheetService bottomSheetService = locator.get<BottomSheetService>();
-ImagePickerService imageService = locator.get<ImagePickerService>();
+// APIs
+AuthApi get authApi => locator<AuthApi>();
+AdminApi get adminApi => locator<AdminApi>();
+AssistantApi get assistantApi => locator<AssistantApi>();
+FacilityApi get facilityApi => locator<FacilityApi>();
+StatusApi get statusApi => locator<StatusApi>();
+StaffApi get staffApi => locator<StaffApi>();
+OnboardingApi get onboardingApi => locator<OnboardingApi>();
 
-//STORAGES
-AuthLocalStorage authLocalStorage = locator.get<AuthLocalStorage>();
-AppLocalStorage appLocalStorage = locator.get<AppLocalStorage>();
-InvoiceLocalStorage invoiceLocalStorage = locator.get<InvoiceLocalStorage>();
-CustomerLocalStorage customerLocalStorage = locator.get<CustomerLocalStorage>();
-BranchLocalStorage branchLocalStorage = locator.get<BranchLocalStorage>();
-UserManagementLocalStorage userManagementLocalStorage = locator
-    .get<UserManagementLocalStorage>();
-ReportLocalStorage reportLocalStorage = locator.get<ReportLocalStorage>();
-ExpenseLocalStorage expenseLocalStorage = locator.get<ExpenseLocalStorage>();
+EmergencyApi get emergencyApi => locator<EmergencyApi>();
+EmergencyCache get emergencyCache => locator<EmergencyCache>();
+ProfileApi get profileApi => locator<ProfileApi>();
+FirstAidService get firstAidService => locator<FirstAidService>();
 
-//REPOS
-AuthRepo authRepo = locator.get<AuthRepo>();
-CustomerRepo customerRepo = locator.get<CustomerRepo>();
-BranchRepo branchRepo = locator.get<BranchRepo>();
-UserRepo userRepo = locator.get<UserRepo>();
-InvoiceRepo invoiceRepo = locator.get<InvoiceRepo>();
-ReportRepo reportRepo = locator.get<ReportRepo>();
-ExpenseRepo expenseRepo = locator.get<ExpenseRepo>();
+// App state
+EmergencySessionService get emergencySession =>
+    locator<EmergencySessionService>();
+SessionService get sessionService => locator<SessionService>();
+AccessService get accessService => locator<AccessService>();

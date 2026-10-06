@@ -12,6 +12,9 @@ dependencies:
   serverpod: 4.0.3
   serverpod_auth_idp_server: 4.0.3
   serverpod_cloud_storage: 4.0.3
+  crypto: ^3.0.2
+  yaml: ^3.1.2
+  cryptography: ^2.9.0
 
 dev_dependencies:
   lints: '>=3.0.0 <7.0.0'

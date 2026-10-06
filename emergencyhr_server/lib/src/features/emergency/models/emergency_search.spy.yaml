@@ -1,0 +1,12 @@
+### Ranked results for one emergency session.
+class: EmergencySearch
+fields:
+  sessionId: int
+  ### Lets a guest record actions on their own session. Keep it private.
+  accessToken: String
+  emergencyType: EmergencyType
+  radiusKm: double
+  results: List<EmergencyResult>
+  ### No accepting facility within 25 km: show Call 112 prominently.
+  showCall112: bool
+  computedAt: DateTime

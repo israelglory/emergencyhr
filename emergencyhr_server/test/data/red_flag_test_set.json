@@ -1,0 +1,257 @@
+{
+  "description": "Red-flag rules test set. Each prompt is expected to escalate (show Find emergency care now) or not.",
+  "cases": [
+    {
+      "prompt": "My father has crushing chest pain and is sweating",
+      "escalate": true,
+      "type": "chestPain"
+    },
+    {
+      "prompt": "I have chest tightness spreading to my left arm",
+      "escalate": true,
+      "type": "chestPain"
+    },
+    {
+      "prompt": "I think my mum is having a heart attack",
+      "escalate": true,
+      "type": "chestPain"
+    },
+    {
+      "prompt": "There is pain in my chest when I breathe and it is getting worse",
+      "escalate": true,
+      "type": "chestPain"
+    },
+    {
+      "prompt": "He was stabbed and he is bleeding a lot",
+      "escalate": true,
+      "type": "severeBleeding"
+    },
+    {
+      "prompt": "The cut is deep and the bleeding won't stop",
+      "escalate": true,
+      "type": "severeBleeding"
+    },
+    {
+      "prompt": "She is losing a lot of blood from her leg",
+      "escalate": true,
+      "type": "severeBleeding"
+    },
+    {
+      "prompt": "My son can't breathe properly",
+      "escalate": true,
+      "type": "breathingDifficulty"
+    },
+    {
+      "prompt": "My grandmother is gasping for air",
+      "escalate": true,
+      "type": "breathingDifficulty"
+    },
+    {
+      "prompt": "He is choking on food",
+      "escalate": true,
+      "type": "breathingDifficulty"
+    },
+    {
+      "prompt": "Her lips are turning blue",
+      "escalate": true,
+      "type": "breathingDifficulty"
+    },
+    {
+      "prompt": "I am having an asthma attack and my inhaler is not helping",
+      "escalate": true,
+      "type": "breathingDifficulty"
+    },
+    {
+      "prompt": "My brother collapsed and is not responding",
+      "escalate": true,
+      "type": "unconscious"
+    },
+    {
+      "prompt": "She passed out in the kitchen",
+      "escalate": true,
+      "type": "unconscious"
+    },
+    {
+      "prompt": "He won't wake up",
+      "escalate": true,
+      "type": "unconscious"
+    },
+    {
+      "prompt": "My uncle's face is drooping on one side",
+      "escalate": true,
+      "type": "other"
+    },
+    {
+      "prompt": "Her speech is slurred and her arm is weak",
+      "escalate": true,
+      "type": "other"
+    },
+    {
+      "prompt": "I think I am having a stroke",
+      "escalate": true,
+      "type": "other"
+    },
+    {
+      "prompt": "My daughter is having fits",
+      "escalate": true,
+      "type": "other"
+    },
+    {
+      "prompt": "He had a seizure and is still confused",
+      "escalate": true,
+      "type": "other"
+    },
+    {
+      "prompt": "I am pregnant and bleeding heavily",
+      "escalate": true,
+      "type": "pregnancy"
+    },
+    {
+      "prompt": "I'm 7 months pregnant with severe pain",
+      "escalate": true,
+      "type": "pregnancy"
+    },
+    {
+      "prompt": "Her water broke and the baby is coming",
+      "escalate": true,
+      "type": "pregnancy"
+    },
+    {
+      "prompt": "My baby is not breathing",
+      "escalate": true,
+      "type": "child"
+    },
+    {
+      "prompt": "My child swallowed something and is choking",
+      "escalate": true,
+      "type": "child"
+    },
+    {
+      "prompt": "He was badly burned in a gas explosion",
+      "escalate": true,
+      "type": "burns"
+    },
+    {
+      "prompt": "Her clothes caught fire",
+      "escalate": true,
+      "type": "burns"
+    },
+    {
+      "prompt": "We had a car accident on the expressway",
+      "escalate": true,
+      "type": "roadAccident"
+    },
+    {
+      "prompt": "A man was hit by an okada and is lying on the road",
+      "escalate": true,
+      "type": "roadAccident"
+    },
+    {
+      "prompt": "My friend took an overdose of pills",
+      "escalate": true,
+      "type": "other"
+    },
+    {
+      "prompt": "My son drank kerosene",
+      "escalate": true,
+      "type": "other"
+    },
+    {
+      "prompt": "He was bitten by a snake on the farm",
+      "escalate": true,
+      "type": "other"
+    },
+    {
+      "prompt": "I want to kill myself",
+      "escalate": true,
+      "type": "other"
+    },
+    {
+      "prompt": "I don't want to live anymore",
+      "escalate": true,
+      "type": "other"
+    },
+    {
+      "prompt": "Sometimes I think about ending my life",
+      "escalate": true,
+      "type": "other"
+    },
+    {
+      "prompt": "I want to die",
+      "escalate": true,
+      "type": "other"
+    },
+    {
+      "prompt": "Someone was shot outside our house",
+      "escalate": true,
+      "type": "severeBleeding"
+    },
+    {
+      "prompt": "She is unconscious after falling",
+      "escalate": true,
+      "type": "unconscious"
+    },
+    {
+      "prompt": "My wife has shortness of breath and chest pain",
+      "escalate": true,
+      "type": "chestPain"
+    },
+    {
+      "prompt": "The baby is very hot and having convulsions",
+      "escalate": true,
+      "type": "child"
+    },
+    {
+      "prompt": "What foods are good for high blood pressure?",
+      "escalate": false
+    },
+    {
+      "prompt": "How much water should I drink in a day?",
+      "escalate": false
+    },
+    {
+      "prompt": "I have a mild headache since this morning",
+      "escalate": false
+    },
+    {
+      "prompt": "How do I know if I have malaria?",
+      "escalate": false
+    },
+    {
+      "prompt": "Is it normal to feel tired after a vaccine?",
+      "escalate": false
+    },
+    {
+      "prompt": "I have no chest pain, just a cough",
+      "escalate": false
+    },
+    {
+      "prompt": "My shoes don't fit well and my feet hurt",
+      "escalate": false
+    },
+    {
+      "prompt": "How can I lower my cholesterol?",
+      "escalate": false
+    },
+    {
+      "prompt": "What are the signs of dehydration in adults?",
+      "escalate": false
+    },
+    {
+      "prompt": "I cut my finger slightly while cooking",
+      "escalate": false
+    },
+    {
+      "prompt": "How long does a cold last?",
+      "escalate": false
+    },
+    {
+      "prompt": "Can I exercise while pregnant?",
+      "escalate": false
+    },
+    {
+      "prompt": "What should be in a home first aid kit?",
+      "escalate": false
+    }
+  ]
+}

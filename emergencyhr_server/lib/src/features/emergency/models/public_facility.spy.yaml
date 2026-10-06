@@ -1,0 +1,16 @@
+### What the public may see about a hospital.
+class: PublicFacility
+fields:
+  id: int
+  name: String
+  type: FacilityType
+  address: String
+  area: String
+  lat: double
+  lng: double
+  deskPhone: String?
+  openingHours: OpeningHours?
+  capabilities: List<Capability>
+  freshness: FreshnessTier
+  status: FacilityStatus?
+  live: bool

@@ -1,0 +1,9 @@
+class: PlatformMetrics
+fields:
+  periodDays: int
+  sessions: int
+  actedSessions: int
+  medianSecondsToAction: int?
+  emptyResultRate: double
+  liveFacilities: int
+  freshUnder60Share: double

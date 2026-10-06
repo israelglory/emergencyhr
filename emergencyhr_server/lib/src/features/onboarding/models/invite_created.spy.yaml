@@ -1,0 +1,6 @@
+### Returned once when an invite is created. The link holds the secret token
+### and is never shown again.
+class: InviteCreated
+fields:
+  invite: FacilityInvite
+  link: String

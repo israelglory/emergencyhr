@@ -1,0 +1,4 @@
+tags:
+  # Golden images are generated on macOS. Pixel output differs slightly on
+  # other platforms, so CI skips them: `flutter test --exclude-tags golden`.
+  golden:

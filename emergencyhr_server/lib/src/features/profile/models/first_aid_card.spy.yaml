@@ -1,0 +1,12 @@
+### Reviewed first-aid guidance for one emergency type.
+class: FirstAidCard
+fields:
+  type: EmergencyType
+  title: String
+  summary: String
+  doSteps: List<String>
+  dontSteps: List<String>
+  ### Empty until a clinician signs off. Unreviewed cards are drafts.
+  reviewedBy: String?
+  reviewedAt: String?
+  version: int

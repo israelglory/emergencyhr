@@ -1,0 +1,4 @@
+class: StageCount
+fields:
+  stage: OnboardingStage
+  count: int

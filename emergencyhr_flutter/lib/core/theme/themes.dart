@@ -1,2 +1,2 @@
+export 'app_palette.dart';
 export 'theme.dart';
-export 'theme_manager.dart';

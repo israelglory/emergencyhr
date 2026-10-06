@@ -1,0 +1,9 @@
+enum: ChecklistKey
+values:
+  - verified
+  - hospitalAdminAccepted
+  - deskStaffActive
+  - capabilitiesAndHours
+  - deskPhoneConfirmed
+  - trainingCompleted
+  - firstRealStatus

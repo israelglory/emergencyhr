@@ -1,0 +1,5 @@
+enum: CapabilityMatch
+values:
+  - full
+  - partial
+  - none

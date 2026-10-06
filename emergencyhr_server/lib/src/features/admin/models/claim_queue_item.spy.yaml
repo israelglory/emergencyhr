@@ -1,0 +1,5 @@
+class: ClaimQueueItem
+fields:
+  claim: ClaimRequest
+  facility: FacilitySummary
+  claimantPhone: String

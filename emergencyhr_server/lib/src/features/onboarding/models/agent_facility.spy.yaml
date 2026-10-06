@@ -1,0 +1,11 @@
+### A facility in a field agent's list.
+class: AgentFacility
+fields:
+  facility: FacilitySummary
+  address: String
+  nextActionAt: DateTime?
+  notes: String?
+  checklistDone: int
+  checklistTotal: int
+  submitted: bool
+  distanceMeters: double?

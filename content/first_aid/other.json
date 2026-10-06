@@ -1,0 +1,20 @@
+{
+  "type": "other",
+  "title": "General emergency",
+  "summary": "Keep them safe and comfortable while you get help.",
+  "doSteps": [
+    "Make sure you and the person are safe.",
+    "Check they are awake and breathing.",
+    "Keep them warm and comfortable.",
+    "Note what happened and when.",
+    "Bring their medicines and any medical cards."
+  ],
+  "dontSteps": [
+    "Do not give food or drink.",
+    "Do not give medicine that was not prescribed to them.",
+    "Do not leave them alone."
+  ],
+  "reviewedBy": null,
+  "reviewedAt": null,
+  "version": 1
+}

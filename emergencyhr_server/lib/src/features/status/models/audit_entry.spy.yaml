@@ -1,0 +1,6 @@
+class: AuditEntry
+fields:
+  at: DateTime
+  userName: String
+  summary: String
+  practice: bool

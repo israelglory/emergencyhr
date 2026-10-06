@@ -1,0 +1,8 @@
+### A full status update from the desk.
+class: StatusInput
+fields:
+  accepting: bool
+  erBedsFree: int
+  icuBedsFree: int
+  doctorOnDuty: bool
+  depositRequired: bool

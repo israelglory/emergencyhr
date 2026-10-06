@@ -2,6 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Emergencyhr uses your location once to find hospitals near you that can receive a patient now.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Take a photo of the hospital registration document during onboarding.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Choose a photo of the hospital registration document during onboarding.</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>tel</string>
+		<string>sms</string>
+		<string>maps</string>
+	</array>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>

@@ -1,2 +1,99 @@
 jwtRefresh:
   - refreshAccessToken:
+admin:
+  - verificationQueue:
+  - approve:
+  - reject:
+  - directory:
+  - pipeline:
+  - assignAgent:
+  - claims:
+  - approveClaim:
+  - rejectClaim:
+  - joinRequests:
+  - setJoinRequestStatus:
+  - convertJoinRequest:
+  - agents:
+  - addAgent:
+  - setAgentAreas:
+  - deactivateAgent:
+  - freshness:
+  - reports:
+  - reviewReports:
+  - metrics:
+  - newHospitals:
+  - setFacilitySuspended:
+  - users:
+  - setUserSuspended:
+assistant:
+  - send:
+  - conversations:
+  - messages:
+  - deleteConversation:
+  - deleteAllConversations:
+account:
+  - me:
+  - updateName:
+phoneAuth:
+  - requestCode:
+  - verifyCode:
+emergency:
+  - start:
+  - refresh:
+  - watch:
+  - recordAction:
+  - reportWrongStatus:
+  - notifyFamily:
+  - facility:
+document:
+  - createUpload:
+  - confirmUpload:
+  - download:
+facility:
+  - search:
+  - nearby:
+  - findDuplicates:
+  - create:
+  - updateProfile:
+  - detail:
+claim:
+  - requestDeskPhoneCode:
+  - submit:
+  - mine:
+invite:
+  - create:
+  - list:
+  - revoke:
+  - preview:
+  - accept:
+joinRequest:
+  - submit:
+onboarding:
+  - myFacilities:
+  - checklist:
+  - setStage:
+  - updateRecord:
+  - submitForVerification:
+  - requestDeskPhoneCode:
+  - confirmDeskPhone:
+  - recordTestCall:
+staff:
+  - list:
+  - remove:
+firstAid:
+  - cards:
+profile:
+  - contacts:
+  - saveContact:
+  - deleteContact:
+  - medical:
+  - saveMedical:
+  - deleteMedical:
+  - exportMyData:
+  - deleteMyAccount:
+status:
+  - update:
+  - confirm:
+  - current:
+  - practice:
+  - auditLog:

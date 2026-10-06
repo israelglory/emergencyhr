@@ -1,0 +1,9 @@
+class: VerificationItem
+fields:
+  facility: FacilitySummary
+  address: String
+  submittedAt: DateTime?
+  submittedByName: String?
+  notes: String?
+  documents: List<FacilityDocument>
+  checklist: GoLiveChecklist

@@ -1,5 +1,5 @@
 name: emergencyhr_flutter
-description: A new Flutter project with Serverpod.
+description: Emergencyhr - find the hospital near you that can receive a patient right now.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -24,40 +24,29 @@ environment:
 resolution: workspace
 
 dependencies:
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.5
   flutter:
     sdk: flutter
-  google_fonts: ^8.1.0
+  flutter_web_plugins:
+    sdk: flutter
   emergencyhr_client:
     path: ../emergencyhr_client
   serverpod_flutter: 4.0.3
   serverpod_auth_idp_flutter: 4.0.3
 
+  # Architecture (MVVM) and dependency injection
   stacked: ^3.4.4
-  hive: ^2.2.3
-  logger: ^2.5.0
-  hive_flutter: ^1.1.0
   get_it: ^8.0.3
-  overlay_support: ^2.1.0
+
+  # Local cache
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
   intl: ^0.20.2
-  dio: ^5.1.1
-  permission_handler: ^12.0.1
-  cached_network_image: ^3.4.1
   url_launcher: ^6.3.0
-  share_plus: ^13.3.1
-  flutter_svg: ^2.2.1
-  image_picker: ^1.1.2
-  flutter_screenutil: ^5.7.0
-  persistent_bottom_nav_bar: ^6.2.1
-  carousel_slider: ^5.0.0
-  flutter_slidable: ^3.1.2
-  uuid: ^4.5.1
-  path_provider: ^2.1.4
-  flutter_native_contact_picker: ^0.0.11
-  pdf: ^3.11.3
-  syncfusion_flutter_charts: ^35.1.37
+  geolocator: ^14.0.1
+  file_picker: ^13.1.0
+  image_picker: ^1.2.4
+  qr_flutter: ^4.1.0
 
 dev_dependencies:
   # Used for agents to drive the app through the Dart MCP
@@ -66,6 +55,7 @@ dev_dependencies:
   flutter_lints: ">=3.0.0 <7.0.0"
   flutter_test:
     sdk: flutter
+  mocktail: ^1.0.4
 
 dependency_overrides:
   flutter_secure_storage: ^10.0.0
@@ -92,6 +82,7 @@ flutter:
   # https://flutter.dev/assets-and-images/#from-packages
   assets:
     - assets/config.json
+    - assets/first_aid/
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a

@@ -1,0 +1,6 @@
+class: ContactAlertResult
+fields:
+  name: String
+  phone: String
+  ### Null when sending failed; the app then offers the phone's SMS app.
+  sentVia: ContactChannel?

@@ -1,0 +1,7 @@
+class: DuplicateCandidate
+fields:
+  facility: FacilitySummary
+  address: String
+  distanceMeters: double
+  ### Strong matches block creating a new facility.
+  strong: bool

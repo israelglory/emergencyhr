@@ -1,0 +1,7 @@
+class: InvitePreview
+fields:
+  facilityName: String
+  role: UserRole
+  expiresAt: DateTime
+  valid: bool
+  reason: String?

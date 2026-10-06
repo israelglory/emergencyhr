@@ -1,0 +1,5 @@
+class: ChecklistItem
+fields:
+  key: ChecklistKey
+  label: String
+  done: bool

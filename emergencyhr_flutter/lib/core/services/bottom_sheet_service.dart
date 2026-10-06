@@ -1,43 +1,29 @@
 import 'package:flutter/material.dart';
-import '../cores.dart';
 
+import 'navigation_service.dart';
+
+/// Opens bottom sheets from viewmodels.
 class BottomSheetService {
-  Future<bool?> showSheet({required Widget child}) async {
-    return await showModalBottomSheet(
+  BottomSheetService(this._navigation);
+
+  final NavigationService _navigation;
+
+  Future<T?> show<T>(Widget child) async {
+    final context = _navigation.navigatorKey.currentContext;
+    if (context == null) return null;
+    return showModalBottomSheet<T>(
+      context: context,
+      isScrollControlled: true,
       useSafeArea: true,
-      context: navigationService.navigatorKey.currentState!.context,
-      builder: (c) => SizedBox(
-        child: child,
-      ),
-    );
-  }
-
-  Future<dynamic> show(Widget child, {bool? scrolledControl, Color? color}) {
-    return showModalBottomSheet(
-      context: navigationService.navigatorKey.currentState!.context,
-      isScrollControlled: scrolledControl ?? true,
-      isDismissible: true,
-      backgroundColor: Colors.white,
-      builder: (context) => Container(
-        decoration: BoxDecoration(
-          color: color ?? Colors.white,
-          borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(24),
-          ),
-        ),
-        margin: EdgeInsets.only(
-          top: MediaQuery.of(
-            navigationService.navigatorKey.currentState!.context,
-          ).padding.top,
-        ),
+      constraints: const BoxConstraints(maxWidth: 640),
+      builder: (context) => Padding(
         padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
+          bottom: MediaQuery.viewInsetsOf(context).bottom,
         ),
         child: child,
       ),
     );
   }
 
-  static void dismiss() =>
-      Navigator.of(navigationService.navigatorKey.currentState!.context).pop();
+  void dismiss<T>([T? result]) => _navigation.pop(result);
 }

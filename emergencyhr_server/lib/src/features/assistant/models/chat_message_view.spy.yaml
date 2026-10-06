@@ -1,0 +1,9 @@
+### A decrypted message as shown to its owner.
+class: ChatMessageView
+fields:
+  id: int
+  role: ChatRole
+  content: String
+  redFlagDetected: bool
+  suggestedEmergencyType: EmergencyType?
+  createdAt: DateTime

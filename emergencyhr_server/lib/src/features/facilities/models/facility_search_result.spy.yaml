@@ -1,0 +1,5 @@
+class: FacilitySearchResult
+fields:
+  facility: FacilitySummary
+  address: String
+  distanceMeters: double?

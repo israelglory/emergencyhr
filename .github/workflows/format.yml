@@ -20,6 +20,10 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Check formatting
+      - name: Check server formatting
         working-directory: emergencyhr_server
         run: dart format --set-exit-if-changed .
+
+      - name: Check Flutter app formatting
+        working-directory: emergencyhr_flutter
+        run: dart format --set-exit-if-changed lib test

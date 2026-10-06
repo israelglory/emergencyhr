@@ -1,0 +1,6 @@
+### Posted on the facility status channel whenever a live status changes.
+class: FacilityStatusChanged
+fields:
+  facilityId: int
+  status: FacilityStatus?
+  flagged: bool

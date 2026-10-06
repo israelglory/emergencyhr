@@ -1,0 +1,9 @@
+class: PipelineRow
+fields:
+  facility: FacilitySummary
+  agentUserId: int?
+  agentName: String?
+  notes: String?
+  nextActionAt: DateTime?
+  checklistDone: int
+  checklistTotal: int

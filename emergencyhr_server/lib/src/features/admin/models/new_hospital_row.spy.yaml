@@ -1,0 +1,10 @@
+### Early health of a facility in its first 14 days live.
+class: NewHospitalRow
+fields:
+  facility: FacilitySummary
+  liveAt: DateTime
+  statusUpdates: int
+  lastUpdateAt: DateTime?
+  ### No update for 48 hours during opening hours.
+  quiet: bool
+  agentName: String?

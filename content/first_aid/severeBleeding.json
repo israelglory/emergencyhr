@@ -1,0 +1,20 @@
+{
+  "type": "severeBleeding",
+  "title": "Severe bleeding",
+  "summary": "Firm, steady pressure is the most important thing you can do.",
+  "doSteps": [
+    "Press hard on the wound with a clean cloth or your hand.",
+    "Keep pressing without stopping for at least 10 minutes.",
+    "If blood soaks through, add more cloth on top and keep pressing.",
+    "If the wound is on an arm or leg, raise it above the heart if you can.",
+    "Keep them lying down and warm."
+  ],
+  "dontSteps": [
+    "Do not remove anything stuck in the wound. Press around it instead.",
+    "Do not keep lifting the cloth to check the bleeding.",
+    "Do not give food or drink."
+  ],
+  "reviewedBy": null,
+  "reviewedAt": null,
+  "version": 1
+}

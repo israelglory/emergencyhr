@@ -1,57 +1,49 @@
 import 'package:flutter/material.dart';
 
-class NavigationService<T, U> {
+/// Navigation from viewmodels through named routes, so every screen has a
+/// web URL and deep link (see `AppRoutes`).
+class NavigationService {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-  Future<T?>? pushNamed(String routeName, {Object? args}) async =>
-      navigatorKey.currentState?.pushNamed<T>(
+  NavigatorState? get _nav => navigatorKey.currentState;
+
+  Future<T?> pushNamed<T>(String routeName, {Object? args}) async =>
+      _nav?.pushNamed<T>(routeName, arguments: args);
+
+  Future<T?> replaceWith<T>(String routeName, {Object? args}) async =>
+      _nav?.pushReplacementNamed<T, Object?>(routeName, arguments: args);
+
+  /// Clears the stack and opens [routeName].
+  Future<T?> clearStackAndShow<T>(String routeName, {Object? args}) async =>
+      _nav?.pushNamedAndRemoveUntil<T>(
         routeName,
+        (_) => false,
         arguments: args,
       );
 
-  Future<T?> push(Widget page, {Object? args}) async =>
-      navigatorKey.currentState?.push<T>(MaterialPageRoute(
-          builder: (c) => page, settings: RouteSettings(arguments: args)));
+  /// Pops back to [routeName] if it is on the stack, otherwise opens it.
+  void popUntilOrShow(String routeName) {
+    var found = false;
+    _nav?.popUntil((route) {
+      if (route.settings.name == routeName || route.isFirst) {
+        found = route.settings.name == routeName;
+        return true;
+      }
+      return false;
+    });
+    if (!found) clearStackAndShow<void>(routeName);
+  }
 
-  Future pushReplacement(Widget page, {Object? result}) async =>
-      navigatorKey.currentState?.pushReplacement(
-          MaterialPageRoute(
-            builder: (c) => page,
-          ),
-          result: result);
+  bool canPop() => _nav?.canPop() ?? false;
 
-  Future<T?>? pushReplacementNamed(String routeName, {Object? args}) async =>
-      navigatorKey.currentState?.pushReplacementNamed<T, U>(
-        routeName,
-        arguments: args,
-      );
+  void pop<T>([T? result]) => _nav?.pop<T>(result);
 
-  Future<T?>? pushNamedAndRemoveUntil(
-    String routeName, {
-    Object? args,
-    bool keepPreviousPages = false,
-  }) async =>
-      navigatorKey.currentState?.pushNamedAndRemoveUntil<T>(
-        routeName,
-        (Route<dynamic> route) => keepPreviousPages,
-        arguments: args,
-      );
-
-  Future<T?>? pushAndRemoveUntil(
-    Widget page, {
-    bool keepPreviousPages = false,
-  }) async =>
-      navigatorKey.currentState?.pushAndRemoveUntil<T>(
-        MaterialPageRoute(builder: (c) => page),
-        (Route<dynamic> route) => keepPreviousPages,
-      );
-
-  Future<bool?>? maybePop([Object? args]) async =>
-      navigatorKey.currentState?.maybePop(args);
-
-  bool? canPop() => navigatorKey.currentState?.canPop();
-
-  void pop([T? result]) => navigatorKey.currentState?.pop<T>(result);
+  /// Pops when possible, otherwise opens [fallbackRoute] (web deep links).
+  void back({required String fallbackRoute}) {
+    if (canPop()) {
+      pop<void>();
+    } else {
+      clearStackAndShow<void>(fallbackRoute);
+    }
+  }
 }
-
-// final navigationService = Provider((ref) => NavigationService());
