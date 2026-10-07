@@ -15,6 +15,9 @@ fields:
   verificationStatus: VerificationStatus
   onboardingStage: OnboardingStage
   source: FacilitySource
+  ### Where an imported listing came from, e.g. "grid3-nga-v2:<id>". Lets
+  ### the same file be imported again without creating duplicates.
+  sourceRef: String?
   liveAt: DateTime?
   openingHours: OpeningHours?
   trainingCompletedAt: DateTime?
@@ -33,3 +36,6 @@ indexes:
     fields: area
   facility_stage_idx:
     fields: onboardingStage
+  facility_source_ref_idx:
+    fields: sourceRef
+    unique: true

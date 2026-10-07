@@ -1,0 +1,650 @@
+source_ref,name,type,address,area,lat,lng,level
+grid3-nga-v2:86f5dec0-3551-4a2f-b913-fb01c10b7378,Al Imaan Hospital and Maternity Home,private,"Dopemu, Agege LGA, Lagos State",Agege,6.622830,3.309690,Secondary
+grid3-nga-v2:059f3cbb-c783-4ec5-89a8-f770d19acbb6,Ayodele Specialist Hospital,private,"Oyewole, Agege LGA, Lagos State",Agege,6.622430,3.306717,Tertiary
+grid3-nga-v2:9870a435-23e2-49b0-b34a-17c70fe629c9,Greenwood Hospital,private,"Keke, Agege LGA, Lagos State",Agege,6.620630,3.335570,Secondary
+grid3-nga-v2:f758cfa6-e048-4a28-bba3-afb6d1931de1,J A Lashman Hospital,private,"Keke, Agege LGA, Lagos State",Agege,6.622060,3.334340,Secondary
+grid3-nga-v2:cb7b96bc-4670-4105-b715-b8de449e14f6,Meghan Specialist Clinic,private,"Orile (Agege), Agege LGA, Lagos State",Agege,6.640865,3.306578,Tertiary
+grid3-nga-v2:da11876d-033f-4a92-9bd9-31f78c487b54,Orile Agege General Hospital,public,"Orile (Agege), Agege LGA, Lagos State",Agege,6.634495,3.303395,Secondary
+grid3-nga-v2:a6cee5c3-4fc0-4098-8c90-69eeaad7cefd,R Jolad Hospital,private,"Isale Odo, Agege LGA, Lagos State",Agege,6.627950,3.307440,Secondary
+grid3-nga-v2:d52c566c-cd78-4e25-874d-c0c53473e83d,Sabico Specialist Hospital,private,"Orile (Agege), Agege LGA, Lagos State",Agege,6.646997,3.306300,Tertiary
+grid3-nga-v2:3b13bc99-45e9-4735-a889-a492814a27af,Abbey Medical Center,private,"Ibafon, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.447192,3.337068,Secondary
+grid3-nga-v2:c91300a6-1a44-47bf-b745-297de49f3843,Adebambo Hospital,private,"Alaba, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.469450,3.343730,Secondary
+grid3-nga-v2:93491e6d-af14-4dcb-b7b9-9d45f3058dfe,Ajani Memorial Specialist,private,"Alaba, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.465881,3.340515,Tertiary
+grid3-nga-v2:fe3de48b-0131-4dc7-ba58-83c8948fd421,Ajeromi Ifelodun General Hospital,public,"Awodi Ora, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.455098,3.333745,Secondary
+grid3-nga-v2:d03f0f95-d6fc-4d9b-b3b6-f5cfa93e9894,Ajifat Hospital,private,"Amukoko, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.464712,3.338183,Secondary
+grid3-nga-v2:f3226bf2-5fe5-4e55-9062-09435defd695,Asiwaju Bola Ahmed Tinubi Comprehensive Health Center,public,"Alaba, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.464930,3.328090,Secondary
+grid3-nga-v2:34302669-b087-4199-bc68-e0797a94c63a,Augusta Hospital,private,"Ibafon, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.444672,3.334253,Secondary
+grid3-nga-v2:2f912db0-beec-4b9b-9757-a609448cebf5,Bleseed Redeemer Hospital,private,"Aiyetoro, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.455505,3.348083,Secondary
+grid3-nga-v2:9a65d899-681b-4e23-b591-abb06915ee19,Dako Limited Medical Center,private,"Ibafon, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.447153,3.328930,Secondary
+grid3-nga-v2:9128005e-4a78-4ef4-b81c-57fad70d4d34,Darulsam Hospital,private,"Amukoko, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.469010,3.349270,Secondary
+grid3-nga-v2:fffc6081-543c-4681-b94a-6d0d10d0854c,Deetab Hospital and Maternity Home,private,"Amukoko, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.465080,3.340450,Secondary
+grid3-nga-v2:f3f6b3f9-da79-4d6e-8ffb-bab8c27711db,Femi Hospital,private,"Oluwa Akere, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.450652,3.346112,Secondary
+grid3-nga-v2:0e5cd97f-3e47-40b1-9bc6-7053c6aa3d2d,Goodwill Family Hospital,private,"Ibafon, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.447925,3.342307,Secondary
+grid3-nga-v2:f63ad31e-885c-4ccb-b8e8-4ee525f9c2f8,Hilton Hospital,private,"Oluwa Akere, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.448486,3.320679,Secondary
+grid3-nga-v2:032b0f7e-1f53-401c-8b8b-101ac07d0a2a,Ifunaya Hospital,private,"Amukoko, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.467285,3.339111,Secondary
+grid3-nga-v2:9e4417ff-e6c2-427a-9b61-ccb22ae88558,Jomark Hospital,private,"Apasa, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.465017,3.331313,Secondary
+grid3-nga-v2:2be5a11e-9546-4203-85e4-f1a1a7f68785,Living Word Maternity Home,private,"Alayabiagb, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.450630,3.348470,Secondary
+grid3-nga-v2:0ccd100e-3e9c-454d-bd01-0a3db52fc79c,Lord Overcomers Clinic,private,"Alaba, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.471680,3.340088,Secondary
+grid3-nga-v2:fbbff016-4cb1-472b-a9cd-6f217c4341b1,Natafod Consultants Hospital,private,"Amukoko, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.466450,3.343050,Secondary
+grid3-nga-v2:f21c0676-3c3b-43ee-8d3d-6ae5696a1beb,Orange Medical Center,private,"Ibafon, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.453210,3.334720,Secondary
+grid3-nga-v2:9b38a9fe-5980-4a67-8622-854589c01fec,Ostard Specialist Hospital,private,"Ibafon, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.446563,3.326700,Tertiary
+grid3-nga-v2:4c07eb65-ae79-4c69-9d38-811471fd2d87,Raynie Hospital,private,"Oluwa Akere, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.451294,3.338318,Secondary
+grid3-nga-v2:03d934d1-48e0-4aa3-8757-c3e0a4fd350f,Saint Milla Hospital,private,"Alayabiagb, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.460510,3.351685,Secondary
+grid3-nga-v2:3a2102b4-a04f-4431-983b-06908570746f,Sonex Clinic,private,"Ibafon, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.446345,3.333098,Secondary
+grid3-nga-v2:3f555206-9aa7-4196-8057-1d777d02864c,Tolu Medical Centre(Ojo Road),private,"Layeni, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.459830,3.333690,Secondary
+grid3-nga-v2:7f5df698-e1a5-4dab-b171-0417f357bf7f,Triple Grace Medical Center,private,"Owoyemi, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.458510,3.296420,Secondary
+grid3-nga-v2:33edd321-4b40-4048-af37-53dfe4b3626e,Zollinger Hospital,private,"Tolu, Ajeromi-Ifelodun LGA, Lagos State",Ajeromi-Ifelodun,6.449757,3.347442,Secondary
+grid3-nga-v2:31fa436b-8086-400b-a073-301cb0fac03a,Adenike Fadeyibi Hospital Specialist,private,"Oguntade Bameke, Alimosho LGA, Lagos State",Alimosho,6.599487,3.293091,Secondary
+grid3-nga-v2:1ea747cd-89d0-4376-b97f-955c5c16444e,Alalade Memorial Hospital (Santos),private,"Santos, Alimosho LGA, Lagos State",Alimosho,6.593193,3.221803,Secondary
+grid3-nga-v2:aa82a377-808a-432a-8f3c-9e20b3d99c5e,Alimosho General Hospital,public,"Igando, Alimosho LGA, Lagos State",Alimosho,6.561627,3.250607,Secondary
+grid3-nga-v2:db1f9c20-8b32-43be-bd64-3a7aab11209b,Ayis Hospital,private,"Idimu, Alimosho LGA, Lagos State",Alimosho,6.551577,3.276548,Secondary
+grid3-nga-v2:61f140be-c946-44c6-8c76-c33f820b1f0e,B Y Hospital,private,"Gowon Estate, Alimosho LGA, Lagos State",Alimosho,6.597794,3.272487,Secondary
+grid3-nga-v2:6276f192-6ff5-435d-836d-d59c3a9d67aa,Banke Hospital,private,"Ayobo, Alimosho LGA, Lagos State",Alimosho,6.600798,3.246103,Secondary
+grid3-nga-v2:c39c0cdc-ba6b-4ba7-87bb-f31b987bf9a5,Basis Hospital,private,"Idimu, Alimosho LGA, Lagos State",Alimosho,6.571780,3.292040,Secondary
+grid3-nga-v2:af34af0b-078b-4286-bb57-f05b3fc890aa,Bee Hess Hospital,private,"Akowonjo, Alimosho LGA, Lagos State",Alimosho,6.602951,3.305882,Secondary
+grid3-nga-v2:45c47e44-9a7f-4337-a26f-87b270513e70,Better Life Hospital,private,"Abaranje Okerube, Alimosho LGA, Lagos State",Alimosho,6.534147,3.236710,Secondary
+grid3-nga-v2:5bb67936-771b-4197-ba80-a8e7b4c45847,Bissalam Hospital,private,"Egbe-Liasu, Alimosho LGA, Lagos State",Alimosho,6.554600,3.279200,Secondary
+grid3-nga-v2:44c18604-cad4-4629-a003-ba3016d8c40d,Blue Sky Hospital,private,"Egbeda, Alimosho LGA, Lagos State",Alimosho,6.592498,3.290397,Secondary
+grid3-nga-v2:948c12bd-59f7-4a13-961d-60c1ff7825ae,Bluesea Hospital,private,"Egbe-Agodo, Alimosho LGA, Lagos State",Alimosho,6.557853,3.280488,Secondary
+grid3-nga-v2:7e0a7e9b-3e78-4ce1-bf71-6aff62f00e90,Broad Hospital,private,"Ikotun, Alimosho LGA, Lagos State",Alimosho,6.549170,3.266172,Secondary
+grid3-nga-v2:770aff78-9efc-4fa1-bb3e-b7cb24c02c55,Careway Hospital,private,"Egbeda, Alimosho LGA, Lagos State",Alimosho,6.592598,3.289767,Secondary
+grid3-nga-v2:b2c6351b-b620-46e4-8a46-393c7f51d485,Crescent Alimosho Hospital,private,"Alagbado, Alimosho LGA, Lagos State",Alimosho,6.648672,3.269574,Secondary
+grid3-nga-v2:f0805fd0-dfd3-44bd-b726-18ffe48bee68,Crest Hospital,private,"Egan - Ojo, Alimosho LGA, Lagos State",Alimosho,6.536310,3.265820,Secondary
+grid3-nga-v2:15097949-2fa0-4f8b-9adb-c55d05da22e5,Crystal Hospital Specialist,private,"Omituntun, Alimosho LGA, Lagos State",Alimosho,6.602422,3.306185,Secondary
+grid3-nga-v2:dbb52888-4846-45ea-8b88-1a0fca6ea869,D'Great Hospital,private,"Omituntun, Alimosho LGA, Lagos State",Alimosho,6.611889,3.301559,Secondary
+grid3-nga-v2:37d0d059-1d9b-45a0-b348-45b8bd9a4aa8,Dayspring Hospital,private,"Ikotun, Alimosho LGA, Lagos State",Alimosho,6.552307,3.265503,Secondary
+grid3-nga-v2:4b7d4fb6-1878-4b48-804d-874ed0118f79,De Life Hospital,private,"Igando, Alimosho LGA, Lagos State",Alimosho,6.552387,3.254232,Secondary
+grid3-nga-v2:8f70879b-0e03-423e-882d-fd734bbc7c69,El Rhema Hospital and Maternity,private,"Gowon Estate, Alimosho LGA, Lagos State",Alimosho,6.604393,3.280025,Secondary
+grid3-nga-v2:8e4fed64-5361-4d6a-a481-0a57acda4373,Faith Hills Hospital Specialist,private,"Allaguntan, Alimosho LGA, Lagos State",Alimosho,6.612520,3.299440,Secondary
+grid3-nga-v2:83701c6e-5c1e-47ea-98aa-a2302c491485,Fellowship Annex Hospital,private,"Isheri Olofin, Alimosho LGA, Lagos State",Alimosho,6.574208,3.281432,Secondary
+grid3-nga-v2:96a2d111-3ab3-4d70-a14c-f2d3c71237c2,Golden Victory Way Hospital,private,"Oguntade Bameke, Alimosho LGA, Lagos State",Alimosho,6.593047,3.303960,Secondary
+grid3-nga-v2:f406dc0e-0d89-4186-9457-77a76f361498,Gowon E Hospital,private,"Gowon Estate, Alimosho LGA, Lagos State",Alimosho,6.603967,3.283480,Secondary
+grid3-nga-v2:87616832-3f99-42c8-83fd-a4d0c9919a2f,Hamkad Hospital,private,"Abule Egba, Alimosho LGA, Lagos State",Alimosho,6.651756,3.296780,Secondary
+grid3-nga-v2:280c0a28-7031-40c5-a309-04f2adeb11ce,Haven Hospital,private,"Okeodo, Alimosho LGA, Lagos State",Alimosho,6.678560,3.261050,Secondary
+grid3-nga-v2:3ccfd1e5-8d41-4e5a-aac7-2bdc891e6eb6,Healing Virtues Hospital,private,"Muniru Baruwa, Alimosho LGA, Lagos State",Alimosho,6.602828,3.267895,Secondary
+grid3-nga-v2:77452251-8716-432e-aa35-1f614235424c,Hope Alive Hospital,private,"Ayobo, Alimosho LGA, Lagos State",Alimosho,6.611013,3.265305,Secondary
+grid3-nga-v2:3cc7e6a0-23d6-47f2-bbd3-912cd91e3cb5,Hope Home Hospital,private,"Ijegun (Amuwo Odofin), Alimosho LGA, Lagos State",Alimosho,6.520580,3.260546,Secondary
+grid3-nga-v2:79431e29-0917-4983-83cc-3a7dcedb6416,Ihe Doctor'S Hospital,private,"Oguntade Bameke, Alimosho LGA, Lagos State",Alimosho,6.583479,3.306521,Secondary
+grid3-nga-v2:481a4a43-6eb4-4eb4-a244-6cadfae1e46f,Jumoke Hospital,private,"Oguntade Bameke, Alimosho LGA, Lagos State",Alimosho,6.566712,3.301575,Secondary
+grid3-nga-v2:60b03ce7-23bb-433a-9bca-e03149047dd8,Kemo Hospital,private,"Mosan / Akinoggun, Alimosho LGA, Lagos State",Alimosho,6.613516,3.281346,Secondary
+grid3-nga-v2:620e8f94-039b-40ab-babb-35c586fd404f,Krown Hospital and Maternity Center,private,"Allaguntan, Alimosho LGA, Lagos State",Alimosho,6.612222,3.301585,Secondary
+grid3-nga-v2:930b84b5-e2f5-4c72-bbe0-4d2e0b513805,Kunlade Maternity Home and Hospital,private,"Ipaja, Alimosho LGA, Lagos State",Alimosho,6.608842,3.261952,Secondary
+grid3-nga-v2:666ba0a5-2444-4bba-b144-eabb70a3b941,Life Anchor Hospital,private,"Oguntade Bameke, Alimosho LGA, Lagos State",Alimosho,6.588517,3.298080,Secondary
+grid3-nga-v2:1d99597e-6b96-4257-8d28-f916ff8dab5b,Light Hospital,private,"Allaguntan, Alimosho LGA, Lagos State",Alimosho,6.606323,3.299847,Secondary
+grid3-nga-v2:783bb87b-3844-4256-8f8d-1d8389b67df7,Livingstone Hospital,private,"Abaranje Okerube, Alimosho LGA, Lagos State",Alimosho,6.527019,3.245826,Secondary
+grid3-nga-v2:83fd09a9-8238-4591-a96f-2e50d18dcb18,Mary The Queen Hospital,private,"Akowonjo, Alimosho LGA, Lagos State",Alimosho,6.591688,3.299668,Secondary
+grid3-nga-v2:b1d64d76-9ed5-455f-b068-55832ae9b17a,Mediservices Community Clinic,private,"Ipaja, Alimosho LGA, Lagos State",Alimosho,6.607727,3.260925,Secondary
+grid3-nga-v2:25467b7c-2a1e-4a21-964e-5294658a73b6,Mercy Stripes Hospital Specialist,private,"Oguntade Bameke, Alimosho LGA, Lagos State",Alimosho,6.575404,3.303944,Secondary
+grid3-nga-v2:60f6b378-2a19-40e7-b0b0-633b96804a3d,Mojol Hospital,private,"Oguntade Bameke, Alimosho LGA, Lagos State",Alimosho,6.585337,3.297188,Secondary
+grid3-nga-v2:1c1df034-8142-43ac-9077-f014f80da16a,Moria Annex Hospital,private,"Omituntun, Alimosho LGA, Lagos State",Alimosho,6.603930,3.302010,Secondary
+grid3-nga-v2:50325b31-508f-4d97-b7b7-c3d8e76e91e2,Mount Pisgal Hospital,private,"Egbe-Agodo, Alimosho LGA, Lagos State",Alimosho,6.541468,3.283253,Secondary
+grid3-nga-v2:fba80188-9e0e-4510-9770-3bdb6d17d024,Mucas Hospital,private,"Omituntun, Alimosho LGA, Lagos State",Alimosho,6.612350,3.303450,Secondary
+grid3-nga-v2:a7929b1f-fa98-47ef-9801-0bffb40388f8,New Merit Hospital,private,"Alagbado, Alimosho LGA, Lagos State",Alimosho,6.641417,3.316080,Secondary
+grid3-nga-v2:858031a3-7cde-445a-b038-fe0d721f90ce,Nifib Hospital,private,"Ijegun (Amuwo Odofin), Alimosho LGA, Lagos State",Alimosho,6.506603,3.261416,Secondary
+grid3-nga-v2:1ef42ac4-0178-4f8f-9871-def24f769368,Obitoks Hospital,private,"Okeodo, Alimosho LGA, Lagos State",Alimosho,6.638627,3.299055,Secondary
+grid3-nga-v2:45efbaf2-c02a-44a9-8def-04c65648a97b,Okiki Hospital,private,"Allaguntan, Alimosho LGA, Lagos State",Alimosho,6.610927,3.297400,Secondary
+grid3-nga-v2:fb57f878-66fb-4f02-949d-9dee196b5193,Ooh Bee Hospital,private,"Egbe-Agodo, Alimosho LGA, Lagos State",Alimosho,6.541070,3.280510,Secondary
+grid3-nga-v2:606beff8-38d3-4849-bf3c-1948c674fa80,Open Door Hospital,private,"Egbeda, Alimosho LGA, Lagos State",Alimosho,6.597215,3.289099,Secondary
+grid3-nga-v2:21b328eb-2924-4fa6-be81-a0d54f9c80f1,Paulate Hospital,private,"Alagbado, Alimosho LGA, Lagos State",Alimosho,6.661951,3.249791,Secondary
+grid3-nga-v2:8380e3c9-bfc4-4d8e-844d-c1806d1f77a4,Peak Health Hospital,private,"Aboru Ward, Alimosho LGA, Lagos State",Alimosho,6.628490,3.279630,Secondary
+grid3-nga-v2:37ba4f8d-7919-4993-85dd-603e267b96ed,Primex Hospital,private,"Igando, Alimosho LGA, Lagos State",Alimosho,6.548663,3.260695,Secondary
+grid3-nga-v2:cd42aa1d-af2a-447f-8670-64e25cd37b4a,Prince and Princess Hospital,private,"Gowon Estate, Alimosho LGA, Lagos State",Alimosho,6.604970,3.286092,Secondary
+grid3-nga-v2:e233c567-8b7e-415b-982b-33db6e94b79a,Royal Salvation Hospital,private,"Oguntade Bameke, Alimosho LGA, Lagos State",Alimosho,6.591453,3.306250,Secondary
+grid3-nga-v2:d191e3f8-f5c8-4895-87d1-c78e960859b6,St Michael Hospital,private,"Alagbado, Alimosho LGA, Lagos State",Alimosho,6.682284,3.267152,Secondary
+grid3-nga-v2:b7cf438f-82f9-4f50-840a-73d6f1cf31c1,Subol Hospital,private,"Isheri Olofin, Alimosho LGA, Lagos State",Alimosho,6.566284,3.274719,Secondary
+grid3-nga-v2:a2f468ac-759f-47f2-8333-ecffce48a5aa,Summit Hospital Home,private,"Santos, Alimosho LGA, Lagos State",Alimosho,6.594260,3.304202,Secondary
+grid3-nga-v2:79df00e6-dbba-45f6-808b-25cd0acf4374,Talent Hospital Specialist,private,"Gowon Estate, Alimosho LGA, Lagos State",Alimosho,6.603098,3.292658,Secondary
+grid3-nga-v2:036e9f76-83f8-40e3-a42f-7ff85b3fdc7d,The Great Ark Hospital,private,"Allaguntan, Alimosho LGA, Lagos State",Alimosho,6.606318,3.254274,Secondary
+grid3-nga-v2:b866b7eb-32c8-46ac-b964-ca7a08202931,Tofaan Hospital,private,"Atan, Alimosho LGA, Lagos State",Alimosho,6.599102,3.245303,Secondary
+grid3-nga-v2:10ac58c2-d897-49d4-8259-9d6aadacb632,Tonajib (Igando) Hospital,private,"Igando, Alimosho LGA, Lagos State",Alimosho,6.550127,3.256121,Secondary
+grid3-nga-v2:63555900-adc7-4e13-a16d-06d8cf1ce4ff,Unita Hospital,private,"Ikotun, Alimosho LGA, Lagos State",Alimosho,6.556098,3.264241,Secondary
+grid3-nga-v2:31baacd8-0cdd-437d-941f-2d1c1484f73d,Vine Yard Hospital,private,"Unity Estate, Alimosho LGA, Lagos State",Alimosho,6.570129,3.289917,Secondary
+grid3-nga-v2:8cd656fc-81ae-4281-bd90-10e1307acee1,Vintage Hospital,private,"Egan - Ojo, Alimosho LGA, Lagos State",Alimosho,6.551816,3.226535,Secondary
+grid3-nga-v2:064ace2f-cc75-48e5-9d1f-aaa58175d0a1,Westcare Hospital Specialist,private,"Akowonjo, Alimosho LGA, Lagos State",Alimosho,6.597530,3.299710,Secondary
+grid3-nga-v2:1fa6ba50-728b-4919-aed0-a8c88ac1a003,Adetunji Memorial Hospital,private,"Kuje Central, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.456170,3.306477,Secondary
+grid3-nga-v2:e1d22519-56d7-4399-b656-d701e60ed703,Biobella Public Health Center,private,"Adosoba, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.470876,3.248100,Secondary
+grid3-nga-v2:87459cef-0bef-4215-b76c-76337120cd14,Bonne Sante Health Services Ltd,private,"Orire, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.466770,3.285800,Secondary
+grid3-nga-v2:e622c15b-fbb2-4a12-b04a-d96f25d0ef47,Emel Hospital,private,"Orire, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.475662,3.289490,Secondary
+grid3-nga-v2:e2090dcb-5fce-4cfb-99a0-705f495f8190,Faithcare Hospital,private,"Orire, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.446400,3.318800,Secondary
+grid3-nga-v2:1150c00d-bd4b-4179-86ba-fb896289775f,Golden Cross Infirmary,private,"Orire, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.468128,3.283020,Secondary
+grid3-nga-v2:78f928f9-791b-40ff-ae60-afd9d9930f7b,Green Life Hospital,private,"Eko Akete Mile 2, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.466050,3.312450,Secondary
+grid3-nga-v2:f886b992-6501-4b17-b832-9776be1eda80,Holy Family Catholic Church Medical Centre,private,"Orire, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.468295,3.282882,Secondary
+grid3-nga-v2:c8ac25c3-62dc-4760-997a-108070750451,Hovas Place Hospital Clinic,private,"Orire, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.470520,3.276917,Secondary
+grid3-nga-v2:7de242d0-50b5-4000-980c-379acdde096d,Igbologun Medical Center,private,"Tomaro, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.413690,3.252300,Secondary
+grid3-nga-v2:8027f624-d648-44a9-8b83-118d922cb246,Kingswill ( Annex) Hospital Specialist,private,"Ifelodun/5, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.470980,3.311990,Secondary
+grid3-nga-v2:0d5933f4-d2e1-49d7-89b2-bc92db243177,Kingswill Hospital Specialist,private,"Eko Akete Mile 2, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.470890,3.311640,Secondary
+grid3-nga-v2:7f3bc833-e774-431e-94a4-61197d51bb96,Lasapienza Hospital,private,"Orire, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.464710,3.295210,Secondary
+grid3-nga-v2:46028ab3-61a4-438d-9eac-e32b2f1b28da,Nigerian Navy Ref Hospital,public,"Kirikiri, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.451662,3.282360,Secondary
+grid3-nga-v2:1d46e42a-4093-4fb6-8d19-677d6055bb8b,Outreach Children Hospital,private,"Orire, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.468378,3.286342,Secondary
+grid3-nga-v2:722a6b41-4347-43dc-945c-625fca06365a,Outreach Specialist Hospital,private,"Abule Osun, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.450962,3.256513,Tertiary
+grid3-nga-v2:b3e83161-a614-4916-850b-b35d06507faf,Rabboni Hospital Specialist,private,"Ifelodun/5, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.463510,3.292060,Secondary
+grid3-nga-v2:4ee4d3ff-ad06-490b-a70f-576978e6dcd5,Richie Hospital,private,"Kirikiri, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.441500,3.312110,Secondary
+grid3-nga-v2:d3561034-8b3f-40bd-a587-2db566397a55,Safe Hand Medical Center,private,"Eko Akete Mile 2, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.458508,3.300065,Secondary
+grid3-nga-v2:34eb42e6-cf45-43cf-8ae8-b65cc4675bf4,Sheperd Hospital Specialist,private,"Orire, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.464920,3.298450,Secondary
+grid3-nga-v2:a5672b27-2d16-4ca8-9897-ee2d3338d339,Sirona Hospital,private,"Orire, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.474830,3.291870,Secondary
+grid3-nga-v2:748305b6-157d-4452-b9be-723306700f3a,St Judes Hospital,private,"Orire, Amuwo Odofin LGA, Lagos State",Amuwo Odofin,6.463300,3.295580,Secondary
+grid3-nga-v2:c8cdd328-ca8c-4eed-abc5-1f47a09e13e7,Ahmadiyya Muslim Hospital,private,"Anjorin, Apapa LGA, Lagos State",Apapa,6.442078,3.371887,Secondary
+grid3-nga-v2:0eadde13-f93f-440c-a6a4-ce88959b90e5,Apapa General Hospital,public,"Anjorin, Apapa LGA, Lagos State",Apapa,6.442330,3.368427,Secondary
+grid3-nga-v2:ceb4a97c-d808-488e-b67e-7950bb04db47,Apapa Hospital Specialist,private,"Abraham Adesanya, Apapa LGA, Lagos State",Apapa,6.439339,3.364842,Secondary
+grid3-nga-v2:d06ca749-1514-4424-8db2-fec19a958e5b,Eternal Life Hospital,private,"Alafia (Apapa), Apapa LGA, Lagos State",Apapa,6.474290,3.343990,Secondary
+grid3-nga-v2:888a02ff-a632-4d34-94b8-c1ca0e04f7d0,Iduna Hospital Specialist,private,"Apapa, Apapa LGA, Lagos State",Apapa,6.443830,3.352720,Secondary
+grid3-nga-v2:e1e3273e-1211-4d58-ad04-b3a8e63e1646,Jim Sam Hospital and Maternity,private,"Badia, Apapa LGA, Lagos State",Apapa,6.465990,3.353290,Secondary
+grid3-nga-v2:f8506cde-f057-4878-854d-ea900b30e438,Lagoon Hospital,private,"Oduduwa, Apapa LGA, Lagos State",Apapa,6.440820,3.358930,Secondary
+grid3-nga-v2:0c07cd19-823a-4aa3-83de-88f35169f5c8,St Milla Apapa Hospital,private,"Apapa, Apapa LGA, Lagos State",Apapa,6.442550,3.351350,Secondary
+grid3-nga-v2:ec7e88e5-724d-4b0d-8f24-e897e821f282,Syban Medical Center,private,"Alafia (Apapa), Apapa LGA, Lagos State",Apapa,6.473920,3.349710,Secondary
+grid3-nga-v2:8fba923d-cfce-478a-938e-0f1e49ef7d1e,Ademola Hospital,private,"Araromi Ale, Badagry LGA, Lagos State",Badagry,6.485288,3.028090,Secondary
+grid3-nga-v2:2d439619-c8a1-4611-b7f1-7b9c1052abb6,Badagry General Hospital,public,"Ahovikoh, Badagry LGA, Lagos State",Badagry,6.413660,2.897718,Secondary
+grid3-nga-v2:3082126f-164c-42dc-8499-c810a94a1248,Caregiver Hospital,private,"Ajara Topa, Badagry LGA, Lagos State",Badagry,6.434052,2.901235,Secondary
+grid3-nga-v2:fa057647-0343-47b2-93bc-2472718e916a,Comfort Modupe Nursing Home,private,"Iworo Gbankon, Badagry LGA, Lagos State",Badagry,6.435830,2.968300,Secondary
+grid3-nga-v2:9dbb73d7-3abd-413c-bb40-d7d1782904a2,God Favorite Hospital,private,"Araromi Ale, Badagry LGA, Lagos State",Badagry,6.470688,2.991843,Secondary
+grid3-nga-v2:67833b91-5729-4104-9fb6-ee8874980056,Lagos Federal Medical Center,public,"Ajido, Badagry LGA, Lagos State",Badagry,6.413275,2.976427,Secondary
+grid3-nga-v2:29a95a6f-e711-474c-a222-7488b59ac83d,Agbowa General Hospital,public,"Agbowa 1, Epe LGA, Lagos State",Epe,6.637256,3.714695,Secondary
+grid3-nga-v2:efb10add-ce98-4e72-877d-5e0817badb4a,Epe General Hospital,public,"Papa, Epe LGA, Lagos State",Epe,6.586487,3.970703,Secondary
+grid3-nga-v2:9d182d2b-000f-4fbf-bad8-9a7a214048f4,Graceland Hospital,private,"Papa, Epe LGA, Lagos State",Epe,6.589909,3.969336,Secondary
+grid3-nga-v2:a6108439-1eb3-4965-9ab9-df92eac561da,Ketu General Hospital,public,"Ketu Ejinrin, Epe LGA, Lagos State",Epe,6.634313,3.875393,Secondary
+grid3-nga-v2:782df9f9-ee21-4f38-b8bd-0b86dc470b5c,Adcare Hospital,private,"Iwerekun 1, Ibeju-Lekki LGA, Lagos State",Ibeju-Lekki,6.469470,3.710370,Secondary
+grid3-nga-v2:6bf51e1b-aa72-48bc-b676-126510cb9f55,Awoyaya Hospital,private,"Iwerekun 1, Ibeju-Lekki LGA, Lagos State",Ibeju-Lekki,6.468042,3.705298,Secondary
+grid3-nga-v2:0453ca21-994d-485e-8a77-e37476e60c41,First Graceland Hospital,private,"Iwerekun 1, Ibeju-Lekki LGA, Lagos State",Ibeju-Lekki,6.461190,3.679556,Secondary
+grid3-nga-v2:e2dd2065-5872-4605-9bb1-4ac581d4ab46,Ibeju Lekki General Hospital,public,"Orimedu 1, Ibeju-Lekki LGA, Lagos State",Ibeju-Lekki,6.439629,3.934006,Secondary
+grid3-nga-v2:59664ea7-9c40-4597-bf48-6206dd57c07d,Luscent Hospital,private,"Iwerekun 2, Ibeju-Lekki LGA, Lagos State",Ibeju-Lekki,6.478559,3.773612,Secondary
+grid3-nga-v2:6daf3584-e925-477f-a31a-e1401d745596,New Vigour Hospital,private,"Iwerekun 1, Ibeju-Lekki LGA, Lagos State",Ibeju-Lekki,6.468610,3.663630,Secondary
+grid3-nga-v2:84b229da-844c-49f8-b23b-78e673824c08,St Nicholas Hospital,private,"Lekki 2, Ibeju-Lekki LGA, Lagos State",Ibeju-Lekki,6.466889,3.967865,Secondary
+grid3-nga-v2:fb132e68-fbf3-4db7-8b2b-7010a2bffa83,Utmost Clinic,private,"Iwerekun 1, Ibeju-Lekki LGA, Lagos State",Ibeju-Lekki,6.474490,3.741210,Secondary
+grid3-nga-v2:29324c05-e8aa-4287-a5d1-199bb3f1c785,Ahmadiyya Muslim Hospital,private,"Ijaiye Ojokoro, Ifako-Ijaiye LGA, Lagos State",Ifako-Ijaiye,6.660830,3.292540,Secondary
+grid3-nga-v2:d1cc49e9-f91f-4083-ad2c-fe204d16c436,Ancilla Catholic Hospital,private,"Iju Ogundimu, Ifako-Ijaiye LGA, Lagos State",Ifako-Ijaiye,6.668660,3.330800,Secondary
+grid3-nga-v2:ab81d2ec-d29d-43c3-b006-380e6f10867d,Ayodele Medical Center,private,"Tabon Tabon, Ifako-Ijaiye LGA, Lagos State",Ifako-Ijaiye,6.657672,3.318287,Secondary
+grid3-nga-v2:e6f46b01-e40c-4b43-bc12-37319a4e4c86,Blue Cross Hospital,private,"Ijaye Ifako, Ifako-Ijaiye LGA, Lagos State",Ifako-Ijaiye,6.631868,3.340475,Secondary
+grid3-nga-v2:e3bad053-19c3-4f27-8a04-1fc4c906db09,Cavesbury Hospital & Health Care Limited,private,"Ijaiye Ojokoro, Ifako-Ijaiye LGA, Lagos State",Ifako-Ijaiye,6.657380,3.294860,Secondary
+grid3-nga-v2:33107b94-e428-4002-a763-ee6f36f1b3f4,Deji Clinic,private,"Iju Ishaga, Ifako-Ijaiye LGA, Lagos State",Ifako-Ijaiye,6.672340,3.320583,Secondary
+grid3-nga-v2:dae5aa91-bd9e-4835-a73b-47874996b91a,Elma Specialist Hospital,public,"Ijaiye Grinrinmi, Ifako-Ijaiye LGA, Lagos State",Ifako-Ijaiye,6.672900,3.297620,Tertiary
+grid3-nga-v2:2e7afa09-5000-4e3a-8496-ab2cc3ca0f5c,First Mainland Hospital,private,"Abule Egba (Ifako), Ifako-Ijaiye LGA, Lagos State",Ifako-Ijaiye,6.665817,3.306232,Secondary
+grid3-nga-v2:4fa42054-abf3-4f43-a5a4-709deb4ae747,Ifako Ijaiye General Hospital,public,"Ifako Coker, Ifako-Ijaiye LGA, Lagos State",Ifako-Ijaiye,6.643537,3.325840,Secondary
+grid3-nga-v2:9437ac86-14c1-4392-9923-87fbfea03ae2,Jefis Hospital Specialist,private,"Agbado Dalemo, Ifako-Ijaiye LGA, Lagos State",Ifako-Ijaiye,6.684472,3.274100,Secondary
+grid3-nga-v2:2aa4c822-1c97-4689-ad2e-c2a4990c6c84,Kingdom Health Hospital,private,"Ijaiye Grinrinmi, Ifako-Ijaiye LGA, Lagos State",Ifako-Ijaiye,6.657880,3.331130,Secondary
+grid3-nga-v2:3ef750db-3b41-4b6c-aa90-f1f496be77f3,Longing Medical Center,private,"Ijaiye Ojokoro, Ifako-Ijaiye LGA, Lagos State",Ifako-Ijaiye,6.673793,3.292312,Secondary
+grid3-nga-v2:45fb0dac-35cd-4a70-8928-958998a6d3d5,Macedonia Hospital Specialist,private,"Ijaye Ifako, Ifako-Ijaiye LGA, Lagos State",Ifako-Ijaiye,6.630357,3.338288,Secondary
+grid3-nga-v2:189ec1c6-88f3-473f-a717-412af50f0674,Osuntuyi Ifako Medical Center,private,"Iju Ishaga, Ifako-Ijaiye LGA, Lagos State",Ifako-Ijaiye,6.666950,3.324350,Secondary
+grid3-nga-v2:97a6fd2a-b092-4b3d-98db-429635ec1c08,P and G Medical Center,private,"Abule Egba (Ifako), Ifako-Ijaiye LGA, Lagos State",Ifako-Ijaiye,6.652338,3.309933,Secondary
+grid3-nga-v2:f0c9b48e-7fd0-4744-b9ef-20ebc54a305e,Pacific Hospital,private,"Iju Ogundimu, Ifako-Ijaiye LGA, Lagos State",Ifako-Ijaiye,6.670714,3.329098,Secondary
+grid3-nga-v2:c1dd190c-e383-448d-9c09-73819f050421,Sekafem Specialist Hospital,private,"Alagbado / Kollinton, Ifako-Ijaiye LGA, Lagos State",Ifako-Ijaiye,6.688178,3.278033,Tertiary
+grid3-nga-v2:314e2bba-a4d3-4762-892b-ad1dcadc7ae3,Standard Life Care Hospital,private,"Abule Egba (Ifako), Ifako-Ijaiye LGA, Lagos State",Ifako-Ijaiye,6.659878,3.305732,Secondary
+grid3-nga-v2:982fb507-c922-4bde-9561-d1c3de80f4a5,9 Brigade Medical Center,public,"Onigbongbo, Ikeja LGA, Lagos State",Ikeja,6.567373,3.358488,Secondary
+grid3-nga-v2:98f4ecf4-cae5-49f8-91be-678a0051ad5d,Adefemi Hospital,private,"Seriki Aro, Ikeja LGA, Lagos State",Ikeja,6.602170,3.339020,Secondary
+grid3-nga-v2:2ebc66a4-7a87-463a-931e-d09a450be8ed,Alban Specialist Hospital,private,"Alade, Ikeja LGA, Lagos State",Ikeja,6.601118,3.347473,Tertiary
+grid3-nga-v2:d6d6f58a-455a-47e7-a25f-9ea8f7ca145c,Art Medical Center,private,"Wasimi, Ikeja LGA, Lagos State",Ikeja,6.575138,3.362194,Secondary
+grid3-nga-v2:2626f627-c25e-4ced-884c-f9f9f8e1a2a3,Arthrimed Specialist Clinic,private,"Gra, Ikeja LGA, Lagos State",Ikeja,6.589800,3.339250,Secondary
+grid3-nga-v2:f1ed99d0-b68a-4950-9ec4-f49554a21e00,Arthtimed Hospital Specialist,private,"Gra, Ikeja LGA, Lagos State",Ikeja,6.582000,3.347812,Secondary
+grid3-nga-v2:1482b229-fd7e-4464-9381-f15502bc7fed,Baaji Specialist Hospital,private,"Orile Ikeja, Ikeja LGA, Lagos State",Ikeja,6.597107,3.344116,Tertiary
+grid3-nga-v2:faa6a196-37ca-4ed5-bda6-36f7c1264f7b,Bethel Women Hospital,private,"Ogba Oluwole, Ikeja LGA, Lagos State",Ikeja,6.651734,3.343319,Secondary
+grid3-nga-v2:391de11d-9dad-4e6d-9866-f3222601ceae,Boundary Specialist Homeopaedic,private,"Orile Ikeja, Ikeja LGA, Lagos State",Ikeja,6.598749,3.343353,Tertiary
+grid3-nga-v2:b8190e96-e20d-4d46-915c-65152a125417,Bridge Clinic,private,"Orile Ikeja, Ikeja LGA, Lagos State",Ikeja,6.570683,3.350980,Secondary
+grid3-nga-v2:666145ae-5fad-4142-b6c0-a3ba2ca5311f,Brookhaven Hospital,private,"Opeji, Ikeja LGA, Lagos State",Ikeja,6.586487,3.364925,Secondary
+grid3-nga-v2:00d78a7e-293a-4a2d-acff-bd0daf3b7569,Chest Clinic,private,"Gra, Ikeja LGA, Lagos State",Ikeja,6.534210,3.321781,Secondary
+grid3-nga-v2:0d746c28-572f-412c-b590-5782d634e3b4,De Right Source Specialist Hospital,private,"Ojodu, Ikeja LGA, Lagos State",Ikeja,6.642267,3.354238,Tertiary
+grid3-nga-v2:192aab64-a81c-44ec-8545-6038352fa07c,Deseret International Hospital,private,"Gra, Ikeja LGA, Lagos State",Ikeja,6.574556,3.355234,Secondary
+grid3-nga-v2:df204b3e-c111-4df1-acc1-9410f0f64f78,Duchees International Hospital,private,"Gra, Ikeja LGA, Lagos State",Ikeja,6.628941,3.353465,Tertiary
+grid3-nga-v2:94a6000c-373c-4a2e-8654-f4009fb8bd07,Duro Soleye Hospital,private,"Opeji, Ikeja LGA, Lagos State",Ikeja,6.599587,3.352872,Secondary
+grid3-nga-v2:72c2a663-9370-4da4-8b0e-778e28c2e1be,Eko Corp (Ikeja) Hospital,private,"Wasimi, Ikeja LGA, Lagos State",Ikeja,6.587440,3.357070,Tertiary
+grid3-nga-v2:fd7e8c42-6ef6-4f88-bb0d-29822973f36d,Electro Aesthetic Palace,private,"Opeji, Ikeja LGA, Lagos State",Ikeja,6.601900,3.348010,Secondary
+grid3-nga-v2:5f99e5f0-f8ff-44b8-8976-14803cdea77d,Genesis Hospital Specialist,private,"Gra, Ikeja LGA, Lagos State",Ikeja,6.572185,3.348647,Secondary
+grid3-nga-v2:e508cd1a-cdd8-44ee-8a4f-3c15b4394165,Gina Maternity Home,private,"Orile Ikeja, Ikeja LGA, Lagos State",Ikeja,6.594522,3.345931,Secondary
+grid3-nga-v2:1fff9350-5198-4e7c-ab43-b9d272c7c700,God'S Love Hospital,private,"Orile Ikeja, Ikeja LGA, Lagos State",Ikeja,6.593898,3.341992,Secondary
+grid3-nga-v2:67bef695-aa65-4fd3-8515-a0930def2b2b,Healing Balm Hospital,private,"Seriki Aro, Ikeja LGA, Lagos State",Ikeja,6.599080,3.342940,Secondary
+grid3-nga-v2:a590d5d2-85a7-434a-9bae-28920f971c18,Healthville Medical Consultant Clinic,private,"Seriki Aro, Ikeja LGA, Lagos State",Ikeja,6.615140,3.345890,Secondary
+grid3-nga-v2:ab57e454-64ae-4dbe-826b-889c017f4e51,Holy Trinity Hospital,private,"Orile Ikeja, Ikeja LGA, Lagos State",Ikeja,6.599562,3.343775,Secondary
+grid3-nga-v2:70b9b32f-ef00-4387-a70b-2cb997ee3aca,Idowu Hospital Specialist,private,"Olusosun, Ikeja LGA, Lagos State",Ikeja,6.601770,3.361710,Secondary
+grid3-nga-v2:9bf7a175-3dce-4a7a-8ead-48206a9949db,Idowu Specialist Hospital,private,"Olusosun, Ikeja LGA, Lagos State",Ikeja,6.587432,3.373725,Tertiary
+grid3-nga-v2:c001b82e-5adc-4ebd-b757-686a2640a2e9,Ikeja Medical Center,private,"Alade, Ikeja LGA, Lagos State",Ikeja,6.606498,3.352684,Secondary
+grid3-nga-v2:b69b2398-9ec4-45b0-ad2f-22c74284f0c2,Isalu Hospital,private,"Ogba Oluwole, Ikeja LGA, Lagos State",Ikeja,6.631120,3.346824,Secondary
+grid3-nga-v2:dee636da-3443-4b6e-9da3-a8e7506cf330,Jajo Clinic,private,"Seriki Aro, Ikeja LGA, Lagos State",Ikeja,6.613609,3.347158,Secondary
+grid3-nga-v2:0e5bf27f-9ced-40e6-bf93-540c8298b2c7,Kowa Specialist Clinic,private,"Ogba Oluwole, Ikeja LGA, Lagos State",Ikeja,6.614829,3.342482,Primary
+grid3-nga-v2:d1ba48d2-b83a-4539-aed2-506c7500a762,Lagoon Ikeja Hospital,private,"Seriki Aro, Ikeja LGA, Lagos State",Ikeja,6.604422,3.345923,Secondary
+grid3-nga-v2:f9315884-9d2f-424f-a694-5f098dbe63e7,Lagos State University Teaching Hospital,public,"Gra, Ikeja LGA, Lagos State",Ikeja,6.591580,3.342762,Secondary
+grid3-nga-v2:3e7ba338-3afb-47b3-ab70-1e1a27fc4df4,Lifegate Hospital Specialist,private,"Ogba Oluwole, Ikeja LGA, Lagos State",Ikeja,6.630738,3.342702,Secondary
+grid3-nga-v2:d57c4134-968f-4dc8-a699-a8d2ea44821c,Motayo Hospital,private,"Orile Ikeja, Ikeja LGA, Lagos State",Ikeja,6.599597,3.350338,Secondary
+grid3-nga-v2:c5de80c1-1412-46e0-8de2-82f1f679b21d,Mother & Child Hospital Mother and Child Hospital,private,"Akiode, Ikeja LGA, Lagos State",Ikeja,6.611692,3.345296,Secondary
+grid3-nga-v2:35d2b5a8-eec1-44e5-9c4d-a1abe09057b5,Mother and Child Hospital Mother and Child Hospital,private,"Seriki Aro, Ikeja LGA, Lagos State",Ikeja,6.608907,3.343260,Secondary
+grid3-nga-v2:453094c8-9102-4936-b237-efee4c9ddc8f,New Gate Medical Services,private,"Ojodu, Ikeja LGA, Lagos State",Ikeja,6.639080,3.358940,Secondary
+grid3-nga-v2:c53bd174-85db-49c1-ad9e-7372c90261ec,New Ikeja Hospital,private,"Orile Ikeja, Ikeja LGA, Lagos State",Ikeja,6.603596,3.347211,Secondary
+grid3-nga-v2:7e874343-85e6-44fa-ae76-06da30f1b9f1,Newgate Specialist Hospital,private,"Ojodu, Ikeja LGA, Lagos State",Ikeja,6.639052,3.359768,Tertiary
+grid3-nga-v2:afb956e0-5985-4712-8264-3c93e91c07b0,Olan Medical Center,private,"Seriki Aro, Ikeja LGA, Lagos State",Ikeja,6.540840,3.391810,Secondary
+grid3-nga-v2:ad071aad-443c-4ecc-bba0-b03c03b18076,Onigbomgbo Cottage Hospital,private,"G R A, Ikeja LGA, Lagos State",Ikeja,6.589905,3.351929,Secondary
+grid3-nga-v2:128b8283-3ed2-4fe6-9215-9296b547cea7,Police College Hospital,public,"Gra, Ikeja LGA, Lagos State",Ikeja,6.580857,3.347721,Secondary
+grid3-nga-v2:0f31946f-d4dd-4f84-9122-5be9e8577e50,Reddington Hospital,private,"Gra, Ikeja LGA, Lagos State",Ikeja,6.583661,3.357378,Secondary
+grid3-nga-v2:9e4eeb30-a57c-42e7-a781-b4e993d26c27,Regency Hospital Specialist,private,"Aguda (Ikeja), Ikeja LGA, Lagos State",Ikeja,6.640420,3.344620,Secondary
+grid3-nga-v2:89115f4e-143f-48ed-9b59-6f4da622c940,Royan Hospital,private,"Ojodu, Ikeja LGA, Lagos State",Ikeja,6.644263,3.363435,Secondary
+grid3-nga-v2:0d8664a2-93cb-4a6d-86b9-732f5f498c6d,Silkin Hospital,private,"Oke-Ira Powerline, Ikeja LGA, Lagos State",Ikeja,6.649740,3.346640,Secondary
+grid3-nga-v2:83e520ac-1b53-47cc-9555-31990db1cfbb,Solid Rock Hospital,private,"Ojodu, Ikeja LGA, Lagos State",Ikeja,6.642151,3.363280,Secondary
+grid3-nga-v2:49dee1f3-45fe-4165-a40b-68b17afa0179,Soteria Hospital Maternity,private,"Akiode, Ikeja LGA, Lagos State",Ikeja,6.637140,3.333970,Secondary
+grid3-nga-v2:fdb97dfe-b7c2-4fc3-8a63-f47bf2712555,South Shore Women and Children Hospital,private,"Gra, Ikeja LGA, Lagos State",Ikeja,6.575890,3.360160,Secondary
+grid3-nga-v2:e2287bb7-6613-46c0-bdb9-ecec346585aa,St Ives Hospital Specialist,private,"Opeji, Ikeja LGA, Lagos State",Ikeja,6.590442,3.362608,Secondary
+grid3-nga-v2:bf62085f-9339-4b7a-ad22-e4148863e962,St Leo'S Medical Center,private,"Orile Ikeja, Ikeja LGA, Lagos State",Ikeja,6.597173,3.350488,Secondary
+grid3-nga-v2:c6a8afb7-cc82-4e53-9cf7-7391b73435b7,St Mary Hospital Specialist,private,"Akiode, Ikeja LGA, Lagos State",Ikeja,6.632027,3.361674,Secondary
+grid3-nga-v2:108a8fb3-eb27-47cf-b792-9692d6434e9e,St Timothy Catholic Health Clinic,private,"Ojodu, Ikeja LGA, Lagos State",Ikeja,6.648840,3.357100,Secondary
+grid3-nga-v2:444a8683-aaf6-44fb-89a1-b4a0a68a794e,Synpse Psychological Services,private,"Onilekere, Ikeja LGA, Lagos State",Ikeja,6.603200,3.324950,Secondary
+grid3-nga-v2:45509924-fa93-4194-9101-7e144f43e443,Taal Specialist Hospital,private,"Seriki Aro, Ikeja LGA, Lagos State",Ikeja,6.605170,3.341088,Tertiary
+grid3-nga-v2:5a676318-fed8-409a-ac09-fe218c5318be,The Brighthope Hospital Specialist,private,"Akiode, Ikeja LGA, Lagos State",Ikeja,6.632162,3.353753,Primary
+grid3-nga-v2:16c6680e-9e7c-43f2-b5e9-da48fdadc543,The Chest Clinic,private,"Gra, Ikeja LGA, Lagos State",Ikeja,6.577430,3.356610,Secondary
+grid3-nga-v2:4a56bed3-3e8e-4e2f-a2a7-aa0a7fcdce6b,The Humana Hospital,private,"Alausa, Ikeja LGA, Lagos State",Ikeja,6.620573,3.354375,Secondary
+grid3-nga-v2:b098f718-ce07-42d3-92e4-92dc4d7ca9a9,The Roding Medical Center,private,"Ojodu, Ikeja LGA, Lagos State",Ikeja,6.639000,3.362380,Secondary
+grid3-nga-v2:d6b25837-ef93-40bd-aebd-2dfa2e16525f,The Shepherd Medical Center,private,"Opeji, Ikeja LGA, Lagos State",Ikeja,6.589477,3.361697,Secondary
+grid3-nga-v2:0619cb85-2833-429c-9ac0-083739fd4687,Tmac Hospital Specialist,private,"Opeji, Ikeja LGA, Lagos State",Ikeja,6.593177,3.359200,Secondary
+grid3-nga-v2:fa9cc997-9448-49a0-8cec-881670851439,Tolu Hospital,private,"Oke-Ira Powerline, Ikeja LGA, Lagos State",Ikeja,6.651510,3.347840,Secondary
+grid3-nga-v2:ac99f70c-b678-433b-9676-1f489950eabe,White House Clinic,private,"Orile Ikeja, Ikeja LGA, Lagos State",Ikeja,6.599175,3.345283,Secondary
+grid3-nga-v2:95c55bc4-4f54-4e9d-853d-c5594a5eb3c6,Witcon Clinic,private,"Akiode, Ikeja LGA, Lagos State",Ikeja,6.636920,3.361736,Secondary
+grid3-nga-v2:69042d2c-6f54-4223-819e-5ea04d78c16b,Adedabs Hospital,private,"Ewu Elepe, Ikorodu LGA, Lagos State",Ikorodu,6.624972,3.573963,Secondary
+grid3-nga-v2:c6c1d743-8c13-4fde-9047-5a504f76b030,Ajayi Medical Center,private,"Itunpate, Ikorodu LGA, Lagos State",Ikorodu,6.617915,3.508547,Secondary
+grid3-nga-v2:c0d70d62-d108-4358-96e0-ce4f0a043053,Arkville Hospital,private,"Itunpate, Ikorodu LGA, Lagos State",Ikorodu,6.621720,3.513620,Secondary
+grid3-nga-v2:c944c709-a49b-474e-8f2c-d90ef8ba9db8,Aromedic Hospital,private,"Aiyegbami, Ikorodu LGA, Lagos State",Ikorodu,6.567198,3.592075,Secondary
+grid3-nga-v2:86d3c20b-0c4f-4e45-8dff-d67df238fb45,Aruna Ogun Memorial Hospital Specialist,private,"Ipakodo, Ikorodu LGA, Lagos State",Ikorodu,6.602957,3.492767,Secondary
+grid3-nga-v2:4c0a2ae6-32a7-4e79-adaa-8282d0e5b39f,Bidemis Victory Hospital,private,"Ajaguro, Ikorodu LGA, Lagos State",Ikorodu,6.649062,3.475048,Secondary
+grid3-nga-v2:159f6ebd-653b-47c8-8b4b-a26801ef9a48,Bidems Victory Hospital,private,"Isawo, Ikorodu LGA, Lagos State",Ikorodu,6.649150,3.475450,Secondary
+grid3-nga-v2:a718ba1b-c580-4760-b403-ede6ae2a78d2,Blue Crescent Limited Hospital,private,"Ewu Elepe, Ikorodu LGA, Lagos State",Ikorodu,6.615407,3.603957,Secondary
+grid3-nga-v2:57592e7d-90ad-4ea7-82a7-d1883dcc71bf,Bolakunmi Idowu Memorial Medical Center,private,"Owutu, Ikorodu LGA, Lagos State",Ikorodu,6.636639,3.479599,Secondary
+grid3-nga-v2:7ce116bc-fade-477d-89ad-a0ea9e514bb0,Dasochris Hospital,private,"Odongunyan, Ikorodu LGA, Lagos State",Ikorodu,6.667692,3.529548,Secondary
+grid3-nga-v2:a44d130f-539e-4dd1-9d75-6a2d3f34f5d7,De Victory Life Hospital Specialist,private,"Oke Eletu, Ikorodu LGA, Lagos State",Ikorodu,6.579903,3.587753,Secondary
+grid3-nga-v2:90c4143f-56a9-4561-8d96-46ca7b86b778,Divine Living Well Hospital,private,"Erikorodo, Ikorodu LGA, Lagos State",Ikorodu,6.644250,3.561570,Secondary
+grid3-nga-v2:1367655e-24b4-42ac-a282-351d1a8ccdf7,Ehi Clinic,private,"Isawo, Ikorodu LGA, Lagos State",Ikorodu,6.656820,3.477370,Secondary
+grid3-nga-v2:11b722df-3068-4fce-8824-a9da5c035536,Esiri Specialist Clinic and Maternity Centre,private,"Aga Ijomu, Ikorodu LGA, Lagos State",Ikorodu,6.610798,3.501006,Secondary
+grid3-nga-v2:2c0480bb-d75d-4b9c-8fab-eeaf2183138d,Exceeding Grace Hospital,private,"Odongunyan, Ikorodu LGA, Lagos State",Ikorodu,6.673388,3.474187,Secondary
+grid3-nga-v2:331748ec-0e47-42cd-ad90-8ec9f8a76c91,G Kamza Medical Center,private,"Ibeshe - Ikorodu, Ikorodu LGA, Lagos State",Ikorodu,6.571660,3.480110,Secondary
+grid3-nga-v2:1a9ebc7e-ebfc-4326-88b0-a6616183dd72,Harpazo Maternity Home,private,"Erikorodo, Ikorodu LGA, Lagos State",Ikorodu,6.615978,3.533905,Secondary
+grid3-nga-v2:92a5a8df-3372-4bfb-86b8-f00547e577c4,Helping Hand Royal Hospital,private,"Agbala Lasunwon, Ikorodu LGA, Lagos State",Ikorodu,6.646540,3.515510,Secondary
+grid3-nga-v2:b778bb52-8aa8-4340-ad8c-30118f190c74,Hopewell Hospital,private,"Ipakodo, Ikorodu LGA, Lagos State",Ikorodu,6.607032,3.491962,Secondary
+grid3-nga-v2:713469a1-c8a8-49e8-8e3e-32930db25edb,Ijede General Hospital,public,"Egbin, Ikorodu LGA, Lagos State",Ikorodu,6.564263,3.596548,Secondary
+grid3-nga-v2:eb6aca67-f3a5-4529-8677-4ffecbd46786,Ikorodu General Hospital,public,"Aga Ijomu, Ikorodu LGA, Lagos State",Ikorodu,6.608861,3.498927,Secondary
+grid3-nga-v2:6133fd0a-c1ff-4fd9-a0fc-a55d3802afb1,Jobi Hospital,private,"Aige Solomade, Ikorodu LGA, Lagos State",Ikorodu,6.621770,3.498290,Secondary
+grid3-nga-v2:8e4fde59-1918-4ccc-8c7e-0469426161b5,K Idowu Medical Clinic,private,"Itunmokun, Ikorodu LGA, Lagos State",Ikorodu,6.594620,3.522760,Secondary
+grid3-nga-v2:d01f62f0-f99d-4053-a5ca-5baa77ade0e2,Katis Medical Center,private,"Aga Ijomu, Ikorodu LGA, Lagos State",Ikorodu,6.605780,3.507010,Secondary
+grid3-nga-v2:3a02ba64-d465-4048-af01-019b3e62b055,Kings Court Hospital,private,"Erikorodo, Ikorodu LGA, Lagos State",Ikorodu,6.636550,3.546702,Secondary
+grid3-nga-v2:2313e94a-14bd-4e32-b483-bb6750bfbc28,Kolak Hospital,private,"Agbala Lasunwon, Ikorodu LGA, Lagos State",Ikorodu,6.646578,3.517032,Secondary
+grid3-nga-v2:c43a71bc-f064-4c0c-982d-9c0367481e3e,Lagos State Polytechnic Medical Center,public,"Itunpate, Ikorodu LGA, Lagos State",Ikorodu,6.646015,3.518288,Secondary
+grid3-nga-v2:1e855983-f4e1-4d2e-8d17-e5129616b0f8,Land Mark Medical Services Limited,private,"Erikorodo, Ikorodu LGA, Lagos State",Ikorodu,6.628350,3.509650,Secondary
+grid3-nga-v2:65f2f3cc-6685-4a7b-a5e6-c6a4c4a4a094,Life Guard Limited Hospital,private,"Ibeshe - Ikorodu, Ikorodu LGA, Lagos State",Ikorodu,6.559441,3.481170,Secondary
+grid3-nga-v2:f03ec236-7c1d-4fe0-9695-c424ea43cb4b,Life Source Hospital,private,"Agura, Ikorodu LGA, Lagos State",Ikorodu,6.615120,3.596053,Secondary
+grid3-nga-v2:48d1b3ba-35fe-4519-ae5c-94ec5ec8f878,Lifeshade Hospital and Medical Facilities,private,"Sholafun, Ikorodu LGA, Lagos State",Ikorodu,6.621000,3.521000,Secondary
+grid3-nga-v2:dbbf72f4-2895-4e4d-ab1b-6165b1883f8d,M Cred Hospital,private,"Odongunyan, Ikorodu LGA, Lagos State",Ikorodu,6.663376,3.521113,Secondary
+grid3-nga-v2:fbaea0bf-4c0c-437d-96d2-d8340a6fd085,Mediplus Premier Hospital,private,"Odongunyan, Ikorodu LGA, Lagos State",Ikorodu,6.675350,3.539710,Secondary
+grid3-nga-v2:1d056516-fc3b-489a-af75-ccfc60ae211b,Mother'S Pride Hospital,private,"Agbala Lasunwon, Ikorodu LGA, Lagos State",Ikorodu,6.649520,3.516838,Secondary
+grid3-nga-v2:64f35f46-f048-4812-98fb-a7a9cef90019,New Gate Medical Services Limited.,private,"Aige Solomade, Ikorodu LGA, Lagos State",Ikorodu,6.622932,3.496847,Secondary
+grid3-nga-v2:8346bdb2-3882-4e7b-868b-4adb5cfb41d9,Oak Hospital,private,"Owutu, Ikorodu LGA, Lagos State",Ikorodu,6.623593,3.483430,Secondary
+grid3-nga-v2:8128b8b3-af3d-4da5-a548-36ed729ee3e7,Pharcept Hospital,private,"Odongunyan, Ikorodu LGA, Lagos State",Ikorodu,6.664670,3.480312,Secondary
+grid3-nga-v2:ac817903-81ce-43c8-a43b-67841113fe75,Point Care Hospital,private,"Isawo, Ikorodu LGA, Lagos State",Ikorodu,6.645860,3.477760,Secondary
+grid3-nga-v2:e8aef94b-175b-45fb-8d00-47846947b359,Prince Of Peace Nursing Home,private,"Odongunyan, Ikorodu LGA, Lagos State",Ikorodu,6.680302,3.487767,Primary
+grid3-nga-v2:0a6627f7-8d2e-441a-b982-c19369ad2ce6,Rapha Medical Center,private,"Aga Ijomu, Ikorodu LGA, Lagos State",Ikorodu,6.609722,3.508368,Secondary
+grid3-nga-v2:fd584eef-f7d8-45d9-9d18-0961670c1090,Rembo Hospital,private,"Ewu Elepe, Ikorodu LGA, Lagos State",Ikorodu,6.584280,3.564510,Secondary
+grid3-nga-v2:b60dd924-2c9f-4865-8e6f-afef9a2d75f4,Rio Hospital,private,"Ipakodo, Ikorodu LGA, Lagos State",Ikorodu,6.609610,3.484110,Secondary
+grid3-nga-v2:6eaee795-623e-456f-ae2c-4761fc2d2f46,Saheed Memorial Hospital,private,"Aige Solomade, Ikorodu LGA, Lagos State",Ikorodu,6.624550,3.491550,Secondary
+grid3-nga-v2:48635e29-c1a4-4797-a601-ce59f09ea5d1,Sanof Medical and Allied Services Limited,private,"Sholafun, Ikorodu LGA, Lagos State",Ikorodu,6.611740,3.525920,Secondary
+grid3-nga-v2:dd90e78b-18e9-43b5-b2e8-c3a86c5eba12,Saviour De Rock Hospital,private,"Odongunyan, Ikorodu LGA, Lagos State",Ikorodu,6.660545,3.525423,Secondary
+grid3-nga-v2:730b70bf-219f-4460-bc55-89b0ed78ad8b,St Augustine Hospital,private,"Aige Solomade, Ikorodu LGA, Lagos State",Ikorodu,6.624712,3.488338,Secondary
+grid3-nga-v2:99680999-992d-4d9a-bda0-9f8f9cc1d3e8,St Mary Specialist Hospital,public,"Agura, Ikorodu LGA, Lagos State",Ikorodu,6.633460,3.589760,Tertiary
+grid3-nga-v2:ed8bae00-fb13-43ef-abac-d5a27ff5d9a9,Stevans Medical Center,private,"Ajaguro, Ikorodu LGA, Lagos State",Ikorodu,6.645780,3.484150,Secondary
+grid3-nga-v2:a3aad499-33bc-45a3-bf7b-cf7bfbd8ac91,Tender Hospital,private,"Odongunyan, Ikorodu LGA, Lagos State",Ikorodu,6.673937,3.516398,Secondary
+grid3-nga-v2:6f8607c5-9f8c-4f9e-86d1-02f4685cefd5,The Excellence Hospital,private,"Ipakodo, Ikorodu LGA, Lagos State",Ikorodu,6.594020,3.492590,Secondary
+grid3-nga-v2:c0f3c16f-b970-4544-82cc-b9ff8279b954,Uzopean Hospital Specialist,private,"Ipakodo, Ikorodu LGA, Lagos State",Ikorodu,6.598280,3.500190,Secondary
+grid3-nga-v2:eddbb657-38a0-4211-8b44-95a2df85e772,Warm Heart Hospital,private,"Ewu Elepe, Ikorodu LGA, Lagos State",Ikorodu,6.618080,3.569257,Secondary
+grid3-nga-v2:058bc432-e000-4968-be48-3455ea749721,Abby'S Paediatric Care,private,"Isheri Olowora, Kosofe LGA, Lagos State",Kosofe,6.634140,3.372430,Secondary
+grid3-nga-v2:6bbc036a-bf6c-4f33-adcf-4d45f2b2ab1c,Adetola Hospital Specialist,private,"Araromi Ifako, Kosofe LGA, Lagos State",Kosofe,6.553378,3.392683,Secondary
+grid3-nga-v2:ca6c5ab1-9e46-4945-83c5-57fe34008fcc,Afirmed Hospital Specialist,private,"Orile Oworo, Kosofe LGA, Lagos State",Kosofe,6.552673,3.392273,Secondary
+grid3-nga-v2:a8fa673d-6bca-4b29-846a-988870eb37b4,Al Afiat Clinic,private,"Agiliti Maidan, Kosofe LGA, Lagos State",Kosofe,6.603180,3.389640,Secondary
+grid3-nga-v2:d8fa48e6-9b23-40e9-b5d6-91d9822dab22,Al Sadiq Hospital,private,"Agiliti Maidan, Kosofe LGA, Lagos State",Kosofe,6.612320,3.395070,Secondary
+grid3-nga-v2:2727aac5-a87f-4d22-b58e-9188e05f88c4,Ameso Hospital Specialist,private,"Ojota, Kosofe LGA, Lagos State",Kosofe,6.586914,3.384521,Secondary
+grid3-nga-v2:a3fbe074-c934-4823-90ef-98187afb68cf,Aniyun Hospital,private,"Araromi Ifako, Kosofe LGA, Lagos State",Kosofe,6.554067,3.389615,Secondary
+grid3-nga-v2:d7e10547-695d-41a1-8a98-881e5c0ad711,Apex Care Hospital,private,"Ojota, Kosofe LGA, Lagos State",Kosofe,6.583238,3.381265,Secondary
+grid3-nga-v2:aa1fc713-21e8-45ef-bb24-0ebf68c24849,Aplomb Medical Center,private,"Ogudu, Kosofe LGA, Lagos State",Kosofe,6.570432,3.395007,Secondary
+grid3-nga-v2:9115d067-750b-4e96-8a40-e455ed967c9f,As Sakinah Clinic,private,"Bamgbe/Elebiju Ward, Kosofe LGA, Lagos State",Kosofe,6.592920,3.395070,Secondary
+grid3-nga-v2:41fa6223-75b1-4343-b7a3-3e0b75bc03de,Ason'S Medical Center,private,"Bamgbe/Elebiju Ward, Kosofe LGA, Lagos State",Kosofe,6.597480,3.389780,Secondary
+grid3-nga-v2:f90408fa-d0d9-47bc-acbd-65d34085aba8,Ayo Clinic(Kosofe),private,"Arowosegbe Alapere, Kosofe LGA, Lagos State",Kosofe,6.588175,3.398292,Secondary
+grid3-nga-v2:978332b0-94cb-4049-aba5-838b206a6d9c,Barbinton Hospital,private,"Odogun Ajegunle, Kosofe LGA, Lagos State",Kosofe,6.599583,3.423365,Secondary
+grid3-nga-v2:2c2bc5e4-9d19-403e-9807-fed6454d5d3e,Barbinton Medical Center,private,"Orile Ketu, Kosofe LGA, Lagos State",Kosofe,6.604333,3.389714,Secondary
+grid3-nga-v2:df949303-3743-4780-bc2f-043166a5f57a,Bernice Kosofe Clinic,private,"Erunkun Orishigun, Kosofe LGA, Lagos State",Kosofe,6.604309,3.397095,Secondary
+grid3-nga-v2:43500431-a24a-4f8f-87a7-ff3ae391f908,Bethphage Medical Clinic,private,"Mende, Kosofe LGA, Lagos State",Kosofe,6.570950,3.374982,Secondary
+grid3-nga-v2:ff32c734-d601-4653-b8f7-851f5dd39158,Bolakunmi Hospital,private,"Bamgbe/Elebiju Ward, Kosofe LGA, Lagos State",Kosofe,6.606150,3.389750,Secondary
+grid3-nga-v2:7b4f76ec-f473-41fe-9cb1-4430683c0bda,Boye Convalescent Clinic,private,"Shangisha Magodo, Kosofe LGA, Lagos State",Kosofe,6.613610,3.373860,Secondary
+grid3-nga-v2:7741fdd3-fc21-432b-b237-523265c6c15d,Buena Salute Hospital,private,"Anthony, Kosofe LGA, Lagos State",Kosofe,6.563920,3.373320,Secondary
+grid3-nga-v2:efa2306e-5914-439f-9475-2a024cd99c16,Chevron Hospital,private,"Araromi Ifako, Kosofe LGA, Lagos State",Kosofe,6.562467,3.383733,Secondary
+grid3-nga-v2:16fc31bd-44fb-4007-b9cb-596396a60423,Childkid Children Hospital,private,"Ogudu, Kosofe LGA, Lagos State",Kosofe,6.573670,3.393190,Secondary
+grid3-nga-v2:044640ba-f4c9-4e05-8c91-ebdf296227e4,Chion Family Medical Centre,private,"Mende, Kosofe LGA, Lagos State",Kosofe,6.576350,3.372050,Secondary
+grid3-nga-v2:f9d2d32a-2cd0-434f-a804-7d1136f14970,Cynosure Anaesthetic Hospital,private,"Mende, Kosofe LGA, Lagos State",Kosofe,6.568410,3.373930,Secondary
+grid3-nga-v2:09c35117-53b1-4655-b942-6d96c8c2681e,Dafe Medical Center,private,"Orile Ketu, Kosofe LGA, Lagos State",Kosofe,6.603990,3.385870,Secondary
+grid3-nga-v2:d4dd2a76-3f1e-4904-98ec-6d54d7f360da,Deji Clinic,private,"Bamgbe/Elebiju Ward, Kosofe LGA, Lagos State",Kosofe,6.595670,3.396020,Secondary
+grid3-nga-v2:209e9e6d-0342-4dfe-a1d1-075e759a1d80,Delta Crown Hospital,private,"Erunkun Orishigun, Kosofe LGA, Lagos State",Kosofe,6.600328,3.390130,Secondary
+grid3-nga-v2:46b4d91d-afbd-4e65-a0bb-8f18370ba902,Demoralayo Hospital,private,"Arowosegbe Alapere, Kosofe LGA, Lagos State",Kosofe,6.590313,3.398052,Secondary
+grid3-nga-v2:fcc6ae15-51e9-433d-82d9-97ab320b5901,Divine Specialist Clinic,private,"Anthony, Kosofe LGA, Lagos State",Kosofe,6.564797,3.376387,Secondary
+grid3-nga-v2:179feb5e-d3b2-4c64-be8d-bceeea408eb7,Dominion Hospital,private,"Shangisha Magodo, Kosofe LGA, Lagos State",Kosofe,6.595050,3.395610,Secondary
+grid3-nga-v2:a8e12c23-bb91-481c-ab43-3fc8930d2339,Dominion Specialist Clinic,private,"Orile Ikosi, Kosofe LGA, Lagos State",Kosofe,6.602910,3.388030,Tertiary
+grid3-nga-v2:d0703778-b108-49c7-9ad5-85546a677c59,Donas Hospital Specialist,private,"Odogun Ajegunle, Kosofe LGA, Lagos State",Kosofe,6.601152,3.418118,Secondary
+grid3-nga-v2:1e470412-b566-4aea-927c-48f13c27ed00,Elegbeleye Hospital Specialist,private,"Ikosi Oke, Kosofe LGA, Lagos State",Kosofe,6.603547,3.381965,Secondary
+grid3-nga-v2:804bf6f1-01f5-47de-b070-4e693613d8c3,Family and Friend Hospital,private,"Araromi Ifako, Kosofe LGA, Lagos State",Kosofe,6.556885,3.384705,Secondary
+grid3-nga-v2:01b6cb0e-6515-4a1c-a31e-606703e6215c,Fineday Hospital,private,"Erunkun Orishigun, Kosofe LGA, Lagos State",Kosofe,6.597290,3.392030,Secondary
+grid3-nga-v2:034c8f5f-8a38-446f-aa36-98a43af1df66,First Cross Hospital,private,"Orile Ketu, Kosofe LGA, Lagos State",Kosofe,6.603298,3.387033,Secondary
+grid3-nga-v2:5fcdc701-f1c9-49cc-95e9-85b64b40da3e,Folabi Medical Center,private,"Orile Oworo, Kosofe LGA, Lagos State",Kosofe,6.549557,3.403004,Secondary
+grid3-nga-v2:035554d5-694f-4c29-9fc3-3309f37c9638,Fortress Health Consult,private,"Shangisha Magodo, Kosofe LGA, Lagos State",Kosofe,6.613840,3.373980,Secondary
+grid3-nga-v2:3504c08f-3c77-4ffc-81e6-1ad87ce521ef,Gbagada General Hospital,public,"Araromi Ifako, Kosofe LGA, Lagos State",Kosofe,6.552124,3.387878,Secondary
+grid3-nga-v2:79224652-ec8a-42dc-a917-27c9ce407936,Gbomojo Maternity Home,private,"Anthony, Kosofe LGA, Lagos State",Kosofe,6.561355,3.369740,Secondary
+grid3-nga-v2:7c4d67b7-c44f-46c3-a267-8f2f5d20d269,Gloria Hospital,private,"Orile Oworo, Kosofe LGA, Lagos State",Kosofe,6.562720,3.399020,Secondary
+grid3-nga-v2:ce04a8ab-b05e-4984-a14a-44e74a751e54,Healal Hospital Specialist,private,"Agiliti Maidan, Kosofe LGA, Lagos State",Kosofe,6.611982,3.396243,Secondary
+grid3-nga-v2:468fa341-41fb-4d67-9923-cef65f5c2bdf,Horeb Consult Hospital,private,"Ojota, Kosofe LGA, Lagos State",Kosofe,6.585830,3.384160,Secondary
+grid3-nga-v2:acde09b0-234b-485e-afbb-6ce7e41e71ae,Ifpf Hospital,private,"Mende, Kosofe LGA, Lagos State",Kosofe,6.574840,3.369800,Secondary
+grid3-nga-v2:e1e149a5-8f75-4a43-9e96-7854f3716b5f,Inland Hospital Specialist,private,"Ogudu, Kosofe LGA, Lagos State",Kosofe,6.586202,3.397690,Secondary
+grid3-nga-v2:f483d6d7-f419-4940-a44b-5c090d4d3422,Jacon Davids Hospital,private,"Araromi Ifako, Kosofe LGA, Lagos State",Kosofe,6.559692,3.386902,Secondary
+grid3-nga-v2:94183be8-b65d-4436-9bf4-df9c6ed02cf5,King Grace Maternity Home,private,"Olubori / Mosafejo, Kosofe LGA, Lagos State",Kosofe,6.551879,3.399720,Secondary
+grid3-nga-v2:1c5f4e9a-06a2-4803-8c8b-30a26b8bf65a,King Solomon Hospital,private,"Anthony, Kosofe LGA, Lagos State",Kosofe,6.560235,3.368777,Secondary
+grid3-nga-v2:f54dda0a-32b6-4273-8099-2cd6d2bee059,Krystal Medical Center,private,"Shangisha Magodo, Kosofe LGA, Lagos State",Kosofe,6.618940,3.376985,Secondary
+grid3-nga-v2:0eee34f2-3906-4938-a819-c26eb675ffc2,Lade Hospital,private,"Orile Ikosi, Kosofe LGA, Lagos State",Kosofe,6.601482,3.386175,Secondary
+grid3-nga-v2:f24e5663-2b0a-4e74-958a-55b54efa5e65,Lakefront Hospital,private,"Arowosegbe Alapere, Kosofe LGA, Lagos State",Kosofe,6.592388,3.399555,Secondary
+grid3-nga-v2:65757ba9-1696-4b05-82a6-2309451bd857,Life Fountain Medical Center,private,"Anthony, Kosofe LGA, Lagos State",Kosofe,6.562515,3.370693,Secondary
+grid3-nga-v2:f2d6782c-13b6-4e28-bdc7-7d691a3f4fed,Lifenest Hospital,private,"Araromi Ifako, Kosofe LGA, Lagos State",Kosofe,6.561580,3.384240,Secondary
+grid3-nga-v2:8af92ecc-acd4-42a7-ab92-958f7b90a981,Magmed Medical Center,private,"Shangisha Magodo, Kosofe LGA, Lagos State",Kosofe,6.618900,3.376343,Secondary
+grid3-nga-v2:2dba6c0c-a992-4bb7-98f5-ee2b6347c2db,Magodo Hospital Specialist,private,"Shangisha Magodo, Kosofe LGA, Lagos State",Kosofe,6.615832,3.370917,Secondary
+grid3-nga-v2:12e62cbe-274d-42e2-869c-eb734ed062a9,Mayflower Hospital,private,"Isheri Olowora, Kosofe LGA, Lagos State",Kosofe,6.635933,3.380422,Secondary
+grid3-nga-v2:61c0f75a-4504-4896-9d65-01758d831ced,Mcdonald Hospital Specialist,private,"Shangisha Magodo, Kosofe LGA, Lagos State",Kosofe,6.620993,3.373042,Secondary
+grid3-nga-v2:9c5dca37-dedf-4a4a-b257-b4fb5cc83f08,Med In Specialist Hospital,private,"Ogudu, Kosofe LGA, Lagos State",Kosofe,6.572327,3.398682,Secondary
+grid3-nga-v2:2d52ff4c-e39a-49ba-82b2-7b23dfffe64a,Neolife Clinic,private,"Odogun Ajegunle, Kosofe LGA, Lagos State",Kosofe,6.607520,3.424970,Secondary
+grid3-nga-v2:82811e6f-43a7-4ba3-9f8c-ae7196106050,O'Live Clime Hospital,private,"Odogun Ajegunle, Kosofe LGA, Lagos State",Kosofe,6.607690,3.422210,Secondary
+grid3-nga-v2:efa40016-a0a6-4f3a-9f9e-1ea861be5f65,Omolewa Medical Center,private,"Isheri Olowora, Kosofe LGA, Lagos State",Kosofe,6.632605,3.377682,Secondary
+grid3-nga-v2:0240c80d-3ce8-4c57-a90d-6cbc0071bd46,Peach Children Medical Centre,private,"Ogudu, Kosofe LGA, Lagos State",Kosofe,6.578980,3.386907,Secondary
+grid3-nga-v2:ffcc98ff-8645-4917-a0c7-b9a6f241a75a,Queens Hospital Specialist,private,"Shangisha Magodo, Kosofe LGA, Lagos State",Kosofe,6.618452,3.365503,Secondary
+grid3-nga-v2:0adbac4c-5770-45eb-ab69-584ca39e857e,Rally Kosofe Hospital,private,"Bamgbe/Elebiju Ward, Kosofe LGA, Lagos State",Kosofe,6.596880,3.387810,Secondary
+grid3-nga-v2:577792c9-fa23-45fb-a6ce-d9b4b8b1745b,Rola Specialist Clinic,private,"Anthony, Kosofe LGA, Lagos State",Kosofe,6.565491,3.371277,Tertiary
+grid3-nga-v2:fc96bdf3-2d47-4f6b-9558-aea24554887d,Sky High Medical Center,private,"Shangisha Magodo, Kosofe LGA, Lagos State",Kosofe,6.620334,3.372236,Secondary
+grid3-nga-v2:205ba938-40cb-41b1-bb6f-f519fc047a9a,St Anthony'S Hospital,private,"Bamgbe/Elebiju Ward, Kosofe LGA, Lagos State",Kosofe,6.609314,3.397522,Secondary
+grid3-nga-v2:092b56ac-78fa-42b2-ba6e-6b6879678e25,St Catherine Of Siena Ltd Hospital,private,"Isheri Olowora, Kosofe LGA, Lagos State",Kosofe,6.638208,3.396122,Secondary
+grid3-nga-v2:89bc9805-20c8-43df-b3a8-b3925f30f64d,St Daniels Hospital,private,"Olubori/Mosafejo, Kosofe LGA, Lagos State",Kosofe,6.555199,3.397039,Secondary
+grid3-nga-v2:d8e82c2e-45e2-449b-8cf4-dd0c86864e9a,St Michael Medical Center,private,"Agidi / Oshogun, Kosofe LGA, Lagos State",Kosofe,6.595780,3.399950,Secondary
+grid3-nga-v2:207dec46-caaa-4fc5-b7e3-c3cf97112c66,St Nicholas (Anthony) Hospital Specialist,private,"Anthony, Kosofe LGA, Lagos State",Kosofe,6.597180,3.388055,Secondary
+grid3-nga-v2:533ae976-4e1d-435a-b156-8f03dfdc5a80,Timoteik Hospital,private,"Arowosegbe Alapere, Kosofe LGA, Lagos State",Kosofe,6.586050,3.397880,Secondary
+grid3-nga-v2:2e7cdce1-0ca9-444d-9018-d4618e12afcd,Tokayo Medical Center,private,"Orile Ketu, Kosofe LGA, Lagos State",Kosofe,6.601893,3.386427,Secondary
+grid3-nga-v2:ed01b00f-f851-4309-9c2a-80c76f93d386,Trust Amana Specialist,private,"Bamgbe/Elebiju Ward, Kosofe LGA, Lagos State",Kosofe,6.594730,3.403760,Secondary
+grid3-nga-v2:fcc21533-b99c-487f-88d6-07f468467a74,Yombo Hospital and Maternity Home,private,"Ikosi Oke, Kosofe LGA, Lagos State",Kosofe,6.602988,3.382242,Secondary
+grid3-nga-v2:676ef8fc-7ab7-4dff-819f-5319b62b2d1d,Abimbola Awoniyi Hospital,private,"Odan, Lagos Island LGA, Lagos State",Lagos Island,6.451904,3.398682,Secondary
+grid3-nga-v2:78b672d8-44ab-4721-b8f0-2b7caed79789,Blajeh Mustapha Hospital,private,"Lafiaji, Lagos Island LGA, Lagos State",Lagos Island,6.451800,3.405620,Secondary
+grid3-nga-v2:6ad6ee85-8e10-494b-8748-abdbab40c5c3,Fuja Medical Center,private,"Oke Olowogbowo, Lagos Island LGA, Lagos State",Lagos Island,6.458503,3.381948,Secondary
+grid3-nga-v2:4feeed76-66cb-4bbf-8ed7-7037fb9c2f42,Lagos Island Hospital Maternity,public,"Odan, Lagos Island LGA, Lagos State",Lagos Island,6.448817,3.397612,Secondary
+grid3-nga-v2:b92ae55f-ab21-4cb7-af62-060b46ea3eea,Mount Sinai Specialist Hospital,private,"Araromi Odo, Lagos Island LGA, Lagos State",Lagos Island,6.444702,3.404297,Tertiary
+grid3-nga-v2:2735131f-2155-433a-93af-9f4b46b9d770,Nigerian Air Force Medical,public,"Araromi Odo, Lagos Island LGA, Lagos State",Lagos Island,6.445356,3.405785,Secondary
+grid3-nga-v2:0a55572a-be0f-420e-a1a1-bed0ccb70265,Onikan Health Center,public,"Araromi Odo, Lagos Island LGA, Lagos State",Lagos Island,6.444900,3.405138,Secondary
+grid3-nga-v2:9b78280a-69f0-4bcb-850b-eccdce9dac33,Runsewe Hospital Specialist,private,"Odan, Lagos Island LGA, Lagos State",Lagos Island,6.450550,3.399537,Secondary
+grid3-nga-v2:e2bec35e-00eb-4049-983e-d399a606a0c5,St Nicholas Hospital,private,"Odan, Lagos Island LGA, Lagos State",Lagos Island,6.449277,3.397583,Secondary
+grid3-nga-v2:851312f8-98aa-4e80-967c-b33e51bc455a,The Arena Health Hospital,private,"Araromi Odo, Lagos Island LGA, Lagos State",Lagos Island,6.448840,3.340430,Secondary
+grid3-nga-v2:64317fa2-22f5-4542-b47b-d86daf93fe0b,Arubah Family Medical Centre,private,"Obalende, Eti-Osa LGA, Lagos State",Lekki,6.441340,3.515410,Secondary
+grid3-nga-v2:29552a91-1fcd-4526-9e4b-c541a70444b2,Baefem Hospital Specialist,private,"Ajiran Osapa, Eti-Osa LGA, Lagos State",Lekki,6.459922,3.554158,Secondary
+grid3-nga-v2:ef335a3d-982c-4961-b2b8-aea6e3f332fc,Budo Hospital Specialist,private,"Addo, Eti-Osa LGA, Lagos State",Lekki,6.470093,3.580872,Secondary
+grid3-nga-v2:7a012192-74bb-4607-b996-7f2b1bb31e8e,Caremax Hospital,private,"Sangotedo, Eti-Osa LGA, Lagos State",Lekki,6.473258,3.630847,Secondary
+grid3-nga-v2:3daa7ab3-85b9-4575-846e-8868453be856,Cedacare,private,"Okunmopo - Ogombo, Eti-Osa LGA, Lagos State",Lekki,6.461430,3.575890,Secondary
+grid3-nga-v2:4886566f-edb2-430b-9d18-0a870cfe556d,Clear View Hospital,private,"Ikate Lekki, Eti-Osa LGA, Lagos State",Lekki,6.445020,3.475090,Secondary
+grid3-nga-v2:14b508f7-93da-4c18-95de-3bde0a5e1e90,Day Spring Hospital,private,"Maroko Okun Alfa, Eti-Osa LGA, Lagos State",Lekki,6.500880,3.597955,Secondary
+grid3-nga-v2:eb7d76a3-7059-4d84-8e27-bb7a8c57b883,Doren Hospital Specialist,private,"Ajah, Eti-Osa LGA, Lagos State",Lekki,6.469910,3.574524,Secondary
+grid3-nga-v2:63af7c34-8b68-4441-bef8-42debd4df4f4,Emobile Hospital Specialist,private,"Ikate Lekki, Eti-Osa LGA, Lagos State",Lekki,6.434510,3.462230,Secondary
+grid3-nga-v2:dd52f52f-172f-49c1-b986-f822f1f6f401,Eti Osa Maternity Centre,public,"Okunmopo - Ogombo, Eti-Osa LGA, Lagos State",Lekki,6.463080,3.585180,Secondary
+grid3-nga-v2:3698c5cc-7f7b-41bd-8680-9c8cd5e08f43,Ever Care Hospital,private,"Ikate Lekki, Eti-Osa LGA, Lagos State",Lekki,6.437700,3.456880,Secondary
+grid3-nga-v2:ba7a91b6-c7dd-4b59-bd48-c6c3995dd131,Familycare Medical Centre,private,"Maroko Okun Alfa, Eti-Osa LGA, Lagos State",Lekki,6.449477,3.548495,Secondary
+grid3-nga-v2:acdca203-0b43-463d-9a8c-85c2e09ccb9a,First City Hospital,private,"Ajiran Osapa, Eti-Osa LGA, Lagos State",Lekki,6.439590,3.511870,Secondary
+grid3-nga-v2:70cf0b8d-b57b-45f0-a13c-0277c85382a8,Ifeoluwa Hospital,private,"Orile - Ilasan, Eti-Osa LGA, Lagos State",Lekki,6.434978,3.504565,Secondary
+grid3-nga-v2:017f59ef-d856-4063-8e07-c5c427ca12c8,J Rapha Hospital,private,"Addo, Eti-Osa LGA, Lagos State",Lekki,6.502598,3.582960,Secondary
+grid3-nga-v2:b3d96607-6f0d-48ff-b574-d0a10d9a853b,Jjaned Hospital Specialist,private,"Sangotedo, Eti-Osa LGA, Lagos State",Lekki,6.478080,3.590120,Secondary
+grid3-nga-v2:d43c4540-c8d4-4c78-b274-5c5a8088b3d5,Lennox Limited Hospital,private,"Sangotedo, Eti-Osa LGA, Lagos State",Lekki,6.473510,3.605710,Secondary
+grid3-nga-v2:dbcf47ef-c7b3-4e59-bc9a-c317549c0682,Lexanaa Hospital,private,"Igbo Efon, Eti-Osa LGA, Lagos State",Lekki,6.440270,3.521580,Secondary
+grid3-nga-v2:338b0889-74bf-42db-8cb8-074a5dfe6e29,Lilly Hospital,private,"Ikate Lekki, Eti-Osa LGA, Lagos State",Lekki,6.434320,3.479710,Secondary
+grid3-nga-v2:8a7b540e-eda3-4aa5-b96f-78a9c5e9393e,Macjoy Hospital,private,"Igbo Efon, Eti-Osa LGA, Lagos State",Lekki,6.434350,3.522370,Secondary
+grid3-nga-v2:8e733a81-dd84-4cf9-b5dd-1dce61bf82a4,Max Care Hospital,private,"Ajiran Osapa, Eti-Osa LGA, Lagos State",Lekki,6.473694,3.630920,Secondary
+grid3-nga-v2:230792ca-b237-423e-9efa-edc6a9c83c08,Mazaf Medical Center,private,"Sangotedo, Eti-Osa LGA, Lagos State",Lekki,6.466672,3.632468,Secondary
+grid3-nga-v2:d605418e-8207-4dfc-be57-85a37fdf138e,My Private Consultant,private,"Ikate Lekki, Eti-Osa LGA, Lagos State",Lekki,6.447720,3.461660,Secondary
+grid3-nga-v2:947354e8-2f7d-4a46-9701-9eff663846f7,Niyot Medical Center,private,"Ikate Lekki, Eti-Osa LGA, Lagos State",Lekki,6.439620,3.456760,Secondary
+grid3-nga-v2:4dcd5d2d-6087-4a88-ba82-38bc2a4f154b,Nuklius Hospital Specialist,private,"Orile - Ilasan, Eti-Osa LGA, Lagos State",Lekki,6.435110,3.505740,Secondary
+grid3-nga-v2:9d16bbe2-1f71-4ee7-be72-af63826fd997,Olive Multi Hospital Specialist,private,"Ikate Lekki, Eti-Osa LGA, Lagos State",Lekki,6.439667,3.469803,Secondary
+grid3-nga-v2:6fd94b62-4507-4fd7-a822-d494745fdcd3,Outreach Medical,private,"Ajiran Osapa, Eti-Osa LGA, Lagos State",Lekki,6.437770,3.510510,Secondary
+grid3-nga-v2:70dce3ed-795c-4dce-b81e-147c9946d2cb,Premier Specialist Medical Centre,private,"Ikate Lekki, Eti-Osa LGA, Lagos State",Lekki,6.442180,3.472990,Secondary
+grid3-nga-v2:e6d9a04f-e4d8-4225-add3-a06051833d69,Primeforth Hospital,private,"Ajiran Osapa, Eti-Osa LGA, Lagos State",Lekki,6.443680,3.516090,Secondary
+grid3-nga-v2:4af3af97-ec0d-46cc-98fb-3cd04f3e0579,Princess Sekinah Hospital Specialist,private,"V/Island 2, Eti-Osa LGA, Lagos State",Lekki,6.440363,3.542668,Secondary
+grid3-nga-v2:b1c96157-d3ae-4324-8b0a-4f069f871016,Queensway Hospital,private,"Maroko Okun Alfa, Eti-Osa LGA, Lagos State",Lekki,6.449650,3.550260,Secondary
+grid3-nga-v2:dc6211f6-0f8e-42d5-a616-7c053b2b1378,Rainbow Specialist Medical Centre,private,"Ikate Lekki, Eti-Osa LGA, Lagos State",Lekki,6.451850,3.477630,Secondary
+grid3-nga-v2:2778e3cb-eb03-407d-af60-ab2c7ec404ef,Reddot Medical Center,private,"Ajiran Osapa, Eti-Osa LGA, Lagos State",Lekki,6.434320,3.479710,Secondary
+grid3-nga-v2:281b6532-3f06-4ca7-a416-fe34ee1fea6b,Safe Way Hospital,private,"Sangotedo, Eti-Osa LGA, Lagos State",Lekki,6.473075,3.629543,Secondary
+grid3-nga-v2:6b3fb67e-192e-4fc1-b4aa-8228814bff7e,Southern Shore Addo Hospital,private,"Addo, Eti-Osa LGA, Lagos State",Lekki,6.495250,3.583320,Secondary
+grid3-nga-v2:5ff2b9c5-d23b-451d-9c3d-a685d4da4a27,St Edward Hospital Specialist,private,"Badore, Eti-Osa LGA, Lagos State",Lekki,6.471051,3.564669,Secondary
+grid3-nga-v2:cf9cb153-6bd4-4741-b67d-e7930ebb6319,St Kizito Lekki Hospital,private,"Maroko Okun Alfa, Eti-Osa LGA, Lagos State",Lekki,6.434870,3.505113,Secondary
+grid3-nga-v2:16cc98ca-87a7-44d5-b08b-c9e72c80c082,The Almighty Hospital Specialist,private,"Sangotedo, Eti-Osa LGA, Lagos State",Lekki,6.468689,3.586121,Secondary
+grid3-nga-v2:95912c4a-776e-408b-9608-65f52fc722d2,The Heritage Specialist Clinic,private,"Badore, Eti-Osa LGA, Lagos State",Lekki,6.507324,3.603271,Secondary
+grid3-nga-v2:cca5e5d3-8a64-426a-afec-77c5b6ad1d57,The Peninsula Hospital,private,"Maroko Okun Alfa, Eti-Osa LGA, Lagos State",Lekki,6.450180,3.554820,Secondary
+grid3-nga-v2:8c83ed2a-eb44-45ae-9eab-0da2175cb226,The Premier Specialist Hospital,private,"Aboyade 1004, Eti-Osa LGA, Lagos State",Lekki,6.438027,3.457313,Tertiary
+grid3-nga-v2:7843ae8b-cbae-4ddb-8d46-b8dded5e2094,The Premier Specialist Hospital,private,"Ikate Lekki, Eti-Osa LGA, Lagos State",Lekki,6.442690,3.473147,Tertiary
+grid3-nga-v2:226b8644-75e9-42c2-babf-0e1b984664ca,The Royal Infirmary,private,"Badore, Eti-Osa LGA, Lagos State",Lekki,6.504700,3.602905,Secondary
+grid3-nga-v2:ebf50bb6-01ba-42f3-97c3-7c1e44542cc4,Udeco Medical Center,private,"Ajiran Osapa, Eti-Osa LGA, Lagos State",Lekki,6.443730,3.526430,Secondary
+grid3-nga-v2:38de8bce-7670-4bd2-b470-02b47157b367,Upillon Care Hospital,private,"Ajiran Osapa, Eti-Osa LGA, Lagos State",Lekki,6.441340,3.512490,Secondary
+grid3-nga-v2:ecde3271-2dfc-47b7-b6f1-48f6121da367,Verdic Life Care Hospital,private,"Ikate Lekki, Eti-Osa LGA, Lagos State",Lekki,6.432070,3.472280,Secondary
+grid3-nga-v2:8abe5460-e379-4fa9-bdda-6cc0a53bffa7,Aishat Hospital Specialist,private,"Idi Araba, Mushin LGA, Lagos State",Mushin,6.519220,3.351317,Secondary
+grid3-nga-v2:6dc5a691-7a76-4abe-a14a-67b5ad84c0ca,Ak Oyekan Hospital,private,"Mushin, Mushin LGA, Lagos State",Mushin,6.520110,3.364230,Secondary
+grid3-nga-v2:1bc70ffe-28a1-40a6-8e03-400e75e20b70,Awesome Grace Hospital,private,"Igbehinadun, Mushin LGA, Lagos State",Mushin,6.520915,3.344798,Secondary
+grid3-nga-v2:382548bd-dbbe-4e91-934f-73b49eeff7fe,Continental Hospital,private,"Alakara, Mushin LGA, Lagos State",Mushin,6.528107,3.358690,Secondary
+grid3-nga-v2:d59afe90-33f9-4726-827f-643927f041e8,D 3 Convalescent Hospital,private,"Papa Ajao, Mushin LGA, Lagos State",Mushin,6.534072,3.344740,Secondary
+grid3-nga-v2:df197777-b81e-43b8-8ee5-1cd3bb2de215,First Heritage Hospital,private,"Ojuwoye, Mushin LGA, Lagos State",Mushin,6.533570,3.356290,Secondary
+grid3-nga-v2:e620e13f-8097-4737-b211-71b3ca5efdf6,Greenlife Hospital,private,"Ilupeju, Mushin LGA, Lagos State",Mushin,6.548040,3.363200,Secondary
+grid3-nga-v2:64260738-41b4-49a5-99e1-1e5c65a9e392,Huse Of Peace Specialist Clinic,public,"Papa Ajao, Mushin LGA, Lagos State",Mushin,6.531420,3.340740,Tertiary
+grid3-nga-v2:da8a8a58-c669-48be-9c9c-cdf3af555079,Lagos University Teaching Luth Hospital,public,"Idi Araba, Mushin LGA, Lagos State",Mushin,6.517580,3.353920,Tertiary
+grid3-nga-v2:1e26e284-ce6e-4a4f-a92a-4311d27ecfd1,Legus Specialist Hospital,public,"Kayode Fadeyi, Mushin LGA, Lagos State",Mushin,6.530830,3.365790,Tertiary
+grid3-nga-v2:654a5ecd-4ede-4513-a207-3ac87db84a82,Legus Specialist Hospital,private,"Babalosa 1, Mushin LGA, Lagos State",Mushin,6.531950,3.358700,Tertiary
+grid3-nga-v2:2c934b63-86d5-439d-8feb-3765b16458ec,Mojide Specialist Hospital,public,"Ilupeju, Mushin LGA, Lagos State",Mushin,6.539220,3.363960,Tertiary
+grid3-nga-v2:9da5139e-a609-49b2-b6b1-efc62e7310bd,Mushin General Hospital,public,"Mushin Atewolara, Mushin LGA, Lagos State",Mushin,6.531494,3.346313,Secondary
+grid3-nga-v2:de4d7912-932d-4c71-a53b-0001c5e66839,Oshodi Federal Medical Center,private,"Papa Ajao, Mushin LGA, Lagos State",Mushin,6.550680,3.350160,Secondary
+grid3-nga-v2:018ab1b9-a00c-448e-99c6-29f8f6e144a1,Oshodi Federal Neuro Psychiatric Hospital,private,"Papa Ajao, Mushin LGA, Lagos State",Mushin,6.548620,3.348790,Secondary
+grid3-nga-v2:1b5d785e-3ada-416c-96dd-8045cf31978e,Regina Mundi Clinic,private,"Babalosa 1, Mushin LGA, Lagos State",Mushin,6.527350,3.355612,Secondary
+grid3-nga-v2:2b79920a-b31c-4091-89c3-9b9fbbfc8ae5,Sparklight Hospital,private,"Mushin Atewolara, Mushin LGA, Lagos State",Mushin,6.532660,3.344210,Secondary
+grid3-nga-v2:13ea421d-9240-47f5-8a32-01c8a5c83bf7,St Claire Specialist Clinic,private,"Idi Araba, Mushin LGA, Lagos State",Mushin,6.515686,3.359680,Tertiary
+grid3-nga-v2:61c84c56-c955-446a-95e9-ebf438f61ae3,Ufoma Specialist Hospital,public,"Ilupeju Industrial, Mushin LGA, Lagos State",Mushin,6.550680,3.360360,Tertiary
+grid3-nga-v2:4c626e06-99d5-4df5-9b2c-aac863554343,Abodunrin Medical Center,private,"Sabo Oniba, Ojo LGA, Lagos State",Ojo,6.471220,3.178320,Secondary
+grid3-nga-v2:940c9630-74c0-423e-b060-563885663671,Ademola Hospital,private,"Ijanikin, Ojo LGA, Lagos State",Ojo,6.494400,3.143890,Secondary
+grid3-nga-v2:8fca5787-12a5-4956-adae-b0a42db63d64,Adetunji Memorial (Annex) Hospital,private,"Irra, Ojo LGA, Lagos State",Ojo,6.468872,3.194702,Secondary
+grid3-nga-v2:698137f7-07be-4a9c-9120-f39d1a0198b0,Albina Mejeel Specialist Clinic,private,"Iba, Ojo LGA, Lagos State",Ojo,6.506110,3.202010,Secondary
+grid3-nga-v2:cf1386ef-c415-46d7-a75c-1e4c0c440414,Alverna Medical Center,private,"Irra, Ojo LGA, Lagos State",Ojo,6.474240,3.243530,Secondary
+grid3-nga-v2:0a2de997-854e-424f-a532-42dec0ffdda0,Ancel Hospital,private,"Okoko, Ojo LGA, Lagos State",Ojo,6.468578,3.185145,Secondary
+grid3-nga-v2:5466291f-6fcf-48ed-b7f8-de9bcdb5311d,Blossom Hospital,private,"Igbo Elerin, Ojo LGA, Lagos State",Ojo,6.483550,3.187340,Secondary
+grid3-nga-v2:d1fc6503-47b4-4be2-8040-4624cda10e8b,Bmc Medical Center,private,"Sabo Oniba, Ojo LGA, Lagos State",Ojo,6.461070,3.187670,Secondary
+grid3-nga-v2:0b9ab02e-bbf0-49fd-ae5b-73119cf99761,Calvary Grace Hospital,private,"Ojo, Ojo LGA, Lagos State",Ojo,6.461186,3.204231,Secondary
+grid3-nga-v2:ea8e19ce-6af5-4c8e-b00a-608fccc3677f,Cares Hospital,private,"Iba, Ojo LGA, Lagos State",Ojo,6.458490,3.160570,Secondary
+grid3-nga-v2:4e54060c-1424-4d9c-98ca-44d43d479020,Chidove Homeopaedic Medical Center,private,"Igbo Elerin, Ojo LGA, Lagos State",Ojo,6.487067,3.165257,Secondary
+grid3-nga-v2:6ddfda3e-d530-4fa8-8a1c-cbbe7aad6154,Crown Of Glory Hospital,private,"Sabo Oniba, Ojo LGA, Lagos State",Ojo,6.468659,3.171531,Secondary
+grid3-nga-v2:75c1b825-21e4-45ac-a17b-da6c6343b88d,De New Aiyetoro Medical Center,private,"Ijanikin, Ojo LGA, Lagos State",Ojo,6.498418,3.144197,Secondary
+grid3-nga-v2:5c60f588-9b49-4f37-bc43-cc101bcf1a10,De Solid Rock Maternity Centre,private,"Igbo Elerin, Ojo LGA, Lagos State",Ojo,6.493680,3.173060,Secondary
+grid3-nga-v2:5bf82499-fb4b-4dd4-99b7-ce657e637be8,Desolid Rock Maternity Home,private,"Igbo Elerin, Ojo LGA, Lagos State",Ojo,6.502745,3.165230,Secondary
+grid3-nga-v2:efd344b0-6f0d-4e5c-93f0-b8fb13949bed,Devital Hospital,private,"Ilogbo Elegba, Ojo LGA, Lagos State",Ojo,6.476800,3.142207,Secondary
+grid3-nga-v2:c36047ad-6eb1-4c4b-bb9b-a472c2566fc4,Divine Care Hospital,private,"Kemberi, Ojo LGA, Lagos State",Ojo,6.465950,3.183310,Secondary
+grid3-nga-v2:d254d4d7-4eb5-4aa1-88f1-68126a2fc51c,Divine Shield Hospital,private,"Iba, Ojo LGA, Lagos State",Ojo,6.507072,3.192270,Secondary
+grid3-nga-v2:be92a17a-6de5-4b01-896b-923257a658fb,Divine Solution Maternity Clinic,private,"Iba, Ojo LGA, Lagos State",Ojo,6.474230,3.243540,Secondary
+grid3-nga-v2:fefd4fdd-9af1-4f65-8113-227baef52edf,Edo Convalescent Home,private,"Ilogbo Elegba, Ojo LGA, Lagos State",Ojo,6.457615,3.153542,Secondary
+grid3-nga-v2:0659b4a1-c43e-4673-b386-f8e88467f618,El Shadai Hospital,private,"Iba, Ojo LGA, Lagos State",Ojo,6.499205,3.199643,Secondary
+grid3-nga-v2:90473075-8382-4da3-8c03-c894bcaa9048,Elphy Hospital Specialist,private,"Okoko, Ojo LGA, Lagos State",Ojo,6.468930,3.194478,Secondary
+grid3-nga-v2:5bedcebc-69e3-4283-954e-f06808f0e4e7,Eunice Nursing Home,private,"Etegbin, Ojo LGA, Lagos State",Ojo,6.461540,3.165640,Secondary
+grid3-nga-v2:fdb4ff27-4702-4855-ad05-e457f9894b98,Fairview Medical Center,private,"Iba, Ojo LGA, Lagos State",Ojo,6.567470,3.198960,Secondary
+grid3-nga-v2:1bdaef20-0f32-4334-9ef6-cc7625c60be5,Favour Land Hospital and Maternity,private,"Ojo, Ojo LGA, Lagos State",Ojo,6.457713,3.206563,Secondary
+grid3-nga-v2:a58d6d8e-0500-4f22-b542-23e8880c4a0f,Femola Hospital,private,"Irra, Ojo LGA, Lagos State",Ojo,6.494312,3.118522,Secondary
+grid3-nga-v2:da410d2f-2bc6-464b-9480-b57187c05efd,Genesis Maternity Centre,private,"Ojo, Ojo LGA, Lagos State",Ojo,6.453585,3.189476,Secondary
+grid3-nga-v2:d2bacc27-dad4-4171-90fb-bd116abe9a34,God Cures Hospital,private,"Ilogbo Elegba, Ojo LGA, Lagos State",Ojo,6.470078,3.142970,Secondary
+grid3-nga-v2:8915edda-70d0-4800-967b-aff41ad15fca,Goodness Medical Center,private,"Ilogbo Elegba, Ojo LGA, Lagos State",Ojo,6.460808,3.105317,Secondary
+grid3-nga-v2:98a41169-e5a3-4e59-b1b8-d5c877d1a6ad,Healing Land Hospital,private,"Otto Awori, Ojo LGA, Lagos State",Ojo,6.460215,3.140200,Secondary
+grid3-nga-v2:ab447521-7f91-4d37-a028-de8e81807c2e,Ilogbo Central Hospital,private,"Ilogbo Elegba, Ojo LGA, Lagos State",Ojo,6.464815,3.153384,Secondary
+grid3-nga-v2:8a4fc796-2d8b-4e28-85ca-3917556a950d,Joycy Nursing Home,private,"Irra, Ojo LGA, Lagos State",Ojo,6.455189,3.231875,Secondary
+grid3-nga-v2:de342191-3da8-4808-a714-07205537b23e,Kena Hospital,private,"Okoko, Ojo LGA, Lagos State",Ojo,6.465997,3.183170,Secondary
+grid3-nga-v2:107e1174-6be4-4ddf-a655-2c31a80a048a,Ketu Annex Medical Center,private,"Ijanikin, Ojo LGA, Lagos State",Ojo,6.479140,3.142840,Secondary
+grid3-nga-v2:4062bcd9-f948-4675-ad0f-4bf9b359f5f1,Kiladejo Hospital,private,"Okoko, Ojo LGA, Lagos State",Ojo,6.470243,3.194950,Secondary
+grid3-nga-v2:68b3ff37-a875-4ef8-b951-14ef77ba77c2,Leverage Hospital,private,"Igbo Elerin, Ojo LGA, Lagos State",Ojo,6.495503,3.171747,Secondary
+grid3-nga-v2:a9901e2e-7c24-473e-a6fe-85d7058903de,Life Heritage Maternity Centre,private,"Okoko, Ojo LGA, Lagos State",Ojo,6.467950,3.194020,Secondary
+grid3-nga-v2:52728641-979c-4ff4-b48a-16f2f40d008f,Locket Medical Center,private,"Irra, Ojo LGA, Lagos State",Ojo,6.486865,3.153122,Secondary
+grid3-nga-v2:934e0cc4-9f90-4f82-8156-9f76b41e23ec,More Grace Maternity,private,"Sabo Oniba, Ojo LGA, Lagos State",Ojo,6.460216,3.190309,Secondary
+grid3-nga-v2:1afb4883-4f56-467a-ae04-65c0fb2bccba,Mrs Hospital,public,"Irra, Ojo LGA, Lagos State",Ojo,6.469695,3.227935,Secondary
+grid3-nga-v2:fe2d7237-7cb4-4fda-bfd1-d03df9e8409e,Muskat Hospital,private,"Ilogbo Elegba, Ojo LGA, Lagos State",Ojo,6.461652,3.153828,Secondary
+grid3-nga-v2:77dc203c-7291-4a37-bdac-33f4204c2924,Mutcare Maternity Clinic,private,"Sabo Oniba, Ojo LGA, Lagos State",Ojo,6.468070,3.200940,Secondary
+grid3-nga-v2:8c451203-2410-48ee-bd0e-dd8bb3bbde5b,My Comforter Nursing Home,private,"Otto Awori, Ojo LGA, Lagos State",Ojo,6.474250,3.216420,Secondary
+grid3-nga-v2:7b27ba64-5db8-4693-afa6-4c85b7b923a2,Onyems B Hospital,private,"Ojo, Ojo LGA, Lagos State",Ojo,6.459920,3.203122,Secondary
+grid3-nga-v2:3d1ceb23-e08b-4685-b1e0-5b82b3a3d12c,Oscar Hospital,private,"Sabo Oniba, Ojo LGA, Lagos State",Ojo,6.450580,3.172490,Secondary
+grid3-nga-v2:f0091c1a-5272-4674-8684-c38d334050a3,Redeemed Medical Center,private,"Kemberi, Ojo LGA, Lagos State",Ojo,6.466605,3.181633,Secondary
+grid3-nga-v2:9c9137cd-84e3-4339-9e10-749d87056a0f,Richville Hospital,private,"Iba, Ojo LGA, Lagos State",Ojo,6.509034,3.203085,Secondary
+grid3-nga-v2:a633d79b-bc87-48d7-9c9f-ae446915d275,Royal Apex Hospital,private,"Ajangbadi, Ojo LGA, Lagos State",Ojo,6.461955,3.166415,Secondary
+grid3-nga-v2:da0ae4bc-3a04-4562-b633-6e066b95d9cb,Royale Medical Center,private,"Iba, Ojo LGA, Lagos State",Ojo,6.469530,3.201290,Secondary
+grid3-nga-v2:28a36b75-1bc6-461f-abef-7303f74a9480,Sabo Crown Hospital,private,"Sabo Oniba, Ojo LGA, Lagos State",Ojo,6.462097,3.172729,Secondary
+grid3-nga-v2:79a87929-334c-4e94-9b11-abfd1287623e,Safe Healing Nursing Home,private,"Irra, Ojo LGA, Lagos State",Ojo,6.459280,3.222980,Secondary
+grid3-nga-v2:32eb19d2-f7df-4e6e-8018-07184bd70443,The Vicbet Maternity Centre,private,"Irra, Ojo LGA, Lagos State",Ojo,6.481773,3.170085,Secondary
+grid3-nga-v2:985db4e7-f449-4e0b-b979-4df1bf265e71,Trust In God Medical Center,private,"Irra, Ojo LGA, Lagos State",Ojo,6.457874,3.211718,Secondary
+grid3-nga-v2:5ed36532-94fa-4a72-bb3f-c95a4c19f3d4,445 Nigerian Air Force Ikeja Hospital,public,"Sogunle, Oshodi-Isolo LGA, Lagos State",Oshodi-Isolo,6.582460,3.340670,Secondary
+grid3-nga-v2:49197b07-7f79-4cff-83f0-7fb5d5e45767,Azar Plus Hospital,private,"Ewu Tuntun, Oshodi-Isolo LGA, Lagos State",Oshodi-Isolo,6.568250,3.342222,Secondary
+grid3-nga-v2:24420540-a508-4fbb-90fa-f63aacfddb3b,Chinaza Hospital Specialist,private,"Okota, Oshodi-Isolo LGA, Lagos State",Oshodi-Isolo,6.504700,3.297850,Secondary
+grid3-nga-v2:0c9c63fa-116d-44ce-adf9-b924f881fa54,Healing Cross Hospital,private,"Apena, Oshodi-Isolo LGA, Lagos State",Oshodi-Isolo,6.510377,3.317998,Secondary
+grid3-nga-v2:2a7a54ed-9ab0-4be0-add5-6a3fdad89e34,Heals Specialist Clinic,private,"Ireakari/Ishaga, Oshodi-Isolo LGA, Lagos State",Oshodi-Isolo,6.520193,3.323082,Primary
+grid3-nga-v2:744993f0-2997-49d5-85ef-ca04170a9627,Holy Saviours Hospital,private,"Mafoluku, Oshodi-Isolo LGA, Lagos State",Oshodi-Isolo,6.556110,3.334450,Secondary
+grid3-nga-v2:ff4ac360-93c6-484e-be6b-b6a84d093118,Isolo General Hospital,public,"Ireakari/Ishaga, Oshodi-Isolo LGA, Lagos State",Oshodi-Isolo,6.562927,3.344299,Secondary
+grid3-nga-v2:de6e1b7e-c446-4dfb-a539-7db5876f75d3,Jokodola Hospital,private,"Apena, Oshodi-Isolo LGA, Lagos State",Oshodi-Isolo,6.511270,3.309410,Secondary
+grid3-nga-v2:b6df5e07-5c24-4e0c-9b71-16d2aa54f2e2,Khan Specialist Hospital,private,"Apena, Oshodi-Isolo LGA, Lagos State",Oshodi-Isolo,6.514526,3.306702,Tertiary
+grid3-nga-v2:78d64932-477a-47f6-9f21-f6e97ff99866,Khaw Specialist Hospital,public,"Apena, Oshodi-Isolo LGA, Lagos State",Oshodi-Isolo,6.509440,3.306970,Tertiary
+grid3-nga-v2:1a584ed4-1ef9-47eb-9823-3375b11a4b8f,Mazarane Medical Center,private,"Apena, Oshodi-Isolo LGA, Lagos State",Oshodi-Isolo,6.511312,3.314218,Secondary
+grid3-nga-v2:5e088fd6-9386-49a1-b10f-af960016daae,Moyub Hospital,private,"Okota, Oshodi-Isolo LGA, Lagos State",Oshodi-Isolo,6.515310,3.316645,Secondary
+grid3-nga-v2:30ef94ac-0870-4aec-ae54-15cd6ad43654,Platinum Specialist Hospital,public,"Apena, Oshodi-Isolo LGA, Lagos State",Oshodi-Isolo,6.506910,3.303950,Tertiary
+grid3-nga-v2:b61492d1-759a-4f64-971a-ea6ee31dc084,Tent Of Life Specialist,public,"Ilasamaja, Oshodi-Isolo LGA, Lagos State",Oshodi-Isolo,6.514640,3.330750,Tertiary
+grid3-nga-v2:9517ee4e-c9dc-4e5a-9c11-2e9fd12a2f05,Tokem Hospital,private,"Fadu, Oshodi-Isolo LGA, Lagos State",Oshodi-Isolo,6.556340,3.301420,Secondary
+grid3-nga-v2:74c8b853-3256-404d-b777-d153bc2952a5,Wind Of Grace Hospital,private,"Okota, Oshodi-Isolo LGA, Lagos State",Oshodi-Isolo,6.506163,3.302148,Secondary
+grid3-nga-v2:4ae4e8ce-fad6-4344-bfef-178033736f9d,A.O.M Specialist,private,"Igbobi / Fadeyi, Shomolu LGA, Lagos State",Shomolu,6.510740,3.383680,Secondary
+grid3-nga-v2:23a8c6ea-e257-48de-a571-96a6273bc5e4,Adeolu Hospital,private,"Igbari, Shomolu LGA, Lagos State",Shomolu,6.524050,3.384000,Secondary
+grid3-nga-v2:2b4562ae-d07a-4cb7-9591-d36667940720,Adesola Hospital,private,"Owotutu, Shomolu LGA, Lagos State",Shomolu,6.541310,3.380400,Secondary
+grid3-nga-v2:9f9b8a5c-1a36-44b3-8b14-c75692dfa748,Amazing Limited Health Care,private,"Owode Orile, Shomolu LGA, Lagos State",Shomolu,6.536220,3.383390,Secondary
+grid3-nga-v2:694693d2-eb98-4ad6-aefc-9b0c64242c01,Baptist Medical Center,private,"Pedro / Gbagada, Shomolu LGA, Lagos State",Shomolu,6.546509,3.369324,Secondary
+grid3-nga-v2:0ca57a20-abe5-410a-9038-8b1fe2f87203,Bimcare Medical Center,private,"Apelehin, Shomolu LGA, Lagos State",Shomolu,6.545940,3.393730,Secondary
+grid3-nga-v2:c80e38c3-6b7a-465c-b398-52e4dfd7e105,Bolaid Hospital,private,"Owotutu, Shomolu LGA, Lagos State",Shomolu,6.540267,3.378778,Secondary
+grid3-nga-v2:cbdf2c4c-78cf-4f0d-9bcd-83d57c938b28,Capes Hospital,private,"Seriki, Shomolu LGA, Lagos State",Shomolu,6.540527,3.391113,Secondary
+grid3-nga-v2:5e0467b4-70db-4478-aca7-fc5e7aca0f18,Charis Medical Center,private,"Owotutu, Shomolu LGA, Lagos State",Shomolu,6.538598,3.380850,Secondary
+grid3-nga-v2:f7620f15-c90b-4ae0-b900-62f262360f98,Christana Hospital,private,"Pedro / Gbagada, Shomolu LGA, Lagos State",Shomolu,6.543860,3.376350,Secondary
+grid3-nga-v2:2ed30b7e-59c7-4367-99f7-702a0e5410e9,Clinique De Mercy Hospital,private,"Apelehin, Shomolu LGA, Lagos State",Shomolu,6.547110,3.382270,Secondary
+grid3-nga-v2:48cbc8ca-9223-446b-8ecb-afefb5b7e23c,De Bajo Hospital,private,"Okesuna, Shomolu LGA, Lagos State",Shomolu,6.529378,3.376878,Secondary
+grid3-nga-v2:ce433b94-21d3-437f-81ff-63d6d2c28b07,De Balm Hospital,private,"Pedro / Gbagada, Shomolu LGA, Lagos State",Shomolu,6.551895,3.368168,Secondary
+grid3-nga-v2:45caa375-0195-4218-ad4f-851175d87587,Dfo Clinic,private,"Igbari, Shomolu LGA, Lagos State",Shomolu,6.524633,3.384328,Secondary
+grid3-nga-v2:518d1344-c883-4b04-bece-6a6fa1d97438,Dofa Clinic,private,"Igbobi / Fadeyi, Shomolu LGA, Lagos State",Shomolu,6.533150,3.375060,Secondary
+grid3-nga-v2:d9c475ea-39c7-4a7e-a7bf-1bc00d0fc0be,Fidelity Medical Center,private,"Igbari, Shomolu LGA, Lagos State",Shomolu,6.525412,3.384570,Secondary
+grid3-nga-v2:d03d91cc-1200-461d-8dda-e2a6c5b6a98c,Fountain Health Hospital,private,"Ilaje 7, Shomolu LGA, Lagos State",Shomolu,6.533700,3.391930,Secondary
+grid3-nga-v2:d0f98145-2979-4716-8c3e-b072a6e714b0,Gods Vessel Clinic,private,"Seriki, Shomolu LGA, Lagos State",Shomolu,6.540300,3.396900,Secondary
+grid3-nga-v2:99ef030e-0cd5-41f4-bb43-de17ad97f905,Goodness Mercy Maternity Home and Clinic,private,"Ilaje 7, Shomolu LGA, Lagos State",Shomolu,6.539970,3.395320,Secondary
+grid3-nga-v2:b886199e-1e50-4c34-8035-6c2e65159dc3,Jehovah Jireh Hospital,private,"Okesuna, Shomolu LGA, Lagos State",Shomolu,6.534160,3.397520,Secondary
+grid3-nga-v2:84852acd-2563-4024-bcac-879ca919a927,Ladi Lak Medical Center,private,"Owode Orile, Shomolu LGA, Lagos State",Shomolu,6.538965,3.384988,Secondary
+grid3-nga-v2:5e0879d4-fc14-4490-a5dc-65c55713ccb6,Mabadeje Specialist Hospital,public,"Apelehin, Shomolu LGA, Lagos State",Shomolu,6.547670,3.387130,Tertiary
+grid3-nga-v2:ba1aa10a-ef22-46de-b729-3c0305be8ecd,Mary Ade Hospital Specialist,private,"Ilaje 7, Shomolu LGA, Lagos State",Shomolu,6.535910,3.389450,Secondary
+grid3-nga-v2:e3ffe2ab-568f-48c2-ac49-90cadaa90838,Medol Consultant Clinic,private,"Pedro / Gbagada, Shomolu LGA, Lagos State",Shomolu,6.543530,3.376280,Secondary
+grid3-nga-v2:3c9c2568-e4e2-4dbc-bb9e-00baae4764dd,National Orthopaedic (Lagos) Hospital,public,"Igbobi / Fadeyi, Shomolu LGA, Lagos State",Shomolu,6.530540,3.372950,Tertiary
+grid3-nga-v2:eb2ebd33-f40e-48ea-9389-94379504e57d,Obanle Aje Hospital,private,"Pedro / Gbagada, Shomolu LGA, Lagos State",Shomolu,6.548890,3.370850,Secondary
+grid3-nga-v2:175c9d07-da1f-4b81-8b83-81e321eb66fa,Oneness Hospital,private,"Okesuna, Shomolu LGA, Lagos State",Shomolu,6.541920,3.375860,Secondary
+grid3-nga-v2:505e1a8b-4816-4715-bc2a-fc06e462afba,Osuntuyi Medical Center,private,"Pedro / Gbagada, Shomolu LGA, Lagos State",Shomolu,6.549737,3.369665,Secondary
+grid3-nga-v2:06ea7ea1-797b-422d-b176-0aaa387b887e,Primrose Hospital Specialist,private,"Pedro / Gbagada, Shomolu LGA, Lagos State",Shomolu,6.547253,3.385435,Secondary
+grid3-nga-v2:12955f2c-1fea-452e-9b22-90023a22d65d,R Jolad Hospital,private,"Apelehin, Shomolu LGA, Lagos State",Shomolu,6.549150,3.392960,Secondary
+grid3-nga-v2:d18828b9-683e-45a1-880f-76cb13ae61d7,R Jolard Plus,private,"Apelehin, Shomolu LGA, Lagos State",Shomolu,6.548460,3.392220,Secondary
+grid3-nga-v2:906fb1c9-51fa-4732-bbaa-95920256b7e5,Rabonni Specialist Hospital,private,"Pedro / Gbagada, Shomolu LGA, Lagos State",Shomolu,6.544785,3.374063,Tertiary
+grid3-nga-v2:08cddfa4-1ff6-49a6-843f-8e8c397b940b,Rev. Fmp Maculary Memorial Home,private,"Onipanu (Shomolu), Shomolu LGA, Lagos State",Shomolu,6.547600,3.370790,Secondary
+grid3-nga-v2:90355856-35f5-40f9-a6f1-635259b77d8e,Royal Hospital,private,"Owotutu, Shomolu LGA, Lagos State",Shomolu,6.538100,3.379690,Secondary
+grid3-nga-v2:e6d3ccd4-faab-4b9f-bc56-ad156f84dfa1,Sanctuary Hospital,private,"Okesuna, Shomolu LGA, Lagos State",Shomolu,6.530400,3.380248,Secondary
+grid3-nga-v2:6f8e4ee2-e435-475a-af18-9d9e0946442d,Somolu General Hospital,public,"Onipanu (Shomolu), Shomolu LGA, Lagos State",Shomolu,6.536486,3.371952,Secondary
+grid3-nga-v2:b4d713fb-a14d-4897-be1f-5be9477db577,Tai Oworu Memorial Hospital,private,"Ijebutedo, Shomolu LGA, Lagos State",Shomolu,6.539880,3.370974,Secondary
+grid3-nga-v2:9fe09591-533b-43ed-a2f1-923d9aa03e5c,The Peak Mark Clinic,private,"Igbari, Shomolu LGA, Lagos State",Shomolu,6.525513,3.385498,Secondary
+grid3-nga-v2:9145148a-cdcc-49c7-92fc-d3dffaa4e029,Theo Lad Hospital and Maternity,private,"Seriki, Shomolu LGA, Lagos State",Shomolu,6.541340,3.392880,Secondary
+grid3-nga-v2:f2e9900e-c024-4185-81ca-d786c8fceabc,Trustee Hospital Specialist,private,"Bajulaiye, Shomolu LGA, Lagos State",Shomolu,6.529500,3.377250,Secondary
+grid3-nga-v2:bbcfaba4-68cd-4876-9e12-2f3db7fba9b3,We Care Hospital,private,"Pedro / Gbagada, Shomolu LGA, Lagos State",Shomolu,6.548047,3.376042,Secondary
+grid3-nga-v2:ce3184b0-f7d9-464e-b049-a0e40242e50e,A Model Specialist Hospital,private,"Adeniran Ogunsanya, Surulere LGA, Lagos State",Surulere,6.495090,3.356620,Secondary
+grid3-nga-v2:1e5e30f4-90f0-4b5f-a600-3b417f3f1dde,Adonai Medical Center,private,"Coker (Surulere), Surulere LGA, Lagos State",Surulere,6.498327,3.345205,Secondary
+grid3-nga-v2:b6854a42-924a-4da4-99da-7663cb1a4c3d,Aguda Hospital,private,"Nuru Oniwo, Surulere LGA, Lagos State",Surulere,6.488281,3.338074,Secondary
+grid3-nga-v2:2625c36c-aab0-4cd7-a626-434babaf09e9,Angel Hospital,private,"Coker (Surulere), Surulere LGA, Lagos State",Surulere,6.474802,3.337972,Secondary
+grid3-nga-v2:ed59bced-3efd-4431-a035-767bbb715835,Avon Medical Practice Limited,private,"Iponri / Eric Moore, Surulere LGA, Lagos State",Surulere,6.490110,3.351790,Secondary
+grid3-nga-v2:ebe2a804-874e-42f0-b2c0-a3459c33a705,Bimtom Hospital,private,"Odoolowu, Surulere LGA, Lagos State",Surulere,6.499567,3.327333,Secondary
+grid3-nga-v2:a3898988-3b54-42f4-8e9e-f04dd56e214c,Boots Hospital Specialist,private,"Shitta/Bankolemoh, Surulere LGA, Lagos State",Surulere,6.501870,3.354230,Secondary
+grid3-nga-v2:2f0c8f5f-5313-4242-a160-a42edb60d1e1,Boundary Specialist Homeopaedic Clinic,private,"Mosafejo / Ojuelegba, Surulere LGA, Lagos State",Surulere,6.508800,3.367592,Tertiary
+grid3-nga-v2:ff0d1ad2-9c91-42cb-bddf-86a264ae616a,Caring Trust Medical Clinic,private,"Ogunsami / Karounmi, Surulere LGA, Lagos State",Surulere,6.499780,3.336220,Secondary
+grid3-nga-v2:06d9a987-56a2-4734-9726-2ee88b6e4477,Chironna Medical Center,private,"Adeniran Ogunsanya, Surulere LGA, Lagos State",Surulere,6.497681,3.359680,Secondary
+grid3-nga-v2:47a04b5c-5054-46ce-b069-a326e098b34d,De Goodland Hospital,private,"Odoolowu, Surulere LGA, Lagos State",Surulere,6.498392,3.327608,Secondary
+grid3-nga-v2:4684216f-c27b-469b-aa1e-288efa27a1fd,De Matt Clinic,public,"Muniru Baruwa, Surulere LGA, Lagos State",Surulere,6.509820,3.348700,Secondary
+grid3-nga-v2:a3802f57-b7a5-4044-a59a-a41f60ac6765,Ekemode Memorial Hospital,private,"Adeniran Ogunsanya, Surulere LGA, Lagos State",Surulere,6.488892,3.348877,Secondary
+grid3-nga-v2:326b584a-6134-42e7-bafb-10f4fbe2ea50,El Shaddai Clinic,private,"Coker (Surulere), Surulere LGA, Lagos State",Surulere,6.475445,3.327748,Secondary
+grid3-nga-v2:d868d541-89c9-4199-997a-2860587ce3f7,First Dominican Hospital,private,"Adeniran Ogunsanya, Surulere LGA, Lagos State",Surulere,6.501282,3.351501,Secondary
+grid3-nga-v2:ca33abc4-085c-4ec9-944a-29ce5b942b18,First Faith (Surulere) Medical Center,private,"Osho, Surulere LGA, Lagos State",Surulere,6.479760,3.333672,Secondary
+grid3-nga-v2:8d8d5ce9-2cf1-4d58-8288-d38ba9590c6f,German Friendship Specialist Hospital,private,"Ararile, Surulere LGA, Lagos State",Surulere,6.497840,3.362503,Tertiary
+grid3-nga-v2:fd118d56-c329-47f5-ac48-e3c44623f1be,Good Tidings Hospital,private,"Akinhunmi Cole, Surulere LGA, Lagos State",Surulere,6.516473,3.361448,Secondary
+grid3-nga-v2:81b9b9e3-e13d-4ed2-a363-be054ee33411,Hatreg Clinic,private,"Gbaja, Surulere LGA, Lagos State",Surulere,6.502370,3.360840,Secondary
+grid3-nga-v2:52871045-4c76-4f6c-b4bd-0803b1892712,Havana Hospital Specialist,private,"Gbaja, Surulere LGA, Lagos State",Surulere,6.502775,3.359203,Secondary
+grid3-nga-v2:b45208f0-36ce-473b-8789-882459796efe,Healthy Living Specialist Hospital,private,"Irone, Surulere LGA, Lagos State",Surulere,6.488307,3.336190,Secondary
+grid3-nga-v2:e5d5b121-9864-4446-be60-09ded2e78c76,Hero Medical Center,private,"Osho, Surulere LGA, Lagos State",Surulere,6.480793,3.337212,Secondary
+grid3-nga-v2:04a0e40c-b42e-42e2-9f98-d494e8cf7cc8,His Glory Hospital,private,"Coker (Surulere), Surulere LGA, Lagos State",Surulere,6.476445,3.332327,Secondary
+grid3-nga-v2:9665df1a-2d1f-44eb-b531-6e0f8cfc640e,His Mercy Hospital,private,"Osho, Surulere LGA, Lagos State",Surulere,6.478858,3.344515,Secondary
+grid3-nga-v2:64da2966-a721-41df-a49e-12b521f0b0d4,His Stripes Hospital Specialist,private,"Savage, Surulere LGA, Lagos State",Surulere,6.480275,3.343838,Secondary
+grid3-nga-v2:ae5d35ed-71a7-4e26-848e-945473287c8d,Isioma Hospital,private,"Shitta/Bankolemoh, Surulere LGA, Lagos State",Surulere,6.507690,3.346130,Secondary
+grid3-nga-v2:3b794f4f-f810-414e-b559-103646a6ff35,Jalupon Specialist Clinic,public,"Adeniran Ogunsanya, Surulere LGA, Lagos State",Surulere,6.490170,3.355008,Primary
+grid3-nga-v2:14a9e692-5575-4ab3-ad08-a899917fd8e2,Life Line Hospital,private,"Shitta/Bankolemoh, Surulere LGA, Lagos State",Surulere,6.503560,3.351545,Secondary
+grid3-nga-v2:d1fda084-3c2a-406c-a1f1-13b76917cab6,Life Link Clinic,private,"Iponri / Eric Moore, Surulere LGA, Lagos State",Surulere,6.488602,3.349997,Secondary
+grid3-nga-v2:3dff3109-cf56-4622-9546-8771bda2986d,Lindabel Medical Center,private,"Muniru Baruwa, Surulere LGA, Lagos State",Surulere,6.488070,3.351110,Secondary
+grid3-nga-v2:c6de00c7-0230-4809-825b-a41765c75dc2,Marigold Hospital,private,"Muniru Baruwa, Surulere LGA, Lagos State",Surulere,6.501910,3.347030,Secondary
+grid3-nga-v2:d90e0ec4-b917-4c81-9bc9-5811e1824bad,Mezonel Hospital,private,"Irone, Surulere LGA, Lagos State",Surulere,6.495403,3.339777,Secondary
+grid3-nga-v2:d0615a2a-f87b-4969-b496-b69af805bbfb,New Covenant Hospital and Maternity,private,"Irone, Surulere LGA, Lagos State",Surulere,6.495784,3.339511,Secondary
+grid3-nga-v2:86f81a09-da6b-4ee4-bc2c-c292184ec3f0,Newday Specialist Clinic Hospital,private,"Muniru Baruwa, Surulere LGA, Lagos State",Surulere,6.503906,3.343506,Tertiary
+grid3-nga-v2:19edebf0-c417-47aa-ab3a-b48f37723fce,Nigerian Breweries Clinic,private,"Iponri / Eric Moore, Surulere LGA, Lagos State",Surulere,6.481873,3.363098,Secondary
+grid3-nga-v2:228e14c1-7f8b-456e-a4e9-a74e609d3439,Ola Iya Memorial Hospital,private,"Akinhunmi Cole, Surulere LGA, Lagos State",Surulere,6.516907,3.361877,Secondary
+grid3-nga-v2:fb630415-f68d-4887-b27e-139a35c14b4b,Olaniba Memorial Hospital Specialist,private,"Jinadu Aiyetoro, Surulere LGA, Lagos State",Surulere,6.492676,3.346924,Secondary
+grid3-nga-v2:65254aa4-b24a-4287-b981-f370294ddf3a,Optimal Hospital Specialist,private,"Gbaja, Surulere LGA, Lagos State",Surulere,6.503902,3.359903,Secondary
+grid3-nga-v2:ee9f4661-cf0c-44ab-a894-1d83a0ce6c7c,Our Lady Of Fatimo Clinic,private,"Jinadu Aiyetoro, Surulere LGA, Lagos State",Surulere,6.495117,3.344910,Secondary
+grid3-nga-v2:baf0d985-98fc-4121-8e08-74152b0d9fd5,Parklande Hospital Specialist,private,"Adeniran Ogunsanya, Surulere LGA, Lagos State",Surulere,6.496345,3.361097,Secondary
+grid3-nga-v2:d171f3ba-49dc-4dd5-a063-7ed609b08eaa,Pat Thomas Specialist Hospital,private,"Irone, Surulere LGA, Lagos State",Surulere,6.495483,3.338928,Tertiary
+grid3-nga-v2:1279a561-80cc-4e1a-8227-481a975a0c8e,Peculiar Clinic,private,"Coker (Surulere), Surulere LGA, Lagos State",Surulere,6.476660,3.332440,Secondary
+grid3-nga-v2:b9511322-63cc-4c9c-b0c8-a89f646a2b28,Peculiar Hospital,private,"Coker (Surulere), Surulere LGA, Lagos State",Surulere,6.476168,3.331998,Secondary
+grid3-nga-v2:6d2f5dcd-a614-4f4a-81ff-e5f48c29e06e,Primus Limited Hospital,private,"Odoolowu, Surulere LGA, Lagos State",Surulere,6.494573,3.325660,Secondary
+grid3-nga-v2:3d78fa98-5cd8-4cd4-91a5-fa9002dc72ec,Quality Medicare,private,"Babatunde Ayilara, Surulere LGA, Lagos State",Surulere,6.501040,3.345100,Secondary
+grid3-nga-v2:3ec2d30e-43c6-4612-829c-3fc89eb6d4a3,Raheem Memorial Clinic,private,"Muniru Baruwa, Surulere LGA, Lagos State",Surulere,6.508720,3.347620,Secondary
+grid3-nga-v2:078d235a-9c3b-4333-a2e0-5e7a6a23b773,Randle General Hospital,public,"Gbaja, Surulere LGA, Lagos State",Surulere,6.504208,3.359524,Secondary
+grid3-nga-v2:9fb2875c-6832-42ea-8d0a-6d58d4fa081a,Royal Medical Clinic,private,"Muniru Baruwa, Surulere LGA, Lagos State",Surulere,6.503640,3.359360,Secondary
+grid3-nga-v2:0efb8916-8530-4415-9919-6f8cb3729363,Royal Pinnacle Clinic,private,"Muniru Baruwa, Surulere LGA, Lagos State",Surulere,6.508484,3.344482,Secondary
+grid3-nga-v2:78f0146a-c185-48ee-901e-5cbc53c57a23,Saint Charles Hospital,private,"Akinhunmi Cole, Surulere LGA, Lagos State",Surulere,6.512290,3.362070,Secondary
+grid3-nga-v2:c90db0cf-1370-4613-a790-ec0dd5275bc8,Salus Infirmorum Catholic Hospital,private,"Babatunde Ayilara, Surulere LGA, Lagos State",Surulere,6.505900,3.351740,Secondary
+grid3-nga-v2:30d561f6-0d67-4651-acbb-eb555b27db31,Serenity and Remileku Memorial Hospital,private,"Babatunde Ayilara, Surulere LGA, Lagos State",Surulere,6.512260,3.356580,Secondary
+grid3-nga-v2:8f4595eb-66af-4633-abf8-bde54f01672c,Sikeoye Hope Clinic,private,"Babatunde Ayilara, Surulere LGA, Lagos State",Surulere,6.507735,3.359293,Secondary
+grid3-nga-v2:ba0b70ee-51a7-471a-aea9-f14ce00f5be9,Simeon Hospital,private,"Airways, Surulere LGA, Lagos State",Surulere,6.488640,3.333310,Secondary
+grid3-nga-v2:643d8fe1-65ae-462d-925b-88edaa7fc930,Smac Hospital,private,"Osho, Surulere LGA, Lagos State",Surulere,6.472510,3.331810,Secondary
+grid3-nga-v2:a70e6bca-8d9a-43bf-bbdb-36c557985609,Specialist Hospital,private,"Babatunde Ayilara, Surulere LGA, Lagos State",Surulere,6.507070,3.357070,Secondary
+grid3-nga-v2:9540fd39-7e62-4959-b468-08e0eb10b716,Ss Mulumba David Catholic Clinic,private,"Muniru Baruwa, Surulere LGA, Lagos State",Surulere,6.511460,3.347620,Secondary
+grid3-nga-v2:1516fca7-32b2-4bf5-9ede-762929fadada,Ss Simeon Galdinus Medical Center,private,"Irone, Surulere LGA, Lagos State",Surulere,6.487069,3.331675,Secondary
+grid3-nga-v2:6f4512ff-5487-4732-829e-08a0533cda34,St Claire Hospital Specialist,private,"Akinhunmi Cole, Surulere LGA, Lagos State",Surulere,6.506035,3.366457,Secondary
+grid3-nga-v2:8c15758d-93fa-4685-8046-2005861bb668,St Luke Medical Center,private,"Agunbiade, Surulere LGA, Lagos State",Surulere,6.497925,3.330322,Secondary
+grid3-nga-v2:ae3bc5a6-a45d-4676-bd63-cec970b4f3f4,St Maria Hospital,private,"Muniru Baruwa, Surulere LGA, Lagos State",Surulere,6.497310,3.348210,Secondary
+grid3-nga-v2:47f88476-48ca-4170-bbde-ad687b1593c4,St Mulumba Hospital,private,"Airways, Surulere LGA, Lagos State",Surulere,6.511900,3.347350,Secondary
+grid3-nga-v2:400795dd-b475-470c-9301-e98f8d0adbda,Surgical Associate Clinic,private,"Adeniran Ogunsanya, Surulere LGA, Lagos State",Surulere,6.505330,3.362690,Secondary
+grid3-nga-v2:76b5318e-2629-4725-b3ac-14a7369a28c9,Surulere General Hospital,public,"Gbaja, Surulere LGA, Lagos State",Surulere,6.509382,3.358935,Secondary
+grid3-nga-v2:ea5abcc4-25e1-48dc-9863-33e055b13f92,The American Hospital,public,"Adeniran Ogunsanya, Surulere LGA, Lagos State",Surulere,6.505752,3.353122,Primary
+grid3-nga-v2:489cbbad-2ee5-433c-bc6c-1e56be76d108,The Comforter Hospital,private,"Sanusi, Surulere LGA, Lagos State",Surulere,6.498291,3.334106,Secondary
+grid3-nga-v2:14e18e7e-7394-40bf-8d14-5f4b534eb777,Toki Medical Center,private,"Adeniran Ogunsanya, Surulere LGA, Lagos State",Surulere,6.491100,3.358030,Secondary
+grid3-nga-v2:0f432817-3032-4f97-b041-41f7717bc33d,Topaz Hospital,private,"Obele Oniwala, Surulere LGA, Lagos State",Surulere,6.513672,3.356506,Secondary
+grid3-nga-v2:de08a6ad-5c98-421b-9c88-0744974e0206,Uwemedimo Hospital,private,"Agunbiade, Surulere LGA, Lagos State",Surulere,6.496704,3.326477,Secondary
+grid3-nga-v2:38f072b4-ba83-4c31-9cde-40dafb0a7efe,Waterfall Hospital,private,"Ogunsami / Karounmi, Surulere LGA, Lagos State",Surulere,6.502755,3.348983,Secondary
+grid3-nga-v2:f56b5532-7850-400e-b409-6de1025c3c86,Zolace Clinic,private,"Babatunde Ayilara, Surulere LGA, Lagos State",Surulere,6.504681,3.351073,Secondary
+grid3-nga-v2:db29ff6d-9658-4fda-bbad-d361f2d27a69,Ambassador Ventures Medical Clinic,private,"Obalende, Eti-Osa LGA, Lagos State",Victoria Island,6.448133,3.412638,Secondary
+grid3-nga-v2:4f0668c4-b119-47dc-8135-8d9dcc6be188,Ave Maria Hospital,private,"Aboyade 1004, Eti-Osa LGA, Lagos State",Victoria Island,6.431290,3.447060,Secondary
+grid3-nga-v2:7774c493-452b-4ca1-97ef-800bd3efc894,Best Care Hospital,private,"Obalende, Eti-Osa LGA, Lagos State",Victoria Island,6.447697,3.414911,Secondary
+grid3-nga-v2:6df1a27f-0aa4-4ca3-9dff-7034cbbd4d74,Cedarcrest Hospital,private,"V/Island 2, Eti-Osa LGA, Lagos State",Victoria Island,6.435516,3.418394,Secondary
+grid3-nga-v2:b6f6c156-5477-4df6-896a-d9304674eb28,Citizen Medical Center,private,"Ikoyi 2, Eti-Osa LGA, Lagos State",Victoria Island,6.444130,3.417340,Secondary
+grid3-nga-v2:a2bcd0fa-d0bb-4596-b31f-f0bbb62c69d5,Divine Medical Hospital,private,"Falomo Oyinkan, Eti-Osa LGA, Lagos State",Victoria Island,6.444110,3.416480,Secondary
+grid3-nga-v2:0d56447b-e570-4a75-bc5a-82230572a0ef,First Cardiology Consultants,private,"Ikoyi 2, Eti-Osa LGA, Lagos State",Victoria Island,6.452790,3.434430,Secondary
+grid3-nga-v2:e2bba042-0800-444c-b4cb-e8686d51ebd4,First Consultant Medical Center,private,"Obalende, Eti-Osa LGA, Lagos State",Victoria Island,6.449524,3.409485,Secondary
+grid3-nga-v2:454bc5c9-1a9a-4b92-9c31-73f48e7b4736,Gold Cross Keffi Hospital,private,"Falomo Oyinkan, Eti-Osa LGA, Lagos State",Victoria Island,6.447290,3.415070,Secondary
+grid3-nga-v2:14e4c888-f457-4e55-a270-eb09cb61338e,Grover Hospital,private,"V/Island 2, Eti-Osa LGA, Lagos State",Victoria Island,6.429680,3.437010,Secondary
+grid3-nga-v2:c82c50bd-fa19-4a84-9c66-0f9c2cdcf06e,Healing Stripes Hospital,private,"Maroko Okun Alfa, Eti-Osa LGA, Lagos State",Victoria Island,6.432860,3.443070,Secondary
+grid3-nga-v2:28d5e79c-ac03-4798-bb77-90650b719b16,Naval Hospital,public,"V/Island 2, Eti-Osa LGA, Lagos State",Victoria Island,6.423607,3.409387,Secondary
+grid3-nga-v2:dac7a371-4fbb-4c43-9532-6cd0a1dd95c3,Police Falomo Hospital,private,"Falomo Oyinkan, Eti-Osa LGA, Lagos State",Victoria Island,6.443900,3.428835,Secondary
+grid3-nga-v2:09f807ca-7d29-4e1a-860d-8bdd8d3612e9,Renaissance Medical Center,private,"V/Island 2, Eti-Osa LGA, Lagos State",Victoria Island,6.432190,3.411510,Tertiary
+grid3-nga-v2:1e346245-49ba-41cd-bf14-a1f41f40d9d0,South Shore Women Clinic,private,"V/Island 2, Eti-Osa LGA, Lagos State",Victoria Island,6.429410,3.413480,Secondary
+grid3-nga-v2:34bf9f68-c760-41fd-8748-8e028c7969f7,United Hearth Hospital,private,"V/Island 2, Eti-Osa LGA, Lagos State",Victoria Island,6.425430,3.440580,Secondary
+grid3-nga-v2:44669959-41e0-46b6-ae8b-998900377047,Vantage Medical Center,private,"Aboyade 1004, Eti-Osa LGA, Lagos State",Victoria Island,6.433970,3.439310,Secondary
+grid3-nga-v2:209cb79c-07ad-45d9-99e2-89d7d4dffaf2,Victoria Island Consultant and Services Hospital,private,"Kuramo, Eti-Osa LGA, Lagos State",Victoria Island,6.434403,3.439255,Secondary
+grid3-nga-v2:a9af9a87-29d4-418d-b096-3ed3819c4a3a,68 Nigerian Army Refence Hospital,private,"Harvey, Lagos Mainland LGA, Lagos State",Yaba,6.520425,3.374182,Secondary
+grid3-nga-v2:7b26871b-870d-4e45-a1fd-88fe3ea698b3,Ebute Metta General Hospital,public,"Okobaba, Lagos Mainland LGA, Lagos State",Yaba,6.488212,3.384588,Secondary
+grid3-nga-v2:dd40fe77-4683-4d1c-a5dd-cc55edd43de6,Faari Specialist Hospital,public,"Adekunle, Lagos Mainland LGA, Lagos State",Yaba,6.494000,3.379710,Tertiary
+grid3-nga-v2:a5e69fa8-f06e-45e3-beba-f13f9f48def3,Federal Medical Center,public,"Ojo Oniyun, Lagos Mainland LGA, Lagos State",Yaba,6.484252,3.380332,Tertiary
+grid3-nga-v2:d11276ef-c0ce-44f6-951f-18e5cc13049e,Federal Neuro Psychiatry Hospital,public,"Abule-Ijesha, Lagos Mainland LGA, Lagos State",Yaba,6.510392,3.371689,Secondary
+grid3-nga-v2:9a5044fa-3ae0-4b61-bdc3-c1aa76e40a49,First Health Specialist Clinic,private,"Ojo Oniyun, Lagos Mainland LGA, Lagos State",Yaba,6.482483,3.377686,Tertiary
+grid3-nga-v2:c7674ac3-977d-4ff6-ae5f-fe3e727c6142,First Health Specialist Clinic,private,"Botanical Gardens, Lagos Mainland LGA, Lagos State",Yaba,6.483173,3.372648,Tertiary
+grid3-nga-v2:43fcfa96-32d8-460c-89c3-87d84cec6b1b,Harvey Road General Hospital,public,"Harvey, Lagos Mainland LGA, Lagos State",Yaba,6.510333,3.374758,Secondary
+grid3-nga-v2:d127345d-ce4d-4069-8a1c-9738c23251a5,Lagos State Mainland Hospital,public,"Abule-Ijesha, Lagos Mainland LGA, Lagos State",Yaba,6.522705,3.377502,Secondary
+grid3-nga-v2:25475cc1-1826-4328-9a0b-54a1b35cba86,M O Oni Maternity Home,private,"Ojo Oniyun, Lagos Mainland LGA, Lagos State",Yaba,6.486511,3.375671,Secondary
+grid3-nga-v2:b7f5fdec-c213-4b41-8c27-951cf5b958d2,Nigerian Railway Hospital,public,"Iponri Olaleye, Lagos Mainland LGA, Lagos State",Yaba,6.502017,3.372845,Secondary
+grid3-nga-v2:3e0ba36b-19ad-4924-b295-cb4b75d4dd56,St Ken Medical Center,private,"Freeman / Glover, Lagos Mainland LGA, Lagos State",Yaba,6.487080,3.381230,Secondary
+grid3-nga-v2:4a5c0b9a-293c-457c-9ee9-6aa235a5e327,St Paul Catholic Church Maternity,private,"Alagomeji, Lagos Mainland LGA, Lagos State",Yaba,6.512680,3.374460,Secondary
+grid3-nga-v2:2a9d0216-6229-478a-a6ea-95b7f6fc3687,Tunrayo Hospital,private,"Oyingbo, Lagos Mainland LGA, Lagos State",Yaba,6.485877,3.386080,Secondary
+grid3-nga-v2:f8fadb10-a214-474d-9e92-c737d7568373,Unilag Medical Center,public,"Abule-Oja, Lagos Mainland LGA, Lagos State",Yaba,6.514373,3.396530,Secondary
+grid3-nga-v2:a8014d7f-8a6c-428b-8b78-6c99c8c45b6a,Zenith Kidney Medical Center,private,"Onike Oyadiran, Lagos Mainland LGA, Lagos State",Yaba,6.510730,3.383760,Secondary

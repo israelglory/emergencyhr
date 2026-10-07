@@ -146,7 +146,7 @@ abstract final class LandingContent {
 
   // Pilot areas
   static const areasCap = 'Pilot areas';
-  static const areasTitle = 'Live across six Lagos areas';
+  static const areasTitle = 'Live across Lagos and Ogbomoso';
   static const areasBody =
       'Outside these areas you can still use the app. We show every listed '
       'hospital and tell you to call first.';
@@ -192,6 +192,11 @@ abstract final class LandingContent {
       'EmergencyHr is an information and navigation service, not a medical '
       'provider. If in doubt, call 112.';
   static const copyright = '© 2026 EmergencyHr';
+
+  /// Required by the open-data licence (CC BY 4.0) of the imported
+  /// hospital locations.
+  static const dataCredit =
+      'Hospital locations include data from GRID3 (CC BY 4.0).';
 }
 
 /// Page anchors: `#how`, `#hospitals`, `#areas`, `#faq`, `#app`.

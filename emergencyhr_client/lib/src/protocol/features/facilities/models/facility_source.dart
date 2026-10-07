@@ -16,7 +16,8 @@ enum FacilitySource implements _isc.SerializableModel {
   seeded,
   fieldAgent,
   selfSignup,
-  claim;
+  claim,
+  imported;
 
   static FacilitySource fromJson(String name) {
     switch (name) {
@@ -28,6 +29,8 @@ enum FacilitySource implements _isc.SerializableModel {
         return FacilitySource.selfSignup;
       case 'claim':
         return FacilitySource.claim;
+      case 'imported':
+        return FacilitySource.imported;
       default:
         throw ArgumentError(
           'Value "$name" cannot be converted to "FacilitySource"',

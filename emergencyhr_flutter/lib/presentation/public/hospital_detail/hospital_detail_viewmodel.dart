@@ -45,6 +45,9 @@ class HospitalDetailViewModel extends BaseViewModel {
       ? 'No phone listed'
       : Formatters.phone(_f!.deskPhone!);
   bool get canCall => _f?.deskPhone != null;
+
+  /// Credit for hospitals imported from open data, e.g. GRID3.
+  String? get dataSource => _f?.dataSource;
   VoidCallback? get onCall => canCall ? call : null;
 
   DateTime get _now => DateTime.now().toUtc();

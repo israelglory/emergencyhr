@@ -162,7 +162,8 @@ class FacilityService {
       FacilitySource.fieldAgent => OnboardingStage.visited,
       FacilitySource.selfSignup => OnboardingStage.contacted,
       FacilitySource.claim => OnboardingStage.contacted,
-      FacilitySource.seeded => OnboardingStage.seeded,
+      FacilitySource.seeded ||
+      FacilitySource.imported => OnboardingStage.seeded,
     };
 
     final facility = await session.db.transaction((tx) async {

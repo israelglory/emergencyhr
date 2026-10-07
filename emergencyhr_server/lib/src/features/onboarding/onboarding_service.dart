@@ -281,6 +281,49 @@ class OnboardingService {
     if (facility.verificationStatus != VerificationStatus.pending) {
       throw Errors.invalidState('This facility is not awaiting verification.');
     }
+    return _markVerified(
+      session,
+      facility: facility,
+      admin: admin,
+      action: 'verification:approve',
+      note: 'Verification approved',
+    );
+  }
+
+  /// Platform admins only: verifies a listing nobody has submitted, such as
+  /// an imported hospital the admin has checked by phone or a visit. The
+  /// public label stays "Unverified" until the desk confirms a status.
+  Future<Facility> verifyListing(
+    Session session, {
+    required Facility facility,
+    required AppUser admin,
+  }) async {
+    switch (facility.verificationStatus) {
+      case VerificationStatus.verified:
+        throw Errors.invalidState('This hospital is already verified.');
+      case VerificationStatus.suspended:
+        throw Errors.invalidState('Reinstate this hospital first.');
+      case VerificationStatus.pending:
+        return approve(session, facility: facility, admin: admin);
+      case VerificationStatus.seeded:
+      case VerificationStatus.rejected:
+        return _markVerified(
+          session,
+          facility: facility,
+          admin: admin,
+          action: 'verification:direct',
+          note: 'Verified by a platform admin',
+        );
+    }
+  }
+
+  Future<Facility> _markVerified(
+    Session session, {
+    required Facility facility,
+    required AppUser admin,
+    required String action,
+    required String note,
+  }) async {
     final updated = await session.db.transaction((tx) async {
       var f = await Facility.db.updateRow(
         session,
@@ -296,14 +339,14 @@ class OnboardingService {
           f,
           OnboardingStage.verified,
           byUserId: admin.id,
-          note: 'Verification approved',
+          note: note,
           transaction: tx,
         );
       }
       await AuditLog.record(
         session,
         actorUserId: admin.id!,
-        action: 'verification:approve',
+        action: action,
         targetType: 'facility',
         targetId: facility.id!,
         transaction: tx,

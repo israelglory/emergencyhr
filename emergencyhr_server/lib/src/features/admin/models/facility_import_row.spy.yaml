@@ -1,0 +1,11 @@
+### One hospital in an import file (Admin, Directory, Import hospitals).
+class: FacilityImportRow
+fields:
+  ### Stable id from the source dataset, e.g. "grid3-nga-v2:<id>".
+  sourceRef: String
+  name: String
+  type: FacilityType
+  address: String
+  area: String
+  lat: double
+  lng: double

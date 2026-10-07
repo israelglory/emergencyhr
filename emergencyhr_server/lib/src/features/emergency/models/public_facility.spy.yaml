@@ -14,3 +14,5 @@ fields:
   freshness: FreshnessTier
   status: FacilityStatus?
   live: bool
+  ### Credit for imported listings, e.g. "Location from GRID3 (CC BY 4.0)".
+  dataSource: String?

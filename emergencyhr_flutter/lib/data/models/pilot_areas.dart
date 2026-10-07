@@ -46,6 +46,14 @@ abstract final class PilotAreas {
       3.5105,
       description: 'Town, Ijede, Igbogbo',
     ),
+    // Oyo State. Its Surulere LGA is listed under Ogbomoso so it is not
+    // confused with Surulere, Lagos.
+    PilotArea(
+      'Ogbomoso',
+      8.1335,
+      4.2410,
+      description: 'Ogbomoso North, Ogbomoso South, Ori Ire, Ogo Oluwa',
+    ),
   ];
 
   static List<String> get names => [for (final a in all) a.name];

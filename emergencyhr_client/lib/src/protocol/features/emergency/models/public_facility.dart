@@ -35,6 +35,7 @@ abstract class PublicFacility
     required this.freshness,
     this.status,
     required this.live,
+    this.dataSource,
   });
 
   factory PublicFacility({
@@ -51,6 +52,7 @@ abstract class PublicFacility
     required _ixumfioy.FreshnessTier freshness,
     _ih95nrbj.FacilityStatus? status,
     required bool live,
+    String? dataSource,
   }) = _PublicFacilityImpl;
 
   factory PublicFacility.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -83,6 +85,7 @@ abstract class PublicFacility
               jsonSerialization['status'],
             ),
       live: _isc.BoolJsonExtension.fromJson(jsonSerialization['live']),
+      dataSource: jsonSerialization['dataSource'] as String?,
     );
   }
 
@@ -112,6 +115,9 @@ abstract class PublicFacility
 
   bool live;
 
+  /// Credit for imported listings, e.g. "Location from GRID3 (CC BY 4.0)".
+  String? dataSource;
+
   /// Returns a shallow copy of this [PublicFacility]
   /// with some or all fields replaced by the given arguments.
   @_isc.useResult
@@ -129,6 +135,7 @@ abstract class PublicFacility
     _ixumfioy.FreshnessTier? freshness,
     _ih95nrbj.FacilityStatus? status,
     bool? live,
+    String? dataSource,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -147,6 +154,7 @@ abstract class PublicFacility
       'freshness': freshness.toJson(),
       if (status != null) 'status': status?.toJson(),
       'live': live,
+      if (dataSource != null) 'dataSource': dataSource,
     };
   }
 
@@ -168,6 +176,7 @@ abstract class PublicFacility
       'freshness': freshness.toJson(),
       if (status != null) 'status': status?.toJsonForProtocol(),
       'live': live,
+      if (dataSource != null) 'dataSource': dataSource,
     };
   }
 
@@ -194,6 +203,7 @@ class _PublicFacilityImpl extends PublicFacility {
     required _ixumfioy.FreshnessTier freshness,
     _ih95nrbj.FacilityStatus? status,
     required bool live,
+    String? dataSource,
   }) : super._(
          id: id,
          name: name,
@@ -208,6 +218,7 @@ class _PublicFacilityImpl extends PublicFacility {
          freshness: freshness,
          status: status,
          live: live,
+         dataSource: dataSource,
        );
 
   /// Returns a shallow copy of this [PublicFacility]
@@ -228,6 +239,7 @@ class _PublicFacilityImpl extends PublicFacility {
     _ixumfioy.FreshnessTier? freshness,
     Object? status = _Undefined,
     bool? live,
+    Object? dataSource = _Undefined,
   }) {
     return PublicFacility(
       id: id ?? this.id,
@@ -247,6 +259,7 @@ class _PublicFacilityImpl extends PublicFacility {
           ? status
           : this.status?.copyWith(),
       live: live ?? this.live,
+      dataSource: dataSource is String? ? dataSource : this.dataSource,
     );
   }
 }

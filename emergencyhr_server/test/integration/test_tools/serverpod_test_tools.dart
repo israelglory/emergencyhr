@@ -20,6 +20,10 @@ import 'package:emergencyhr_server/src/generated/features/admin/models/claim_que
     as _ig40es56;
 import 'package:emergencyhr_server/src/generated/features/admin/models/directory_row.dart'
     as _ip8ei28x;
+import 'package:emergencyhr_server/src/generated/features/admin/models/facility_import_row.dart'
+    as _ijbyy5tt;
+import 'package:emergencyhr_server/src/generated/features/admin/models/facility_import_summary.dart'
+    as _iz2jnqcq;
 import 'package:emergencyhr_server/src/generated/features/admin/models/freshness_row.dart'
     as _i9cfjb8m;
 import 'package:emergencyhr_server/src/generated/features/admin/models/new_hospital_row.dart'
@@ -749,6 +753,72 @@ class _AdminEndpoint {
                   _localCallContext.arguments,
                 )
                 as _ida.Future<_i5txu6n6.Facility>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+
+  _ida.Future<_i5txu6n6.Facility> verifyListing(
+    _ist.TestSessionBuilder sessionBuilder,
+    int facilityId,
+  ) async {
+    return _ist.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _ist.InternalTestSessionBuilder).internalBuild(
+            endpoint: 'admin',
+            method: 'verifyListing',
+          );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'admin',
+          methodName: 'verifyListing',
+          parameters: _ist.testObjectToJson({'facilityId': facilityId}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue =
+            await (_localCallContext.method.call(
+                  _localUniqueSession,
+                  _localCallContext.arguments,
+                )
+                as _ida.Future<_i5txu6n6.Facility>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+
+  _ida.Future<_iz2jnqcq.FacilityImportSummary> importFacilities(
+    _ist.TestSessionBuilder sessionBuilder,
+    List<_ijbyy5tt.FacilityImportRow> rows, {
+    required bool dryRun,
+  }) async {
+    return _ist.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _ist.InternalTestSessionBuilder).internalBuild(
+            endpoint: 'admin',
+            method: 'importFacilities',
+          );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'admin',
+          methodName: 'importFacilities',
+          parameters: _ist.testObjectToJson({
+            'rows': rows,
+            'dryRun': dryRun,
+          }),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue =
+            await (_localCallContext.method.call(
+                  _localUniqueSession,
+                  _localCallContext.arguments,
+                )
+                as _ida.Future<_iz2jnqcq.FacilityImportSummary>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();

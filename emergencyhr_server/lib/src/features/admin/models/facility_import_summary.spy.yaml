@@ -1,0 +1,12 @@
+### What an import did, or would do on a dry run.
+class: FacilityImportSummary
+fields:
+  dryRun: bool
+  ### Added (or, on a dry run, would be added).
+  created: int
+  ### Already imported earlier from the same source id.
+  alreadyImported: int
+  ### Skipped because a listing with a similar name is already close by.
+  possibleDuplicates: List<String>
+  ### Rows that could not be used, with the reason.
+  invalid: List<String>

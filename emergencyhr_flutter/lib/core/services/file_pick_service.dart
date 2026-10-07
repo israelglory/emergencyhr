@@ -28,6 +28,20 @@ class FilePickService {
     return PickedDocument(name: photo.name, bytes: await photo.readAsBytes());
   }
 
+  /// A spreadsheet saved as CSV, e.g. hospitals to import.
+  Future<PickedDocument?> pickCsv() async {
+    final files = await FilePicker.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: const ['csv'],
+    );
+    final file = files.firstOrNull;
+    if (file == null) return null;
+    return PickedDocument(
+      name: file.name,
+      bytes: await file.xFile.readAsBytes(),
+    );
+  }
+
   Future<PickedDocument?> pickFile() async {
     final files = await FilePicker.pickFiles(
       type: FileType.custom,

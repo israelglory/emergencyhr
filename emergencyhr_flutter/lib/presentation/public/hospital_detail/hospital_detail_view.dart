@@ -105,6 +105,7 @@ class HospitalDetailView extends StatelessWidget {
                   ),
                 ],
               ),
+              if (model.dataSource != null) AppText.caption(model.dataSource!),
             ],
           ),
         );

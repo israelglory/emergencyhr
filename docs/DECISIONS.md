@@ -209,4 +209,33 @@ pointed at `docs/design/...`; the files live in `design/` and
     (`web/app/assets/assets/first_aid`, rebuilt by the pre-deploy step in
     `scloud.yaml`). Production secrets were generated fresh; a copy is in
     the local `config/passwords.yaml` (never uploaded or committed).
+52. **Settings on Serverpod Cloud:** Cloud does not ship the `config/`
+    folder, so `config/app_settings.yaml` is also compiled into the server
+    (`lib/src/core/app_settings_embedded.dart`, made by
+    `tool/embed_app_settings.dart`). The file wins when present; the
+    built-in copy is used otherwise. The deploy refreshes the copy, and a
+    test fails if the two differ. At start-up the server logs where its
+    settings came from, the admin email count and whether the first-aid
+    folder was found.
+53. **Imported hospitals (October 2026):** Lagos and Ogbomoso hospitals come
+    from GRID3 Nigeria health facilities (Lagos: v2.0, Nov 2024; Oyo: v3.0,
+    Aug 2026), licensed CC BY 4.0, so the landing footer and each imported
+    hospital's page credit GRID3. `tool/hospital_data/fetch_grid3.dart`
+    keeps hospital-level facilities only (secondary and tertiary, plus
+    hospitals and medical centres in Ogbomoso) and drops health posts,
+    primary health centres, pharmacies, labs, diagnostic, eye, dental and
+    fertility centres and anything marked not functional: 649 in Lagos, 34
+    around Ogbomoso. GRID3 has no phone numbers.
+54. **How they appear:** source `imported`, unverified, stage Seeded. The
+    public sees them as "Unverified. Call before going." Importing the same
+    file again adds nothing (each row's GRID3 id is stored in `sourceRef`),
+    and rows close to an existing listing with a similar name are skipped.
+    A platform admin can Verify a listing directly from the Directory after
+    checking it; the public label changes only once its desk confirms a
+    status.
+55. **Areas:** Ogbomoso is a new pilot area (Oyo State; its Surulere LGA is
+    filed under Ogbomoso to avoid confusion with Surulere, Lagos). Lagos
+    hospitals inside the six pilot areas use those names; the rest use their
+    LGA (for example Alimosho). The landing page now reads "Live across Lagos
+    and Ogbomoso".
 

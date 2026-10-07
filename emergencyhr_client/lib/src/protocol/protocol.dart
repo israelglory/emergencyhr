@@ -17,6 +17,8 @@ import 'package:emergencyhr_client/src/protocol/features/admin/models/claim_queu
     as _ib27qxyi;
 import 'package:emergencyhr_client/src/protocol/features/admin/models/directory_row.dart'
     as _ilxv0wae;
+import 'package:emergencyhr_client/src/protocol/features/admin/models/facility_import_row.dart'
+    as _ifhgg7r5;
 import 'package:emergencyhr_client/src/protocol/features/admin/models/freshness_row.dart'
     as _ik1xr38l;
 import 'package:emergencyhr_client/src/protocol/features/admin/models/new_hospital_row.dart'
@@ -67,6 +69,8 @@ import 'features/admin/models/admin_action_log.dart' as _id7ceaki;
 import 'features/admin/models/agent_row.dart' as _iqju4b7m;
 import 'features/admin/models/claim_queue_item.dart' as _i0snb6d6;
 import 'features/admin/models/directory_row.dart' as _i54iiwsn;
+import 'features/admin/models/facility_import_row.dart' as _ivyrrl9n;
+import 'features/admin/models/facility_import_summary.dart' as _imphx5bj;
 import 'features/admin/models/freshness_row.dart' as _id7thq0e;
 import 'features/admin/models/new_hospital_row.dart' as _iq76skmt;
 import 'features/admin/models/pipeline_board.dart' as _ivdreakr;
@@ -159,6 +163,8 @@ export 'features/admin/models/admin_action_log.dart';
 export 'features/admin/models/agent_row.dart';
 export 'features/admin/models/claim_queue_item.dart';
 export 'features/admin/models/directory_row.dart';
+export 'features/admin/models/facility_import_row.dart';
+export 'features/admin/models/facility_import_summary.dart';
 export 'features/admin/models/freshness_row.dart';
 export 'features/admin/models/new_hospital_row.dart';
 export 'features/admin/models/pipeline_board.dart';
@@ -308,6 +314,12 @@ class Protocol extends _isc.SerializationManager {
     }
     if (t == _i54iiwsn.DirectoryRow) {
       return _i54iiwsn.DirectoryRow.fromJson(data) as T;
+    }
+    if (t == _ivyrrl9n.FacilityImportRow) {
+      return _ivyrrl9n.FacilityImportRow.fromJson(data) as T;
+    }
+    if (t == _imphx5bj.FacilityImportSummary) {
+      return _imphx5bj.FacilityImportSummary.fromJson(data) as T;
     }
     if (t == _id7thq0e.FreshnessRow) {
       return _id7thq0e.FreshnessRow.fromJson(data) as T;
@@ -600,6 +612,16 @@ class Protocol extends _isc.SerializationManager {
     }
     if (t == _isc.getType<_i54iiwsn.DirectoryRow?>()) {
       return (data != null ? _i54iiwsn.DirectoryRow.fromJson(data) : null) as T;
+    }
+    if (t == _isc.getType<_ivyrrl9n.FacilityImportRow?>()) {
+      return (data != null ? _ivyrrl9n.FacilityImportRow.fromJson(data) : null)
+          as T;
+    }
+    if (t == _isc.getType<_imphx5bj.FacilityImportSummary?>()) {
+      return (data != null
+              ? _imphx5bj.FacilityImportSummary.fromJson(data)
+              : null)
+          as T;
     }
     if (t == _isc.getType<_id7thq0e.FreshnessRow?>()) {
       return (data != null ? _id7thq0e.FreshnessRow.fromJson(data) : null) as T;
@@ -978,6 +1000,12 @@ class Protocol extends _isc.SerializationManager {
               .toList()
           as T;
     }
+    if (t == List<_ifhgg7r5.FacilityImportRow>) {
+      return (data as List)
+              .map((e) => deserialize<_ifhgg7r5.FacilityImportRow>(e))
+              .toList()
+          as T;
+    }
     if (t == List<_ilxv0wae.DirectoryRow>) {
       return (data as List)
               .map((e) => deserialize<_ilxv0wae.DirectoryRow>(e))
@@ -1120,6 +1148,8 @@ class Protocol extends _isc.SerializationManager {
       _iqju4b7m.AgentRow => 'AgentRow',
       _i0snb6d6.ClaimQueueItem => 'ClaimQueueItem',
       _i54iiwsn.DirectoryRow => 'DirectoryRow',
+      _ivyrrl9n.FacilityImportRow => 'FacilityImportRow',
+      _imphx5bj.FacilityImportSummary => 'FacilityImportSummary',
       _id7thq0e.FreshnessRow => 'FreshnessRow',
       _iq76skmt.NewHospitalRow => 'NewHospitalRow',
       _ivdreakr.PipelineBoard => 'PipelineBoard',
@@ -1237,6 +1267,10 @@ class Protocol extends _isc.SerializationManager {
         return 'ClaimQueueItem';
       case _i54iiwsn.DirectoryRow():
         return 'DirectoryRow';
+      case _ivyrrl9n.FacilityImportRow():
+        return 'FacilityImportRow';
+      case _imphx5bj.FacilityImportSummary():
+        return 'FacilityImportSummary';
       case _id7thq0e.FreshnessRow():
         return 'FreshnessRow';
       case _iq76skmt.NewHospitalRow():
@@ -1453,6 +1487,12 @@ class Protocol extends _isc.SerializationManager {
     }
     if (dataClassName == 'DirectoryRow') {
       return deserialize<_i54iiwsn.DirectoryRow>(data['data']);
+    }
+    if (dataClassName == 'FacilityImportRow') {
+      return deserialize<_ivyrrl9n.FacilityImportRow>(data['data']);
+    }
+    if (dataClassName == 'FacilityImportSummary') {
+      return deserialize<_imphx5bj.FacilityImportSummary>(data['data']);
     }
     if (dataClassName == 'FreshnessRow') {
       return deserialize<_id7thq0e.FreshnessRow>(data['data']);

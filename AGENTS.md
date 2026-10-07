@@ -27,6 +27,8 @@ Key places:
 - First-aid cards: `content/first_aid/` (copied to
   `emergencyhr_flutter/assets/first_aid/`; CI checks they match).
 - App settings and feature flags: `emergencyhr_server/config/app_settings.yaml`.
+  After editing it, run `dart run tool/embed_app_settings.dart` in the
+  server package (a test checks the built-in copy matches).
 
 People sign in with email and password. In development, email codes print to
 the server log and demo data is seeded automatically (accounts and the demo

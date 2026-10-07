@@ -929,9 +929,16 @@ class _Footer extends StatelessWidget {
               ],
             ),
           ),
-          LandingFrame(
+          const LandingFrame(
             bottom: 32,
-            child: AppText.caption(_C.copyright),
+            child: Wrap(
+              spacing: AppSpacing.x2,
+              runSpacing: AppSpacing.x1,
+              children: [
+                AppText.caption(_C.copyright),
+                AppText.caption(_C.dataCredit),
+              ],
+            ),
           ),
         ],
       ),

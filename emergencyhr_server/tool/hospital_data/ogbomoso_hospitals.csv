@@ -1,0 +1,35 @@
+source_ref,name,type,address,area,lat,lng,level
+grid3-nga-v3:SN_84F3FDB2D1,Abayomi Hospital,private,"Abayomi, Ogbomoso South LGA, Oyo State",Ogbomoso,8.121670,4.222552,Secondary
+grid3-nga-v3:SN_170E7E7F87,Alafia Oluwa Hospital Iresa Pupa,private,"Surulere LGA, Oyo State",Ogbomoso,8.070563,4.344023,Primary
+grid3-nga-v3:SN_FD097E8EA2,Anu Clinic And Maternity Centre,private,"Iyana Ogojo, Ogbomoso North LGA, Oyo State",Ogbomoso,8.125231,4.287522,Secondary
+grid3-nga-v3:SN_5AF9F110C7,Ayo Oluwa Clinic And Maternity,private,"Betel Area, Ogbomoso South LGA, Oyo State",Ogbomoso,8.119937,4.231563,Secondary
+grid3-nga-v3:SN_8CD0572029,Benediction Health Clinic,private,"Oke Beulah, Ogbomoso South LGA, Oyo State",Ogbomoso,8.104720,4.232250,Secondary
+grid3-nga-v3:SN_B4020DCBEA,Bowen Teaching Hospital,private,"Takie / Nitel, Ogbomoso North LGA, Oyo State",Ogbomoso,8.133055,4.234088,Tertiary
+grid3-nga-v3:SN_4A5AA800CF,Cliff Hospital,private,"Best For Best, Ogbomoso South LGA, Oyo State",Ogbomoso,8.122440,4.225460,Secondary
+grid3-nga-v3:SN_F419A61695,Gbomojo Hospital Specialist,private,"Agbowo, Ogbomoso North LGA, Oyo State",Ogbomoso,8.124360,4.258653,Secondary
+grid3-nga-v3:SN_EA3D4BF85B,Great Liberty Medical Center,private,"Oluwamodupe, Ogbomoso South LGA, Oyo State",Ogbomoso,8.117648,4.203287,Secondary
+grid3-nga-v3:SN_225C8CD72D,Halleluyah Hospital,private,"Surulere LGA, Oyo State",Ogbomoso,7.945880,4.339060,Secondary
+grid3-nga-v3:SN_8C6B53DD39,Ikoyi Ile General Hospital,public,"Ikoyi Ile, Ori Ire LGA, Oyo State",Ogbomoso,8.244095,4.166055,Primary
+grid3-nga-v3:SN_943D3DA386,Immanuel Hospital,private,"Isale Afon, Ogbomoso North LGA, Oyo State",Ogbomoso,8.136599,4.246868,Secondary
+grid3-nga-v3:SN_BB595DE7E4,Iresadu General Hospital,public,"Oke Ekoro, Surulere LGA, Oyo State",Ogbomoso,8.078270,4.402197,Secondary
+grid3-nga-v3:SN_EF01FBA419,Jesus Heals Clinic And Maternity Centre,private,"Road Safety, Ogbomoso South LGA, Oyo State",Ogbomoso,8.111989,4.220206,Secondary
+grid3-nga-v3:SN_1C11191477,Kajola Comprehensive Health Center,public,"Kajola, Ogbomoso South LGA, Oyo State",Ogbomoso,8.112915,4.226074,Secondary
+grid3-nga-v3:SN_F0049E9852,Ladoke Akintola Teaching Hospital,public,"Sabo, Ogbomoso North LGA, Oyo State",Ogbomoso,8.151438,4.252437,Tertiary
+grid3-nga-v3:SN_5D283B7311,Laduntan Hospital,private,"Laduntan, Ogbomoso South LGA, Oyo State",Ogbomoso,8.118530,4.233521,Secondary
+grid3-nga-v3:SN_98A769B8D9,Lautech School Clinic,public,"Ogbomoso North LGA, Oyo State",Ogbomoso,8.210951,4.109320,Secondary
+grid3-nga-v3:SN_6450AAA1EB,Liberty Health Center,private,"Ogbomoso South LGA, Oyo State",Ogbomoso,8.117676,4.218872,Secondary
+grid3-nga-v3:SN_89DEA9F4E3,Mainspring Hospital,private,"Alade, Ogbomoso South LGA, Oyo State",Ogbomoso,8.116645,4.221890,Secondary
+grid3-nga-v3:SN_E31A80CF9C,Mercy Triumph Medical Center,private,"Victory, Ogbomoso North LGA, Oyo State",Ogbomoso,8.149348,4.227225,Primary
+grid3-nga-v3:SN_8C14F8A683,Ogbomoso State Hospital,public,"Arowomole, Ogbomoso South LGA, Oyo State",Ogbomoso,8.111830,4.234620,Secondary
+grid3-nga-v3:SN_E52B29D23B,Ogo Oluwa Welfare Medical Centre,private,"Ogo Oluwa, Ogbomoso South LGA, Oyo State",Ogbomoso,8.120583,4.229677,Secondary
+grid3-nga-v3:SN_657405336E,Oko General Hospital,public,"Oko, Surulere LGA, Oyo State",Ogbomoso,7.977230,4.344821,Secondary
+grid3-nga-v3:SN_04C82AF314,Oluwa Seun Maternity And Child Welfare Clinic,private,"Ogbomoso North LGA, Oyo State",Ogbomoso,8.117310,4.256287,Secondary
+grid3-nga-v3:SN_609425746B,Oluwadara Clinic,private,"Sawmill, Ogbomoso South LGA, Oyo State",Ogbomoso,8.123930,4.223660,Secondary
+grid3-nga-v3:SN_45C07D8E40,Oluwatoyosi Clinic And Maternity Centre,private,"Ajegunle, Ogbomoso South LGA, Oyo State",Ogbomoso,8.116470,4.214518,Secondary
+grid3-nga-v3:SN_34CAE45838,Ona Abayo Medical Center,private,"Ogbomoso South LGA, Oyo State",Ogbomoso,8.125383,4.235252,Secondary
+grid3-nga-v3:SN_85079A0A55,Sijuade Clinic And Maternity Centre,private,"Wosem, Ogbomoso South LGA, Oyo State",Ogbomoso,8.110073,4.222886,Secondary
+grid3-nga-v3:SN_110CC51B02,State Management Board Hospital,public,"State Hospital Area, Ogbomoso South LGA, Oyo State",Ogbomoso,8.109973,4.234707,Secondary
+grid3-nga-v3:SN_6A7BD637B1,Sunrise Covenant Clinic And Maternity,private,"Jalubosa, Ogbomoso South LGA, Oyo State",Ogbomoso,8.118536,4.227998,Secondary
+grid3-nga-v3:SN_2D75053DB9,Temple Medical Center,private,"Iwagba, Ogbomoso North LGA, Oyo State",Ogbomoso,8.148295,4.247388,Secondary
+grid3-nga-v3:SN_63C90E0B7A,Titilayo Clinic,private,"Titilayo, Ogbomoso South LGA, Oyo State",Ogbomoso,8.121067,4.229302,Secondary
+grid3-nga-v3:SN_E4FB97364B,Titilope Hospital,private,"Surulere LGA, Oyo State",Ogbomoso,8.297507,4.344248,Secondary

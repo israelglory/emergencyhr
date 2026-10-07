@@ -124,6 +124,11 @@ API https://emergencyhr.api.serverpod.space.
    `production`. Keep a safe copy of `dataEncryptionKey`.
 4. Production reads first-aid cards from `web/app/assets/assets/first_aid`
    (`firstAidPath`), because only the server folder is uploaded.
+   Cloud does not ship `config/` either: settings come from the copy built
+   into the server. After editing `config/app_settings.yaml` locally, run
+   `dart run tool/embed_app_settings.dart` in `emergencyhr_server` (the
+   deploy also does it). Check the start-up log line "App settings loaded
+   from ..." after each deploy.
 5. Future calls are off on the Cloud project, so the 5-minute reminders are
    not scheduled (the server logs a warning and carries on). They only send
    SMS and WhatsApp, which are off in production.
@@ -181,3 +186,19 @@ changing them, regenerate from the `emergencyhr_flutter` folder:
   `flutter_native_splash.yaml`).
 
 Reinstall the app on the phone to see a new icon or launch screen.
+
+## Importing hospitals
+
+1. Refresh the data (optional): in `emergencyhr_server`, run
+   `dart run tool/hospital_data/fetch_grid3.dart`. It writes
+   `tool/hospital_data/lagos_hospitals.csv` and `ogbomoso_hospitals.csv`.
+2. In the app, Admin, Directory, Import hospitals: choose a CSV file. The
+   preview shows how many will be added, already imported, possible
+   duplicates and unusable rows. Then Import.
+3. Imported hospitals are unverified. Verify each in the Directory once
+   checked. Importing the same file again is safe.
+
+CSV columns: `source_ref,name,type,address,area,lat,lng` (type is public,
+private or mission). Other sources work too if they use these columns and a
+stable `source_ref`; credit the source as its licence requires.
+

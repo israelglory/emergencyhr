@@ -97,8 +97,12 @@ class FacilityEditorViewModel extends BaseViewModel {
       (label: c.label, value: c, selected: _capabilities.contains(c)),
   ];
 
+  /// Pilot areas, plus the listing's own area when it is outside them
+  /// (imported hospitals can be in any Lagos LGA).
   List<({String value, String label})> get areaOptions => [
     for (final a in PilotAreas.names) (value: a, label: a),
+    if (_area.isNotEmpty && !PilotAreas.names.contains(_area))
+      (value: _area, label: _area),
   ];
   String get area => _area;
 

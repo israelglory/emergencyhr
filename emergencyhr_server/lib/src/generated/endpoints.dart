@@ -10,6 +10,8 @@
 // ignore_for_file: invalid_use_of_internal_member
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:emergencyhr_server/src/generated/features/admin/models/facility_import_row.dart'
+    as _ijbyy5tt;
 import 'package:emergencyhr_server/src/generated/features/auth/models/user_role.dart'
     as _ijg5vzn8;
 import 'package:emergencyhr_server/src/generated/features/emergency/models/emergency_action.dart'
@@ -410,6 +412,50 @@ class Endpoints extends _is.EndpointDispatch {
                   (endpoints['admin'] as _i7xoxkop.AdminEndpoint).approve(
                     session,
                     params['facilityId'],
+                  ),
+        ),
+        'verifyListing': _is.MethodConnector(
+          name: 'verifyListing',
+          params: {
+            'facilityId': _is.ParameterDescription(
+              name: 'facilityId',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async =>
+                  (endpoints['admin'] as _i7xoxkop.AdminEndpoint).verifyListing(
+                    session,
+                    params['facilityId'],
+                  ),
+        ),
+        'importFacilities': _is.MethodConnector(
+          name: 'importFacilities',
+          params: {
+            'rows': _is.ParameterDescription(
+              name: 'rows',
+              type: _is.getType<List<_ijbyy5tt.FacilityImportRow>>(),
+              nullable: false,
+            ),
+            'dryRun': _is.ParameterDescription(
+              name: 'dryRun',
+              type: _is.getType<bool>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['admin'] as _i7xoxkop.AdminEndpoint)
+                  .importFacilities(
+                    session,
+                    params['rows'],
+                    dryRun: params['dryRun'],
                   ),
         ),
         'reject': _is.MethodConnector(

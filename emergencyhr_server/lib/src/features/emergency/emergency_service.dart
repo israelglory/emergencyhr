@@ -276,6 +276,15 @@ class EmergencyService {
       ),
       status: live ? status : null,
       live: live,
+      dataSource: f.source == FacilitySource.imported
+          ? importCredit(f.sourceRef)
+          : null,
     );
   }
+
+  /// The attribution an open-data licence asks for, from the source id.
+  static String? importCredit(String? sourceRef) =>
+      sourceRef != null && sourceRef.startsWith('grid3-')
+      ? 'Location from GRID3 (CC BY 4.0)'
+      : null;
 }

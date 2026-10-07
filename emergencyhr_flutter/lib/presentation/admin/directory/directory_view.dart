@@ -27,11 +27,23 @@ class DirectoryView extends StatelessWidget {
                 controller: model.searchController,
                 onChanged: model.onSearchChanged,
               ),
-              AppButton(
-                title: 'New listing',
-                size: AppButtonSize.medium,
-                expand: false,
-                onPressed: model.createListing,
+              Wrap(
+                spacing: AppSpacing.x1,
+                runSpacing: AppSpacing.x1,
+                children: [
+                  AppButton.secondary(
+                    title: 'Import hospitals',
+                    size: AppButtonSize.medium,
+                    expand: false,
+                    onPressed: model.importHospitals,
+                  ),
+                  AppButton(
+                    title: 'New listing',
+                    size: AppButtonSize.medium,
+                    expand: false,
+                    onPressed: model.createListing,
+                  ),
+                ],
               ),
             ],
           ),
@@ -46,7 +58,7 @@ class DirectoryView extends StatelessWidget {
                 TableColumn('Hospital', flex: 2),
                 TableColumn('Address', flex: 2),
                 TableColumn('Status'),
-                TableColumn('', width: 120),
+                TableColumn('', width: 200),
               ],
               empty: const AppText(
                 'No hospitals found',
@@ -68,16 +80,39 @@ class DirectoryView extends StatelessWidget {
                         dot: false,
                       ),
                     ),
-                    AppButton.secondary(
-                      title: model.suspendLabel(row),
-                      size: AppButtonSize.small,
-                      expand: false,
-                      onPressed: () => model.toggleSuspended(row),
+                    Wrap(
+                      spacing: AppSpacing.x1,
+                      runSpacing: 6,
+                      children: [
+                        if (row.canVerify)
+                          AppButton(
+                            title: 'Verify',
+                            size: AppButtonSize.small,
+                            expand: false,
+                            onPressed: () => model.verify(row),
+                          ),
+                        AppButton.secondary(
+                          title: model.suspendLabel(row),
+                          size: AppButtonSize.small,
+                          expand: false,
+                          onPressed: () => model.toggleSuspended(row),
+                        ),
+                      ],
                     ),
                   ],
               ],
             ),
           },
+          if (model.hasMore)
+            Center(
+              child: AppButton.secondary(
+                title: 'Load more',
+                size: AppButtonSize.medium,
+                expand: false,
+                loading: model.isBusy,
+                onPressed: model.loadMore,
+              ),
+            ),
         ],
       ),
     );

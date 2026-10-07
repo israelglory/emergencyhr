@@ -22,6 +22,14 @@ class AdminApi {
   Future<ApiResponse<List<VerificationItem>>> verificationQueue() =>
       _g(() => _admin.verificationQueue(limit: 50, offset: 0));
   Future<ApiResponse<Facility>> approve(int id) => _g(() => _admin.approve(id));
+  Future<ApiResponse<Facility>> verifyListing(int id) =>
+      _g(() => _admin.verifyListing(id));
+
+  /// Hospitals from an open dataset. [dryRun] only previews.
+  Future<ApiResponse<FacilityImportSummary>> importFacilities(
+    List<FacilityImportRow> rows, {
+    required bool dryRun,
+  }) => _g(() => _admin.importFacilities(rows, dryRun: dryRun));
   Future<ApiResponse<Facility>> reject(int id, String reason) =>
       _g(() => _admin.reject(id, reason));
   Future<ApiResponse<ByteData>> document(int documentId) =>

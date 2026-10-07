@@ -18,6 +18,10 @@ import 'package:emergencyhr_client/src/protocol/features/admin/models/claim_queu
     as _ib27qxyi;
 import 'package:emergencyhr_client/src/protocol/features/admin/models/directory_row.dart'
     as _ilxv0wae;
+import 'package:emergencyhr_client/src/protocol/features/admin/models/facility_import_row.dart'
+    as _ifhgg7r5;
+import 'package:emergencyhr_client/src/protocol/features/admin/models/facility_import_summary.dart'
+    as _irupva58;
 import 'package:emergencyhr_client/src/protocol/features/admin/models/freshness_row.dart'
     as _ik1xr38l;
 import 'package:emergencyhr_client/src/protocol/features/admin/models/new_hospital_row.dart'
@@ -366,6 +370,29 @@ class EndpointAdmin extends _isc.EndpointRef {
         'approve',
         {'facilityId': facilityId},
       );
+
+  /// Verifies a listing directly, e.g. an imported hospital the admin has
+  /// checked.
+  _ida.Future<_ibcfwqdd.Facility> verifyListing(int facilityId) =>
+      caller.callServerEndpoint<_ibcfwqdd.Facility>(
+        'admin',
+        'verifyListing',
+        {'facilityId': facilityId},
+      );
+
+  /// Adds hospitals from an open dataset. With [dryRun] nothing is saved
+  /// and the summary says what would happen.
+  _ida.Future<_irupva58.FacilityImportSummary> importFacilities(
+    List<_ifhgg7r5.FacilityImportRow> rows, {
+    required bool dryRun,
+  }) => caller.callServerEndpoint<_irupva58.FacilityImportSummary>(
+    'admin',
+    'importFacilities',
+    {
+      'rows': rows,
+      'dryRun': dryRun,
+    },
+  );
 
   _ida.Future<_ibcfwqdd.Facility> reject(
     int facilityId,

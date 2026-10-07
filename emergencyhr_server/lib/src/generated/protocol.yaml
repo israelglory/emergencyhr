@@ -12,6 +12,8 @@ jwtRefresh:
 admin:
   - verificationQueue:
   - approve:
+  - verifyListing:
+  - importFacilities:
   - reject:
   - directory:
   - pipeline:

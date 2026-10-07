@@ -36,6 +36,7 @@ abstract class Facility
     required this.verificationStatus,
     required this.onboardingStage,
     required this.source,
+    this.sourceRef,
     this.liveAt,
     this.openingHours,
     this.trainingCompletedAt,
@@ -62,6 +63,7 @@ abstract class Facility
     required _ipq8k6fl.VerificationStatus verificationStatus,
     required _ibrba1hx.OnboardingStage onboardingStage,
     required _i33gs98b.FacilitySource source,
+    String? sourceRef,
     DateTime? liveAt,
     _iy9wan3d.OpeningHours? openingHours,
     DateTime? trainingCompletedAt,
@@ -100,6 +102,7 @@ abstract class Facility
       source: _i33gs98b.FacilitySource.fromJson(
         (jsonSerialization['source'] as String),
       ),
+      sourceRef: jsonSerialization['sourceRef'] as String?,
       liveAt: jsonSerialization['liveAt'] == null
           ? null
           : _is.DateTimeJsonExtension.fromJson(jsonSerialization['liveAt']),
@@ -165,6 +168,10 @@ abstract class Facility
 
   _i33gs98b.FacilitySource source;
 
+  /// Where an imported listing came from, e.g. "grid3-nga-v2:<id>". Lets
+  /// the same file be imported again without creating duplicates.
+  String? sourceRef;
+
   DateTime? liveAt;
 
   _iy9wan3d.OpeningHours? openingHours;
@@ -203,6 +210,7 @@ abstract class Facility
     _ipq8k6fl.VerificationStatus? verificationStatus,
     _ibrba1hx.OnboardingStage? onboardingStage,
     _i33gs98b.FacilitySource? source,
+    String? sourceRef,
     DateTime? liveAt,
     _iy9wan3d.OpeningHours? openingHours,
     DateTime? trainingCompletedAt,
@@ -231,6 +239,7 @@ abstract class Facility
       'verificationStatus': verificationStatus.toJson(),
       'onboardingStage': onboardingStage.toJson(),
       'source': source.toJson(),
+      if (sourceRef != null) 'sourceRef': sourceRef,
       if (liveAt != null) 'liveAt': liveAt?.toJson(),
       if (openingHours != null) 'openingHours': openingHours?.toJson(),
       if (trainingCompletedAt != null)
@@ -262,6 +271,7 @@ abstract class Facility
       'verificationStatus': verificationStatus.toJson(),
       'onboardingStage': onboardingStage.toJson(),
       'source': source.toJson(),
+      if (sourceRef != null) 'sourceRef': sourceRef,
       if (liveAt != null) 'liveAt': liveAt?.toJson(),
       if (openingHours != null)
         'openingHours': openingHours?.toJsonForProtocol(),
@@ -321,6 +331,7 @@ class _FacilityImpl extends Facility {
     required _ipq8k6fl.VerificationStatus verificationStatus,
     required _ibrba1hx.OnboardingStage onboardingStage,
     required _i33gs98b.FacilitySource source,
+    String? sourceRef,
     DateTime? liveAt,
     _iy9wan3d.OpeningHours? openingHours,
     DateTime? trainingCompletedAt,
@@ -344,6 +355,7 @@ class _FacilityImpl extends Facility {
          verificationStatus: verificationStatus,
          onboardingStage: onboardingStage,
          source: source,
+         sourceRef: sourceRef,
          liveAt: liveAt,
          openingHours: openingHours,
          trainingCompletedAt: trainingCompletedAt,
@@ -373,6 +385,7 @@ class _FacilityImpl extends Facility {
     _ipq8k6fl.VerificationStatus? verificationStatus,
     _ibrba1hx.OnboardingStage? onboardingStage,
     _i33gs98b.FacilitySource? source,
+    Object? sourceRef = _Undefined,
     Object? liveAt = _Undefined,
     Object? openingHours = _Undefined,
     Object? trainingCompletedAt = _Undefined,
@@ -399,6 +412,7 @@ class _FacilityImpl extends Facility {
       verificationStatus: verificationStatus ?? this.verificationStatus,
       onboardingStage: onboardingStage ?? this.onboardingStage,
       source: source ?? this.source,
+      sourceRef: sourceRef is String? ? sourceRef : this.sourceRef,
       liveAt: liveAt is DateTime? ? liveAt : this.liveAt,
       openingHours: openingHours is _iy9wan3d.OpeningHours?
           ? openingHours
@@ -490,6 +504,11 @@ class FacilityUpdateTable extends _is.UpdateTable<FacilityTable> {
     _i33gs98b.FacilitySource value,
   ) => _is.ColumnValue(
     table.source,
+    value,
+  );
+
+  _is.ColumnValue<String, String> sourceRef(String? value) => _is.ColumnValue(
+    table.sourceRef,
     value,
   );
 
@@ -602,6 +621,10 @@ class FacilityTable extends _is.Table<int?> {
       this,
       _is.EnumSerialization.byName,
     );
+    sourceRef = _is.ColumnString(
+      'sourceRef',
+      this,
+    );
     liveAt = _is.ColumnDateTime(
       'liveAt',
       this,
@@ -667,6 +690,10 @@ class FacilityTable extends _is.Table<int?> {
 
   late final _is.ColumnEnum<_i33gs98b.FacilitySource> source;
 
+  /// Where an imported listing came from, e.g. "grid3-nga-v2:<id>". Lets
+  /// the same file be imported again without creating duplicates.
+  late final _is.ColumnString sourceRef;
+
   late final _is.ColumnDateTime liveAt;
 
   late final _is.ColumnSerializable<_iy9wan3d.OpeningHours> openingHours;
@@ -700,6 +727,7 @@ class FacilityTable extends _is.Table<int?> {
     verificationStatus,
     onboardingStage,
     source,
+    sourceRef,
     liveAt,
     openingHours,
     trainingCompletedAt,

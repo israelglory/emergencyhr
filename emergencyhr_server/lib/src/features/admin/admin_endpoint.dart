@@ -9,6 +9,7 @@ import '../onboarding/claim_service.dart';
 import '../onboarding/join_request_service.dart';
 import '../onboarding/onboarding_service.dart';
 import 'admin_service.dart';
+import 'facility_import_service.dart';
 
 /// The Admin shell. Who may call: platform admins only, for every method.
 class AdminEndpoint extends Endpoint {
@@ -17,6 +18,7 @@ class AdminEndpoint extends Endpoint {
   static const _facilities = FacilityService();
   static final _claims = ClaimService();
   static final _joins = JoinRequestService();
+  static const _imports = FacilityImportService();
 
   Future<AppUser> _requireAdmin(Session session) =>
       AuthGuard.requireRole(session, {UserRole.platformAdmin});
@@ -36,6 +38,33 @@ class AdminEndpoint extends Endpoint {
     return _onboarding.approve(
       session,
       facility: await _facilities.require(session, facilityId),
+      admin: admin,
+    );
+  }
+
+  /// Verifies a listing directly, e.g. an imported hospital the admin has
+  /// checked.
+  Future<Facility> verifyListing(Session session, int facilityId) async {
+    final admin = await _requireAdmin(session);
+    return _onboarding.verifyListing(
+      session,
+      facility: await _facilities.require(session, facilityId),
+      admin: admin,
+    );
+  }
+
+  /// Adds hospitals from an open dataset. With [dryRun] nothing is saved
+  /// and the summary says what would happen.
+  Future<FacilityImportSummary> importFacilities(
+    Session session,
+    List<FacilityImportRow> rows, {
+    bool dryRun = true,
+  }) async {
+    final admin = await _requireAdmin(session);
+    return _imports.importRows(
+      session,
+      rows: rows,
+      dryRun: dryRun,
       admin: admin,
     );
   }
