@@ -45,11 +45,27 @@ class OnboardingService {
     Facility facility, {
     Transaction? transaction,
   }) async {
-    final id = facility.id!;
+    final all = await checklists(
+      session,
+      [facility],
+      transaction: transaction,
+    );
+    return all[facility.id!]!;
+  }
+
+  /// The go-live checklist for many facilities at once, in four queries
+  /// whatever the number of facilities (the admin pipeline lists them all).
+  Future<Map<int, GoLiveChecklist>> checklists(
+    Session session,
+    List<Facility> facilities, {
+    Transaction? transaction,
+  }) async {
+    if (facilities.isEmpty) return {};
+    final ids = {for (final f in facilities) f.id!};
     final roles = await RoleAssignment.db.find(
       session,
       where: (t) =>
-          t.facilityId.equals(id) &
+          t.facilityId.inSet(ids) &
           t.role.inSet(<UserRole>{UserRole.hospitalAdmin, UserRole.deskStaff}),
       transaction: transaction,
     );
@@ -57,38 +73,61 @@ class OnboardingService {
       for (final r in roles)
         if (r.role == UserRole.deskStaff) r.userId,
     };
-    final activeDesk = deskIds.isEmpty
-        ? 0
-        : await AppUser.db.count(
-            session,
-            where: (t) => t.id.inSet(deskIds) & t.suspendedAt.equals(null),
-            transaction: transaction,
-          );
-    final capabilities = await FacilityCapability.db.count(
+    final activeDeskIds = deskIds.isEmpty
+        ? <int>{}
+        : {
+            for (final u in await AppUser.db.find(
+              session,
+              where: (t) => t.id.inSet(deskIds) & t.suspendedAt.equals(null),
+              transaction: transaction,
+            ))
+              u.id!,
+          };
+    final capabilities = await FacilityCapability.db.find(
       session,
-      where: (t) => t.facilityId.equals(id),
+      where: (t) => t.facilityId.inSet(ids),
       transaction: transaction,
     );
-    final status = await FacilityStatus.db.count(
-      session,
-      where: (t) => t.facilityId.equals(id),
-      transaction: transaction,
-    );
-    return ChecklistRules.build(
-      id,
-      ChecklistFacts(
-        verified: facility.verificationStatus == VerificationStatus.verified,
-        hospitalAdminCount: roles
-            .where((r) => r.role == UserRole.hospitalAdmin)
-            .length,
-        activeDeskStaffCount: activeDesk,
-        capabilityCount: capabilities,
-        hasOpeningHours: facility.openingHours != null,
-        deskPhoneConfirmed: facility.deskPhoneConfirmedAt != null,
-        trainingCompleted: facility.trainingCompletedAt != null,
-        hasRealStatus: status > 0,
-      ),
-    );
+    final withStatus = {
+      for (final s in await FacilityStatus.db.find(
+        session,
+        where: (t) => t.facilityId.inSet(ids),
+        transaction: transaction,
+      ))
+        s.facilityId,
+    };
+    return {
+      for (final facility in facilities)
+        facility.id!: ChecklistRules.build(
+          facility.id!,
+          ChecklistFacts(
+            verified:
+                facility.verificationStatus == VerificationStatus.verified,
+            hospitalAdminCount: roles
+                .where(
+                  (r) =>
+                      r.facilityId == facility.id &&
+                      r.role == UserRole.hospitalAdmin,
+                )
+                .length,
+            activeDeskStaffCount: roles
+                .where(
+                  (r) =>
+                      r.facilityId == facility.id &&
+                      r.role == UserRole.deskStaff &&
+                      activeDeskIds.contains(r.userId),
+                )
+                .length,
+            capabilityCount: capabilities
+                .where((c) => c.facilityId == facility.id)
+                .length,
+            hasOpeningHours: facility.openingHours != null,
+            deskPhoneConfirmed: facility.deskPhoneConfirmedAt != null,
+            trainingCompleted: facility.trainingCompletedAt != null,
+            hasRealStatus: withStatus.contains(facility.id),
+          ),
+        ),
+    };
   }
 
   /// Re-checks the go-live checklist. Promotes a verified facility to live
@@ -444,9 +483,10 @@ class OnboardingService {
           t.facilityId.inSet(<int>{for (final f in facilities) f.id!}),
     );
     final byFacility = {for (final r in allRecords) r.facilityId: r};
+    final checklistBy = await checklists(session, facilities);
     final result = <AgentFacility>[];
     for (final f in facilities) {
-      final list = await checklist(session, f);
+      final list = checklistBy[f.id]!;
       final record = byFacility[f.id];
       result.add(
         AgentFacility(

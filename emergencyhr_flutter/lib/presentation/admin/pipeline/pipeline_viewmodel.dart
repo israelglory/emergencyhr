@@ -38,6 +38,10 @@ class PipelineViewModel extends BaseViewModel {
   String? _area;
   int? _agentId;
   final Set<int> _selected = {};
+  int _shown = pageSize;
+
+  /// Rows shown at a time; the whole board can hold hundreds of hospitals.
+  static const pageSize = 50;
 
   static const allAreas = 'All areas';
   static const allAgents = 'All agents';
@@ -73,8 +77,10 @@ class PipelineViewModel extends BaseViewModel {
   bool get hasSelection => _selected.isNotEmpty;
   String get selectionLabel => '${_selected.length} selected';
 
+  bool get hasMore => (_board?.rows.length ?? 0) > _shown;
+
   List<PipelineItem> get rows => [
-    for (final r in _board?.rows ?? const <PipelineRow>[])
+    for (final r in (_board?.rows ?? const <PipelineRow>[]).take(_shown))
       (
         id: r.facility.id,
         name: r.facility.name,
@@ -93,8 +99,14 @@ class PipelineViewModel extends BaseViewModel {
       ),
   ];
 
+  void loadMore() {
+    _shown += pageSize;
+    notifyListeners();
+  }
+
   Future<void> load() async {
     setError(null);
+    _shown = pageSize;
     final results = await runBusyFuture(
       Future.wait([
         _api.pipeline(area: _area, agentUserId: _agentId),

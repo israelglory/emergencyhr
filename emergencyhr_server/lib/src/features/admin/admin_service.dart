@@ -127,9 +127,10 @@ class AdminService {
     final names = await _names(session, {
       for (final r in records) ?r.assignedAgentUserId,
     });
+    final checklists = await onboarding.checklists(session, facilities);
     final rows = <PipelineRow>[];
     for (final f in facilities) {
-      final list = await onboarding.checklist(session, f);
+      final list = checklists[f.id]!;
       final r = recordBy[f.id];
       rows.add(
         PipelineRow(

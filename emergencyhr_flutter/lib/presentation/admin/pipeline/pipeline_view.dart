@@ -98,6 +98,15 @@ class PipelineView extends StatelessWidget {
                   ],
               ],
             ),
+            if (model.hasMore)
+              Center(
+                child: AppButton.secondary(
+                  title: 'Load more',
+                  size: AppButtonSize.medium,
+                  expand: false,
+                  onPressed: model.loadMore,
+                ),
+              ),
           ],
         ),
       ),

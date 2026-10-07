@@ -1,5 +1,6 @@
 import 'package:emergencyhr_server/src/features/admin/admin_service.dart';
 import 'package:emergencyhr_server/src/features/notifications/messaging.dart';
+import 'package:emergencyhr_server/src/features/onboarding/onboarding_service.dart';
 import 'package:emergencyhr_server/src/generated/protocol.dart';
 import 'package:test/test.dart';
 
@@ -176,6 +177,77 @@ void main() {
           throwsA(isA<InvalidStateException>()),
         );
       });
+
+      test(
+        'when the pipeline lists many hospitals then each checklist matches '
+        'the single-hospital checklist',
+        () async {
+          final admin = await createUser(
+            sessionBuilder,
+            phone: '+2348038880901',
+            roles: [(UserRole.platformAdmin, null)],
+          );
+          final ready = await createFacility(
+            sessionBuilder,
+            name: 'Pipeline Ready Hospital',
+            area: 'Pipeline Test Area',
+            stage: OnboardingStage.verified,
+          );
+          final bare = await createFacility(
+            sessionBuilder,
+            name: 'Pipeline Bare Hospital',
+            area: 'Pipeline Test Area',
+            stage: OnboardingStage.seeded,
+            verification: VerificationStatus.seeded,
+          );
+          await createUser(
+            sessionBuilder,
+            phone: '+2348038880902',
+            roles: [(UserRole.hospitalAdmin, ready.id)],
+          );
+          await createUser(
+            sessionBuilder,
+            phone: '+2348038880903',
+            roles: [(UserRole.deskStaff, ready.id)],
+          );
+          final session = sessionBuilder.build();
+          await FacilityCapability.db.insertRow(
+            session,
+            FacilityCapability(
+              facilityId: ready.id!,
+              capability: Capability.trauma,
+            ),
+          );
+
+          final board = await endpoints.admin.pipeline(
+            admin.session,
+            area: 'Pipeline Test Area',
+          );
+
+          expect(board.rows, hasLength(2));
+          for (final facility in [ready, bare]) {
+            final row = board.rows.singleWhere(
+              (r) => r.facility.id == facility.id,
+            );
+            final single = await const OnboardingService().checklist(
+              session,
+              facility,
+            );
+            expect(
+              row.checklistDone,
+              single.items.where((i) => i.done).length,
+            );
+            expect(row.checklistTotal, single.items.length);
+          }
+          final readyRow = board.rows.singleWhere(
+            (r) => r.facility.id == ready.id,
+          );
+          final bareRow = board.rows.singleWhere(
+            (r) => r.facility.id == bare.id,
+          );
+          expect(readyRow.checklistDone, greaterThan(bareRow.checklistDone));
+        },
+      );
     },
   );
 }
