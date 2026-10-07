@@ -20,7 +20,7 @@ abstract class FacilityInvite
     this.id,
     required this.facilityId,
     required this.role,
-    this.phone,
+    this.email,
     required this.shortCode,
     required this.createdByUserId,
     required this.expiresAt,
@@ -34,7 +34,7 @@ abstract class FacilityInvite
     int? id,
     required int facilityId,
     required _it1fawf0.UserRole role,
-    String? phone,
+    String? email,
     required String shortCode,
     required int createdByUserId,
     required DateTime expiresAt,
@@ -49,7 +49,7 @@ abstract class FacilityInvite
       id: jsonSerialization['id'] as int?,
       facilityId: jsonSerialization['facilityId'] as int,
       role: _it1fawf0.UserRole.fromJson((jsonSerialization['role'] as String)),
-      phone: jsonSerialization['phone'] as String?,
+      email: jsonSerialization['email'] as String?,
       shortCode: jsonSerialization['shortCode'] as String,
       createdByUserId: jsonSerialization['createdByUserId'] as int,
       expiresAt: _isc.DateTimeJsonExtension.fromJson(
@@ -77,7 +77,8 @@ abstract class FacilityInvite
 
   _it1fawf0.UserRole role;
 
-  String? phone;
+  /// When set, only the account with this email can accept.
+  String? email;
 
   String shortCode;
 
@@ -100,7 +101,7 @@ abstract class FacilityInvite
     int? id,
     int? facilityId,
     _it1fawf0.UserRole? role,
-    String? phone,
+    String? email,
     String? shortCode,
     int? createdByUserId,
     DateTime? expiresAt,
@@ -116,7 +117,7 @@ abstract class FacilityInvite
       if (id != null) 'id': id,
       'facilityId': facilityId,
       'role': role.toJson(),
-      if (phone != null) 'phone': phone,
+      if (email != null) 'email': email,
       'shortCode': shortCode,
       'createdByUserId': createdByUserId,
       'expiresAt': expiresAt.toJson(),
@@ -134,7 +135,7 @@ abstract class FacilityInvite
       if (id != null) 'id': id,
       'facilityId': facilityId,
       'role': role.toJson(),
-      if (phone != null) 'phone': phone,
+      if (email != null) 'email': email,
       'shortCode': shortCode,
       'createdByUserId': createdByUserId,
       'expiresAt': expiresAt.toJson(),
@@ -158,7 +159,7 @@ class _FacilityInviteImpl extends FacilityInvite {
     int? id,
     required int facilityId,
     required _it1fawf0.UserRole role,
-    String? phone,
+    String? email,
     required String shortCode,
     required int createdByUserId,
     required DateTime expiresAt,
@@ -170,7 +171,7 @@ class _FacilityInviteImpl extends FacilityInvite {
          id: id,
          facilityId: facilityId,
          role: role,
-         phone: phone,
+         email: email,
          shortCode: shortCode,
          createdByUserId: createdByUserId,
          expiresAt: expiresAt,
@@ -188,7 +189,7 @@ class _FacilityInviteImpl extends FacilityInvite {
     Object? id = _Undefined,
     int? facilityId,
     _it1fawf0.UserRole? role,
-    Object? phone = _Undefined,
+    Object? email = _Undefined,
     String? shortCode,
     int? createdByUserId,
     DateTime? expiresAt,
@@ -201,7 +202,7 @@ class _FacilityInviteImpl extends FacilityInvite {
       id: id is int? ? id : this.id,
       facilityId: facilityId ?? this.facilityId,
       role: role ?? this.role,
-      phone: phone is String? ? phone : this.phone,
+      email: email is String? ? email : this.email,
       shortCode: shortCode ?? this.shortCode,
       createdByUserId: createdByUserId ?? this.createdByUserId,
       expiresAt: expiresAt ?? this.expiresAt,

@@ -57,8 +57,16 @@ class ProfileViewModel extends ReactiveViewModel {
       'Save emergency contacts and medical details, and use the Health '
       'Assistant. Emergency works without an account.';
 
-  String get phoneLabel =>
-      Formatters.phone(_session.currentUser?.user.phone ?? '');
+  String get emailLabel => _session.currentUser?.user.email ?? 'Not set';
+
+  final phoneController = TextEditingController();
+  String? _phoneError;
+  String? get phoneError => _phoneError;
+  static const _phoneKey = 'savePhone';
+  bool get isSavingPhone => busy(_phoneKey);
+  static const phoneHint =
+      'Optional. Lets your hospital send quick WhatsApp status updates and '
+      'reminders to you.';
 
   List<String> get roleLabels {
     final user = _session.currentUser;
@@ -93,13 +101,45 @@ class ProfileViewModel extends ReactiveViewModel {
   bool get isExporting => busy(_exportKey);
 
   Future<void> onReady() async {
-    nameController.text = _session.currentUser?.user.name ?? '';
+    _fillFromUser();
     if (!isSignedIn) return;
     if (_session.currentUser == null) {
       await _session.refresh();
-      nameController.text = _session.currentUser?.user.name ?? '';
+      _fillFromUser();
     }
     await loadContacts();
+  }
+
+  void _fillFromUser() {
+    final user = _session.currentUser?.user;
+    nameController.text = user?.name ?? '';
+    phoneController.text = user?.phone == null
+        ? ''
+        : Formatters.phone(user!.phone!);
+  }
+
+  void onPhoneChanged(String _) {
+    if (_phoneError == null) return;
+    _phoneError = null;
+    notifyListeners();
+  }
+
+  /// Saves the phone number, or removes it when the field is empty.
+  Future<void> savePhone() async {
+    final phone = phoneController.text.trim();
+    final response = await runBusyFuture(
+      _api.updatePhone(phone.isEmpty ? null : phone),
+      busyObject: _phoneKey,
+    );
+    if (response.success) {
+      _session.update(response.data!);
+      _snackbar.success(
+        message: phone.isEmpty ? 'Phone number removed' : 'Phone number saved',
+      );
+    } else {
+      _phoneError = response.message;
+      notifyListeners();
+    }
   }
 
   Future<void> loadContacts() async {
@@ -222,6 +262,7 @@ class ProfileViewModel extends ReactiveViewModel {
   @override
   void dispose() {
     nameController.dispose();
+    phoneController.dispose();
     super.dispose();
   }
 }

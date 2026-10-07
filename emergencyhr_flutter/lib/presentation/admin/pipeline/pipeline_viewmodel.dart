@@ -60,7 +60,11 @@ class PipelineViewModel extends BaseViewModel {
   String get area => _area ?? allAreas;
   List<({int? id, String label})> get agentOptions => [
     (id: null, label: allAgents),
-    for (final a in _agents) (id: a.userId, label: a.name ?? a.phone),
+    for (final a in _agents)
+      (
+        id: a.userId,
+        label: Formatters.person(name: a.name, email: a.email, phone: a.phone),
+      ),
   ];
   int? get agentId => _agentId;
 
@@ -123,7 +127,11 @@ class PipelineViewModel extends BaseViewModel {
         options: [
           for (final a in _agents)
             (
-              label: a.name ?? a.phone,
+              label: Formatters.person(
+                name: a.name,
+                email: a.email,
+                phone: a.phone,
+              ),
               detail: a.areas.join(', '),
               value: a.userId,
             ),

@@ -1,8 +1,9 @@
-import 'package:emergencyhr_server/src/features/auth/phone_idp.dart';
+import 'package:emergencyhr_server/src/features/auth/account_service.dart';
 import 'package:emergencyhr_server/src/features/notifications/sms_gateway.dart';
 import 'package:emergencyhr_server/src/generated/protocol.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_idp_server/core.dart';
+import 'package:serverpod_auth_idp_server/providers/email.dart';
 
 import 'package:test/test.dart';
 
@@ -14,7 +15,13 @@ void setUpAuthServices() {
   setUpAll(
     () => AuthServices.set(
       tokenManagerBuilders: [JwtConfigFromPasswords()],
-      identityProviderBuilders: [const PhoneIdpConfig()],
+      identityProviderBuilders: [
+        ServerpodCloudEmailIdpConfig(
+          appDisplayName: 'Emergencyhr',
+          runMode: 'test',
+          onAfterAccountCreated: AccountService.onEmailAccountCreated,
+        ),
+      ],
     ),
   );
 }
@@ -39,6 +46,10 @@ class CapturingSmsGateway implements SmsGateway {
   }
 }
 
+/// A unique test email derived from a test phone number.
+String emailFor(String phone) =>
+    'user${phone.replaceAll(RegExp(r'\D'), '')}@test.emergencyhr';
+
 /// Creates a user with the given roles and returns a session builder signed
 /// in as them.
 Future<({AppUser user, TestSessionBuilder session})> createUser(
@@ -50,7 +61,11 @@ Future<({AppUser user, TestSessionBuilder session})> createUser(
   final authUser = await AuthServices.instance.authUsers.create(session);
   final user = await AppUser.db.insertRow(
     session,
-    AppUser(authUserId: authUser.id, phone: phone),
+    AppUser(
+      authUserId: authUser.id,
+      phone: phone,
+      email: emailFor(phone),
+    ),
   );
   for (final (role, facilityId) in roles) {
     await RoleAssignment.db.insertRow(

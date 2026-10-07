@@ -4,12 +4,15 @@ import 'package:emergencyhr_client/emergencyhr_client.dart';
 import 'package:emergencyhr_flutter/core/cores.dart';
 import 'package:emergencyhr_flutter/data/api/api_response.dart';
 import 'package:emergencyhr_flutter/data/api/assistant_api.dart';
+import 'package:emergencyhr_flutter/data/api/auth_api.dart';
 import 'package:emergencyhr_flutter/data/api/emergency_api.dart';
 import 'package:emergencyhr_flutter/data/api/facility_api.dart';
 import 'package:emergencyhr_flutter/data/api/profile_api.dart';
 import 'package:emergencyhr_flutter/data/api/status_api.dart';
 import 'package:emergencyhr_flutter/data/local/emergency_cache.dart';
 import 'package:mocktail/mocktail.dart';
+
+class MockAuthApi extends Mock implements AuthApi {}
 
 class MockStatusApi extends Mock implements StatusApi {}
 
@@ -55,6 +58,9 @@ void registerFallbacks() {
     ),
   );
   registerFallbackValue(EmergencyAction.none);
+  registerFallbackValue(
+    UuidValue.fromString('00000000-0000-7000-8000-000000000000'),
+  );
   registerFallbackValue(EmergencyType.skipped);
   registerFallbackValue(searchFixture());
 }

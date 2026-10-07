@@ -1,15 +1,5 @@
 import 'package:emergencyhr_client/emergencyhr_client.dart';
 
-/// Arguments for the sign-in code screen.
-class VerifyCodeArgs {
-  const VerifyCodeArgs({required this.request, this.next});
-
-  final OtpRequestResult request;
-
-  /// Route to open after sign-in.
-  final String? next;
-}
-
 /// Opens the facility form. No [facilityId] means a new listing.
 class FacilityEditorArgs {
   const FacilityEditorArgs({this.facilityId, this.lat, this.lng, this.name});

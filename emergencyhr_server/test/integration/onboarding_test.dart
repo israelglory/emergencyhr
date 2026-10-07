@@ -20,8 +20,7 @@ abstract final class StatusInputs {
 }
 
 void main() {
-  late CapturingSmsGateway sms;
-  setUp(() => Messaging.smsOverride = sms = CapturingSmsGateway());
+  setUp(() => Messaging.smsOverride = CapturingSmsGateway());
   tearDown(() {
     Messaging.smsOverride = null;
     clock = const SystemClock();
@@ -179,7 +178,7 @@ void main() {
         },
       );
 
-      test('when the invite is for another phone then denied', () async {
+      test('when the invite is for another email then denied', () async {
         final f = await createFacility(sessionBuilder, name: 'Seed Invite C');
         final agent = await createUser(
           sessionBuilder,
@@ -191,9 +190,9 @@ void main() {
           agent.session,
           f.id!,
           UserRole.hospitalAdmin,
-          phone: '08032220007',
+          email: 'Invited@Hospital.test',
         );
-        expect(sms.messages.last.message, contains(created.invite.shortCode));
+        expect(created.invite.email, 'invited@hospital.test');
         final other = await createUser(sessionBuilder, phone: '+2348032220008');
         await expectLater(
           endpoints.invite.accept(other.session, created.link.split('/').last),

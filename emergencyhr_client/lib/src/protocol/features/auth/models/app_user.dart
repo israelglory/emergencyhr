@@ -15,14 +15,16 @@ import 'package:serverpod_auth_core_client/serverpod_auth_core_client.dart'
     as _iacc;
 import 'package:serverpod_client/serverpod_client.dart' as _isc;
 
-/// One account per person, identified by phone number.
+/// One account per person. People sign in with email; a phone number can
+/// be added later in their profile.
 abstract class AppUser
     implements _isc.SerializableModel, _isc.ProtocolSerialization {
   AppUser._({
     this.id,
     required this.authUserId,
     this.authUser,
-    required this.phone,
+    this.email,
+    this.phone,
     this.name,
     DateTime? createdAt,
     this.suspendedAt,
@@ -33,7 +35,8 @@ abstract class AppUser
     int? id,
     required _isc.UuidValue authUserId,
     _iacc.AuthUser? authUser,
-    required String phone,
+    String? email,
+    String? phone,
     String? name,
     DateTime? createdAt,
     DateTime? suspendedAt,
@@ -51,7 +54,8 @@ abstract class AppUser
           : _ivwsyfsq.Protocol().deserialize<_iacc.AuthUser>(
               jsonSerialization['authUser'],
             ),
-      phone: jsonSerialization['phone'] as String,
+      email: jsonSerialization['email'] as String?,
+      phone: jsonSerialization['phone'] as String?,
       name: jsonSerialization['name'] as String?,
       createdAt: jsonSerialization['createdAt'] == null
           ? null
@@ -75,8 +79,11 @@ abstract class AppUser
   /// The Serverpod auth user this account signs in as.
   _iacc.AuthUser? authUser;
 
-  /// E.164 phone number, e.g. +2348012345678.
-  String phone;
+  /// Lower-case sign-in email.
+  String? email;
+
+  /// Optional E.164 phone number, e.g. +2348012345678. Not verified.
+  String? phone;
 
   String? name;
 
@@ -93,6 +100,7 @@ abstract class AppUser
     int? id,
     _isc.UuidValue? authUserId,
     _iacc.AuthUser? authUser,
+    String? email,
     String? phone,
     String? name,
     DateTime? createdAt,
@@ -106,7 +114,8 @@ abstract class AppUser
       if (id != null) 'id': id,
       'authUserId': authUserId.toJson(),
       if (authUser != null) 'authUser': authUser?.toJson(),
-      'phone': phone,
+      if (email != null) 'email': email,
+      if (phone != null) 'phone': phone,
       if (name != null) 'name': name,
       'createdAt': createdAt.toJson(),
       if (suspendedAt != null) 'suspendedAt': suspendedAt?.toJson(),
@@ -121,7 +130,8 @@ abstract class AppUser
       if (id != null) 'id': id,
       'authUserId': authUserId.toJson(),
       if (authUser != null) 'authUser': authUser?.toJson(),
-      'phone': phone,
+      if (email != null) 'email': email,
+      if (phone != null) 'phone': phone,
       if (name != null) 'name': name,
       'createdAt': createdAt.toJson(),
       if (suspendedAt != null) 'suspendedAt': suspendedAt?.toJson(),
@@ -142,7 +152,8 @@ class _AppUserImpl extends AppUser {
     int? id,
     required _isc.UuidValue authUserId,
     _iacc.AuthUser? authUser,
-    required String phone,
+    String? email,
+    String? phone,
     String? name,
     DateTime? createdAt,
     DateTime? suspendedAt,
@@ -151,6 +162,7 @@ class _AppUserImpl extends AppUser {
          id: id,
          authUserId: authUserId,
          authUser: authUser,
+         email: email,
          phone: phone,
          name: name,
          createdAt: createdAt,
@@ -166,7 +178,8 @@ class _AppUserImpl extends AppUser {
     Object? id = _Undefined,
     _isc.UuidValue? authUserId,
     Object? authUser = _Undefined,
-    String? phone,
+    Object? email = _Undefined,
+    Object? phone = _Undefined,
     Object? name = _Undefined,
     DateTime? createdAt,
     Object? suspendedAt = _Undefined,
@@ -178,7 +191,8 @@ class _AppUserImpl extends AppUser {
       authUser: authUser is _iacc.AuthUser?
           ? authUser
           : this.authUser?.copyWith(),
-      phone: phone ?? this.phone,
+      email: email is String? ? email : this.email,
+      phone: phone is String? ? phone : this.phone,
       name: name is String? ? name : this.name,
       createdAt: createdAt ?? this.createdAt,
       suspendedAt: suspendedAt is DateTime? ? suspendedAt : this.suspendedAt,

@@ -39,7 +39,7 @@ class ClaimsViewModel extends BaseViewModel {
           id: item.claim.id!,
           title: '${item.claim.contactName} claims ${item.facility.name}',
           detail: [
-            Formatters.phone(item.claimantPhone),
+            item.claimantContact,
             Formatters.ago(item.claim.createdAt, now),
             Formatters.count(item.claim.documents.length, 'document'),
             item.claim.deskPhoneVerified

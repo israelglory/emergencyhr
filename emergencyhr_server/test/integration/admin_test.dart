@@ -128,10 +128,10 @@ void main() {
             phone: '+2348038880004',
             roles: [(UserRole.platformAdmin, null)],
           );
+          await createUser(sessionBuilder, phone: '+2348038880005');
           final row = await endpoints.admin.addAgent(
             admin.session,
-            '08038880005',
-            'New Agent',
+            emailFor('+2348038880005'),
             ['Yaba'],
           );
           expect(row.areas, ['Yaba']);
@@ -140,6 +140,23 @@ void main() {
             where: (t) => t.userId.equals(row.userId),
           );
           expect(roles.map((r) => r.role), contains(UserRole.fieldAgent));
+        },
+      );
+
+      test(
+        'when no account uses the email then adding an agent is refused',
+        () async {
+          final admin = await createUser(
+            sessionBuilder,
+            phone: '+2348038880007',
+            roles: [(UserRole.platformAdmin, null)],
+          );
+          await expectLater(
+            endpoints.admin.addAgent(admin.session, 'nobody@test.emergencyhr', [
+              'Yaba',
+            ]),
+            throwsA(isA<ValidationException>()),
+          );
         },
       );
 

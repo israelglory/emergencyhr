@@ -36,6 +36,21 @@ abstract final class Validate {
     return phone(input, field: field);
   }
 
+  static final _email = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
+
+  static String email(String input, {String field = 'email'}) {
+    final value = input.trim().toLowerCase();
+    if (value.length > 254 || !_email.hasMatch(value)) {
+      throw Errors.validation('Enter a valid email address.', field: field);
+    }
+    return value;
+  }
+
+  static String? optionalEmail(String? input, {String field = 'email'}) {
+    if (input == null || input.trim().isEmpty) return null;
+    return email(input, field: field);
+  }
+
   static String text(
     String input, {
     required String field,

@@ -20,7 +20,7 @@ abstract class FacilityInvite
     this.id,
     required this.facilityId,
     required this.role,
-    this.phone,
+    this.email,
     this.tokenHash,
     required this.shortCode,
     required this.createdByUserId,
@@ -35,7 +35,7 @@ abstract class FacilityInvite
     int? id,
     required int facilityId,
     required _it1fawf0.UserRole role,
-    String? phone,
+    String? email,
     String? tokenHash,
     required String shortCode,
     required int createdByUserId,
@@ -51,7 +51,7 @@ abstract class FacilityInvite
       id: jsonSerialization['id'] as int?,
       facilityId: jsonSerialization['facilityId'] as int,
       role: _it1fawf0.UserRole.fromJson((jsonSerialization['role'] as String)),
-      phone: jsonSerialization['phone'] as String?,
+      email: jsonSerialization['email'] as String?,
       tokenHash: jsonSerialization['tokenHash'] as String?,
       shortCode: jsonSerialization['shortCode'] as String,
       createdByUserId: jsonSerialization['createdByUserId'] as int,
@@ -82,7 +82,8 @@ abstract class FacilityInvite
 
   _it1fawf0.UserRole role;
 
-  String? phone;
+  /// When set, only the account with this email can accept.
+  String? email;
 
   String? tokenHash;
 
@@ -110,7 +111,7 @@ abstract class FacilityInvite
     int? id,
     int? facilityId,
     _it1fawf0.UserRole? role,
-    String? phone,
+    String? email,
     String? tokenHash,
     String? shortCode,
     int? createdByUserId,
@@ -127,7 +128,7 @@ abstract class FacilityInvite
       if (id != null) 'id': id,
       'facilityId': facilityId,
       'role': role.toJson(),
-      if (phone != null) 'phone': phone,
+      if (email != null) 'email': email,
       if (tokenHash != null) 'tokenHash': tokenHash,
       'shortCode': shortCode,
       'createdByUserId': createdByUserId,
@@ -146,7 +147,7 @@ abstract class FacilityInvite
       if (id != null) 'id': id,
       'facilityId': facilityId,
       'role': role.toJson(),
-      if (phone != null) 'phone': phone,
+      if (email != null) 'email': email,
       'shortCode': shortCode,
       'createdByUserId': createdByUserId,
       'expiresAt': expiresAt.toJson(),
@@ -192,7 +193,7 @@ class _FacilityInviteImpl extends FacilityInvite {
     int? id,
     required int facilityId,
     required _it1fawf0.UserRole role,
-    String? phone,
+    String? email,
     String? tokenHash,
     required String shortCode,
     required int createdByUserId,
@@ -205,7 +206,7 @@ class _FacilityInviteImpl extends FacilityInvite {
          id: id,
          facilityId: facilityId,
          role: role,
-         phone: phone,
+         email: email,
          tokenHash: tokenHash,
          shortCode: shortCode,
          createdByUserId: createdByUserId,
@@ -224,7 +225,7 @@ class _FacilityInviteImpl extends FacilityInvite {
     Object? id = _Undefined,
     int? facilityId,
     _it1fawf0.UserRole? role,
-    Object? phone = _Undefined,
+    Object? email = _Undefined,
     Object? tokenHash = _Undefined,
     String? shortCode,
     int? createdByUserId,
@@ -238,7 +239,7 @@ class _FacilityInviteImpl extends FacilityInvite {
       id: id is int? ? id : this.id,
       facilityId: facilityId ?? this.facilityId,
       role: role ?? this.role,
-      phone: phone is String? ? phone : this.phone,
+      email: email is String? ? email : this.email,
       tokenHash: tokenHash is String? ? tokenHash : this.tokenHash,
       shortCode: shortCode ?? this.shortCode,
       createdByUserId: createdByUserId ?? this.createdByUserId,
@@ -266,8 +267,8 @@ class FacilityInviteUpdateTable extends _is.UpdateTable<FacilityInviteTable> {
     value,
   );
 
-  _is.ColumnValue<String, String> phone(String? value) => _is.ColumnValue(
-    table.phone,
+  _is.ColumnValue<String, String> email(String? value) => _is.ColumnValue(
+    table.email,
     value,
   );
 
@@ -329,8 +330,8 @@ class FacilityInviteTable extends _is.Table<int?> {
       this,
       _is.EnumSerialization.byName,
     );
-    phone = _is.ColumnString(
-      'phone',
+    email = _is.ColumnString(
+      'email',
       this,
     );
     tokenHash = _is.ColumnString(
@@ -374,7 +375,8 @@ class FacilityInviteTable extends _is.Table<int?> {
 
   late final _is.ColumnEnum<_it1fawf0.UserRole> role;
 
-  late final _is.ColumnString phone;
+  /// When set, only the account with this email can accept.
+  late final _is.ColumnString email;
 
   late final _is.ColumnString tokenHash;
 
@@ -397,7 +399,7 @@ class FacilityInviteTable extends _is.Table<int?> {
     id,
     facilityId,
     role,
-    phone,
+    email,
     tokenHash,
     shortCode,
     createdByUserId,

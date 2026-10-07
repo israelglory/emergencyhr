@@ -54,6 +54,7 @@ class DataRightsService {
     return const JsonEncoder.withIndent('  ').convert({
       'exportedAt': clock.now().toIso8601String(),
       'account': {
+        'email': user.email,
         'phone': user.phone,
         'name': user.name,
         'createdAt': user.createdAt.toIso8601String(),

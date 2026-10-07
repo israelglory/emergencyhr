@@ -27,6 +27,19 @@ class DevSmsGateway implements SmsGateway {
   }
 }
 
+/// No SMS provider is set up. Nothing is sent, so the app can offer the
+/// phone's own SMS app instead of claiming the message went out.
+class UnavailableSmsGateway implements SmsGateway {
+  const UnavailableSmsGateway();
+
+  @override
+  Future<bool> send(
+    Session session, {
+    required String to,
+    required String message,
+  }) async => false;
+}
+
 /// Termii (https://termii.com), widely used for SMS in Nigeria.
 class TermiiSmsGateway implements SmsGateway {
   TermiiSmsGateway({required this.apiKey, required this.senderId});

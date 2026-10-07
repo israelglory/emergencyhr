@@ -24,11 +24,13 @@ class AgentFormViewModel extends BaseViewModel {
   final BottomSheetService _sheets;
   final SnackbarService _snackbar;
 
-  final phoneController = TextEditingController();
-  final nameController = TextEditingController();
+  final emailController = TextEditingController();
   final Set<String> _areas = {};
 
   bool get isNew => userId == null;
+  static const addExplainer =
+      'They need an Emergencyhr account first. Enter the email they signed up '
+      'with to make them a field agent.';
   String get title => isNew ? 'Add field agent' : 'Agent areas';
 
   List<ChipItem<String>> get areaOptions => [
@@ -44,11 +46,7 @@ class AgentFormViewModel extends BaseViewModel {
   Future<void> save() async {
     final response = isNew
         ? await runBusyFuture(
-            _api.addAgent(
-              phoneController.text.trim(),
-              nameController.text.trim(),
-              _areas.toList(),
-            ),
+            _api.addAgent(emailController.text.trim(), _areas.toList()),
           )
         : await runBusyFuture(_api.setAgentAreas(userId!, _areas.toList()));
     if (response.success) {
@@ -60,8 +58,7 @@ class AgentFormViewModel extends BaseViewModel {
 
   @override
   void dispose() {
-    phoneController.dispose();
-    nameController.dispose();
+    emailController.dispose();
     super.dispose();
   }
 }

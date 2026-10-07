@@ -101,7 +101,11 @@ class JoinsViewModel extends BaseViewModel {
         options: [
           for (final a in agents.data!)
             (
-              label: a.name ?? a.phone,
+              label: Formatters.person(
+                name: a.name,
+                email: a.email,
+                phone: a.phone,
+              ),
               detail: a.areas.join(', '),
               value: a.userId,
             ),

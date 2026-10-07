@@ -28,8 +28,9 @@ Key places:
   `emergencyhr_flutter/assets/first_aid/`; CI checks they match).
 - App settings and feature flags: `emergencyhr_server/config/app_settings.yaml`.
 
-In development, SMS codes print to the server log and demo data is seeded
-automatically (accounts in `docs/RUNBOOK.md`).
+People sign in with email and password. In development, email codes print to
+the server log and demo data is seeded automatically (accounts and the demo
+password are in `docs/RUNBOOK.md`).
 
 ## Flutter & Serverpod project
 

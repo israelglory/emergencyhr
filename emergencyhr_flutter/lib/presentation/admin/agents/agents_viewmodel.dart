@@ -32,9 +32,9 @@ class AgentsViewModel extends BaseViewModel {
     for (final a in _rows)
       (
         id: a.userId,
-        name: a.name ?? 'Name not set',
+        name: Formatters.person(name: a.name, email: a.email, phone: a.phone),
         detail: [
-          Formatters.phone(a.phone),
+          Formatters.contact(email: a.email, phone: a.phone),
           a.areas.isEmpty ? 'No areas' : a.areas.join(', '),
           Formatters.count(a.facilityCount, 'hospital'),
         ].join(' · '),

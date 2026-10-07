@@ -15,24 +15,29 @@ In development the server:
 - applies database migrations on start,
 - loads fictional Lagos pilot data into an empty database and re-stamps the
   demo status ages on every start, so every freshness tier is present,
-- prints SMS codes, invites, reminders and WhatsApp messages to the server
-  log instead of sending them,
-- uses the development Health Assistant (no API key needed).
+- prints email verification codes, SMS messages, reminders and WhatsApp
+  messages to the server log instead of sending them,
+- uses Gemini for the Health Assistant (`geminiApiKey` in
+  `config/passwords.yaml`). Set `aiAdapter: dev` for a fixed test answer
+  without an API key.
 
 ### Demo accounts
 
-Sign in with these numbers. The 6-digit code appears in the server log as
-`[DEV SMS] to +234...: 123456 is your Emergencyhr code`.
+Sign in with these emails. Every demo account uses the password
+**Emergency123!**.
 
-| Role | Phone |
+| Role | Email |
 | --- | --- |
-| Platform admin | 0800 000 0001 |
-| Field agent (Ikeja, Yaba, Ikorodu) | 0800 000 0002 |
-| Field agent (Surulere, Lekki, Victoria Island) | 0800 000 0003 |
-| Hospital admin, Seed Hospital 01 | 0800 000 0004 |
-| Hospital admin, Seed Hospital 02 | 0800 000 0005 |
-| Desk staff, Seed Hospital 01 / 02 / 03 | 0800 000 0006 / 0007 / 0008 |
-| Public user (has a pending claim) | 0800 000 0010 |
+| Platform admin | admin@emergencyhr.test |
+| Field agent (Ikeja, Yaba, Ikorodu) | agent.ikeja@emergencyhr.test |
+| Field agent (Surulere, Lekki, Victoria Island) | agent.lekki@emergencyhr.test |
+| Hospital admin, Seed Hospital 01 | admin01@emergencyhr.test |
+| Hospital admin, Seed Hospital 02 | admin02@emergencyhr.test |
+| Desk staff, Seed Hospital 01 / 02 / 03 | desk01@ / desk02@ / desk03@emergencyhr.test |
+| Public user (has a pending claim) | public@emergencyhr.test |
+
+New accounts can be created in the app. In development the email
+verification code is printed in the server log instead of being emailed.
 
 The seed has 30 facilities across every onboarding stage and freshness tier,
 one flagged facility (Seed Hospital 13), one quiet newcomer (Seed Hospital
@@ -55,9 +60,11 @@ both test suites (goldens excluded), and builds for Android, web and Linux.
 
 | Key | Meaning |
 | --- | --- |
-| `smsAdapter`, `whatsappAdapter`, `aiAdapter` | `dev` logs, `live` calls the provider. |
+| `smsAdapter`, `whatsappAdapter`, `aiAdapter` | `dev` logs, `live` calls the provider, `off` sends nothing and tells the user (staging and production use `off` for SMS and WhatsApp until accounts exist). |
 | `smsSenderId` | Termii sender ID. |
-| `aiModel`, `aiEffort` | Health Assistant model (default `claude-opus-5-5`) and effort (`low`). |
+| `aiProvider` | `gemini` (default) or `anthropic`. |
+| `aiModel`, `aiFallbackModels` | Health Assistant model (default `gemini-2.5-flash`) and models to try when it is overloaded (`gemini-flash-latest`). |
+| `aiEffort` | Thinking effort for Anthropic models only. |
 | `urbanSpeedKmh` | Average urban speed for travel time estimates. |
 | `appBaseUrl` | Public URL of the web app, used in invite links. |
 | `firstAidPath` | Folder with the first-aid cards. |
@@ -69,12 +76,14 @@ both test suites (goldens excluded), and builds for Android, web and Linux.
 | --- | --- |
 | `database`, `serviceSecret` | Serverpod. |
 | `jwtHmacSha512PrivateKey`, `jwtRefreshTokenHashPepper` | Sign-in sessions. |
-| `otpHashPepper` | Hashing SMS codes, invite and emergency session tokens. Random string. |
+| `emailSecretHashPepper` | Email sign-in (hashing codes and passwords). Random string. |
+| `otpHashPepper` | Hashing desk-phone codes, invite and emergency session tokens. Random string. |
 | `dataEncryptionKey` | Encrypting medical profiles and chat. 32 random bytes, base64. Losing it makes that data unreadable; rotate with a migration. |
 | `termiiApiKey` | Live SMS. |
 | `whatsappAccessToken`, `whatsappPhoneNumberId` | Live WhatsApp messages. |
 | `whatsappAppSecret`, `whatsappVerifyToken` | WhatsApp webhook verification. |
-| `anthropicApiKey` | Live Health Assistant. |
+| `geminiApiKey` | Live Health Assistant with Gemini (set for development). Use a paid (billing enabled) key before real users: on the free tier Google may use prompts to improve its products. |
+| `anthropicApiKey` | Live Health Assistant with Anthropic, if `aiProvider: anthropic`. |
 
 Generate random values with `openssl rand -base64 32`.
 
@@ -86,6 +95,15 @@ on `features.whatsappQuickUpdate`. Staff text `A` (accepting), `P` (paused)
 or `C` (still accurate) from their registered number.
 
 ## Deploy
+
+### Sign-in emails
+
+Sign-in uses email and password with an emailed code at registration and
+for password resets. On **Serverpod Cloud** these emails are sent by
+Serverpod at no extra cost. A self-hosted server must replace
+`ServerpodCloudEmailIdpConfig` in `lib/server.dart` with
+`EmailIdpConfigFromPasswords` and provide `sendRegistrationVerificationCode`
+and `sendPasswordResetVerificationCode` callbacks for its own email provider.
 
 ### Serverpod Cloud
 
@@ -109,6 +127,10 @@ or `C` (still accurate) from their registered number.
    different origin.
 
 ### Flutter web hosting
+
+Serve the web app over **HTTPS**. Browsers only share location with secure
+pages (and `localhost` during development). On plain HTTP every visitor goes
+straight to the area picker.
 
 The server can serve the web app: `flutter build web` output in
 `emergencyhr_server/web/app` is served at `/` (App Studio's build script

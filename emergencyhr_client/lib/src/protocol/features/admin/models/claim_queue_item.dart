@@ -20,13 +20,13 @@ abstract class ClaimQueueItem
   ClaimQueueItem._({
     required this.claim,
     required this.facility,
-    required this.claimantPhone,
+    required this.claimantContact,
   });
 
   factory ClaimQueueItem({
     required _iusra2vj.ClaimRequest claim,
     required _i66m7xcg.FacilitySummary facility,
-    required String claimantPhone,
+    required String claimantContact,
   }) = _ClaimQueueItemImpl;
 
   factory ClaimQueueItem.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -37,7 +37,7 @@ abstract class ClaimQueueItem
       facility: _ivwsyfsq.Protocol().deserialize<_i66m7xcg.FacilitySummary>(
         jsonSerialization['facility'],
       ),
-      claimantPhone: jsonSerialization['claimantPhone'] as String,
+      claimantContact: jsonSerialization['claimantContact'] as String,
     );
   }
 
@@ -45,7 +45,7 @@ abstract class ClaimQueueItem
 
   _i66m7xcg.FacilitySummary facility;
 
-  String claimantPhone;
+  String claimantContact;
 
   /// Returns a shallow copy of this [ClaimQueueItem]
   /// with some or all fields replaced by the given arguments.
@@ -53,7 +53,7 @@ abstract class ClaimQueueItem
   ClaimQueueItem copyWith({
     _iusra2vj.ClaimRequest? claim,
     _i66m7xcg.FacilitySummary? facility,
-    String? claimantPhone,
+    String? claimantContact,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -61,7 +61,7 @@ abstract class ClaimQueueItem
       '__className__': 'ClaimQueueItem',
       'claim': claim.toJson(),
       'facility': facility.toJson(),
-      'claimantPhone': claimantPhone,
+      'claimantContact': claimantContact,
     };
   }
 
@@ -71,7 +71,7 @@ abstract class ClaimQueueItem
       '__className__': 'ClaimQueueItem',
       'claim': claim.toJsonForProtocol(),
       'facility': facility.toJsonForProtocol(),
-      'claimantPhone': claimantPhone,
+      'claimantContact': claimantContact,
     };
   }
 
@@ -85,11 +85,11 @@ class _ClaimQueueItemImpl extends ClaimQueueItem {
   _ClaimQueueItemImpl({
     required _iusra2vj.ClaimRequest claim,
     required _i66m7xcg.FacilitySummary facility,
-    required String claimantPhone,
+    required String claimantContact,
   }) : super._(
          claim: claim,
          facility: facility,
-         claimantPhone: claimantPhone,
+         claimantContact: claimantContact,
        );
 
   /// Returns a shallow copy of this [ClaimQueueItem]
@@ -99,12 +99,12 @@ class _ClaimQueueItemImpl extends ClaimQueueItem {
   ClaimQueueItem copyWith({
     _iusra2vj.ClaimRequest? claim,
     _i66m7xcg.FacilitySummary? facility,
-    String? claimantPhone,
+    String? claimantContact,
   }) {
     return ClaimQueueItem(
       claim: claim ?? this.claim.copyWith(),
       facility: facility ?? this.facility.copyWith(),
-      claimantPhone: claimantPhone ?? this.claimantPhone,
+      claimantContact: claimantContact ?? this.claimantContact,
     );
   }
 }

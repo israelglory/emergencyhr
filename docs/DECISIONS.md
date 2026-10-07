@@ -26,10 +26,20 @@ a choice open, the decision and why.
 
 ## Server
 
-6. **Phone sign-in is a Serverpod identity provider** (`PhoneIdp`) on
-   Serverpod's auth core, issuing the configured JWT sessions, with
-   Serverpod's `DatabaseRateLimiter` for rate limits. This is the native
-   extension point; email sign-in was removed.
+6. **Email sign-in** (owner's choice, no SMS costs) using Serverpod's
+   built-in email provider: register with an emailed code, then a password;
+   password reset by emailed code. The Emergencyhr account is created by the
+   provider's `onAfterAccountCreated` hook (and by `AuthGuard` if ever
+   missing). A phone number is optional and added later in the profile; it
+   is not verified, since that would need SMS. Each number can belong to one
+   account. It is used for WhatsApp quick updates and reminders.
+   - Staff invites can be locked to an email instead of a phone, and are
+     shared by QR code, link or short code rather than SMS.
+   - Field agents are promoted from existing accounts by email; they create
+     their account first.
+   - With no SMS provider (`smsAdapter: off`), family alerts report "Not
+     sent" and offer the phone's own SMS app, and desk phones are confirmed
+     by an agent's test call.
 7. **`JoinRequestStatus.received`** stands for the brief's `new`, a reserved
    word in Dart.
 8. **Stroke, seizure, poisoning and self-harm red flags map to
@@ -39,9 +49,11 @@ a choice open, the decision and why.
 9. **The model's red flag is a first-line tag** (`[[flag:type]]`) that the
    server strips while streaming. Assistant prefill is not available on
    current models, and structured output would prevent token streaming.
-10. **Health Assistant model: Claude Opus 5.5 at low effort**, with
-    Anthropic's server-side fallback enabled for safety refusals. Set
-    `aiModel` / `aiEffort` in `app_settings.yaml` to change it.
+10. **Health Assistant model: Google Gemini 2.5 Flash** (owner's choice), with
+    thinking off for fast replies and `gemini-flash-latest` as a fallback
+    when it is overloaded. Gemini's safety stops are treated as refusals.
+    The Anthropic adapter remains; switch with `aiProvider` in
+    `app_settings.yaml`.
 11. **Client-side freshness can only get worse.** The server tier is
     authoritative; the app re-labels by age so a list left open never shows
     a stale status as current.
@@ -71,13 +83,18 @@ a choice open, the decision and why.
 
 21. **Location starts when Emergency is tapped**, in parallel with the type
     picker, to meet the time-to-action goal.
-22. **Directions** open Apple Maps on iOS and macOS, Google Maps elsewhere.
-23. **Data export** is shown in the app with a copy button rather than saved
+22. **Location on the web** asks the browser directly instead of checking
+    permission first (older Safari cannot report it), accepts a fix up to a
+    minute old for speed, and gives up after 15 seconds so an unanswered
+    browser prompt never blocks the emergency flow. Every platform has the
+    same 15 second limit.
+23. **Directions** open Apple Maps on iOS and macOS, Google Maps elsewhere.
+24. **Data export** is shown in the app with a copy button rather than saved
     as a file.
-24. **Field agent drafts:** one unsent new-listing draft is kept on the
+25. **Field agent drafts:** one unsent new-listing draft is kept on the
     device; a failed submission retries every 30 seconds while the form is
     open.
-25. **Admin document preview:** photos open in the app; PDFs open through
+26. **Admin document preview:** photos open in the app; PDFs open through
     the browser or system viewer.
-26. **Golden tests run on macOS only.** Pixel output differs across
+27. **Golden tests run on macOS only.** Pixel output differs across
     platforms, so CI skips the `golden` tag.

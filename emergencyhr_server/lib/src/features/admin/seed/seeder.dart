@@ -1,5 +1,6 @@
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_idp_server/core.dart';
+import 'package:serverpod_auth_idp_server/providers/email.dart';
 
 import '../../../core/clock.dart';
 import '../../../generated/protocol.dart';
@@ -10,6 +11,7 @@ abstract final class Seeder {
   static Future<void> run(Session session) async {
     final existing = await Facility.db.count(session);
     if (existing > 0) {
+      await ensureDemoLogins(session);
       await refreshStatusAges(session);
       return;
     }
@@ -249,6 +251,31 @@ abstract final class Seeder {
       '(admin user id ${admin.id})',
       level: LogLevel.info,
     );
+  }
+
+  /// Development only: gives demo accounts created before email sign-in an
+  /// email and the demo password. Safe to run on every start.
+  static Future<void> ensureDemoLogins(Session session) async {
+    final emailIdp = AuthServices.instance.emailIdp;
+    for (final MapEntry(key: phone, value: email)
+        in SeedData.accounts.entries) {
+      final user = await AppUser.db.findFirstRow(
+        session,
+        where: (t) => t.phone.equals(phone),
+      );
+      if (user == null) continue;
+      if (user.email == null) {
+        await AppUser.db.updateRow(session, user.copyWith(email: email));
+      }
+      if (await emailIdp.admin.findAccount(session, email: email) == null) {
+        await emailIdp.admin.createEmailAuthentication(
+          session,
+          authUserId: user.authUserId,
+          email: email,
+          password: SeedData.demoPassword,
+        );
+      }
+    }
   }
 
   /// Development only: re-stamps the seed statuses so every freshness tier

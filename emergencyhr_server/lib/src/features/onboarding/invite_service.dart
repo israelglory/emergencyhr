@@ -11,7 +11,6 @@ import '../../core/errors.dart';
 import '../../generated/protocol.dart';
 import '../auth/otp_codes.dart';
 import '../auth/otp_service.dart';
-import '../notifications/notifier.dart';
 import 'onboarding_service.dart';
 
 /// Single-use facility invites. Only token hashes are stored. An invite is
@@ -51,7 +50,7 @@ class InviteService {
     required Facility facility,
     required UserRole role,
     required AppUser createdBy,
-    String? phone,
+    String? email,
   }) async {
     if (role != UserRole.hospitalAdmin && role != UserRole.deskStaff) {
       throw Errors.validation('Invites are for hospital admins or desk staff.');
@@ -63,7 +62,7 @@ class InviteService {
       FacilityInvite(
         facilityId: facility.id!,
         role: role,
-        phone: phone,
+        email: email?.trim().toLowerCase(),
         tokenHash: hashToken(session, token),
         shortCode: newShortCode(),
         createdByUserId: createdBy.id!,
@@ -78,22 +77,8 @@ class InviteService {
       targetType: 'facility',
       targetId: facility.id!,
     );
+    // Shared by QR code, link or short code; nothing is sent by SMS.
     final link = '${AppConfig.instance.appBaseUrl}/invite/$token';
-    if (phone != null) {
-      final roleName = role == UserRole.hospitalAdmin
-          ? 'hospital admin'
-          : 'desk staff';
-      await Notifier.sms(
-        session,
-        to: phone,
-        kind: 'invite',
-        facilityId: facility.id,
-        message:
-            'You are invited to join ${facility.name} on Emergencyhr as '
-            '$roleName. Open $link or enter code ${invite.shortCode}. '
-            'Expires in 72 hours.',
-      );
-    }
     return InviteCreated(invite: invite, link: link);
   }
 
@@ -179,9 +164,10 @@ class InviteService {
     if (invite == null) throw Errors.notFound('Invite');
     final reason = problem(invite, clock.now());
     if (reason != null) throw Errors.invalidState(reason);
-    if (invite.phone != null && invite.phone != user.phone) {
+    if (invite.email != null && invite.email != user.email) {
       throw Errors.notAuthorized(
-        'This invite is for a different phone number.',
+        'This invite is for a different email address. Sign in with '
+        '${invite.email}.',
       );
     }
 

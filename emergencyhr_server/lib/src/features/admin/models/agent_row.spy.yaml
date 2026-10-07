@@ -2,7 +2,8 @@ class: AgentRow
 fields:
   userId: int
   name: String?
-  phone: String
+  email: String?
+  phone: String?
   areas: List<String>
   facilityCount: int
   active: bool

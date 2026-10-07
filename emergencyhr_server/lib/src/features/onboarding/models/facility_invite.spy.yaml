@@ -4,7 +4,8 @@ table: facility_invite
 fields:
   facilityId: int, relation(parent=facility, onDelete=Cascade)
   role: UserRole
-  phone: String?
+  ### When set, only the account with this email can accept.
+  email: String?
   tokenHash: String?, scope=serverOnly
   shortCode: String
   createdByUserId: int

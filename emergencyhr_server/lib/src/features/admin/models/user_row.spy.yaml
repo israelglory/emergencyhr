@@ -2,6 +2,7 @@ class: UserRow
 fields:
   userId: int
   name: String?
-  phone: String
+  email: String?
+  phone: String?
   roles: List<UserRole>
   suspended: bool

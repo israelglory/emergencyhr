@@ -1,16 +1,22 @@
-### One account per person, identified by phone number.
+### One account per person. People sign in with email; a phone number can
+### be added later in their profile.
 class: AppUser
 table: app_user
 fields:
   ### The Serverpod auth user this account signs in as.
   authUser: module:serverpod_auth_core:AuthUser?, relation(onDelete=Cascade)
-  ### E.164 phone number, e.g. +2348012345678.
-  phone: String
+  ### Lower-case sign-in email.
+  email: String?
+  ### Optional E.164 phone number, e.g. +2348012345678. Not verified.
+  phone: String?
   name: String?
   createdAt: DateTime, default=now
   suspendedAt: DateTime?
   suspendReason: String?
 indexes:
+  app_user_email_idx:
+    fields: email
+    unique: true
   app_user_phone_idx:
     fields: phone
     unique: true

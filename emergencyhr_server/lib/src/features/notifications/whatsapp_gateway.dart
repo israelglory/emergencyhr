@@ -26,6 +26,18 @@ class DevWhatsAppGateway implements WhatsAppGateway {
   }
 }
 
+/// No WhatsApp account is set up. Nothing is sent.
+class UnavailableWhatsAppGateway implements WhatsAppGateway {
+  const UnavailableWhatsAppGateway();
+
+  @override
+  Future<bool> send(
+    Session session, {
+    required String to,
+    required String message,
+  }) async => false;
+}
+
 /// Meta WhatsApp Cloud API. Free-form text works inside the 24 hour service
 /// window; outside it the send fails and callers fall back to SMS.
 class MetaWhatsAppGateway implements WhatsAppGateway {

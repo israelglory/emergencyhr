@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -17,49 +19,93 @@ class LocationDenied extends LocationResult {
   const LocationDenied();
 }
 
-/// No reliable location on this device or it timed out.
+/// No reliable location on this device, or it took too long.
 class LocationUnavailable extends LocationResult {
   const LocationUnavailable();
 }
 
-/// Asks for the location once, with a timeout so the emergency flow never
-/// waits more than a few seconds.
+/// Asks for the location once and always answers within [overallTimeout],
+/// so the emergency flow can never wait on it forever.
 class LocationService {
-  static const timeout = Duration(seconds: 8);
+  LocationService({GeolocatorPlatform? platform, bool? isWeb})
+    : _platformOverride = platform,
+      _isWeb = isWeb ?? kIsWeb;
+
+  final GeolocatorPlatform? _platformOverride;
+  final bool _isWeb;
+
+  GeolocatorPlatform get _platform =>
+      _platformOverride ?? GeolocatorPlatform.instance;
+
+  /// Time allowed for a position fix once permission is granted.
+  static const fixTimeout = Duration(seconds: 8);
+
+  /// Hard limit for the whole lookup, including a permission prompt the user
+  /// has not answered. After this the app moves on to the area picker.
+  static const overallTimeout = Duration(seconds: 15);
+
+  /// Accept a browser fix up to this old; it is much faster than a new one.
+  static const webMaximumAge = Duration(minutes: 1);
 
   /// Desktop Linux often has no location provider; go straight to the picker.
   bool get isLikelySupported =>
-      kIsWeb || defaultTargetPlatform != TargetPlatform.linux;
+      _isWeb || defaultTargetPlatform != TargetPlatform.linux;
 
   Future<LocationResult> current() async {
     try {
-      if (!await Geolocator.isLocationServiceEnabled()) {
-        return const LocationUnavailable();
-      }
-      var permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-      }
-      if (permission == LocationPermission.denied ||
-          permission == LocationPermission.deniedForever) {
-        return const LocationDenied();
-      }
-      Position? position;
-      try {
-        position = await Geolocator.getCurrentPosition(
-          locationSettings: const LocationSettings(
-            accuracy: LocationAccuracy.high,
-            timeLimit: timeout,
-          ),
-        );
-      } catch (_) {
-        // Fall back to the last fix rather than dead-ending.
-        position = kIsWeb ? null : await Geolocator.getLastKnownPosition();
-      }
-      if (position == null) return const LocationUnavailable();
-      return LocationFound(position.latitude, position.longitude);
+      return await (_isWeb ? _fromBrowser() : _fromDevice()).timeout(
+        overallTimeout,
+        onTimeout: () => const LocationUnavailable(),
+      );
+    } on PermissionDeniedException {
+      return const LocationDenied();
     } catch (_) {
       return const LocationUnavailable();
     }
+  }
+
+  /// Browsers show their own permission prompt when a position is requested.
+  /// Permission is not checked first: some browsers (older Safari) cannot
+  /// report it, and the check would wrongly skip the prompt. Browsers only
+  /// share location on HTTPS pages (and localhost).
+  Future<LocationResult> _fromBrowser() async {
+    final position = await _platform.getCurrentPosition(
+      locationSettings: WebSettings(
+        accuracy: LocationAccuracy.high,
+        timeLimit: fixTimeout,
+        maximumAge: webMaximumAge,
+      ),
+    );
+    return LocationFound(position.latitude, position.longitude);
+  }
+
+  Future<LocationResult> _fromDevice() async {
+    if (!await _platform.isLocationServiceEnabled()) {
+      return const LocationUnavailable();
+    }
+    var permission = await _platform.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await _platform.requestPermission();
+    }
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
+      return const LocationDenied();
+    }
+    Position? position;
+    try {
+      position = await _platform.getCurrentPosition(
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.high,
+          timeLimit: fixTimeout,
+        ),
+      );
+    } on PermissionDeniedException {
+      rethrow;
+    } catch (_) {
+      // Fall back to the last fix rather than dead-ending.
+      position = await _platform.getLastKnownPosition();
+    }
+    if (position == null) return const LocationUnavailable();
+    return LocationFound(position.latitude, position.longitude);
   }
 }

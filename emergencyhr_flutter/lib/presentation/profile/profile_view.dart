@@ -43,7 +43,7 @@ class ProfileView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    KeyValueRow(label: 'Phone', value: model.phoneLabel),
+                    KeyValueRow(label: 'Email', value: model.emailLabel),
                     const SizedBox(height: AppSpacing.x2),
                     AppTextField(
                       label: 'Your name',
@@ -59,6 +59,23 @@ class ProfileView extends StatelessWidget {
                       title: 'Save name',
                       loading: model.isSavingName,
                       onPressed: model.saveName,
+                    ),
+                    const SizedBox(height: AppSpacing.x3),
+                    AppTextField(
+                      label: 'Phone number',
+                      hintText: '0803 123 4567',
+                      helperText: ProfileViewModel.phoneHint,
+                      controller: model.phoneController,
+                      keyboardType: TextInputType.phone,
+                      autofillHints: const [AutofillHints.telephoneNumber],
+                      errorText: model.phoneError,
+                      onChanged: model.onPhoneChanged,
+                    ),
+                    const SizedBox(height: AppSpacing.x2),
+                    AppButton.secondary(
+                      title: 'Save phone number',
+                      loading: model.isSavingPhone,
+                      onPressed: model.savePhone,
                     ),
                   ],
                 ),

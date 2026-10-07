@@ -72,11 +72,8 @@ class AdminApi {
   }) => _g(() => _admin.convertJoinRequest(id, agentUserId, lat, lng, address));
 
   Future<ApiResponse<List<AgentRow>>> agents() => _g(() => _admin.agents());
-  Future<ApiResponse<AgentRow>> addAgent(
-    String phone,
-    String name,
-    List<String> areas,
-  ) => _g(() => _admin.addAgent(phone, name, areas));
+  Future<ApiResponse<AgentRow>> addAgent(String email, List<String> areas) =>
+      _g(() => _admin.addAgent(email, areas));
   Future<ApiResponse<bool>> setAgentAreas(int userId, List<String> areas) =>
       _v(() => _admin.setAgentAreas(userId, areas));
   Future<ApiResponse<bool>> deactivateAgent(int userId) =>

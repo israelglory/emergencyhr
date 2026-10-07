@@ -103,10 +103,10 @@ class ReminderService {
       final agentId = record?.assignedAgentUserId;
       if (agentId == null) continue;
       final agent = await AppUser.db.findById(session, agentId);
-      if (agent == null) continue;
+      if (agent?.phone == null) continue;
       await Notifier.sms(
         session,
-        to: agent.phone,
+        to: agent!.phone!,
         kind: 'quiet_newcomer',
         facilityId: row.facility.id,
         message:
@@ -134,6 +134,6 @@ class ReminderService {
           t.id.inSet(<int>{for (final a in assignments) a.userId}) &
           t.suspendedAt.equals(null),
     );
-    return [for (final u in users) u.phone];
+    return [for (final u in users) ?u.phone];
   }
 }

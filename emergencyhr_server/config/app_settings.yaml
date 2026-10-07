@@ -2,13 +2,22 @@
 # config/passwords.yaml, never here.
 #
 # Adapters: "dev" logs messages to the server console, "live" calls the real
-# provider (SMS: Termii, WhatsApp: Meta Cloud API, AI: Anthropic).
+# provider, "off" sends nothing and tells the user so (use until an account
+# is set up) (SMS: Termii, WhatsApp: Meta Cloud API, AI: see aiProvider).
+#
+# aiProvider: gemini (Google, key geminiApiKey) or anthropic (key
+# anthropicApiKey). aiFallbackModels are tried when aiModel is overloaded.
 
 development:
   appBaseUrl: http://localhost:9998
   smsAdapter: dev
   whatsappAdapter: dev
-  aiAdapter: dev
+  # Live Gemini in development. Set to dev to use the fixed test answer.
+  aiAdapter: live
+  aiProvider: gemini
+  aiModel: gemini-2.5-flash
+  aiFallbackModels:
+    - gemini-flash-latest
   logOtpCodes: true
   urbanSpeedKmh: 20
   features:
@@ -28,12 +37,15 @@ test:
 staging:
   # Replace with the staging web app URL.
   appBaseUrl: https://staging.emergencyhr.example
-  smsAdapter: live
-  whatsappAdapter: live
+  # No SMS provider yet. Family alerts fall back to the phone's SMS app.
+  smsAdapter: off
+  whatsappAdapter: off
   aiAdapter: live
   smsSenderId: Emergencyhr
-  aiModel: claude-opus-5-5
-  aiEffort: low
+  aiProvider: gemini
+  aiModel: gemini-2.5-flash
+  aiFallbackModels:
+    - gemini-flash-latest
   urbanSpeedKmh: 20
   features:
     whatsappQuickUpdate: true
@@ -42,12 +54,15 @@ staging:
 production:
   # Replace with the production web app URL.
   appBaseUrl: https://app.emergencyhr.example
-  smsAdapter: live
-  whatsappAdapter: live
+  # No SMS provider yet. Family alerts fall back to the phone's SMS app.
+  smsAdapter: off
+  whatsappAdapter: off
   aiAdapter: live
   smsSenderId: Emergencyhr
-  aiModel: claude-opus-5-5
-  aiEffort: low
+  aiProvider: gemini
+  aiModel: gemini-2.5-flash
+  aiFallbackModels:
+    - gemini-flash-latest
   urbanSpeedKmh: 20
   features:
     whatsappQuickUpdate: false

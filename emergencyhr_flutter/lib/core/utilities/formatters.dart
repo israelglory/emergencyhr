@@ -23,6 +23,14 @@ abstract final class Formatters {
     return '${diff.inDays} days ago';
   }
 
+  /// Email if known, else the formatted phone, else an empty string.
+  static String contact({String? email, String? phone}) =>
+      email ?? (phone == null ? '' : Formatters.phone(phone));
+
+  /// Name, else email, else phone.
+  static String person({String? name, String? email, String? phone}) =>
+      name ?? contact(email: email, phone: phone);
+
   static String minutes(int value) => '$value min';
 
   static String distanceKm(double km) =>

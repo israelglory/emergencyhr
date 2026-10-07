@@ -3,8 +3,13 @@ import 'dart:io';
 import 'package:yaml/yaml.dart';
 
 /// Which adapter an external service uses. `dev` adapters log to the console
-/// so the app runs locally without paid accounts.
-enum AdapterKind { dev, live }
+/// so the app runs locally without paid accounts. `off` means the service is
+/// not set up: nothing is sent and callers are told so.
+enum AdapterKind { dev, live, off }
+
+/// Which company's model powers the Health Assistant when `aiAdapter` is
+/// live.
+enum AiProviderKind { gemini, anthropic }
 
 /// App settings and feature flags from `config/app_settings.yaml`, keyed by
 /// run mode. Secrets never live here; they come from `passwords.yaml`.
@@ -13,8 +18,10 @@ class AppConfig {
     this.smsAdapter = AdapterKind.dev,
     this.whatsappAdapter = AdapterKind.dev,
     this.aiAdapter = AdapterKind.dev,
+    this.aiProvider = AiProviderKind.gemini,
+    this.aiFallbackModels = const [],
     this.smsSenderId = 'Emergencyhr',
-    this.aiModel = 'claude-opus-5-5',
+    this.aiModel = 'gemini-2.5-flash',
     this.aiEffort = 'low',
     this.urbanSpeedKmh = 20,
     this.whatsappQuickUpdate = false,
@@ -28,9 +35,13 @@ class AppConfig {
   final AdapterKind whatsappAdapter;
   final AdapterKind aiAdapter;
   final String smsSenderId;
+  final AiProviderKind aiProvider;
   final String aiModel;
 
-  /// Thinking depth for the assistant: low, medium, high, xhigh or max.
+  /// Tried in order when [aiModel] is overloaded or rate limited.
+  final List<String> aiFallbackModels;
+
+  /// Thinking depth for Anthropic models: low, medium, high, xhigh or max.
   final String aiEffort;
 
   /// Average urban driving speed used to estimate travel time.
@@ -61,8 +72,11 @@ class AppConfig {
     final section = root is YamlMap ? root[runMode] : null;
     if (section is! YamlMap) return AppConfig();
 
-    AdapterKind adapter(String key) =>
-        section[key] == 'live' ? AdapterKind.live : AdapterKind.dev;
+    AdapterKind adapter(String key) => switch (section[key]) {
+      'live' => AdapterKind.live,
+      'off' => AdapterKind.off,
+      _ => AdapterKind.dev,
+    };
     final features = section['features'];
     bool flag(String key) => features is YamlMap && features[key] == true;
 
@@ -71,7 +85,14 @@ class AppConfig {
       whatsappAdapter: adapter('whatsappAdapter'),
       aiAdapter: adapter('aiAdapter'),
       smsSenderId: section['smsSenderId']?.toString() ?? 'Emergencyhr',
-      aiModel: section['aiModel']?.toString() ?? 'claude-opus-5-5',
+      aiProvider: section['aiProvider'] == 'anthropic'
+          ? AiProviderKind.anthropic
+          : AiProviderKind.gemini,
+      aiModel: section['aiModel']?.toString() ?? 'gemini-2.5-flash',
+      aiFallbackModels: [
+        for (final m in (section['aiFallbackModels'] as YamlList?) ?? const [])
+          m.toString(),
+      ],
       aiEffort: section['aiEffort']?.toString() ?? 'low',
       urbanSpeedKmh: (section['urbanSpeedKmh'] as num?)?.toDouble() ?? 20,
       whatsappQuickUpdate: flag('whatsappQuickUpdate'),

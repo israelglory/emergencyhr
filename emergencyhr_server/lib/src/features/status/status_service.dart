@@ -6,6 +6,7 @@ import '../../core/clock.dart';
 import '../../core/errors.dart';
 import '../../core/validation.dart';
 import '../../generated/protocol.dart';
+import '../auth/account_service.dart';
 import '../onboarding/onboarding_service.dart';
 
 /// Live availability set by hospital staff. Every change is logged.
@@ -155,7 +156,9 @@ class StatusService {
     final users = userIds.isEmpty
         ? <AppUser>[]
         : await AppUser.db.find(session, where: (t) => t.id.inSet(userIds));
-    final names = {for (final u in users) u.id!: u.name ?? u.phone};
+    final names = {
+      for (final u in users) u.id!: AccountService.displayName(u),
+    };
     return [
       for (final r in rows)
         AuditEntry(

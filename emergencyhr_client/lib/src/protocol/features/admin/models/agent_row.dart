@@ -18,7 +18,8 @@ abstract class AgentRow
   AgentRow._({
     required this.userId,
     this.name,
-    required this.phone,
+    this.email,
+    this.phone,
     required this.areas,
     required this.facilityCount,
     required this.active,
@@ -27,7 +28,8 @@ abstract class AgentRow
   factory AgentRow({
     required int userId,
     String? name,
-    required String phone,
+    String? email,
+    String? phone,
     required List<String> areas,
     required int facilityCount,
     required bool active,
@@ -37,7 +39,8 @@ abstract class AgentRow
     return AgentRow(
       userId: jsonSerialization['userId'] as int,
       name: jsonSerialization['name'] as String?,
-      phone: jsonSerialization['phone'] as String,
+      email: jsonSerialization['email'] as String?,
+      phone: jsonSerialization['phone'] as String?,
       areas: _ivwsyfsq.Protocol().deserialize<List<String>>(
         jsonSerialization['areas'],
       ),
@@ -50,7 +53,9 @@ abstract class AgentRow
 
   String? name;
 
-  String phone;
+  String? email;
+
+  String? phone;
 
   List<String> areas;
 
@@ -64,6 +69,7 @@ abstract class AgentRow
   AgentRow copyWith({
     int? userId,
     String? name,
+    String? email,
     String? phone,
     List<String>? areas,
     int? facilityCount,
@@ -75,7 +81,8 @@ abstract class AgentRow
       '__className__': 'AgentRow',
       'userId': userId,
       if (name != null) 'name': name,
-      'phone': phone,
+      if (email != null) 'email': email,
+      if (phone != null) 'phone': phone,
       'areas': areas.toJson(),
       'facilityCount': facilityCount,
       'active': active,
@@ -88,7 +95,8 @@ abstract class AgentRow
       '__className__': 'AgentRow',
       'userId': userId,
       if (name != null) 'name': name,
-      'phone': phone,
+      if (email != null) 'email': email,
+      if (phone != null) 'phone': phone,
       'areas': areas.toJson(),
       'facilityCount': facilityCount,
       'active': active,
@@ -107,13 +115,15 @@ class _AgentRowImpl extends AgentRow {
   _AgentRowImpl({
     required int userId,
     String? name,
-    required String phone,
+    String? email,
+    String? phone,
     required List<String> areas,
     required int facilityCount,
     required bool active,
   }) : super._(
          userId: userId,
          name: name,
+         email: email,
          phone: phone,
          areas: areas,
          facilityCount: facilityCount,
@@ -127,7 +137,8 @@ class _AgentRowImpl extends AgentRow {
   AgentRow copyWith({
     int? userId,
     Object? name = _Undefined,
-    String? phone,
+    Object? email = _Undefined,
+    Object? phone = _Undefined,
     List<String>? areas,
     int? facilityCount,
     bool? active,
@@ -135,7 +146,8 @@ class _AgentRowImpl extends AgentRow {
     return AgentRow(
       userId: userId ?? this.userId,
       name: name is String? ? name : this.name,
-      phone: phone ?? this.phone,
+      email: email is String? ? email : this.email,
+      phone: phone is String? ? phone : this.phone,
       areas: areas ?? this.areas.map((e0) => e0).toList(),
       facilityCount: facilityCount ?? this.facilityCount,
       active: active ?? this.active,

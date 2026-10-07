@@ -11,17 +11,22 @@ abstract final class Messaging {
 
   static WhatsAppGateway whatsApp(Session session) {
     if (whatsAppOverride != null) return whatsAppOverride!;
-    if (AppConfig.instance.whatsappAdapter == AdapterKind.dev) {
-      return const DevWhatsAppGateway();
+    switch (AppConfig.instance.whatsappAdapter) {
+      case AdapterKind.dev:
+        return const DevWhatsAppGateway();
+      case AdapterKind.off:
+        return const UnavailableWhatsAppGateway();
+      case AdapterKind.live:
+        break;
     }
     final token = session.passwords['whatsappAccessToken'];
     final phoneId = session.passwords['whatsappPhoneNumberId'];
     if (token == null || phoneId == null) {
       session.log(
-        'WhatsApp credentials missing; falling back to dev WhatsApp',
+        'WhatsApp credentials missing; WhatsApp messages are not sent',
         level: LogLevel.warning,
       );
-      return const DevWhatsAppGateway();
+      return const UnavailableWhatsAppGateway();
     }
     return MetaWhatsAppGateway(accessToken: token, phoneNumberId: phoneId);
   }
@@ -29,14 +34,21 @@ abstract final class Messaging {
   static SmsGateway sms(Session session) {
     if (smsOverride != null) return smsOverride!;
     final config = AppConfig.instance;
-    if (config.smsAdapter == AdapterKind.dev) return const DevSmsGateway();
+    switch (config.smsAdapter) {
+      case AdapterKind.dev:
+        return const DevSmsGateway();
+      case AdapterKind.off:
+        return const UnavailableSmsGateway();
+      case AdapterKind.live:
+        break;
+    }
     final apiKey = session.passwords['termiiApiKey'];
     if (apiKey == null || apiKey.isEmpty) {
       session.log(
-        'termiiApiKey missing from passwords; falling back to dev SMS',
+        'termiiApiKey missing from passwords; SMS is not sent',
         level: LogLevel.warning,
       );
-      return const DevSmsGateway();
+      return const UnavailableSmsGateway();
     }
     return TermiiSmsGateway(apiKey: apiKey, senderId: config.smsSenderId);
   }

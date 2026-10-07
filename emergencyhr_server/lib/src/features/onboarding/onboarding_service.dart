@@ -471,9 +471,10 @@ class OnboardingService {
       where: (t) => t.id.inSet(userIds.isEmpty ? {-1} : userIds),
     );
     for (final u in users) {
+      if (u.phone == null) continue;
       await Notifier.sms(
         session,
-        to: u.phone,
+        to: u.phone!,
         message: message,
         kind: kind,
         facilityId: facility.id,

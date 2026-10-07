@@ -152,14 +152,16 @@ class ClaimService {
       where: (t) => t.id.inSet(<int>{for (final c in claims) c.userId}),
     );
     final facilityBy = {for (final f in facilities) f.id!: f};
-    final phoneBy = {for (final u in users) u.id!: u.phone};
+    final contactBy = {
+      for (final u in users) u.id!: u.email ?? u.phone ?? '',
+    };
     return [
       for (final c in claims)
         if (facilityBy[c.facilityId] != null)
           ClaimQueueItem(
             claim: c,
             facility: OnboardingService.summary(facilityBy[c.facilityId]!),
-            claimantPhone: phoneBy[c.userId] ?? '',
+            claimantContact: contactBy[c.userId] ?? '',
           ),
     ];
   }

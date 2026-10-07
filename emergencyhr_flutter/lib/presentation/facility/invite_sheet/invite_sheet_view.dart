@@ -45,12 +45,12 @@ class InviteSheetView extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.x2),
               AppTextField(
-                label: 'Phone number (optional)',
-                hintText: '0803 123 4567',
-                controller: model.phoneController,
-                keyboardType: TextInputType.phone,
-                errorText: model.phoneError,
-                onChanged: model.onPhoneChanged,
+                label: 'Their email (optional)',
+                hintText: 'name@example.com',
+                controller: model.emailController,
+                keyboardType: TextInputType.emailAddress,
+                errorText: model.emailError,
+                onChanged: model.onEmailChanged,
               ),
               const SizedBox(height: AppSpacing.x3),
               AppButton(

@@ -17,7 +17,7 @@ class InviteEndpoint extends Endpoint {
     Session session,
     int facilityId,
     UserRole role, {
-    String? phone,
+    String? email,
   }) async {
     final user = await AuthGuard.requireRole(
       session,
@@ -39,7 +39,7 @@ class InviteEndpoint extends Endpoint {
       facility: facility,
       role: role,
       createdBy: user,
-      phone: Validate.optionalPhone(phone),
+      email: Validate.optionalEmail(email),
     );
   }
 

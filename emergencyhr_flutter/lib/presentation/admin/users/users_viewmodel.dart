@@ -42,9 +42,9 @@ class UsersViewModel extends BaseViewModel {
     for (final u in _rows)
       (
         id: u.userId,
-        name: u.name ?? 'Name not set',
+        name: Formatters.person(name: u.name, email: u.email, phone: u.phone),
         detail:
-            '${Formatters.phone(u.phone)} · '
+            '${Formatters.contact(email: u.email, phone: u.phone)} · '
             '${u.roles.map((r) => r.label).join(', ')}'
             '${u.suspended ? ' · Suspended' : ''}',
         suspended: u.suspended,

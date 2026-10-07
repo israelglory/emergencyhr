@@ -25,7 +25,8 @@ abstract final class AppRoutes {
 
   // Auth
   static const signIn = '/sign-in';
-  static const verifyCode = '/sign-in/verify';
+  static const createAccount = '/sign-in/create';
+  static const resetPassword = '/sign-in/reset';
   static const acceptInvite = '/invite'; // /invite/:code
 
   // Shells
@@ -45,8 +46,12 @@ abstract final class AppRoutes {
   static String firstAidCard(String type) => '$firstAid/$type';
   static String invite(String code) => '$acceptInvite/$code';
 
-  static String signInWithNext(String next) =>
-      Uri(path: signIn, queryParameters: {'next': next}).toString();
+  static String signInWithNext(String next) => withNext(signIn, next);
+
+  /// Adds the page to return to after signing in.
+  static String withNext(String path, String? next) => next == null
+      ? path
+      : Uri(path: path, queryParameters: {'next': next}).toString();
 
   static String forShell(ShellKind shell) => switch (shell) {
     ShellKind.public => home,

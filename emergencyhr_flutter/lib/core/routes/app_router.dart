@@ -8,7 +8,8 @@ import '../../presentation/agent/agent_shell/agent_shell_view.dart';
 import '../../presentation/assistant/assistant_view.dart';
 import '../../presentation/auth/accept_invite/accept_invite_view.dart';
 import '../../presentation/auth/sign_in/sign_in_view.dart';
-import '../../presentation/auth/verify_code/verify_code_view.dart';
+import '../../presentation/auth/create_account/create_account_view.dart';
+import '../../presentation/auth/reset_password/reset_password_view.dart';
 import '../../presentation/common/not_found/not_found_view.dart';
 import '../../presentation/desk/desk_shell/desk_shell_view.dart';
 import '../../presentation/design/design_view.dart';
@@ -51,8 +52,10 @@ abstract final class AppRouter {
         return const HomeView();
       case AppRoutes.signIn:
         return SignInView(next: next);
-      case AppRoutes.verifyCode:
-        return VerifyCodeView(args: args is VerifyCodeArgs ? args : null);
+      case AppRoutes.createAccount:
+        return CreateAccountView(next: next);
+      case AppRoutes.resetPassword:
+        return ResetPasswordView(email: args is String ? args : null);
       case AppRoutes.profile:
         return const ProfileView();
       case AppRoutes.medicalProfile:

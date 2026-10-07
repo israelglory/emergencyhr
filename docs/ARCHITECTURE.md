@@ -21,7 +21,7 @@ Organised by feature under `lib/src/features/`. Each feature holds its
 
 | Feature | Responsibility |
 | --- | --- |
-| `auth` | Phone + SMS code sign-in (`PhoneIdp` on Serverpod auth core, JWT sessions), `AppUser`, roles, OTP challenges. |
+| `auth` | Email and password sign-in (Serverpod's email provider, JWT sessions), `AppUser` with optional phone, roles, desk-phone codes. |
 | `profile` | Emergency contacts, encrypted medical profile, family alerts, data export and deletion, first-aid cards. |
 | `facilities` | Listings, duplicate detection, profiles, documents (private storage), desk phone confirmation. |
 | `status` | Live availability, audit log, freshness rules, WhatsApp quick update. |
@@ -54,7 +54,7 @@ geo helpers.
   claims, invites).
 - **External services behind interfaces** with a live adapter and a dev
   adapter that logs: `SmsGateway` (Termii), `WhatsAppGateway` (Meta Cloud
-  API), `AiService` (Anthropic), `RoutingService` (straight-line estimate).
+  API), `AiService` (Google Gemini or Anthropic), `RoutingService` (straight-line estimate).
   Chosen by `config/app_settings.yaml`.
 
 ## Key flows
@@ -123,8 +123,9 @@ screen.
 ## Security and privacy
 
 - Authorization on every endpoint, server side.
-- OTP and invite tokens stored only as HMAC hashes; codes expire in 5 minutes,
-  invites in 72 hours; rate limits on OTP, chat, reports, join requests,
+- Passwords and email codes handled by Serverpod's email provider (Argon2
+  hashes). Desk-phone codes and invite tokens stored only as HMAC hashes;
+  codes expire in 5 minutes, invites in 72 hours; rate limits on OTP, chat, reports, join requests,
   family alerts and invite acceptance.
 - Medical profiles and chat messages encrypted with AES-256-GCM
   (`dataEncryptionKey`).

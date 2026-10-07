@@ -23,10 +23,10 @@ class StaffApi {
   Future<ApiResponse<InviteCreated>> invite(
     int facilityId,
     UserRole role, {
-    String? phone,
+    String? email,
   }) => ApiResponse.guard(
     _tag,
-    () => _client.invite.create(facilityId, role, phone: phone),
+    () => _client.invite.create(facilityId, role, email: email),
   );
 
   Future<ApiResponse<List<FacilityInvite>>> invites(int facilityId) =>

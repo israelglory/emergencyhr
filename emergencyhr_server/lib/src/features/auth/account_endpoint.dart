@@ -14,6 +14,17 @@ class AccountEndpoint extends Endpoint {
     return _accounts.currentUser(session, user);
   }
 
+  /// Adds, changes or (with null) removes the optional phone number.
+  Future<CurrentUser> updatePhone(Session session, String? phone) async {
+    final user = await AuthGuard.requireUser(session);
+    final updated = await _accounts.updatePhone(
+      session,
+      user,
+      Validate.optionalPhone(phone),
+    );
+    return _accounts.currentUser(session, updated);
+  }
+
   Future<CurrentUser> updateName(Session session, String name) async {
     final user = await AuthGuard.requireUser(session);
     final updated = await _accounts.updateName(

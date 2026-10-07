@@ -51,9 +51,10 @@ class StaffViewModel extends BaseViewModel {
   List<StaffRow> get staff => [
     for (final m in _staff)
       (
-        name: m.name ?? 'Name not set',
+        name: Formatters.person(name: m.name, email: m.email, phone: m.phone),
         detail:
-            '${Formatters.phone(m.phone)} · since ${Formatters.date(m.since)}',
+            '${Formatters.contact(email: m.email, phone: m.phone)} · since '
+            '${Formatters.date(m.since)}',
         role: m.role.label,
         member: m,
       ),
@@ -66,9 +67,9 @@ class StaffViewModel extends BaseViewModel {
         if (i.usedAt == null && i.revokedAt == null && i.expiresAt.isAfter(now))
           (
             label: '${i.role.label} invite · ${i.shortCode}',
-            detail: i.phone == null
+            detail: i.email == null
                 ? 'Expires ${Formatters.dateTime(i.expiresAt)}'
-                : 'For ${Formatters.phone(i.phone!)} · expires '
+                : 'For ${i.email} · expires '
                       '${Formatters.dateTime(i.expiresAt)}',
             invite: i,
           ),

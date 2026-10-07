@@ -1,6 +1,7 @@
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_idp_server/core.dart';
 
+import '../features/auth/account_service.dart';
 import '../generated/protocol.dart';
 import 'errors.dart';
 
@@ -29,11 +30,12 @@ abstract final class AuthGuard {
   static Future<AppUser?> currentUser(Session session) async {
     final authUserId = session.authenticated?.authUserId;
     if (authUserId == null) return null;
-    final user = await AppUser.db.findFirstRow(
+    // Normally created at registration; created here if that was missed.
+    final user = await const AccountService().ensureFor(
       session,
-      where: (t) => t.authUserId.equals(authUserId),
+      authUserId: authUserId,
     );
-    if (user == null || user.suspendedAt != null) return null;
+    if (user.suspendedAt != null) return null;
     return user;
   }
 

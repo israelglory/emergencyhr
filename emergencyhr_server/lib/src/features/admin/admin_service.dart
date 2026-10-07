@@ -6,8 +6,8 @@ import '../../core/clock.dart';
 import '../../core/errors.dart';
 import '../../core/validation.dart';
 import '../../generated/protocol.dart';
+import '../auth/account_service.dart';
 import '../facilities/logic/opening_hours_rules.dart';
-import '../notifications/notifier.dart';
 import '../onboarding/onboarding_service.dart';
 import '../status/status_service.dart';
 
@@ -23,7 +23,7 @@ class AdminService {
   Future<Map<int, String>> _names(Session session, Set<int> ids) async {
     if (ids.isEmpty) return {};
     final users = await AppUser.db.find(session, where: (t) => t.id.inSet(ids));
-    return {for (final u in users) u.id!: u.name ?? u.phone};
+    return {for (final u in users) u.id!: AccountService.displayName(u)};
   }
 
   Future<List<VerificationItem>> verificationQueue(
@@ -231,6 +231,7 @@ class AdminService {
         AgentRow(
           userId: u.id!,
           name: u.name,
+          email: u.email,
           phone: u.phone,
           areas: [
             for (final a in areas)
@@ -244,55 +245,37 @@ class AdminService {
     ];
   }
 
-  /// Adds the field agent role, creating the account if needed. The agent
-  /// then signs in with their phone number.
+  /// Gives the field agent role to an existing account, found by email.
+  /// The person creates their account first, then an admin promotes it.
   Future<AgentRow> addAgent(
     Session session, {
-    required String phone,
-    required String name,
+    required String email,
     required List<String> areas,
     required AppUser admin,
   }) async {
-    final number = Validate.phone(phone);
-    final cleanName = Validate.text(name, field: 'name', max: 80);
-    final user = await session.db.transaction((tx) async {
-      var u = await AppUser.db.findFirstRow(
-        session,
-        where: (t) => t.phone.equals(number),
-        transaction: tx,
+    final user = await const AccountService().findByEmail(
+      session,
+      Validate.email(email),
+    );
+    if (user == null) {
+      throw Errors.validation(
+        'No account uses this email yet. Ask them to create an account in '
+        'the app first, then add them here.',
+        field: 'email',
       );
-      if (u == null) {
-        final authUser = await AuthServices.instance.authUsers.create(
-          session,
-          transaction: tx,
-        );
-        u = await AppUser.db.insertRow(
-          session,
-          AppUser(
-            authUserId: authUser.id,
-            phone: number,
-            name: cleanName,
-            createdAt: clock.now(),
-          ),
-          transaction: tx,
-        );
-        await RoleAssignment.db.insertRow(
-          session,
-          RoleAssignment(userId: u.id!, role: UserRole.public),
-          transaction: tx,
-        );
-      }
+    }
+    await session.db.transaction((tx) async {
       final has = await RoleAssignment.db.count(
         session,
         where: (t) =>
-            t.userId.equals(u!.id!) & t.role.equals(UserRole.fieldAgent),
+            t.userId.equals(user.id!) & t.role.equals(UserRole.fieldAgent),
         transaction: tx,
       );
       if (has == 0) {
         await RoleAssignment.db.insertRow(
           session,
           RoleAssignment(
-            userId: u.id!,
+            userId: user.id!,
             role: UserRole.fieldAgent,
             createdByUserId: admin.id,
           ),
@@ -304,20 +287,11 @@ class AdminService {
         actorUserId: admin.id!,
         action: 'agent:add',
         targetType: 'user',
-        targetId: u.id!,
+        targetId: user.id!,
         transaction: tx,
       );
-      return u;
     });
     await setAgentAreas(session, userId: user.id!, areas: areas, admin: admin);
-    await Notifier.sms(
-      session,
-      to: number,
-      kind: 'agent_added',
-      message:
-          'You have been added as an Emergencyhr field agent. Sign in to the '
-          'app with this phone number to start.',
-    );
     return (await agents(session)).firstWhere((a) => a.userId == user.id);
   }
 
@@ -555,7 +529,10 @@ class AdminService {
       session,
       where: q.isEmpty
           ? null
-          : (t) => t.phone.ilike('%$q%') | t.name.ilike('%$q%'),
+          : (t) =>
+                t.email.ilike('%$q%') |
+                t.phone.ilike('%$q%') |
+                t.name.ilike('%$q%'),
       orderBy: (t) => t.createdAt.desc(),
       limit: page.limit,
       offset: page.offset,
@@ -570,6 +547,7 @@ class AdminService {
         UserRow(
           userId: u.id!,
           name: u.name,
+          email: u.email,
           phone: u.phone,
           roles: {
             for (final r in roles)

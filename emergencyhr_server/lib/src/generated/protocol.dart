@@ -510,10 +510,16 @@ class Protocol extends _is.DatabaseSerializationManager {
           dartType: 'UuidValue',
         ),
         _isp.ColumnDefinition(
+          name: 'email',
+          columnType: _isp.ColumnType.text,
+          isNullable: true,
+          dartType: 'String?',
+        ),
+        _isp.ColumnDefinition(
           name: 'phone',
           columnType: _isp.ColumnType.text,
-          isNullable: false,
-          dartType: 'String',
+          isNullable: true,
+          dartType: 'String?',
         ),
         _isp.ColumnDefinition(
           name: 'name',
@@ -554,6 +560,19 @@ class Protocol extends _is.DatabaseSerializationManager {
         ),
       ],
       indexes: [
+        _isp.IndexDefinition(
+          indexName: 'app_user_email_idx',
+          tableSpace: null,
+          elements: [
+            _isp.IndexElementDefinition(
+              type: _isp.IndexElementDefinitionType.column,
+              definition: 'email',
+            ),
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: false,
+        ),
         _isp.IndexDefinition(
           indexName: 'app_user_phone_idx',
           tableSpace: null,
@@ -1518,7 +1537,7 @@ class Protocol extends _is.DatabaseSerializationManager {
           dartType: 'protocol:UserRole',
         ),
         _isp.ColumnDefinition(
-          name: 'phone',
+          name: 'email',
           columnType: _isp.ColumnType.text,
           isNullable: true,
           dartType: 'String?',

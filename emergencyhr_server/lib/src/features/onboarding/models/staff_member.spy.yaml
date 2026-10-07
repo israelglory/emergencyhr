@@ -2,6 +2,7 @@ class: StaffMember
 fields:
   userId: int
   name: String?
-  phone: String
+  email: String?
+  phone: String?
   role: UserRole
   since: DateTime

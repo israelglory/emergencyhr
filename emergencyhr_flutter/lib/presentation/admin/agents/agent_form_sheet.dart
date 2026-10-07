@@ -27,16 +27,15 @@ class AgentFormSheet extends StatelessWidget {
             AppText.title(model.title),
             const SizedBox(height: AppSpacing.x2),
             if (model.isNew) ...[
-              AppTextField(
-                label: 'Name',
-                controller: model.nameController,
-                textCapitalization: TextCapitalization.words,
+              const AppText(
+                AgentFormViewModel.addExplainer,
+                tone: AppTextTone.secondary,
               ),
               const SizedBox(height: AppSpacing.x2),
               AppTextField(
-                label: 'Phone number',
-                controller: model.phoneController,
-                keyboardType: TextInputType.phone,
+                label: 'Their account email',
+                controller: model.emailController,
+                keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: AppSpacing.x2),
             ],

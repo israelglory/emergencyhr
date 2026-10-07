@@ -189,15 +189,13 @@ class AdminEndpoint extends Endpoint {
 
   Future<AgentRow> addAgent(
     Session session,
-    String phone,
-    String name,
+    String email,
     List<String> areas,
   ) async {
     final admin = await _requireAdmin(session);
     return _admin.addAgent(
       session,
-      phone: phone,
-      name: name,
+      email: email,
       areas: areas,
       admin: admin,
     );

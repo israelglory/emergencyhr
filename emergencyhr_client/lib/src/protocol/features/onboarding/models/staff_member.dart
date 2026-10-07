@@ -18,7 +18,8 @@ abstract class StaffMember
   StaffMember._({
     required this.userId,
     this.name,
-    required this.phone,
+    this.email,
+    this.phone,
     required this.role,
     required this.since,
   });
@@ -26,7 +27,8 @@ abstract class StaffMember
   factory StaffMember({
     required int userId,
     String? name,
-    required String phone,
+    String? email,
+    String? phone,
     required _it1fawf0.UserRole role,
     required DateTime since,
   }) = _StaffMemberImpl;
@@ -35,7 +37,8 @@ abstract class StaffMember
     return StaffMember(
       userId: jsonSerialization['userId'] as int,
       name: jsonSerialization['name'] as String?,
-      phone: jsonSerialization['phone'] as String,
+      email: jsonSerialization['email'] as String?,
+      phone: jsonSerialization['phone'] as String?,
       role: _it1fawf0.UserRole.fromJson((jsonSerialization['role'] as String)),
       since: _isc.DateTimeJsonExtension.fromJson(jsonSerialization['since']),
     );
@@ -45,7 +48,9 @@ abstract class StaffMember
 
   String? name;
 
-  String phone;
+  String? email;
+
+  String? phone;
 
   _it1fawf0.UserRole role;
 
@@ -57,6 +62,7 @@ abstract class StaffMember
   StaffMember copyWith({
     int? userId,
     String? name,
+    String? email,
     String? phone,
     _it1fawf0.UserRole? role,
     DateTime? since,
@@ -67,7 +73,8 @@ abstract class StaffMember
       '__className__': 'StaffMember',
       'userId': userId,
       if (name != null) 'name': name,
-      'phone': phone,
+      if (email != null) 'email': email,
+      if (phone != null) 'phone': phone,
       'role': role.toJson(),
       'since': since.toJson(),
     };
@@ -79,7 +86,8 @@ abstract class StaffMember
       '__className__': 'StaffMember',
       'userId': userId,
       if (name != null) 'name': name,
-      'phone': phone,
+      if (email != null) 'email': email,
+      if (phone != null) 'phone': phone,
       'role': role.toJson(),
       'since': since.toJson(),
     };
@@ -97,12 +105,14 @@ class _StaffMemberImpl extends StaffMember {
   _StaffMemberImpl({
     required int userId,
     String? name,
-    required String phone,
+    String? email,
+    String? phone,
     required _it1fawf0.UserRole role,
     required DateTime since,
   }) : super._(
          userId: userId,
          name: name,
+         email: email,
          phone: phone,
          role: role,
          since: since,
@@ -115,14 +125,16 @@ class _StaffMemberImpl extends StaffMember {
   StaffMember copyWith({
     int? userId,
     Object? name = _Undefined,
-    String? phone,
+    Object? email = _Undefined,
+    Object? phone = _Undefined,
     _it1fawf0.UserRole? role,
     DateTime? since,
   }) {
     return StaffMember(
       userId: userId ?? this.userId,
       name: name is String? ? name : this.name,
-      phone: phone ?? this.phone,
+      email: email is String? ? email : this.email,
+      phone: phone is String? ? phone : this.phone,
       role: role ?? this.role,
       since: since ?? this.since,
     );

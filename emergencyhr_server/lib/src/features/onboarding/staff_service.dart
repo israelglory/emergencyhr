@@ -32,6 +32,7 @@ class StaffService {
           StaffMember(
             userId: r.userId,
             name: byId[r.userId]!.name,
+            email: byId[r.userId]!.email,
             phone: byId[r.userId]!.phone,
             role: r.role,
             since: r.createdAt,

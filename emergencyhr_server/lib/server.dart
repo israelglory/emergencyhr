@@ -1,12 +1,13 @@
 import 'dart:io';
 
 import 'package:serverpod_auth_idp_server/core.dart';
+import 'package:serverpod_auth_idp_server/providers/email.dart';
 import 'package:serverpod_cloud_storage/serverpod_cloud_storage.dart';
 
 import 'src/cache_busting.dart';
 import 'src/core/app_config.dart';
 import 'src/features/admin/seed/seeder.dart';
-import 'src/features/auth/phone_idp.dart';
+import 'src/features/auth/account_service.dart';
 import 'src/features/notifications/reminder_future_call.dart';
 import 'src/web/routes/whatsapp_webhook_route.dart';
 import 'src/generated/serverpod.dart';
@@ -30,9 +31,14 @@ void run(List<String> args) async {
       JwtConfigFromPasswords(),
     ],
     identityProviderBuilders: [
-      // Phone number + SMS code sign-in. Codes are logged to the server
-      // console in development (see config/app_settings.yaml).
-      const PhoneIdpConfig(),
+      // Email sign-in. In development the verification codes are printed
+      // to the server log; on Serverpod Cloud the emails are sent for free.
+      // Self-hosted servers need EmailIdpConfigFromPasswords with their own
+      // email sender (see docs/RUNBOOK.md).
+      ServerpodCloudEmailIdpConfig(
+        appDisplayName: 'Emergencyhr',
+        onAfterAccountCreated: AccountService.onEmailAccountCreated,
+      ),
     ],
   );
 

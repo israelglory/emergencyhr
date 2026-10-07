@@ -14,7 +14,25 @@ abstract final class SeedData {
   static const agentAAreas = ['Ikeja', 'Yaba', 'Ikorodu'];
   static const agentBAreas = ['Surulere', 'Lekki', 'Victoria Island'];
 
-  // Accounts. Sign in with these numbers; codes print to the server log.
+  /// Password for every demo account (development only).
+  static const demoPassword = 'Emergency123!';
+
+  /// Demo accounts: (phone, email). Sign in with the email and
+  /// [demoPassword]. The phone numbers are kept so WhatsApp quick updates and
+  /// reminders can be tried with the dev adapters.
+  static const accounts = {
+    platformAdminPhone: 'admin@emergencyhr.test',
+    agentAPhone: 'agent.ikeja@emergencyhr.test',
+    agentBPhone: 'agent.lekki@emergencyhr.test',
+    hospitalAdmin01Phone: 'admin01@emergencyhr.test',
+    hospitalAdmin02Phone: 'admin02@emergencyhr.test',
+    desk01Phone: 'desk01@emergencyhr.test',
+    desk02Phone: 'desk02@emergencyhr.test',
+    desk03Phone: 'desk03@emergencyhr.test',
+    publicUserPhone: 'public@emergencyhr.test',
+  };
+
+  // Account phone numbers.
   static const platformAdminPhone = '+2348000000001';
   static const agentAPhone = '+2348000000002';
   static const agentBPhone = '+2348000000003';

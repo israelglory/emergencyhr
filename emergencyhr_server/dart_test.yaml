@@ -1,2 +1,4 @@
 tags:
-  integration: {}
+  # Calls real external APIs. Skipped unless the key is set, e.g.
+  # GEMINI_API_KEY=... dart test -t live
+  live:

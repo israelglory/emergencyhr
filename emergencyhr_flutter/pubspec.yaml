@@ -32,6 +32,7 @@ dependencies:
     path: ../emergencyhr_client
   serverpod_flutter: 4.0.3
   serverpod_auth_idp_flutter: 4.0.3
+  serverpod_auth_idp_client: 4.0.3
 
   # Architecture (MVVM) and dependency injection
   stacked: ^3.4.4

@@ -29,18 +29,18 @@ class InviteSheetViewModel extends BaseViewModel {
   final SnackbarService _snackbar;
   final BottomSheetService _sheets;
 
-  final phoneController = TextEditingController();
+  final emailController = TextEditingController();
   InviteCreated? _created;
-  String? _phoneError;
+  String? _emailError;
 
   String get title => 'Invite ${role.label.toLowerCase()}';
   static const explainer =
-      'Add their phone number to text them the invite, or leave it empty and '
-      'let them scan the code on this screen. Invites work once and expire '
-      'in 72 hours.';
+      'Optionally add their email so only that account can use the invite. '
+      'Then let them scan the code on this screen, or send them the link. '
+      'Invites work once and expire in 72 hours.';
 
   bool get isCreated => _created != null;
-  String? get phoneError => _phoneError;
+  String? get emailError => _emailError;
   String get qrData => _created?.link ?? '';
   String get shortCode {
     final code = _created?.invite.shortCode ?? '';
@@ -52,27 +52,30 @@ class InviteSheetViewModel extends BaseViewModel {
   String get expiresLabel => _created == null
       ? ''
       : 'Expires ${Formatters.dateTime(_created!.invite.expiresAt)}';
-  String get sentLabel => _created?.invite.phone == null
-      ? 'Ask them to scan this code with their phone camera, or open the '
-            'link and enter the code.'
-      : 'We texted the invite to ${Formatters.phone(_created!.invite.phone!)}.';
+  String get sentLabel {
+    final email = _created?.invite.email;
+    const how =
+        'Ask them to scan this code with their phone camera, or send them the '
+        'link. They sign in or create an account, then accept.';
+    return email == null ? how : '$how Only $email can accept it.';
+  }
 
-  void onPhoneChanged(String _) {
-    if (_phoneError == null) return;
-    _phoneError = null;
+  void onEmailChanged(String _) {
+    if (_emailError == null) return;
+    _emailError = null;
     notifyListeners();
   }
 
   Future<void> create() async {
-    final phone = phoneController.text.trim();
+    final email = emailController.text.trim();
     final response = await runBusyFuture(
-      _api.invite(facilityId, role, phone: phone.isEmpty ? null : phone),
+      _api.invite(facilityId, role, email: email.isEmpty ? null : email),
     );
     if (response.success) {
       _created = response.data;
       onCreated?.call();
-    } else if (response.field == 'phone') {
-      _phoneError = response.message;
+    } else if (response.field == 'email') {
+      _emailError = response.message;
     } else {
       _snackbar.error(message: response.message!);
     }
@@ -88,7 +91,7 @@ class InviteSheetViewModel extends BaseViewModel {
 
   @override
   void dispose() {
-    phoneController.dispose();
+    emailController.dispose();
     super.dispose();
   }
 }

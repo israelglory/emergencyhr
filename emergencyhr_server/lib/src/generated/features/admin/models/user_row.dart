@@ -19,7 +19,8 @@ abstract class UserRow
   UserRow._({
     required this.userId,
     this.name,
-    required this.phone,
+    this.email,
+    this.phone,
     required this.roles,
     required this.suspended,
   });
@@ -27,7 +28,8 @@ abstract class UserRow
   factory UserRow({
     required int userId,
     String? name,
-    required String phone,
+    String? email,
+    String? phone,
     required List<_it1fawf0.UserRole> roles,
     required bool suspended,
   }) = _UserRowImpl;
@@ -36,7 +38,8 @@ abstract class UserRow
     return UserRow(
       userId: jsonSerialization['userId'] as int,
       name: jsonSerialization['name'] as String?,
-      phone: jsonSerialization['phone'] as String,
+      email: jsonSerialization['email'] as String?,
+      phone: jsonSerialization['phone'] as String?,
       roles: _ilvcm0hz.Protocol().deserialize<List<_it1fawf0.UserRole>>(
         jsonSerialization['roles'],
       ),
@@ -48,7 +51,9 @@ abstract class UserRow
 
   String? name;
 
-  String phone;
+  String? email;
+
+  String? phone;
 
   List<_it1fawf0.UserRole> roles;
 
@@ -60,6 +65,7 @@ abstract class UserRow
   UserRow copyWith({
     int? userId,
     String? name,
+    String? email,
     String? phone,
     List<_it1fawf0.UserRole>? roles,
     bool? suspended,
@@ -70,7 +76,8 @@ abstract class UserRow
       '__className__': 'UserRow',
       'userId': userId,
       if (name != null) 'name': name,
-      'phone': phone,
+      if (email != null) 'email': email,
+      if (phone != null) 'phone': phone,
       'roles': roles.toJson(valueToJson: (v) => v.toJson()),
       'suspended': suspended,
     };
@@ -82,7 +89,8 @@ abstract class UserRow
       '__className__': 'UserRow',
       'userId': userId,
       if (name != null) 'name': name,
-      'phone': phone,
+      if (email != null) 'email': email,
+      if (phone != null) 'phone': phone,
       'roles': roles.toJson(valueToJson: (v) => v.toJson()),
       'suspended': suspended,
     };
@@ -100,12 +108,14 @@ class _UserRowImpl extends UserRow {
   _UserRowImpl({
     required int userId,
     String? name,
-    required String phone,
+    String? email,
+    String? phone,
     required List<_it1fawf0.UserRole> roles,
     required bool suspended,
   }) : super._(
          userId: userId,
          name: name,
+         email: email,
          phone: phone,
          roles: roles,
          suspended: suspended,
@@ -118,14 +128,16 @@ class _UserRowImpl extends UserRow {
   UserRow copyWith({
     int? userId,
     Object? name = _Undefined,
-    String? phone,
+    Object? email = _Undefined,
+    Object? phone = _Undefined,
     List<_it1fawf0.UserRole>? roles,
     bool? suspended,
   }) {
     return UserRow(
       userId: userId ?? this.userId,
       name: name is String? ? name : this.name,
-      phone: phone ?? this.phone,
+      email: email is String? ? email : this.email,
+      phone: phone is String? ? phone : this.phone,
       roles: roles ?? this.roles.map((e0) => e0).toList(),
       suspended: suspended ?? this.suspended,
     );
