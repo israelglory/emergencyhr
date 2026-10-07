@@ -112,6 +112,49 @@ class DocumentService {
     );
   }
 
+  /// Saves a document sent through the server. Used by the app on every
+  /// platform: browsers cannot upload straight to Serverpod Cloud storage
+  /// (it does not allow our web address, a CORS rule).
+  Future<FacilityDocument> store(
+    Session session, {
+    required String fileName,
+    required DocumentKind kind,
+    required ByteData bytes,
+    int? facilityId,
+    required AppUser user,
+  }) async {
+    if (bytes.lengthInBytes == 0) {
+      throw Errors.validation('The file is empty.', field: 'file');
+    }
+    if (bytes.lengthInBytes > maxBytes) {
+      throw Errors.validation(
+        'The file is too large. Upload a file under 10 MB.',
+        field: 'file',
+      );
+    }
+    final path = pathFor(
+      facilityId: facilityId,
+      userId: user.id!,
+      fileName: fileName,
+    );
+    await session.storage.storeFile(
+      storageId: storageId,
+      path: path,
+      byteData: bytes,
+    );
+    return FacilityDocument.db.insertRow(
+      session,
+      FacilityDocument(
+        facilityId: facilityId,
+        kind: kind,
+        storagePath: path,
+        fileName: path.split('/').last.replaceFirst(RegExp(r'^[a-z0-9]+-'), ''),
+        uploadedByUserId: user.id,
+        createdAt: clock.now(),
+      ),
+    );
+  }
+
   Future<ByteData> download(Session session, FacilityDocument document) async {
     return session.storage.retrieveFile(
       storageId: storageId,

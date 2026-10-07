@@ -80,21 +80,17 @@ class OnboardingApi {
     required Uint8List bytes,
     required DocumentKind kind,
     int? facilityId,
-  }) => ApiResponse.guard(_tag, () async {
-    final ticket = await _client.document.createUpload(
+  }) => ApiResponse.guard(
+    _tag,
+    // Through the server on every platform: browsers cannot upload straight
+    // to Serverpod Cloud storage (CORS).
+    () => _client.document.upload(
       fileName,
-      facilityId: facilityId,
-    );
-    final uploaded = await FileUploader(
-      ticket.uploadDescription,
-    ).uploadByteData(ByteData.sublistView(bytes));
-    if (!uploaded) throw StateError('Upload failed');
-    return _client.document.confirmUpload(
-      ticket.path,
       kind,
+      ByteData.sublistView(bytes),
       facilityId: facilityId,
-    );
-  });
+    ),
+  );
 
   Future<ApiResponse<ByteData>> downloadDocument(int documentId) =>
       ApiResponse.guard(_tag, () => _client.document.download(documentId));

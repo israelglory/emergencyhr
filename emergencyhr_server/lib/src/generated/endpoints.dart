@@ -10,6 +10,7 @@
 // ignore_for_file: invalid_use_of_internal_member
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'dart:typed_data' as _idt;
 import 'package:emergencyhr_server/src/generated/features/admin/models/facility_import_row.dart'
     as _ijbyy5tt;
 import 'package:emergencyhr_server/src/generated/features/auth/models/user_role.dart'
@@ -1452,6 +1453,43 @@ class Endpoints extends _is.EndpointDispatch {
                   .createUpload(
                     session,
                     params['fileName'],
+                    facilityId: params['facilityId'],
+                  ),
+        ),
+        'upload': _is.MethodConnector(
+          name: 'upload',
+          params: {
+            'fileName': _is.ParameterDescription(
+              name: 'fileName',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'kind': _is.ParameterDescription(
+              name: 'kind',
+              type: _is.getType<_ikyy3g9e.DocumentKind>(),
+              nullable: false,
+            ),
+            'bytes': _is.ParameterDescription(
+              name: 'bytes',
+              type: _is.getType<_idt.ByteData>(),
+              nullable: false,
+            ),
+            'facilityId': _is.ParameterDescription(
+              name: 'facilityId',
+              type: _is.getType<int?>(),
+              nullable: true,
+            ),
+          },
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async =>
+                  (endpoints['document'] as _iyhpnwj1.DocumentEndpoint).upload(
+                    session,
+                    params['fileName'],
+                    params['kind'],
+                    params['bytes'],
                     facilityId: params['facilityId'],
                   ),
         ),

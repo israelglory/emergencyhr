@@ -897,6 +897,24 @@ class EndpointDocument extends _isc.EndpointRef {
     },
   );
 
+  /// Uploads a document through the server (up to 10 MB). Same callers as
+  /// [createUpload]. The app uses this on every platform.
+  _ida.Future<_ia2ku4de.FacilityDocument> upload(
+    String fileName,
+    _iadcdtur.DocumentKind kind,
+    _idt.ByteData bytes, {
+    int? facilityId,
+  }) => caller.callServerEndpoint<_ia2ku4de.FacilityDocument>(
+    'document',
+    'upload',
+    {
+      'fileName': fileName,
+      'kind': kind,
+      'bytes': bytes,
+      'facilityId': facilityId,
+    },
+  );
+
   /// Same callers as [createUpload].
   _ida.Future<_ia2ku4de.FacilityDocument> confirmUpload(
     String path,

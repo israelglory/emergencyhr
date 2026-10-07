@@ -2220,6 +2220,45 @@ class _DocumentEndpoint {
     });
   }
 
+  _ida.Future<_i2gfsbmo.FacilityDocument> upload(
+    _ist.TestSessionBuilder sessionBuilder,
+    String fileName,
+    _ikyy3g9e.DocumentKind kind,
+    _idt.ByteData bytes, {
+    int? facilityId,
+  }) async {
+    return _ist.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _ist.InternalTestSessionBuilder).internalBuild(
+            endpoint: 'document',
+            method: 'upload',
+          );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'document',
+          methodName: 'upload',
+          parameters: _ist.testObjectToJson({
+            'fileName': fileName,
+            'kind': kind,
+            'bytes': bytes,
+            'facilityId': facilityId,
+          }),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue =
+            await (_localCallContext.method.call(
+                  _localUniqueSession,
+                  _localCallContext.arguments,
+                )
+                as _ida.Future<_i2gfsbmo.FacilityDocument>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+
   _ida.Future<_i2gfsbmo.FacilityDocument> confirmUpload(
     _ist.TestSessionBuilder sessionBuilder,
     String path,

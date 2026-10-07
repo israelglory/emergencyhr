@@ -57,6 +57,7 @@ emergency:
   - facility:
 document:
   - createUpload:
+  - upload:
   - confirmUpload:
   - download:
 facility:

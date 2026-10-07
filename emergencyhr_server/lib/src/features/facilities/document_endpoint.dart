@@ -32,6 +32,32 @@ class DocumentEndpoint extends Endpoint {
     );
   }
 
+  /// Uploads a document through the server (up to 10 MB). Same callers as
+  /// [createUpload]. The app uses this on every platform.
+  Future<FacilityDocument> upload(
+    Session session,
+    String fileName,
+    DocumentKind kind,
+    ByteData bytes, {
+    int? facilityId,
+  }) async {
+    final user = facilityId == null
+        ? await AuthGuard.requireUser(session)
+        : await AuthGuard.requireRole(
+            session,
+            AuthGuard.managers,
+            facilityId: facilityId,
+          );
+    return _documents.store(
+      session,
+      fileName: fileName,
+      kind: kind,
+      bytes: bytes,
+      facilityId: facilityId,
+      user: user,
+    );
+  }
+
   /// Same callers as [createUpload].
   Future<FacilityDocument> confirmUpload(
     Session session,
