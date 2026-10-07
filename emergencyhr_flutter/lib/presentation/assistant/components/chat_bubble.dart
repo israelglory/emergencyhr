@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../core/cores.dart';
 
-/// One chat message. User messages sit right, replies left.
+/// One chat message. User messages sit right in blue, replies left in
+/// white with a border.
 class ChatBubble extends StatelessWidget {
   const ChatBubble({
     super.key,
@@ -18,27 +19,37 @@ class ChatBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = context.palette;
-    return Align(
-      alignment: fromUser ? Alignment.centerRight : Alignment.centerLeft,
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 560),
-        child: Container(
-          margin: const EdgeInsets.only(bottom: AppSpacing.x1),
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.x2,
-            vertical: AppSpacing.x1 + AppSpacing.half,
+    const r = Radius.circular(16);
+    const tail = Radius.circular(4);
+    return LayoutBuilder(
+      builder: (context, constraints) => Align(
+        alignment: fromUser ? Alignment.centerRight : Alignment.centerLeft,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: constraints.maxWidth * (fromUser ? 0.8 : 0.88),
           ),
-          decoration: BoxDecoration(
-            color: fromUser ? p.surfaceMuted : p.surface,
-            border: Border.all(color: p.divider),
-            borderRadius: BorderRadius.circular(AppRadius.container),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
+            decoration: BoxDecoration(
+              color: fromUser ? p.primary : p.surface,
+              border: fromUser ? null : Border.all(color: p.border),
+              borderRadius: BorderRadius.only(
+                topLeft: r,
+                topRight: r,
+                bottomLeft: fromUser ? r : tail,
+                bottomRight: fromUser ? tail : r,
+              ),
+            ),
+            child: pending && text.isEmpty
+                ? const AppLoader(size: 16)
+                : SelectableText(
+                    text,
+                    style: AppTypography.body.copyWith(
+                      color: fromUser ? p.onPrimary : p.text,
+                      height: (fromUser ? 21 : 22) / 15,
+                    ),
+                  ),
           ),
-          child: pending && text.isEmpty
-              ? const AppLoader(size: 16)
-              : SelectableText(
-                  text,
-                  style: AppText.styleFor(context, AppTextVariant.body),
-                ),
         ),
       ),
     );
@@ -62,38 +73,21 @@ class RedFlagCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final p = context.palette;
-    return Container(
-      margin: const EdgeInsets.only(bottom: AppSpacing.x1),
-      padding: const EdgeInsets.all(AppSpacing.x2),
-      decoration: BoxDecoration(
-        color: p.surface,
-        border: Border.all(color: p.emergency, width: 2),
-        borderRadius: BorderRadius.circular(AppRadius.container),
-      ),
-      child: Semantics(
-        liveRegion: true,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            AppText.subtitle(title, tone: AppTextTone.critical),
-            const SizedBox(height: AppSpacing.half),
-            AppText(message),
-            const SizedBox(height: AppSpacing.x2),
-            AppButton.danger(
-              title: 'Find emergency care now',
-              icon: Icons.emergency_outlined,
-              onPressed: onFindCare,
-            ),
-            const SizedBox(height: AppSpacing.x1),
-            AppButton.secondary(
-              title: 'Call 112',
-              icon: Icons.call_outlined,
-              onPressed: onCall112,
-            ),
-          ],
+    return AlertCard(
+      title: title,
+      message: message,
+      actions: [
+        AppButton.danger(
+          title: 'Find emergency care now',
+          size: AppButtonSize.medium,
+          onPressed: onFindCare,
         ),
-      ),
+        AppButton.secondary(
+          title: 'Call 112',
+          size: AppButtonSize.medium,
+          onPressed: onCall112,
+        ),
+      ],
     );
   }
 }

@@ -21,6 +21,7 @@ abstract class InvitePreview
     required this.expiresAt,
     required this.valid,
     this.reason,
+    this.invitedBy,
   });
 
   factory InvitePreview({
@@ -29,6 +30,7 @@ abstract class InvitePreview
     required DateTime expiresAt,
     required bool valid,
     String? reason,
+    String? invitedBy,
   }) = _InvitePreviewImpl;
 
   factory InvitePreview.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -40,6 +42,7 @@ abstract class InvitePreview
       ),
       valid: _isc.BoolJsonExtension.fromJson(jsonSerialization['valid']),
       reason: jsonSerialization['reason'] as String?,
+      invitedBy: jsonSerialization['invitedBy'] as String?,
     );
   }
 
@@ -53,6 +56,9 @@ abstract class InvitePreview
 
   String? reason;
 
+  /// Name of the person who sent the invite, when they gave one.
+  String? invitedBy;
+
   /// Returns a shallow copy of this [InvitePreview]
   /// with some or all fields replaced by the given arguments.
   @_isc.useResult
@@ -62,6 +68,7 @@ abstract class InvitePreview
     DateTime? expiresAt,
     bool? valid,
     String? reason,
+    String? invitedBy,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -72,6 +79,7 @@ abstract class InvitePreview
       'expiresAt': expiresAt.toJson(),
       'valid': valid,
       if (reason != null) 'reason': reason,
+      if (invitedBy != null) 'invitedBy': invitedBy,
     };
   }
 
@@ -84,6 +92,7 @@ abstract class InvitePreview
       'expiresAt': expiresAt.toJson(),
       'valid': valid,
       if (reason != null) 'reason': reason,
+      if (invitedBy != null) 'invitedBy': invitedBy,
     };
   }
 
@@ -102,12 +111,14 @@ class _InvitePreviewImpl extends InvitePreview {
     required DateTime expiresAt,
     required bool valid,
     String? reason,
+    String? invitedBy,
   }) : super._(
          facilityName: facilityName,
          role: role,
          expiresAt: expiresAt,
          valid: valid,
          reason: reason,
+         invitedBy: invitedBy,
        );
 
   /// Returns a shallow copy of this [InvitePreview]
@@ -120,6 +131,7 @@ class _InvitePreviewImpl extends InvitePreview {
     DateTime? expiresAt,
     bool? valid,
     Object? reason = _Undefined,
+    Object? invitedBy = _Undefined,
   }) {
     return InvitePreview(
       facilityName: facilityName ?? this.facilityName,
@@ -127,6 +139,7 @@ class _InvitePreviewImpl extends InvitePreview {
       expiresAt: expiresAt ?? this.expiresAt,
       valid: valid ?? this.valid,
       reason: reason is String? ? reason : this.reason,
+      invitedBy: invitedBy is String? ? invitedBy : this.invitedBy,
     );
   }
 }

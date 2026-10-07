@@ -750,6 +750,29 @@ class EndpointEmergency extends _isc.EndpointRef {
     },
   );
 
+  /// Changes "What happened" or the area for an open session and returns
+  /// the new ranking. Who may call: the holder of the session token. Pass
+  /// [lat] and [lng] together, or neither to keep the place.
+  _ida.Future<_ifmldpgz.EmergencySearch> updateSearch(
+    int sessionId,
+    String accessToken,
+    _io6p8b24.EmergencyType type, {
+    double? lat,
+    double? lng,
+    String? area,
+  }) => caller.callServerEndpoint<_ifmldpgz.EmergencySearch>(
+    'emergency',
+    'updateSearch',
+    {
+      'sessionId': sessionId,
+      'accessToken': accessToken,
+      'type': type,
+      'lat': lat,
+      'lng': lng,
+      'area': area,
+    },
+  );
+
   /// Re-ranks and emits whenever a listed facility changes status, so an
   /// open results list updates within seconds.
   _ida.Stream<_ifmldpgz.EmergencySearch> watch(

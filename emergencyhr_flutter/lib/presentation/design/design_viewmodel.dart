@@ -23,10 +23,10 @@ class DesignViewModel extends BaseViewModel {
   final fieldController = TextEditingController();
 
   static const sampleMetrics = [
-    (label: 'ER beds', value: '3'),
-    (label: 'ICU beds', value: '1'),
-    (label: 'Doctor', value: 'On duty'),
-    (label: 'Deposit', value: 'Required'),
+    TileMetric('ER beds', '3'),
+    TileMetric('ICU beds', '1'),
+    TileMetric('Doctor', 'On duty'),
+    TileMetric('Deposit', 'None'),
   ];
 
   static const tones = [

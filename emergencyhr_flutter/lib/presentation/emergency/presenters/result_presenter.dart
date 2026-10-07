@@ -29,14 +29,15 @@ abstract final class ResultPresenter {
   }
 
   static List<TileMetric> metrics(EmergencyResult r) => [
-    if (r.erBedsFree != null) (label: 'ER beds', value: '${r.erBedsFree}'),
-    if (r.icuBedsFree != null) (label: 'ICU beds', value: '${r.icuBedsFree}'),
+    if (r.erBedsFree != null) TileMetric('ER beds', '${r.erBedsFree}'),
+    if (r.icuBedsFree != null) TileMetric('ICU beds', '${r.icuBedsFree}'),
     if (r.doctorOnDuty != null)
-      (label: 'Doctor', value: r.doctorOnDuty! ? 'On duty' : 'Not on duty'),
+      TileMetric('Doctor', r.doctorOnDuty! ? 'On duty' : 'Not on duty'),
     if (r.depositRequired != null)
-      (
-        label: 'Deposit',
-        value: r.depositRequired! ? 'Required' : 'Not required',
+      TileMetric(
+        'Deposit',
+        r.depositRequired! ? 'Required' : 'None',
+        tone: r.depositRequired! ? AppTextTone.warning : AppTextTone.primary,
       ),
   ];
 
@@ -51,19 +52,15 @@ abstract final class ResultPresenter {
     Capability.bloodBank,
   ];
 
-  static String? capabilities(EmergencyResult r) {
-    final shown = [
-      for (final c in _key)
-        if (r.capabilities.contains(c)) c.label,
-    ];
-    if (shown.isEmpty) return null;
-    return shown.take(4).join(', ');
-  }
+  static List<String> capabilities(EmergencyResult r) => [
+    for (final c in _key)
+      if (r.capabilities.contains(c)) c.label,
+  ].take(4).toList();
 
+  /// "2.4 km · About 9 min drive".
   static String distance(EmergencyResult r) =>
-      Formatters.distanceKm(r.distanceKm);
-
-  static String eta(EmergencyResult r) => 'About ${r.etaMinutes} min drive';
+      '${Formatters.distanceKm(r.distanceKm)} · '
+      'About ${r.etaMinutes} min drive';
 
   static String? footnote(EmergencyResult r) =>
       r.match == CapabilityMatch.partial

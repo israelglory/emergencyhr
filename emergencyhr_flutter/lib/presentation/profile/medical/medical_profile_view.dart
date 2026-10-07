@@ -27,68 +27,94 @@ class MedicalProfileView extends StatelessWidget {
             body: ErrorState(message: model.errorMessage!, onRetry: model.load),
           );
         }
-        const gap = SizedBox(height: AppSpacing.x2);
         return AppPage(
-          title: MedicalProfileViewModel.title,
+          title: 'Profile',
           bottom: AppButton(
             title: 'Save medical details',
             loading: model.isBusy,
             onPressed: model.onSave,
           ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          body: SectionColumn(
+            gap: AppSpacing.x2,
             children: [
-              const AppText(
-                MedicalProfileViewModel.explainer,
-                tone: AppTextTone.secondary,
+              const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText.headline(MedicalProfileViewModel.title),
+                  SizedBox(height: 6),
+                  AppText(
+                    MedicalProfileViewModel.explainer,
+                    tone: AppTextTone.secondary,
+                  ),
+                ],
               ),
-              gap,
               AppTextField(
                 label: 'Blood group',
                 hintText: 'For example O+',
                 controller: model.bloodGroupController,
               ),
-              gap,
               AppTextField(
                 label: 'Allergies',
+                hintText: 'For example penicillin',
                 controller: model.allergiesController,
                 maxLines: 3,
                 minLines: 1,
               ),
-              gap,
               AppTextField(
                 label: 'Conditions',
                 controller: model.conditionsController,
                 maxLines: 3,
                 minLines: 1,
               ),
-              gap,
               AppTextField(
                 label: 'Regular medicines',
                 controller: model.medicationsController,
                 maxLines: 3,
                 minLines: 1,
               ),
-              const SizedBox(height: AppSpacing.x3),
               AppCard(
-                muted: true,
-                child: CheckboxListTile(
-                  contentPadding: EdgeInsets.zero,
-                  controlAffinity: ListTileControlAffinity.leading,
-                  value: model.consentTicked,
-                  onChanged: model.setConsent,
-                  title: const AppText(MedicalProfileViewModel.consentText),
-                  subtitle: AppText.caption(model.consentLabel),
+                onTap: () => model.setConsent(!model.consentTicked),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox.square(
+                          dimension: 20,
+                          child: Checkbox(
+                            value: model.consentTicked,
+                            onChanged: model.setConsent,
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            visualDensity: VisualDensity.compact,
+                          ),
+                        ),
+                        const SizedBox(width: AppSpacing.small),
+                        const Expanded(
+                          child: AppText.small(
+                            MedicalProfileViewModel.consentText,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: AppSpacing.x1),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 32),
+                      child: AppText.caption(model.consentLabel),
+                    ),
+                  ],
                 ),
               ),
-              if (model.hasSaved) ...[
-                gap,
-                AppButton.text(
-                  title: 'Delete medical details',
-                  icon: Icons.delete_outline,
-                  onPressed: model.delete,
+              if (model.hasSaved)
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: AppButton.text(
+                    title: 'Delete medical details',
+                    color: context.palette.critical,
+                    onPressed: model.delete,
+                  ),
                 ),
-              ],
             ],
           ),
         );

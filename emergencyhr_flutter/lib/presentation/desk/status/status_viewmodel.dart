@@ -34,6 +34,7 @@ class StatusViewModel extends BaseViewModel {
 
   FacilityDetail? _detail;
   FacilityStatus? _saved;
+  List<AuditEntry> _recent = const [];
 
   bool _accepting = true;
   int _erBeds = 0;
@@ -71,7 +72,7 @@ class StatusViewModel extends BaseViewModel {
   bool get showNotLiveNotice => !_practice && _detail != null && !_isLive;
   String get notLiveNotice =>
       'Not public yet (${_detail?.facility.onboardingStage.label}). Your '
-      'updates are saved and appear once the hospital is verified and live.';
+      'updates appear once the hospital is verified and live.';
 
   bool get showPracticePrompt =>
       !_practice && _detail != null && !_trainingDone;
@@ -103,6 +104,21 @@ class StatusViewModel extends BaseViewModel {
   }
 
   String get saveLabel => _practice ? 'Send practice update' : 'Save update';
+  VoidCallback? get onSave => hasChanges || _practice ? save : null;
+
+  static const webTitle = 'Status';
+  static const webSubtitle =
+      'What the public sees when they search for emergency care.';
+
+  /// The last three changes, for the side card on wide screens.
+  List<({String summary, String meta})> get recentChanges => [
+    for (final e in _recent)
+      (
+        summary: e.summary,
+        meta: '${e.userName} · ${Formatters.auditTime(e.at, _now())}',
+      ),
+  ];
+  bool get hasRecentChanges => _recent.isNotEmpty;
 
   /// "Still accurate" refreshes the time without changes.
   bool get canConfirm => !_practice && _saved != null && !hasChanges;
@@ -136,6 +152,14 @@ class StatusViewModel extends BaseViewModel {
     }
     _detail = detail.data;
     _applySaved(detail.data!.status);
+    notifyListeners();
+    unawaited(_loadRecent());
+  }
+
+  Future<void> _loadRecent() async {
+    final response = await _api.auditLog(facilityId, limit: 3, offset: 0);
+    if (!response.success) return;
+    _recent = response.data!;
     notifyListeners();
   }
 
@@ -194,6 +218,7 @@ class StatusViewModel extends BaseViewModel {
     if (response.success) {
       _applySaved(response.data);
       _snackbar.success(message: 'Status updated');
+      unawaited(_loadRecent());
     } else {
       _snackbar.error(message: response.message!);
     }

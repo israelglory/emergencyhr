@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import '../../data/models/route_args.dart';
 import '../../presentation/admin/admin_shell/admin_shell_view.dart';
 import '../../presentation/agent/agent_shell/agent_shell_view.dart';
-import '../../presentation/assistant/assistant_view.dart';
 import '../../presentation/auth/accept_invite/accept_invite_view.dart';
 import '../../presentation/auth/sign_in/sign_in_view.dart';
 import '../../presentation/auth/create_account/create_account_view.dart';
@@ -16,7 +15,7 @@ import '../../presentation/design/design_view.dart';
 import '../../presentation/emergency/after_action/after_action_view.dart';
 import '../../presentation/emergency/area_picker/area_picker_view.dart';
 import '../../presentation/emergency/results/results_view.dart';
-import '../../presentation/emergency/start/emergency_start_view.dart';
+import '../../presentation/emergency/type_filter/type_filter_view.dart';
 import '../../presentation/facility/editor/facility_editor_view.dart';
 import '../../presentation/first_aid/card/first_aid_card_view.dart';
 import '../../presentation/first_aid/list/first_aid_list_view.dart';
@@ -25,9 +24,9 @@ import '../../presentation/join/claim/claim_view.dart';
 import '../../presentation/join/join_hospital/join_hospital_view.dart';
 import '../../presentation/join/join_request/join_request_view.dart';
 import '../../presentation/profile/medical/medical_profile_view.dart';
-import '../../presentation/profile/profile_view.dart';
-import '../../presentation/public/home/home_view.dart';
 import '../../presentation/public/hospital_detail/hospital_detail_view.dart';
+import '../../presentation/public/tabs/public_tabs_view.dart';
+import '../services/public_tabs_service.dart';
 import 'app_routes.dart';
 
 /// Maps URLs to views. Access checks happen in viewmodels and, always, on
@@ -49,7 +48,7 @@ abstract final class AppRouter {
 
     switch (path) {
       case AppRoutes.home:
-        return const HomeView();
+        return const PublicTabsView();
       case AppRoutes.signIn:
         return SignInView(next: next);
       case AppRoutes.createAccount:
@@ -57,25 +56,23 @@ abstract final class AppRouter {
       case AppRoutes.resetPassword:
         return ResetPasswordView(email: args is String ? args : null);
       case AppRoutes.profile:
-        return const ProfileView();
+        return const PublicTabsView(initial: PublicTab.profile);
       case AppRoutes.medicalProfile:
         return const MedicalProfileView();
       case AppRoutes.emergency:
-        return EmergencyStartView(
-          presetType: args is EmergencyType ? args : null,
-        );
-      case AppRoutes.emergencyArea:
-        return AreaPickerView(
-          type: args is EmergencyType ? args : EmergencyType.skipped,
-        );
-      case AppRoutes.emergencyResults:
         return ResultsView(args: args is EmergencyResultsArgs ? args : null);
+      case AppRoutes.emergencyArea:
+        return const AreaPickerView();
+      case AppRoutes.emergencyType:
+        return TypeFilterView(
+          current: args is EmergencyType ? args : EmergencyType.skipped,
+        );
       case AppRoutes.emergencyAfter:
         return const AfterActionView();
       case AppRoutes.firstAid:
         return const FirstAidListView();
       case AppRoutes.assistant:
-        return const AssistantView();
+        return const PublicTabsView(initial: PublicTab.assistant);
       case AppRoutes.desk:
         return const DeskShellView();
       case AppRoutes.agent:

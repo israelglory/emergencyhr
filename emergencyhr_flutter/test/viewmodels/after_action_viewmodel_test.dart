@@ -62,7 +62,7 @@ void main() {
       'matches the type', () {
     final vm = build();
     expect(vm.heading, 'Calling Seed Trauma Centre');
-    expect(vm.firstAid!.title, 'Road accident');
+    expect(vm.firstAidSteps, ['Call 112']);
   });
 
   test(

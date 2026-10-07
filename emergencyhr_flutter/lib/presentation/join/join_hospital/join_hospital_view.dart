@@ -11,70 +11,103 @@ class JoinHospitalView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<JoinHospitalViewModel>.reactive(
       viewModelBuilder: JoinHospitalViewModel.new,
-      builder: (context, model, _) => AppPage(
-        title: JoinHospitalViewModel.title,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const AppText(
-              JoinHospitalViewModel.intro,
-              tone: AppTextTone.secondary,
-            ),
-            const SizedBox(height: AppSpacing.x3),
-            AppTextField(
-              label: 'Hospital name',
-              hintText: 'Start typing',
-              controller: model.searchController,
-              onChanged: model.onSearchChanged,
-              prefixIcon: const Icon(Icons.search),
-              textCapitalization: TextCapitalization.words,
-            ),
-            if (model.isBusy) ...[
-              const SizedBox(height: AppSpacing.x1),
-              const LinearProgressIndicator(),
-            ],
-            if (model.showResults) ...[
-              const SizedBox(height: AppSpacing.x3),
-              const SectionHeader('Is this your hospital?'),
-              if (model.noResults)
-                const AppText(
-                  'No listing found with that name.',
-                  tone: AppTextTone.secondary,
+      builder: (context, model, _) {
+        final p = context.palette;
+        return AppPage(
+          title: JoinHospitalViewModel.title,
+          body: SectionColumn(
+            gap: AppSpacing.x2,
+            children: [
+              const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText.headline(JoinHospitalViewModel.heading),
+                  SizedBox(height: AppSpacing.x1),
+                  AppText(
+                    JoinHospitalViewModel.intro,
+                    tone: AppTextTone.secondary,
+                  ),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  AppTextField(
+                    label: 'Hospital name',
+                    controller: model.searchController,
+                    onChanged: model.onSearchChanged,
+                    prefixIcon: const Icon(Icons.search),
+                    textCapitalization: TextCapitalization.words,
+                  ),
+                  if (model.isBusy) ...[
+                    const SizedBox(height: 6),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(2),
+                      child: LinearProgressIndicator(
+                        minHeight: 3,
+                        backgroundColor: p.divider,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+              if (model.showResults) ...[
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const AppText.caps('Is this your hospital?'),
+                    const SizedBox(height: AppSpacing.x1),
+                    if (model.noResults)
+                      const AppText(
+                        'No listing found with that name.',
+                        tone: AppTextTone.secondary,
+                      )
+                    else
+                      AppListCard(
+                        children: [
+                          for (final row in model.results)
+                            AppListRow(
+                              title: row.name,
+                              subtitle: row.address,
+                              trailing: AppButton.secondary(
+                                title: 'Claim',
+                                size: AppButtonSize.small,
+                                expand: false,
+                                onPressed: () => model.claim(row),
+                              ),
+                            ),
+                        ],
+                      ),
+                  ],
                 ),
-              for (final row in model.results) ...[
-                ChoiceTile(
-                  title: row.name,
-                  subtitle: row.address,
-                  icon: Icons.local_hospital_outlined,
-                  trailing: const AppText.label('Claim'),
-                  onTap: () => model.claim(row),
+                AppButton.secondary(
+                  title: 'My hospital is not listed',
+                  size: AppButtonSize.medium,
+                  onPressed: model.createNew,
                 ),
-                const SizedBox(height: AppSpacing.x1),
               ],
-              const SizedBox(height: AppSpacing.x2),
-              AppButton.secondary(
-                title: 'My hospital is not listed',
-                icon: Icons.add,
-                onPressed: model.createNew,
+              AppCard(
+                color: p.primaryContainer,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const AppText.subtitle('Not ready to sign up?'),
+                    const SizedBox(height: 6),
+                    const AppText.caption(
+                      'Send us your details and a field agent will visit.',
+                    ),
+                    const SizedBox(height: AppSpacing.x1),
+                    AppButton.text(
+                      title: 'Send a join request',
+                      onPressed: model.sendJoinRequest,
+                    ),
+                  ],
+                ),
               ),
             ],
-            const SizedBox(height: AppSpacing.x4),
-            const Divider(),
-            const SizedBox(height: AppSpacing.x2),
-            const AppText.subtitle('Not ready to sign up?'),
-            const AppText(
-              'Send us your details and a field agent will visit.',
-              tone: AppTextTone.secondary,
-            ),
-            const SizedBox(height: AppSpacing.x1),
-            AppButton.text(
-              title: 'Send a join request',
-              icon: Icons.mail_outline,
-              onPressed: model.sendJoinRequest,
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

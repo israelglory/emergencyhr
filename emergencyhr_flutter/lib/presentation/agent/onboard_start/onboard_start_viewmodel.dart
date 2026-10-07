@@ -49,8 +49,10 @@ class OnboardStartViewModel extends BaseViewModel {
   static const _locateKey = 'locate';
 
   static const intro =
-      'Standing at the emergency desk? We will list hospitals within 300 m so '
-      'you can pick the right one. Create a new listing only if it is not here.';
+      'Stand at the emergency desk and find the listing. If it is not there, '
+      'create one.';
+  static const pickHint =
+      'Picking a seeded or contacted hospital marks it as Visited.';
 
   bool get isLocating => busy(_locateKey);
   bool get isSearching => isBusy && !isLocating;

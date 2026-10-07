@@ -42,7 +42,7 @@ class ReportsViewModel extends BaseViewModel {
           id: r.facility.id,
           name: r.facility.name,
           detail:
-              '"${r.latestReason}" · ${Formatters.ago(r.latestAt, now)} · '
+              '${r.latestReason} · ${Formatters.ago(r.latestAt, now)} · '
               '${Formatters.count(r.openReports, 'open report')}',
           badge: r.flagged ? 'Flagged, hidden from Tier 1' : 'Reported',
           tone: r.flagged ? StatusTone.critical : StatusTone.warning,

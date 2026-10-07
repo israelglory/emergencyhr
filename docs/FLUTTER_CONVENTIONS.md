@@ -147,23 +147,25 @@ Use these before writing new UI. No raw `Text` or `TextField`.
 
 | Widget | Use |
 | --- | --- |
-| `AppText` (`.display`, `.headline`, `.title`, `.subtitle`, `.small`, `.label`, `.caption`) | All text. `tone:` for semantic colour, `numeric: true` for aligned figures. |
-| `AppTextField` | All inputs. Label above the field. `large: true` for codes and phone numbers. |
-| `AppButton` (`.secondary`, `.danger`, `.text`) | All buttons. `danger` (emergency red) only for Emergency, Call 112 and critical acts. `onPressed: null` disables. |
-| `EmergencyButton` | The single large Emergency button. |
-| `StatusBadge` + `StatusTone` | Status as text plus colour. Green accepting, amber stale, grey unverified or paused, red critical. |
-| `HospitalListTile` | A hospital row with metrics, Call and Directions. |
-| `SegmentedToggle` | Large two-way choice (Accepting / Paused). |
-| `AppCountStepper` | Minus / value / plus with 48px targets. |
-| `AppSwitchTile` | Full-row switch with a value label. |
-| `ChoiceTile` | Large selectable row for pickers and menus. |
-| `ChipGroup` | Multi or single select chips. |
-| `AppCard` | 1px border, radius 12, no shadow. Never nest cards. |
-| `SectionHeader`, `KeyValueRow`, `ChecklistView`, `NoticeBanner` | Structure and inline notices. |
-| `EmptyState`, `ErrorState`, `LoadingState`, `AppLoader` | Every empty, error and loading state. |
-| `AppPage` | Standard screen: app bar, readable max width, pinned bottom action. |
-| `AppShell`, `ShellPageFrame` | Desk, Agent and Admin shells: side rail when expanded, bottom bar or drawer on phones. |
-| `CallNumberSheet` | Number shown large with copy and dial (used by `PhoneCallService`). |
+| `AppText` (`.display`, `.headline`, `.greeting`, `.title`, `.subtitle`, `.small`, `.label`, `.caption`, `.micro`, `.value`, `.caps`) | All text. `tone:` for semantic colour. Figures are always tabular. |
+| `AppTextField` | All inputs. Label above the field, helper below. `large: true` for codes, `rounded: true` for the chat composer. |
+| `AppDropdown` | Labelled select that looks like a text field (Area). |
+| `AppButton` (`.secondary`, `.danger`, `.dangerOutline`, `.text`; `variant: tonal / destructive`) | All buttons. Sizes `extraLarge` 56, `large` 52, `medium` 44, `small` 36 pill. Red (`danger`) only for Emergency and Call 112. `onPressed: null` disables. |
+| `EmergencyButton` | The red Emergency card on Home. |
+| `StatusLabel`, `StatusBadge`, `AppChip` + `StatusTone` | Status as words plus colour (label 14 / 600, badge 12 / 600), blue capability chips. |
+| `NoticeBanner`, `AlertCard` | Inline notices in the status style; the red-flag card with Call 112. |
+| `HospitalListTile`, `HospitalCompactRow` | Hospital card with figures, chips, Call and Directions; compact row with a round Call button. |
+| `SegmentedToggle` (`large:` for the desk), `SegmentPicker`, `DayPicker`, `CheckboxGrid`, `RadioOptionList`, `YesNoButton`, `ChipGroup` | Choices. |
+| `AppCountStepper` | Minus / value / plus with round 44 px buttons. |
+| `AppCard`, `AppListCard` + `AppListRow`, `KeyValueRow`, `LabelledValueRow`, `FigureTile`, `IconTile` | Cards and rows (card radius 16, rows min 52 high with dividers). |
+| `ChecklistView` + `DoneMark`, `NumberedStepRow`, `DontStepRow`, `StepProgress` | Checklists, first-aid steps, 3-step forms. |
+| `DocumentRow`, `DocumentButtons` | Uploaded files and Photograph / Upload. |
+| `EmptyState`, `ErrorState`, `LoadingState`, `MessagePage`, `AppLoader` | Every empty, error, loading and full-page message state. |
+| `AppPage` (+ `PageFooter`, `SectionColumn`) | Standard screen: 56 px top bar with back chevron, body padded 8 20 20, white footer for the main action. |
+| `AppTabBar` | Bottom tabs (public 80 high, staff `compact` 72). |
+| `AppShell` | Desk, Agent and Admin: white top bar with Home on phones, side menu from 840 px, drawer for Admin on phones. |
+| `WebPage`, `DataTableCard`, `NameCell`, `CountTile`, `ToolbarSearch`, `ToolbarSelect` | Admin and desk web pages and tables. |
+| `AppSheet`, `OptionPickerSheet`, `CallNumberSheet`, `AppDialog` (via `DialogService`) | Bottom sheets and dialogs. |
 
 The debug-only `/design` route renders every widget and state in light and
 dark for review.
@@ -172,16 +174,20 @@ dark for review.
 
 - Colours: `AppColors` raw tokens, read through `context.palette`
   (`AppPalette` ThemeExtension) so light and dark follow the same rules.
-- Type scale 32 / 24 / 18 / 16 / 14 / 12 via `AppText` variants. Platform
-  system font.
-- Spacing on an 8-point grid: `AppSpacing.x1` (8) to `x8` (64), `half` (4)
-  for tight gaps only.
-- Radii: `AppRadius.control` 8, `AppRadius.container` 12.
-- Tap targets at least 48px (`AppSizes.tapTarget`).
+- Design source: `design/DESIGN_HANDOFF.md` and `design/screens/*.dc.html`.
+  Match spacing, sizes, colours and copy; do not invent copy.
+- Type: Plus Jakarta Sans (bundled), scale in `AppTypography`: emergency
+  28 / 32 800, heading 26 / 32 700, greeting 24 800, title 17 / 22 700,
+  body 15 / 22, meta 13 / 18, caps 12 700.
+- Spacing on an 8-point grid: `AppSpacing.x1` (8) to `x8` (64), plus
+  `tight` 10, `small` 12, `screen` 20, `list` 16.
+- Radii: `AppRadius.status` 8, `mediumButton` 10, `control` 12, `card` 16,
+  `sheet` 24. Cards have a 1 px border and `palette.cardShadows`.
+- Tap targets at least 44 px (`AppSizes.tapTarget`).
 - Breakpoints: compact < 600, medium 600 to 1024, expanded > 1024
   (`WindowSize`).
-- Icons: Material outlined icons only. No emoji, no gradients, no shadows
-  beyond 1px borders, no em dashes in copy.
+- Icons: Material outlined icons only. No emoji, no gradients, no em dashes
+  in copy.
 
 ## Tests
 

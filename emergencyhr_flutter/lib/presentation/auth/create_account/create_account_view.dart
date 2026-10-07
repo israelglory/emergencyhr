@@ -15,21 +15,43 @@ class CreateAccountView extends StatelessWidget {
     return ViewModelBuilder<CreateAccountViewModel>.reactive(
       viewModelBuilder: () => CreateAccountViewModel(next: next),
       builder: (context, model, _) => AppPage(
-        title: CreateAccountViewModel.title,
-        bottom: AppButton(
-          title: model.primaryLabel,
-          loading: model.isBusy,
-          onPressed: model.continueStep,
-          large: true,
+        title: model.stepTitle,
+        bottom: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            AppButton(
+              title: model.primaryLabel,
+              loading: model.isBusy,
+              onPressed: model.continueStep,
+            ),
+            if (model.showBack) ...[
+              const SizedBox(height: AppSpacing.x1),
+              AppButton.text(
+                title: 'Back',
+                color: context.palette.text,
+                expand: true,
+                onPressed: model.back,
+              ),
+            ],
+          ],
         ),
         body: AutofillGroup(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          child: SectionColumn(
+            gap: 18,
             children: [
-              AppText.headline(model.heading),
-              const SizedBox(height: AppSpacing.x1),
-              AppText(model.explainer, tone: AppTextTone.secondary),
-              const SizedBox(height: AppSpacing.x3),
+              StepProgress(
+                current: model.stepNumber,
+                total: CreateAccountViewModel.stepCount,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText.headline(model.heading),
+                  const SizedBox(height: AppSpacing.x1),
+                  AppText(model.explainer, tone: AppTextTone.secondary),
+                ],
+              ),
               ...switch (model.step) {
                 CreateAccountStep.email => [
                   AppTextField(
@@ -46,7 +68,7 @@ class CreateAccountView extends StatelessWidget {
                 ],
                 CreateAccountStep.code => [
                   AppTextField(
-                    label: 'Code from the email',
+                    label: 'Code',
                     controller: model.codeController,
                     keyboardType: TextInputType.number,
                     autofillHints: const [AutofillHints.oneTimeCode],
@@ -57,7 +79,6 @@ class CreateAccountView extends StatelessWidget {
                     autofocus: true,
                     large: true,
                   ),
-                  const SizedBox(height: AppSpacing.x1),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: AppButton.text(
@@ -76,7 +97,6 @@ class CreateAccountView extends StatelessWidget {
                     onChanged: model.onChanged,
                     autofocus: true,
                   ),
-                  const SizedBox(height: AppSpacing.x2),
                   AppTextField(
                     label: 'Password',
                     helperText: CreateAccountViewModel.passwordHint,
@@ -88,23 +108,13 @@ class CreateAccountView extends StatelessWidget {
                     onSubmitted: (_) => model.continueStep(),
                     suffixIcon: IconButton(
                       tooltip: model.passwordToggleLabel,
+                      color: context.palette.textSecondary,
                       icon: Icon(model.passwordIcon),
                       onPressed: model.togglePassword,
                     ),
                   ),
                 ],
               },
-              if (model.showBack) ...[
-                const SizedBox(height: AppSpacing.x2),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: AppButton.text(
-                    title: 'Back',
-                    icon: Icons.arrow_back,
-                    onPressed: model.back,
-                  ),
-                ),
-              ],
             ],
           ),
         ),

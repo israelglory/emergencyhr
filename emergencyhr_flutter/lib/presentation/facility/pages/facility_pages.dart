@@ -41,7 +41,7 @@ class FacilitySetupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => AppPage(
-    title: 'Onboarding',
+    title: 'My hospitals',
     scrollable: false,
     padding: EdgeInsets.zero,
     maxWidth: AppSizes.wideContentMaxWidth,

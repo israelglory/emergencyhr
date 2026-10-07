@@ -11,7 +11,8 @@ import '../../../data/models/labels.dart';
 typedef UserItem = ({
   int id,
   String name,
-  String detail,
+  String contact,
+  String roles,
   bool suspended,
   String action,
 });
@@ -43,10 +44,8 @@ class UsersViewModel extends BaseViewModel {
       (
         id: u.userId,
         name: Formatters.person(name: u.name, email: u.email, phone: u.phone),
-        detail:
-            '${Formatters.contact(email: u.email, phone: u.phone)} · '
-            '${u.roles.map((r) => r.label).join(', ')}'
-            '${u.suspended ? ' · Suspended' : ''}',
+        contact: Formatters.contact(email: u.email, phone: u.phone),
+        roles: u.roles.map((r) => r.label).join(', '),
         suspended: u.suspended,
         action: u.suspended ? 'Reinstate' : 'Suspend',
       ),
@@ -74,8 +73,8 @@ class UsersViewModel extends BaseViewModel {
   Future<void> toggle(UserItem item) async {
     final suspend = !item.suspended;
     final reason = await _dialogs.promptText(
-      title: '${item.action} ${item.name}',
-      label: 'Reason (logged)',
+      title: 'Enter a reason',
+      message: '${item.action} ${item.name}. The reason is logged.',
       confirmLabel: item.action,
       destructive: suspend,
     );

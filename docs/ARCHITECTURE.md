@@ -61,9 +61,9 @@ geo helpers.
 
 ### Emergency (no account needed)
 
-1. Tapping Emergency starts the location lookup at once; it runs while the
-   user picks an optional type. No location means the area picker, never a
-   dead end.
+1. Tapping Emergency starts the location lookup at once and opens
+   Hospitals near you for all types. No location means the area picker,
+   never a dead end.
 2. `emergency.start` ranks facilities within 10 km (25 km if Tier 1 is
    empty) and creates an `EmergencySession` with a private access token.
 3. Ranking (`emergency/logic/ranking.dart`):
@@ -73,12 +73,15 @@ geo helpers.
    - Tier 3: unverified, older than 120 min, not live, or no match.
    - Hidden: paused or flagged.
    - Within a tier: preferred unit (burns), then travel time, then beds.
-4. `emergency.watch` streams a re-ranked list whenever a listed facility's
+4. "What happened" (optional filter) and "Location" call
+   `emergency.updateSearch` on the same session: it re-ranks, keeps every
+   hospital shown so far on the session, and leaves the start time alone.
+5. `emergency.watch` streams a re-ranked list whenever a listed facility's
    status changes (`facility-status` channel). The app falls back to polling
    if the socket drops. Ages tick on the device and only ever downgrade.
-5. Call or Directions records the action (time to action is the north star
+6. Call or Directions records the action (time to action is the north star
    metric), then shows family alert, first aid and the report option.
-6. The last results are cached on the device for poor connectivity.
+7. The last results are cached on the device for poor connectivity.
 
 ### Status and trust
 

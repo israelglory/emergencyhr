@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:serverpod/serverpod.dart';
 
 import '../../core/auth_guard.dart';
+import '../../core/errors.dart';
 import '../../core/validation.dart';
 import '../../generated/protocol.dart';
 import '../profile/family_alert_service.dart';
@@ -53,6 +54,42 @@ class EmergencyEndpoint extends Endpoint {
     return _emergency.refresh(session, row, accessToken);
   }
 
+  /// Changes "What happened" or the area for an open session and returns
+  /// the new ranking. Who may call: the holder of the session token. Pass
+  /// [lat] and [lng] together, or neither to keep the place.
+  Future<EmergencySearch> updateSearch(
+    Session session,
+    int sessionId,
+    String accessToken,
+    EmergencyType type, {
+    double? lat,
+    double? lng,
+    String? area,
+  }) async {
+    if ((lat == null) != (lng == null)) {
+      throw Errors.validation('Send both lat and lng, or neither.');
+    }
+    if (lat != null) Validate.coordinates(lat, lng!);
+    final row = await _emergency.requireSession(
+      session,
+      sessionId: sessionId,
+      accessToken: accessToken,
+    );
+    return _emergency.updateSearch(
+      session,
+      row,
+      accessToken,
+      type: type,
+      place: lat == null
+          ? null
+          : (
+              lat: lat,
+              lng: lng!,
+              area: Validate.optionalText(area, field: 'area', max: 80),
+            ),
+    );
+  }
+
   /// Re-ranks and emits whenever a listed facility changes status, so an
   /// open results list updates within seconds.
   Stream<EmergencySearch> watch(
@@ -71,7 +108,10 @@ class EmergencyEndpoint extends Endpoint {
     );
     await for (final change in updates) {
       if (!watched.contains(change.facilityId)) continue;
-      final next = await _emergency.refresh(session, row, accessToken);
+      // Re-read: the type or place may have changed since the stream began.
+      final current =
+          await EmergencySession.db.findById(session, sessionId) ?? row;
+      final next = await _emergency.refresh(session, current, accessToken);
       watched.addAll(next.results.map((r) => r.facilityId));
       yield next;
     }

@@ -12,64 +12,60 @@ class AgentsView extends StatelessWidget {
     return ViewModelBuilder<AgentsViewModel>.reactive(
       viewModelBuilder: AgentsViewModel.new,
       onViewModelReady: (model) => model.load(),
-      builder: (context, model, _) => ShellPageFrame(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(AppSpacing.x2),
-              child: AppButton(
-                title: 'Add field agent',
-                icon: Icons.person_add_alt_outlined,
-                onPressed: model.add,
-              ),
+      builder: (context, model, _) => WebPageState(
+        isLoading: model.state == ViewState.loading,
+        error: model.state == ViewState.error ? model.errorMessage : null,
+        onRetry: model.load,
+        child: WebPage(
+          title: 'Field agents',
+          subtitle: 'Who onboards hospitals, and where',
+          onRefresh: model.load,
+          actions: [
+            AppButton(
+              title: 'Add field agent',
+              size: AppButtonSize.medium,
+              expand: false,
+              onPressed: model.add,
             ),
-            Expanded(
-              child: switch (model.state) {
-                ViewState.loading => const LoadingState(),
-                ViewState.error => ErrorState(
-                  message: model.errorMessage!,
-                  onRetry: model.load,
-                ),
-                ViewState.empty => const EmptyState(
-                  icon: Icons.badge_outlined,
-                  title: 'No field agents yet',
-                ),
-                ViewState.ready => ListView.separated(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.x2,
-                  ),
-                  itemCount: model.rows.length,
-                  separatorBuilder: (_, _) => const Divider(),
-                  itemBuilder: (context, i) {
-                    final row = model.rows[i];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: AppSpacing.x1,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AppText.label(row.name),
-                          AppText.caption(row.detail),
-                          Wrap(
-                            spacing: AppSpacing.x1,
-                            children: [
-                              AppButton.text(
-                                title: 'Edit areas',
-                                onPressed: () => model.editAreas(row),
-                              ),
-                              AppButton.text(
-                                title: 'Deactivate',
-                                onPressed: () => model.deactivate(row),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              },
+          ],
+          children: [
+            DataTableCard(
+              columns: const [
+                TableColumn('Agent', flex: 2),
+                TableColumn('Areas', flex: 2),
+                TableColumn('Hospitals'),
+                TableColumn('', width: 220),
+              ],
+              empty: const AppText(
+                'No field agents yet',
+                tone: AppTextTone.secondary,
+              ),
+              rows: [
+                for (final row in model.rows)
+                  [
+                    NameCell(row.name, detail: row.contact),
+                    AppText.small(row.areas),
+                    AppText.small(row.hospitals),
+                    Wrap(
+                      spacing: AppSpacing.x1,
+                      runSpacing: 6,
+                      children: [
+                        AppButton.secondary(
+                          title: 'Edit areas',
+                          size: AppButtonSize.small,
+                          expand: false,
+                          onPressed: () => model.editAreas(row),
+                        ),
+                        AppButton.secondary(
+                          title: 'Deactivate',
+                          size: AppButtonSize.small,
+                          expand: false,
+                          onPressed: () => model.deactivate(row),
+                        ),
+                      ],
+                    ),
+                  ],
+              ],
             ),
           ],
         ),

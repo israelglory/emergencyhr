@@ -12,34 +12,35 @@ class JoinsView extends StatelessWidget {
     return ViewModelBuilder<JoinsViewModel>.reactive(
       viewModelBuilder: JoinsViewModel.new,
       onViewModelReady: (model) => model.load(),
-      builder: (context, model, _) => switch (model.state) {
-        ViewState.loading => const LoadingState(),
-        ViewState.error => ErrorState(
-          message: model.errorMessage!,
-          onRetry: model.load,
-        ),
-        ViewState.empty => const EmptyState(
-          icon: Icons.mail_outline,
-          title: 'No join requests',
-        ),
-        ViewState.ready => ShellPageFrame(
-          child: ListView.separated(
-            padding: const EdgeInsets.all(AppSpacing.x2),
-            itemCount: model.rows.length,
-            separatorBuilder: (_, _) => const Divider(),
-            itemBuilder: (context, i) {
-              final row = model.rows[i];
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: AppSpacing.x1),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+      builder: (context, model, _) => WebPageState(
+        isLoading: model.state == ViewState.loading,
+        error: model.state == ViewState.error ? model.errorMessage : null,
+        onRetry: model.load,
+        child: WebPage(
+          title: 'Join requests',
+          subtitle: 'Hospitals asking for a visit',
+          onRefresh: model.load,
+          children: [
+            if (model.state == ViewState.empty)
+              const EmptyState(
+                icon: Icons.mail_outline,
+                title: 'No join requests',
+              ),
+            for (final row in model.rows)
+              AppCard(
+                child: SectionColumn(
+                  gap: AppSpacing.tight,
                   children: [
-                    Row(
+                    Wrap(
+                      spacing: AppSpacing.x1,
+                      runSpacing: AppSpacing.half,
+                      crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
-                        Expanded(child: AppText.label(row.title)),
+                        AppText.title(row.title),
                         StatusBadge(
                           label: row.status,
-                          tone: StatusTone.neutral,
+                          tone: row.tone,
+                          dot: false,
                         ),
                       ],
                     ),
@@ -48,29 +49,33 @@ class JoinsView extends StatelessWidget {
                     if (row.open)
                       Wrap(
                         spacing: AppSpacing.x1,
+                        runSpacing: 8,
                         children: [
-                          AppButton.text(
+                          AppButton.secondary(
                             title: 'Mark contacted',
+                            size: AppButtonSize.medium,
+                            expand: false,
                             onPressed: () => model.markContacted(row),
                           ),
-                          AppButton.text(
+                          AppButton(
                             title: 'Assign a visit',
-                            icon: Icons.assignment_ind_outlined,
+                            size: AppButtonSize.medium,
+                            expand: false,
                             onPressed: () => model.convert(row),
                           ),
                           AppButton.text(
                             title: 'Close',
+                            color: context.palette.text,
                             onPressed: () => model.close(row),
                           ),
                         ],
                       ),
                   ],
                 ),
-              );
-            },
-          ),
+              ),
+          ],
         ),
-      },
+      ),
     );
   }
 }

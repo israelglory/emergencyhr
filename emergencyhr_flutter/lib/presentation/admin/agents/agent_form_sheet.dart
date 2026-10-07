@@ -14,42 +14,34 @@ class AgentFormSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<AgentFormViewModel>.reactive(
       viewModelBuilder: () => AgentFormViewModel(userId: userId, areas: areas),
-      builder: (context, model, _) => SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(
-          AppSpacing.x3,
-          0,
-          AppSpacing.x3,
-          AppSpacing.x3,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            AppText.title(model.title),
-            const SizedBox(height: AppSpacing.x2),
-            if (model.isNew) ...[
-              const AppText(
-                AgentFormViewModel.addExplainer,
-                tone: AppTextTone.secondary,
-              ),
-              const SizedBox(height: AppSpacing.x2),
-              AppTextField(
-                label: 'Their account email',
-                controller: model.emailController,
-                keyboardType: TextInputType.emailAddress,
-              ),
-              const SizedBox(height: AppSpacing.x2),
-            ],
-            const AppText.label('Areas'),
-            const SizedBox(height: AppSpacing.x1),
-            ChipGroup(items: model.areaOptions, onSelected: model.toggleArea),
-            const SizedBox(height: AppSpacing.x3),
-            AppButton(
-              title: 'Save',
-              loading: model.isBusy,
-              onPressed: model.save,
+      builder: (context, model, _) => AppSheet(
+        title: model.title,
+        children: [
+          if (model.isNew) ...[
+            const AppText.caption(AgentFormViewModel.addExplainer),
+            AppTextField(
+              label: 'Their account email',
+              controller: model.emailController,
+              keyboardType: TextInputType.emailAddress,
             ),
           ],
-        ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const AppText.label('Areas'),
+              const SizedBox(height: 6),
+              CheckboxGrid(
+                items: model.areaOptions,
+                onToggle: model.toggleArea,
+              ),
+            ],
+          ),
+          AppButton(
+            title: 'Save',
+            loading: model.isBusy,
+            onPressed: model.save,
+          ),
+        ],
       ),
     );
   }

@@ -7,13 +7,14 @@ import 'package:mocktail/mocktail.dart';
 import '../helpers/mocks.dart';
 import '../helpers/test_app.dart';
 
-/// The guest flow from the brief: tap Emergency, pick Road accident, see a
-/// Tier 1 trauma hospital first, tap Call, see first-aid cards.
+/// The guest flow from the design: tap Emergency, see hospitals near you,
+/// set What happened to Road accident, see a Tier 1 trauma hospital first,
+/// tap Call, see first-aid cards.
 void main() {
   setUpAll(registerFallbacks);
 
-  testWidgets('Guest: Emergency -> Road accident -> Tier 1 trauma first -> '
-      'Call -> first aid', (tester) async {
+  testWidgets('Guest: Emergency -> hospitals -> Road accident -> Tier 1 '
+      'trauma first -> Call -> first aid', (tester) async {
     tester.view.physicalSize = const Size(420, 900);
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.reset);
@@ -30,6 +31,27 @@ void main() {
         type: any(named: 'type'),
         area: any(named: 'area'),
         tappedAt: any(named: 'tappedAt'),
+      ),
+    ).thenAnswer(
+      (_) async => ok(
+        searchFixture(
+          type: EmergencyType.skipped,
+          results: [
+            resultFixture(
+              id: 3,
+              name: 'Seed General Clinic',
+              capabilities: [Capability.generalEmergency],
+            ).copyWith(statusUpdatedAt: fresh),
+          ],
+        ),
+      ),
+    );
+    when(
+      () => s.emergencyApi.updateSearch(
+        any(),
+        any(),
+        any(),
+        place: any(named: 'place'),
       ),
     ).thenAnswer(
       (_) async => ok(
@@ -70,13 +92,25 @@ void main() {
     await tester.pumpWidget(testApp());
     await tester.pumpAndSettle();
 
-    // 1. Emergency
+    // 1. Emergency opens Hospitals near you for all types
     await tester.tap(find.byType(EmergencyButton));
     await tester.pumpAndSettle();
+    expect(find.text('Hospitals near you'), findsOneWidget);
+    expect(find.text('All types'), findsOneWidget);
 
-    // 2. Road accident
+    // 2. What happened: Road accident
+    await tester.tap(find.text('All types'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Road accident'));
     await tester.pumpAndSettle();
+    verify(
+      () => s.emergencyApi.updateSearch(
+        10,
+        'token',
+        EmergencyType.roadAccident,
+        place: null,
+      ),
+    ).called(1);
 
     // 3. Tier 1 trauma hospital first
     final tiles = tester
@@ -91,7 +125,7 @@ void main() {
     verify(
       () => s.calls.callNumber(
         number: '+2348100000001',
-        title: 'Call Seed Trauma Centre',
+        title: 'Call this number',
         message: any(named: 'message'),
       ),
     ).called(1);
@@ -106,7 +140,12 @@ void main() {
 
     // 5. First-aid cards
     expect(find.text('Calling Seed Trauma Centre'), findsOneWidget);
-    expect(find.text('First aid while you wait'), findsOneWidget);
-    expect(find.text('Road accident'), findsOneWidget);
+    expect(
+      find.textContaining(
+        RegExp('first aid while you wait', caseSensitive: false),
+      ),
+      findsOneWidget,
+    );
+    expect(find.text('Make sure the scene is safe.'), findsOneWidget);
   });
 }

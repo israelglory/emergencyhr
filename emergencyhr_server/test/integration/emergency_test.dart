@@ -85,6 +85,69 @@ void main() {
         },
       );
 
+      test('when the type is changed after start then the same session is '
+          're-ranked and earlier hospitals stay actionable', () async {
+        final near = await createFacility(
+          sessionBuilder,
+          name: 'Seed Filter Near',
+          lat: 11.0000,
+          lng: 8.0000,
+        );
+        final trauma = await createFacility(
+          sessionBuilder,
+          name: 'Seed Filter Trauma',
+          lat: 11.0200,
+          lng: 8.0100,
+        );
+        await _caps(sessionBuilder, near.id!, [Capability.generalEmergency]);
+        await _caps(sessionBuilder, trauma.id!, [Capability.trauma]);
+        await _status(sessionBuilder, near.id!);
+        await _status(sessionBuilder, trauma.id!);
+
+        final all = await endpoints.emergency.start(
+          sessionBuilder,
+          10.9990,
+          7.9990,
+          EmergencyType.skipped,
+          area: null,
+          tappedAt: null,
+        );
+        expect(all.results.first.facilityId, near.id);
+
+        final filtered = await endpoints.emergency.updateSearch(
+          sessionBuilder,
+          all.sessionId,
+          all.accessToken,
+          EmergencyType.roadAccident,
+          lat: null,
+          lng: null,
+          area: null,
+        );
+        expect(filtered.sessionId, all.sessionId);
+        expect(filtered.emergencyType, EmergencyType.roadAccident);
+        expect(filtered.results.first.facilityId, trauma.id);
+
+        final row = await EmergencySession.db.findById(
+          sessionBuilder.build(),
+          all.sessionId,
+        );
+        expect(row!.emergencyType, EmergencyType.roadAccident);
+        expect(row.resultsShown, containsAll([near.id, trauma.id]));
+
+        await expectLater(
+          endpoints.emergency.updateSearch(
+            sessionBuilder,
+            all.sessionId,
+            all.accessToken,
+            EmergencyType.skipped,
+            lat: 9.0,
+            lng: null,
+            area: null,
+          ),
+          throwsA(isA<ValidationException>()),
+        );
+      });
+
       test('when the access token is wrong then actions are refused', () async {
         final search = await endpoints.emergency.start(
           sessionBuilder,

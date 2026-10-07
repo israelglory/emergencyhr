@@ -4,7 +4,14 @@ import 'package:stacked/stacked.dart';
 import '../../../core/cores.dart';
 import '../../../data/api/admin_api.dart';
 
-typedef ClaimItem = ({int id, String title, String detail, ClaimRequest claim});
+typedef ClaimItem = ({
+  int id,
+  String title,
+  String detail,
+  String deskBadge,
+  StatusTone deskTone,
+  ClaimRequest claim,
+});
 
 /// Hospitals claiming an existing listing.
 class ClaimsViewModel extends BaseViewModel {
@@ -42,10 +49,13 @@ class ClaimsViewModel extends BaseViewModel {
             item.claimantContact,
             Formatters.ago(item.claim.createdAt, now),
             Formatters.count(item.claim.documents.length, 'document'),
-            item.claim.deskPhoneVerified
-                ? 'Desk phone verified'
-                : 'Desk phone not verified',
           ].join(' · '),
+          deskBadge: item.claim.deskPhoneVerified
+              ? 'Desk phone verified'
+              : 'Desk phone not verified',
+          deskTone: item.claim.deskPhoneVerified
+              ? StatusTone.positive
+              : StatusTone.warning,
           claim: item.claim,
         ),
     ];

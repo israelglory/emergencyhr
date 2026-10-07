@@ -27,31 +27,15 @@ class DeskShellView extends StatelessWidget {
           destinations: model.destinations,
           selectedIndex: model.selectedIndex,
           onSelect: model.select,
-          actions: [
-            if (model.showFacilitySwitcher)
-              PopupMenuButton<int>(
-                tooltip: 'Switch hospital',
-                icon: const Icon(Icons.swap_horiz),
-                onSelected: model.selectFacility,
-                itemBuilder: (_) => [
-                  for (final f in model.facilityOptions)
-                    CheckedPopupMenuItem(
-                      value: f.id,
-                      checked: f.selected,
-                      child: Text(f.name),
-                    ),
-                ],
-              ),
-            IconButton(
-              tooltip: 'Public home',
-              icon: const Icon(Icons.home_outlined),
-              onPressed: model.goHome,
-            ),
-          ],
+          onHome: model.goHome,
+          onTitleTap: model.showFacilitySwitcher ? model.switchHospital : null,
           body: KeyedSubtree(
             key: ValueKey('${model.currentTab}-$id'),
             child: switch (model.currentTab) {
-              DeskTab.status => StatusView(facilityId: id),
+              DeskTab.status => StatusView(
+                facilityId: id,
+                onSeeAuditLog: model.openAuditLog,
+              ),
               DeskTab.audit => AuditLogView(facilityId: id),
               DeskTab.staff => StaffView(facilityId: id),
               DeskTab.hospital => FacilitySetupView(facilityId: id),

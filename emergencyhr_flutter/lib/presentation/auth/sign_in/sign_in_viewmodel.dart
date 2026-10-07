@@ -12,7 +12,11 @@ class SignInViewModel extends BaseViewModel {
     SessionService? session,
     NavigationService? navigation,
     SnackbarService? snackbar,
-  }) : _api = api ?? authApi,
+    EmergencySessionService? emergency,
+    LocationService? location,
+  }) : _emergencyOverride = emergency,
+       _locationOverride = location,
+       _api = api ?? authApi,
        _session = session ?? sessionService,
        _navigation = navigation ?? navigationService,
        _snackbar = snackbar ?? snackbarService;
@@ -23,6 +27,11 @@ class SignInViewModel extends BaseViewModel {
   final SessionService _session;
   final NavigationService _navigation;
   final SnackbarService _snackbar;
+  final EmergencySessionService? _emergencyOverride;
+  final LocationService? _locationOverride;
+  EmergencySessionService get _emergency =>
+      _emergencyOverride ?? emergencySession;
+  LocationService get _location => _locationOverride ?? locationService;
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -31,9 +40,8 @@ class SignInViewModel extends BaseViewModel {
 
   static const title = 'Sign in';
   static const heading = 'Sign in to Emergencyhr';
-  static const explainer =
-      'You do not need an account to use Emergency. Sign in for the Health '
-      'Assistant, family alerts and hospital tools.';
+  static const explainer = 'You do not need an account to use Emergency.';
+  static const newHere = 'New to Emergencyhr?';
 
   String? errorFor(String field) => _errors[field];
   bool get hidePassword => _hidePassword;
@@ -82,6 +90,12 @@ class SignInViewModel extends BaseViewModel {
       navigation: _navigation,
       next: next,
     );
+  }
+
+  /// Straight to Hospitals near you, no account needed.
+  void startEmergency() {
+    _emergency.begin(_location.current());
+    _navigation.pushNamed<void>(AppRoutes.emergency);
   }
 
   void createAccount() => _navigation.pushNamed<void>(

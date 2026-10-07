@@ -33,7 +33,8 @@ class InviteSheetViewModel extends BaseViewModel {
   InviteCreated? _created;
   String? _emailError;
 
-  String get title => 'Invite ${role.label.toLowerCase()}';
+  String get title =>
+      isCreated ? '${role.label} invite' : 'Invite ${role.label.toLowerCase()}';
   static const explainer =
       'Optionally add their email so only that account can use the invite. '
       'Then let them scan the code on this screen, or send them the link. '
@@ -51,12 +52,10 @@ class InviteSheetViewModel extends BaseViewModel {
 
   String get expiresLabel => _created == null
       ? ''
-      : 'Expires ${Formatters.dateTime(_created!.invite.expiresAt)}';
+      : 'Expires ${Formatters.dayMonth(_created!.invite.expiresAt)}';
   String get sentLabel {
     final email = _created?.invite.email;
-    const how =
-        'Ask them to scan this code with their phone camera, or send them the '
-        'link. They sign in or create an account, then accept.';
+    const how = 'Scan the code, or open the invite link and sign in to accept.';
     return email == null ? how : '$how Only $email can accept it.';
   }
 

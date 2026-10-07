@@ -12,62 +12,60 @@ class UsersView extends StatelessWidget {
     return ViewModelBuilder<UsersViewModel>.reactive(
       viewModelBuilder: UsersViewModel.new,
       onViewModelReady: (model) => model.load(),
-      builder: (context, model, _) => ShellPageFrame(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(AppSpacing.x2),
-              child: AppTextField(
-                hintText: 'Search by name or phone',
-                controller: model.searchController,
-                onChanged: model.onSearchChanged,
-                prefixIcon: const Icon(Icons.search),
+      builder: (context, model, _) => WebPage(
+        title: 'Accounts',
+        subtitle: 'Everyone with an Emergencyhr account',
+        onRefresh: model.load,
+        children: [
+          ToolbarSearch(
+            hint: 'Search by name, email or phone',
+            width: 360,
+            controller: model.searchController,
+            onChanged: model.onSearchChanged,
+          ),
+          switch (model.state) {
+            ViewState.loading => const LoadingState(),
+            ViewState.error => ErrorState(
+              message: model.errorMessage!,
+              onRetry: model.load,
+            ),
+            _ => DataTableCard(
+              columns: const [
+                TableColumn('Name', flex: 2),
+                TableColumn('Roles', flex: 2),
+                TableColumn('State'),
+                TableColumn('', width: 130),
+              ],
+              empty: const AppText(
+                'No accounts found',
+                tone: AppTextTone.secondary,
               ),
+              rows: [
+                for (final row in model.rows)
+                  [
+                    NameCell(row.name, detail: row.contact),
+                    AppText.small(row.roles),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: row.suspended
+                          ? const StatusBadge(
+                              label: 'Suspended',
+                              tone: StatusTone.critical,
+                              dot: false,
+                            )
+                          : const AppText.caption('Active'),
+                    ),
+                    AppButton.secondary(
+                      title: row.action,
+                      size: AppButtonSize.small,
+                      expand: false,
+                      onPressed: () => model.toggle(row),
+                    ),
+                  ],
+              ],
             ),
-            Expanded(
-              child: switch (model.state) {
-                ViewState.loading => const LoadingState(),
-                ViewState.error => ErrorState(
-                  message: model.errorMessage!,
-                  onRetry: model.load,
-                ),
-                ViewState.empty => const EmptyState(title: 'No accounts found'),
-                ViewState.ready => ListView.separated(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.x2,
-                  ),
-                  itemCount: model.rows.length,
-                  separatorBuilder: (_, _) => const Divider(),
-                  itemBuilder: (context, i) {
-                    final row = model.rows[i];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: AppSpacing.x1,
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AppText.label(row.name),
-                                AppText.caption(row.detail),
-                              ],
-                            ),
-                          ),
-                          AppButton.text(
-                            title: row.action,
-                            onPressed: () => model.toggle(row),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              },
-            ),
-          ],
-        ),
+          },
+        ],
       ),
     );
   }

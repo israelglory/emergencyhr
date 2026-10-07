@@ -14,39 +14,41 @@ class DuplicateSheetView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<DuplicateSheetViewModel>.nonReactive(
       viewModelBuilder: () => DuplicateSheetViewModel(candidates: candidates),
-      builder: (context, model, _) => SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(
-          AppSpacing.x3,
-          0,
-          AppSpacing.x3,
-          AppSpacing.x3,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            AppText.title(model.title),
-            const SizedBox(height: AppSpacing.x1),
-            AppText(model.message, tone: AppTextTone.secondary),
-            const SizedBox(height: AppSpacing.x2),
-            for (final row in model.rows) ...[
-              ChoiceTile(
-                title: row.name,
-                subtitle: row.detail,
-                icon: Icons.local_hospital_outlined,
-                onTap: () => model.useExisting(row.id),
-                trailing: const AppText.label('Use this'),
-              ),
-              const SizedBox(height: AppSpacing.x1),
+      builder: (context, model, _) => AppSheet(
+        title: model.title,
+        children: [
+          AppText.caption(model.message),
+          AppListCard(
+            children: [
+              for (final row in model.rows)
+                AppListRow(
+                  title: row.name,
+                  subtitle: row.detail,
+                  trailing: AppButton(
+                    title: 'Use this',
+                    variant: row.first
+                        ? AppButtonVariant.primary
+                        : AppButtonVariant.secondary,
+                    size: AppButtonSize.small,
+                    expand: false,
+                    onPressed: () => model.useExisting(row.id),
+                  ),
+                ),
             ],
-            if (model.canCreateNew) ...[
-              const SizedBox(height: AppSpacing.x1),
-              AppButton.secondary(
-                title: 'None of these. Create a new listing',
-                onPressed: model.createNew,
-              ),
-            ],
-          ],
-        ),
+          ),
+          if (model.canCreateNew)
+            AppButton.secondary(
+              title: 'None of these. Create a new listing',
+              size: AppButtonSize.medium,
+              onPressed: model.createNew,
+            ),
+          AppButton.text(
+            title: 'Cancel',
+            color: context.palette.text,
+            expand: true,
+            onPressed: model.cancel,
+          ),
+        ],
       ),
     );
   }

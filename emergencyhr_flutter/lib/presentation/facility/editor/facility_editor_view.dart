@@ -33,176 +33,252 @@ class FacilityEditorView extends StatelessWidget {
             ),
           );
         }
-        const gap = SizedBox(height: AppSpacing.x2);
         return AppPage(
           title: model.title,
           bottom: AppButton(
             title: model.saveLabel,
-            large: true,
             loading: model.isSaving,
             onPressed: model.save,
           ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          body: SectionColumn(
+            gap: 22,
             children: [
-              if (model.savedOffline) ...[
+              AppText.headline(model.heading),
+              if (model.savedOffline)
                 const NoticeBanner(
                   message: FacilityEditorViewModel.offlineNotice,
-                  tone: StatusTone.warning,
                   icon: Icons.cloud_off_outlined,
                 ),
-                gap,
-              ],
-              AppTextField(
-                label: 'Hospital name',
-                controller: model.nameController,
-                textCapitalization: TextCapitalization.words,
-                errorText: model.errorFor('name'),
-                onChanged: model.onFieldChanged,
-              ),
-              gap,
-              const AppText.label('Type'),
-              const SizedBox(height: AppSpacing.x1),
-              ChipGroup(items: model.typeOptions, onSelected: model.setType),
-              gap,
-              AppTextField(
-                label: 'Address',
-                controller: model.addressController,
-                textCapitalization: TextCapitalization.words,
-                errorText: model.errorFor('address'),
-                onChanged: model.onFieldChanged,
-                maxLines: 2,
-              ),
-              gap,
-              const AppText.label('Area'),
-              const SizedBox(height: AppSpacing.x1),
-              DropdownMenu<String>(
-                initialSelection: model.area,
-                expandedInsets: EdgeInsets.zero,
-                onSelected: model.setArea,
-                dropdownMenuEntries: [
-                  for (final a in model.areaOptions)
-                    DropdownMenuEntry(value: a, label: a),
-                ],
-              ),
-              const SizedBox(height: AppSpacing.x3),
-              const SectionHeader('Map pin'),
-              AppText(model.pinLabel, tone: AppTextTone.secondary),
-              const SizedBox(height: AppSpacing.x1),
-              AppButton.secondary(
-                title: 'Use my current location',
-                icon: Icons.my_location_outlined,
-                loading: model.isLocating,
-                onPressed: model.useMyLocation,
-              ),
-              const SizedBox(height: AppSpacing.x1),
-              Row(
+              SectionColumn(
+                gap: 14,
                 children: [
-                  Expanded(
-                    child: AppTextField(
-                      label: 'Latitude',
-                      controller: model.latController,
-                      keyboardType: const TextInputType.numberWithOptions(
-                        decimal: true,
-                        signed: true,
-                      ),
-                      errorText: model.errorFor('lat'),
-                      onChanged: model.onFieldChanged,
-                    ),
+                  AppTextField(
+                    label: 'Hospital name',
+                    controller: model.nameController,
+                    textCapitalization: TextCapitalization.words,
+                    errorText: model.errorFor('name'),
+                    onChanged: model.onFieldChanged,
                   ),
-                  const SizedBox(width: AppSpacing.x1),
-                  Expanded(
-                    child: AppTextField(
-                      label: 'Longitude',
-                      controller: model.lngController,
-                      keyboardType: const TextInputType.numberWithOptions(
-                        decimal: true,
-                        signed: true,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const AppText.label('Type'),
+                      const SizedBox(height: 6),
+                      SegmentPicker(
+                        items: model.typeOptions,
+                        onSelected: model.setType,
                       ),
-                      errorText: model.errorFor('lng'),
-                      onChanged: model.onFieldChanged,
-                    ),
+                    ],
+                  ),
+                  AppTextField(
+                    label: 'Address',
+                    controller: model.addressController,
+                    textCapitalization: TextCapitalization.words,
+                    errorText: model.errorFor('address'),
+                    onChanged: model.onFieldChanged,
+                  ),
+                  AppDropdown<String>(
+                    label: 'Area',
+                    value: model.area,
+                    options: model.areaOptions,
+                    onSelected: model.setArea,
                   ),
                 ],
               ),
-              const SizedBox(height: AppSpacing.x3),
-              const SectionHeader('Contact'),
-              AppTextField(
-                label: 'Emergency desk phone',
-                hintText: '0803 123 4567',
-                controller: model.deskPhoneController,
-                keyboardType: TextInputType.phone,
-                errorText: model.errorFor('deskPhone'),
-                onChanged: model.onFieldChanged,
-              ),
-              gap,
-              AppTextField(
-                label: 'Named contact',
-                controller: model.contactNameController,
-                textCapitalization: TextCapitalization.words,
-                errorText: model.errorFor('contactName'),
-                onChanged: model.onFieldChanged,
-              ),
-              gap,
-              AppTextField(
-                label: 'Contact phone',
-                controller: model.contactPhoneController,
-                keyboardType: TextInputType.phone,
-                errorText: model.errorFor('contactPhone'),
-                onChanged: model.onFieldChanged,
-              ),
-              const SizedBox(height: AppSpacing.x3),
-              const SectionHeader('Capabilities'),
-              ChipGroup(
-                items: model.capabilityOptions,
-                onSelected: model.toggleCapability,
-              ),
-              if (model.errorFor('capabilities') != null) ...[
-                const SizedBox(height: AppSpacing.x1),
-                AppText.caption(
-                  model.errorFor('capabilities')!,
-                  tone: AppTextTone.critical,
+              _Group(
+                title: 'Map pin',
+                child: AppCard(
+                  child: SectionColumn(
+                    gap: AppSpacing.small,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.place_outlined,
+                            size: 20,
+                            color: context.palette.primaryText,
+                          ),
+                          const SizedBox(width: AppSpacing.tight),
+                          Expanded(child: AppText.subtitle(model.pinLabel)),
+                        ],
+                      ),
+                      AppButton(
+                        title: 'Use my current location',
+                        size: AppButtonSize.medium,
+                        loading: model.isLocating,
+                        onPressed: model.useMyLocation,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: AppTextField(
+                              label: 'Latitude',
+                              controller: model.latController,
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                    decimal: true,
+                                    signed: true,
+                                  ),
+                              errorText: model.errorFor('lat'),
+                              onChanged: model.onFieldChanged,
+                            ),
+                          ),
+                          const SizedBox(width: AppSpacing.tight),
+                          Expanded(
+                            child: AppTextField(
+                              label: 'Longitude',
+                              controller: model.lngController,
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                    decimal: true,
+                                    signed: true,
+                                  ),
+                              errorText: model.errorFor('lng'),
+                              onChanged: model.onFieldChanged,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-              const SizedBox(height: AppSpacing.x3),
-              const SectionHeader('Opening hours'),
-              AppSwitchTile(
-                label: 'Open 24 hours, every day',
-                valueLabel: model.alwaysOpenLabel,
-                value: model.alwaysOpen,
-                onChanged: model.setAlwaysOpen,
               ),
-              if (!model.alwaysOpen) ...[
-                const SizedBox(height: AppSpacing.x1),
-                ChipGroup(items: model.dayOptions, onSelected: model.toggleDay),
-                const SizedBox(height: AppSpacing.x1),
-                Row(
+              _Group(
+                title: 'Contact',
+                gap: 14,
+                child: SectionColumn(
+                  gap: 14,
                   children: [
-                    Expanded(
-                      child: AppButton.secondary(
-                        title: model.opensLabel,
-                        onPressed: model.pickOpens,
-                      ),
+                    AppTextField(
+                      label: 'Emergency desk phone',
+                      hintText: '0803 000 0000',
+                      controller: model.deskPhoneController,
+                      keyboardType: TextInputType.phone,
+                      errorText: model.errorFor('deskPhone'),
+                      onChanged: model.onFieldChanged,
                     ),
-                    const SizedBox(width: AppSpacing.x1),
-                    Expanded(
-                      child: AppButton.secondary(
-                        title: model.closesLabel,
-                        onPressed: model.pickCloses,
-                      ),
+                    AppTextField(
+                      label: 'Named contact',
+                      controller: model.contactNameController,
+                      textCapitalization: TextCapitalization.words,
+                      errorText: model.errorFor('contactName'),
+                      onChanged: model.onFieldChanged,
+                    ),
+                    AppTextField(
+                      label: 'Contact phone',
+                      hintText: '0805 000 0000',
+                      controller: model.contactPhoneController,
+                      keyboardType: TextInputType.phone,
+                      errorText: model.errorFor('contactPhone'),
+                      onChanged: model.onFieldChanged,
                     ),
                   ],
                 ),
-                if (model.errorFor('openingHours') != null)
-                  AppText.caption(
-                    model.errorFor('openingHours')!,
-                    tone: AppTextTone.critical,
+              ),
+              _Group(
+                title: 'Capabilities',
+                gap: AppSpacing.x1,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    CheckboxGrid(
+                      items: model.capabilityOptions,
+                      onToggle: model.toggleCapability,
+                    ),
+                    if (model.errorFor('capabilities') != null) ...[
+                      const SizedBox(height: 6),
+                      AppText.caption(
+                        model.errorFor('capabilities')!,
+                        tone: AppTextTone.critical,
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+              _Group(
+                title: 'Opening hours',
+                child: AppCard(
+                  child: SectionColumn(
+                    gap: AppSpacing.small,
+                    children: [
+                      MergeSemantics(
+                        child: Row(
+                          children: [
+                            const Expanded(
+                              child: AppText.subtitle(
+                                'Open 24 hours, every day',
+                              ),
+                            ),
+                            Switch(
+                              value: model.alwaysOpen,
+                              onChanged: model.setAlwaysOpen,
+                            ),
+                          ],
+                        ),
+                      ),
+                      if (!model.alwaysOpen) ...[
+                        DayPicker(
+                          items: model.dayOptions,
+                          onToggle: model.toggleDay,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: AppButton.secondary(
+                                title: model.opensLabel,
+                                size: AppButtonSize.medium,
+                                onPressed: model.pickOpens,
+                              ),
+                            ),
+                            const SizedBox(width: AppSpacing.tight),
+                            Expanded(
+                              child: AppButton.secondary(
+                                title: model.closesLabel,
+                                size: AppButtonSize.medium,
+                                onPressed: model.pickCloses,
+                              ),
+                            ),
+                          ],
+                        ),
+                        if (model.errorFor('openingHours') != null)
+                          AppText.caption(
+                            model.errorFor('openingHours')!,
+                            tone: AppTextTone.critical,
+                          ),
+                      ],
+                    ],
                   ),
-              ],
+                ),
+              ),
             ],
           ),
         );
       },
+    );
+  }
+}
+
+class _Group extends StatelessWidget {
+  const _Group({
+    required this.title,
+    required this.child,
+    this.gap = AppSpacing.small,
+  });
+
+  final String title;
+  final Widget child;
+  final double gap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Semantics(header: true, child: AppText.caps(title)),
+        SizedBox(height: gap),
+        child,
+      ],
     );
   }
 }

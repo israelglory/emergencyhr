@@ -15,53 +15,80 @@ class ResetPasswordView extends StatelessWidget {
     return ViewModelBuilder<ResetPasswordViewModel>.reactive(
       viewModelBuilder: () => ResetPasswordViewModel(email: email),
       builder: (context, model, _) => AppPage(
-        title: ResetPasswordViewModel.title,
+        title: model.stepTitle,
         bottom: AppButton(
           title: model.primaryLabel,
           loading: model.isBusy,
           onPressed: model.continueStep,
-          large: true,
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        body: SectionColumn(
+          gap: 18,
           children: [
-            AppText.headline(model.heading),
-            const SizedBox(height: AppSpacing.x1),
-            AppText(model.explainer, tone: AppTextTone.secondary),
-            const SizedBox(height: AppSpacing.x3),
-            switch (model.step) {
-              ResetStep.email => AppTextField(
-                label: 'Email',
-                controller: model.emailController,
-                keyboardType: TextInputType.emailAddress,
-                autofillHints: const [AutofillHints.email],
-                errorText: model.errorFor('email'),
-                onChanged: model.onChanged,
-                onSubmitted: (_) => model.continueStep(),
-                autofocus: true,
-              ),
-              ResetStep.code => AppTextField(
-                label: 'Code from the email',
-                controller: model.codeController,
-                keyboardType: TextInputType.number,
-                autofillHints: const [AutofillHints.oneTimeCode],
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                errorText: model.errorFor('code'),
-                onChanged: model.onChanged,
-                onSubmitted: (_) => model.continueStep(),
-                autofocus: true,
-                large: true,
-              ),
-              ResetStep.password => AppTextField(
-                label: 'New password',
-                controller: model.passwordController,
-                obscureText: true,
-                autofillHints: const [AutofillHints.newPassword],
-                errorText: model.errorFor('password'),
-                onChanged: model.onChanged,
-                onSubmitted: (_) => model.continueStep(),
-                autofocus: true,
-              ),
+            StepProgress(
+              current: model.stepNumber,
+              total: ResetPasswordViewModel.stepCount,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppText.headline(model.heading),
+                const SizedBox(height: AppSpacing.x1),
+                AppText(model.explainer, tone: AppTextTone.secondary),
+              ],
+            ),
+            ...switch (model.step) {
+              ResetStep.email => [
+                AppTextField(
+                  label: 'Email',
+                  controller: model.emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  autofillHints: const [AutofillHints.email],
+                  errorText: model.errorFor('email'),
+                  onChanged: model.onChanged,
+                  onSubmitted: (_) => model.continueStep(),
+                  autofocus: true,
+                ),
+              ],
+              ResetStep.code => [
+                AppTextField(
+                  label: 'Code',
+                  controller: model.codeController,
+                  keyboardType: TextInputType.number,
+                  autofillHints: const [AutofillHints.oneTimeCode],
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  errorText: model.errorFor('code'),
+                  onChanged: model.onChanged,
+                  onSubmitted: (_) => model.continueStep(),
+                  autofocus: true,
+                  large: true,
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: AppButton.text(
+                    title: 'Send a new code',
+                    onPressed: model.resendCode,
+                  ),
+                ),
+              ],
+              ResetStep.password => [
+                AppTextField(
+                  label: 'New password',
+                  helperText: ResetPasswordViewModel.passwordHint,
+                  controller: model.passwordController,
+                  obscureText: model.hidePassword,
+                  autofillHints: const [AutofillHints.newPassword],
+                  errorText: model.errorFor('password'),
+                  onChanged: model.onChanged,
+                  onSubmitted: (_) => model.continueStep(),
+                  autofocus: true,
+                  suffixIcon: IconButton(
+                    tooltip: model.passwordToggleLabel,
+                    color: context.palette.textSecondary,
+                    icon: Icon(model.passwordIcon),
+                    onPressed: model.togglePassword,
+                  ),
+                ),
+              ],
             },
           ],
         ),

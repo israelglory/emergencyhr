@@ -26,71 +26,81 @@ class InviteSheetView extends StatelessWidget {
         role: role,
         onCreated: onCreated,
       ),
-      builder: (context, model, _) => SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(
-          AppSpacing.x3,
-          0,
-          AppSpacing.x3,
-          AppSpacing.x3,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            AppText.title(model.title),
-            const SizedBox(height: AppSpacing.x1),
-            if (!model.isCreated) ...[
-              const AppText(
-                InviteSheetViewModel.explainer,
-                tone: AppTextTone.secondary,
-              ),
-              const SizedBox(height: AppSpacing.x2),
-              AppTextField(
-                label: 'Their email (optional)',
-                hintText: 'name@example.com',
-                controller: model.emailController,
-                keyboardType: TextInputType.emailAddress,
-                errorText: model.emailError,
-                onChanged: model.onEmailChanged,
-              ),
-              const SizedBox(height: AppSpacing.x3),
-              AppButton(
-                title: 'Create invite',
-                loading: model.isBusy,
-                onPressed: model.create,
-              ),
-            ] else ...[
-              AppText(model.sentLabel, tone: AppTextTone.secondary),
-              const SizedBox(height: AppSpacing.x2),
-              Center(
-                child: Container(
-                  color: Colors.white,
-                  padding: const EdgeInsets.all(AppSpacing.x2),
-                  child: QrImageView(
-                    data: model.qrData,
-                    size: 220,
-                    semanticsLabel: 'Invite QR code',
+      builder: (context, model, _) => AppSheet(
+        title: model.title,
+        children: model.isCreated
+            ? [
+                Center(
+                  child: Container(
+                    color: Colors.white,
+                    padding: const EdgeInsets.all(AppSpacing.x1),
+                    child: QrImageView(
+                      data: model.qrData,
+                      size: 200,
+                      semanticsLabel: 'Invite QR code',
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: AppSpacing.x2),
-              const AppText.caption('Invite code', alignment: TextAlign.center),
-              AppText.display(
-                model.shortCode,
-                numeric: true,
-                alignment: TextAlign.center,
-              ),
-              AppText.caption(model.expiresLabel, alignment: TextAlign.center),
-              const SizedBox(height: AppSpacing.x3),
-              AppButton.secondary(
-                title: 'Copy invite link',
-                icon: Icons.copy_outlined,
-                onPressed: model.copyLink,
-              ),
-              const SizedBox(height: AppSpacing.x1),
-              AppButton(title: 'Done', onPressed: model.close),
-            ],
-          ],
-        ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const AppText.micro('Invite code'),
+                          SelectableText(
+                            model.shortCode,
+                            style: AppTypography.title.copyWith(
+                              fontSize: 24,
+                              height: 30 / 24,
+                              letterSpacing: 2,
+                              color: context.palette.text,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    AppText.caption(model.expiresLabel),
+                  ],
+                ),
+                AppText.caption(model.sentLabel),
+                Row(
+                  children: [
+                    Expanded(
+                      child: AppButton.secondary(
+                        title: 'Copy invite link',
+                        size: AppButtonSize.medium,
+                        onPressed: model.copyLink,
+                      ),
+                    ),
+                    const SizedBox(width: AppSpacing.tight),
+                    Expanded(
+                      child: AppButton(
+                        title: 'Done',
+                        size: AppButtonSize.medium,
+                        onPressed: model.close,
+                      ),
+                    ),
+                  ],
+                ),
+              ]
+            : [
+                const AppText.caption(InviteSheetViewModel.explainer),
+                AppTextField(
+                  label: 'Their email (optional)',
+                  hintText: 'name@example.com',
+                  controller: model.emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  errorText: model.emailError,
+                  onChanged: model.onEmailChanged,
+                ),
+                AppButton(
+                  title: 'Create invite',
+                  loading: model.isBusy,
+                  onPressed: model.create,
+                ),
+              ],
       ),
     );
   }

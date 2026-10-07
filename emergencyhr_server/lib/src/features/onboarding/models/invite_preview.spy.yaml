@@ -5,3 +5,5 @@ fields:
   expiresAt: DateTime
   valid: bool
   reason: String?
+  ### Name of the person who sent the invite, when they gave one.
+  invitedBy: String?

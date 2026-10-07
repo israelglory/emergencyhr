@@ -27,46 +27,70 @@ class AuditLogView extends StatelessWidget {
                 'Every status change will be listed here with who made it.',
           );
         }
-        return ShellPageFrame(
-          maxWidth: AppSizes.contentMaxWidth,
-          child: RefreshIndicator(
-            onRefresh: model.load,
-            child: ListView.separated(
-              padding: const EdgeInsets.all(AppSpacing.x2),
-              itemCount: model.rows.length + 1,
-              separatorBuilder: (_, _) => const Divider(),
-              itemBuilder: (context, index) {
-                if (index == model.rows.length) {
-                  return model.canLoadMore
-                      ? AppButton.text(
-                          title: 'Load more',
-                          loading: model.isLoadingMore,
-                          onPressed: model.loadMore,
-                        )
-                      : const SizedBox.shrink();
-                }
-                final row = model.rows[index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: AppSpacing.x1),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+        return RefreshIndicator(
+          onRefresh: model.load,
+          child: ListView(
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.screen,
+              AppSpacing.x2,
+              AppSpacing.screen,
+              AppSpacing.screen,
+            ),
+            children: [
+              Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxWidth: AppSizes.contentMaxWidth,
+                  ),
+                  child: SectionColumn(
+                    gap: AppSpacing.small,
                     children: [
-                      Row(
+                      const AppText.caps('Audit log'),
+                      AppListCard(
                         children: [
-                          Expanded(child: AppText.label(row.summary)),
-                          if (row.practice)
-                            const StatusBadge(
-                              label: 'Practice',
-                              tone: StatusTone.warning,
+                          for (final row in model.rows)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 12,
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        AppText.subtitle(row.summary),
+                                        const SizedBox(height: 3),
+                                        AppText.caption(row.meta),
+                                      ],
+                                    ),
+                                  ),
+                                  if (row.practice)
+                                    const StatusBadge(
+                                      label: 'Practice',
+                                      tone: StatusTone.warning,
+                                      dot: false,
+                                    ),
+                                ],
+                              ),
                             ),
                         ],
                       ),
-                      AppText.caption(row.meta, numeric: true),
+                      if (model.canLoadMore)
+                        AppButton.secondary(
+                          title: 'Load more',
+                          size: AppButtonSize.medium,
+                          loading: model.isLoadingMore,
+                          onPressed: model.loadMore,
+                        ),
                     ],
                   ),
-                );
-              },
-            ),
+                ),
+              ),
+            ],
           ),
         );
       },

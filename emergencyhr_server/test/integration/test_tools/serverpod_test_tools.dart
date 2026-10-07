@@ -1880,6 +1880,49 @@ class _EmergencyEndpoint {
     });
   }
 
+  _ida.Future<_i76gpwhd.EmergencySearch> updateSearch(
+    _ist.TestSessionBuilder sessionBuilder,
+    int sessionId,
+    String accessToken,
+    _i5d26921.EmergencyType type, {
+    double? lat,
+    double? lng,
+    String? area,
+  }) async {
+    return _ist.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _ist.InternalTestSessionBuilder).internalBuild(
+            endpoint: 'emergency',
+            method: 'updateSearch',
+          );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'emergency',
+          methodName: 'updateSearch',
+          parameters: _ist.testObjectToJson({
+            'sessionId': sessionId,
+            'accessToken': accessToken,
+            'type': type,
+            'lat': lat,
+            'lng': lng,
+            'area': area,
+          }),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue =
+            await (_localCallContext.method.call(
+                  _localUniqueSession,
+                  _localCallContext.arguments,
+                )
+                as _ida.Future<_i76gpwhd.EmergencySearch>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+
   _ida.Stream<_i76gpwhd.EmergencySearch> watch(
     _ist.TestSessionBuilder sessionBuilder,
     int sessionId,

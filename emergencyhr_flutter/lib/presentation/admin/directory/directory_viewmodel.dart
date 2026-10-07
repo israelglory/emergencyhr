@@ -96,8 +96,10 @@ class DirectoryViewModel extends BaseViewModel {
   Future<void> toggleSuspended(DirectoryItem item) async {
     final suspend = !item.suspended;
     final reason = await _dialogs.promptText(
-      title: suspend ? 'Suspend ${item.name}' : 'Reinstate ${item.name}',
-      label: 'Reason (logged)',
+      title: 'Enter a reason',
+      message: suspend
+          ? 'Suspending ${item.name} hides it from the public.'
+          : 'Reinstating ${item.name} shows it to the public again.',
       confirmLabel: suspend ? 'Suspend' : 'Reinstate',
       destructive: suspend,
     );

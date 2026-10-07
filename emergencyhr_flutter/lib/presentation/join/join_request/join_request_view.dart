@@ -13,42 +13,50 @@ class JoinRequestView extends StatelessWidget {
       viewModelBuilder: JoinRequestViewModel.new,
       builder: (context, model, _) {
         if (model.sent) {
-          return AppPage(
-            title: JoinRequestViewModel.title,
-            scrollable: false,
-            body: EmptyState(
-              icon: Icons.mark_email_read_outlined,
-              title: JoinRequestViewModel.sentTitle,
-              message: JoinRequestViewModel.sentMessage,
-              actionLabel: 'Back to home',
-              onAction: model.done,
+          return Scaffold(
+            body: SafeArea(
+              child: MessagePage(
+                icon: Icons.check_rounded,
+                tone: IconTileTone.positive,
+                title: JoinRequestViewModel.sentTitle,
+                message: JoinRequestViewModel.sentMessage,
+                children: [
+                  AppButton.secondary(
+                    title: 'Back to home',
+                    onPressed: model.done,
+                  ),
+                ],
+              ),
             ),
           );
         }
-        const gap = SizedBox(height: AppSpacing.x2);
         return AppPage(
           title: JoinRequestViewModel.title,
           bottom: AppButton(
             title: 'Send request',
-            large: true,
             loading: model.isBusy,
             onPressed: model.submit,
           ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          body: SectionColumn(
+            gap: 14,
             children: [
-              const AppText(
-                JoinRequestViewModel.intro,
-                tone: AppTextTone.secondary,
+              const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText.headline(JoinRequestViewModel.heading),
+                  SizedBox(height: 6),
+                  AppText(
+                    JoinRequestViewModel.intro,
+                    tone: AppTextTone.secondary,
+                  ),
+                ],
               ),
-              const SizedBox(height: AppSpacing.x3),
               AppTextField(
                 label: 'Hospital name',
                 controller: model.hospitalController,
                 textCapitalization: TextCapitalization.words,
                 errorText: model.errorFor('hospitalName'),
               ),
-              gap,
               AppTextField(
                 label: 'Your name',
                 controller: model.contactController,
@@ -56,7 +64,6 @@ class JoinRequestView extends StatelessWidget {
                 autofillHints: const [AutofillHints.name],
                 errorText: model.errorFor('contactName'),
               ),
-              gap,
               AppTextField(
                 label: 'Phone number',
                 controller: model.phoneController,
@@ -64,24 +71,18 @@ class JoinRequestView extends StatelessWidget {
                 autofillHints: const [AutofillHints.telephoneNumber],
                 errorText: model.errorFor('phone'),
               ),
-              gap,
-              const AppText.label('Area'),
-              const SizedBox(height: AppSpacing.x1),
-              DropdownMenu<String>(
-                initialSelection: model.area,
-                expandedInsets: EdgeInsets.zero,
+              AppDropdown<String>(
+                label: 'Area',
+                value: model.area,
+                options: model.areaOptions,
                 onSelected: model.setArea,
-                dropdownMenuEntries: [
-                  for (final a in model.areaOptions)
-                    DropdownMenuEntry(value: a, label: a),
-                ],
               ),
-              gap,
               AppTextField(
                 label: 'Message (optional)',
+                hintText: 'Best time to visit, who to ask for',
                 controller: model.messageController,
                 maxLines: 4,
-                minLines: 2,
+                minLines: 3,
                 errorText: model.errorFor('message'),
               ),
             ],

@@ -58,6 +58,16 @@ class ProfileViewModel extends ReactiveViewModel {
       'Assistant. Emergency works without an account.';
 
   String get emailLabel => _session.currentUser?.user.email ?? 'Not set';
+  String get displayName {
+    final name = _session.currentUser?.user.name?.trim();
+    return name == null || name.isEmpty ? 'Your account' : name;
+  }
+
+  String get initials => Formatters.initials(
+    _session.currentUser?.user.name,
+    _session.currentUser?.user.email,
+  );
+  static const nameHint = 'Used in family alerts';
 
   final phoneController = TextEditingController();
   String? _phoneError;
@@ -65,8 +75,8 @@ class ProfileViewModel extends ReactiveViewModel {
   static const _phoneKey = 'savePhone';
   bool get isSavingPhone => busy(_phoneKey);
   static const phoneHint =
-      'Optional. Lets your hospital send quick WhatsApp status updates and '
-      'reminders to you.';
+      'Lets your hospital send quick WhatsApp status updates and reminders '
+      'to you.';
 
   List<String> get roleLabels {
     final user = _session.currentUser;
@@ -88,14 +98,14 @@ class ProfileViewModel extends ReactiveViewModel {
       (
         name: c.name,
         detail:
-            '${Formatters.phone(c.phone)} · '
+            '${Formatters.maskedPhone(c.phone)} · '
             '${c.channel == ContactChannel.whatsapp ? 'WhatsApp' : 'SMS'}',
         contact: c,
       ),
   ];
   bool get canAddContact => _contacts.length < maxContacts;
   String get contactsSubtitle =>
-      'Up to $maxContacts people we text when you use Emergency.';
+      'Up to $maxContacts people we text when you use Emergency';
 
   static const _exportKey = 'export';
   bool get isExporting => busy(_exportKey);

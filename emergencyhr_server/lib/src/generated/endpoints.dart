@@ -1183,6 +1183,55 @@ class Endpoints extends _is.EndpointDispatch {
                     params['accessToken'],
                   ),
         ),
+        'updateSearch': _is.MethodConnector(
+          name: 'updateSearch',
+          params: {
+            'sessionId': _is.ParameterDescription(
+              name: 'sessionId',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'accessToken': _is.ParameterDescription(
+              name: 'accessToken',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'type': _is.ParameterDescription(
+              name: 'type',
+              type: _is.getType<_i5d26921.EmergencyType>(),
+              nullable: false,
+            ),
+            'lat': _is.ParameterDescription(
+              name: 'lat',
+              type: _is.getType<double?>(),
+              nullable: true,
+            ),
+            'lng': _is.ParameterDescription(
+              name: 'lng',
+              type: _is.getType<double?>(),
+              nullable: true,
+            ),
+            'area': _is.ParameterDescription(
+              name: 'area',
+              type: _is.getType<String?>(),
+              nullable: true,
+            ),
+          },
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['emergency'] as _i1y4c3vh.EmergencyEndpoint)
+                  .updateSearch(
+                    session,
+                    params['sessionId'],
+                    params['accessToken'],
+                    params['type'],
+                    lat: params['lat'],
+                    lng: params['lng'],
+                    area: params['area'],
+                  ),
+        ),
         'recordAction': _is.MethodConnector(
           name: 'recordAction',
           params: {

@@ -17,7 +17,13 @@ class CreateNewListing extends DuplicateChoice {
   const CreateNewListing();
 }
 
-typedef DuplicateRow = ({String name, String detail, bool strong, int id});
+typedef DuplicateRow = ({
+  String name,
+  String detail,
+  bool strong,
+  bool first,
+  int id,
+});
 
 class DuplicateSheetViewModel extends BaseViewModel {
   DuplicateSheetViewModel({
@@ -35,7 +41,7 @@ class DuplicateSheetViewModel extends BaseViewModel {
       : 'Is it one of these?';
 
   String get message => hasStrongMatch
-      ? 'To avoid duplicates, use the existing listing.'
+      ? 'Use the existing listing so there are no duplicates.'
       : 'These listings are close by. Pick one if it is the same hospital.';
 
   /// Creating is blocked when a strong match exists (the server enforces it).
@@ -48,6 +54,7 @@ class DuplicateSheetViewModel extends BaseViewModel {
         detail:
             '${c.address} · ${Formatters.distanceKm(c.distanceMeters / 1000)} away',
         strong: c.strong,
+        first: c == candidates.first,
         id: c.facility.id,
       ),
   ];
@@ -57,4 +64,6 @@ class DuplicateSheetViewModel extends BaseViewModel {
 
   void createNew() =>
       _sheets.dismiss<DuplicateChoice>(const CreateNewListing());
+
+  void cancel() => _sheets.dismiss<DuplicateChoice>(null);
 }

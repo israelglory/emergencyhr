@@ -31,13 +31,7 @@ class AdminShellView extends StatelessWidget {
           destinations: model.destinations,
           selectedIndex: model.selectedIndex,
           onSelect: model.select,
-          actions: [
-            IconButton(
-              tooltip: 'Public home',
-              icon: const Icon(Icons.home_outlined),
-              onPressed: model.goHome,
-            ),
-          ],
+          onHome: model.goHome,
           body: KeyedSubtree(
             key: ValueKey(model.currentTab),
             child: switch (model.currentTab) {

@@ -14,13 +14,17 @@ class DeskShellViewModel extends ReactiveViewModel {
     SessionService? session,
     AccessService? access,
     NavigationService? navigation,
+    BottomSheetService? sheets,
   }) : _session = session ?? sessionService,
        _access = access ?? accessService,
-       _navigation = navigation ?? navigationService;
+       _navigation = navigation ?? navigationService,
+       _sheetsOverride = sheets;
 
   final SessionService _session;
   final AccessService _access;
   final NavigationService _navigation;
+  final BottomSheetService? _sheetsOverride;
+  BottomSheetService get _sheets => _sheetsOverride ?? bottomSheetService;
 
   @override
   List<ListenableServiceMixin> get listenableServices => [_session];
@@ -85,4 +89,21 @@ class DeskShellViewModel extends ReactiveViewModel {
   }
 
   void goHome() => _navigation.clearStackAndShow<void>(AppRoutes.home);
+
+  void openAuditLog() => select(tabs.indexOf(DeskTab.audit));
+
+  /// Tapping the hospital name when the person works at more than one.
+  Future<void> switchHospital() => _sheets.show<void>(
+    OptionPickerSheet<int>(
+      title: 'Switch hospital',
+      options: [
+        for (final f in facilityOptions)
+          (label: f.name, detail: f.selected ? 'Current' : null, value: f.id),
+      ],
+      onPick: (id) {
+        _navigation.pop<void>();
+        selectFacility(id);
+      },
+    ),
+  );
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../theme/app_palette.dart';
 
-/// Small circular progress indicator.
+/// Small circular progress indicator: primary arc on a border-coloured ring.
 class AppLoader extends StatelessWidget {
   const AppLoader({super.key, this.size = 24, this.color});
 
@@ -11,11 +11,13 @@ class AppLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final p = context.palette;
     return SizedBox.square(
       dimension: size,
       child: CircularProgressIndicator(
-        strokeWidth: 2,
-        color: color ?? context.palette.text,
+        strokeWidth: 3,
+        color: color ?? p.primary,
+        backgroundColor: color == null ? p.border : Colors.transparent,
       ),
     );
   }

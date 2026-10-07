@@ -14,46 +14,39 @@ class ContactSheetView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ContactSheetViewModel>.reactive(
       viewModelBuilder: () => ContactSheetViewModel(contact: contact),
-      builder: (context, model, _) => SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(
-          AppSpacing.x3,
-          0,
-          AppSpacing.x3,
-          AppSpacing.x3,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            AppText.title(model.title),
-            const SizedBox(height: AppSpacing.x2),
-            AppTextField(
-              label: 'Name',
-              controller: model.nameController,
-              textCapitalization: TextCapitalization.words,
-              errorText: model.errorFor('name'),
-            ),
-            const SizedBox(height: AppSpacing.x2),
-            AppTextField(
-              label: 'Phone number',
-              controller: model.phoneController,
-              keyboardType: TextInputType.phone,
-              errorText: model.errorFor('phone'),
-            ),
-            const SizedBox(height: AppSpacing.x2),
-            const AppText.label('Send alerts by'),
-            const SizedBox(height: AppSpacing.x1),
-            ChipGroup(
-              items: model.channelOptions,
-              onSelected: model.setChannel,
-            ),
-            const SizedBox(height: AppSpacing.x3),
-            AppButton(
-              title: 'Save contact',
-              loading: model.isBusy,
-              onPressed: model.save,
-            ),
-          ],
-        ),
+      builder: (context, model, _) => AppSheet(
+        title: model.title,
+        children: [
+          AppTextField(
+            label: 'Name',
+            controller: model.nameController,
+            textCapitalization: TextCapitalization.words,
+            errorText: model.errorFor('name'),
+          ),
+          AppTextField(
+            label: 'Phone number',
+            controller: model.phoneController,
+            keyboardType: TextInputType.phone,
+            errorText: model.errorFor('phone'),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const AppText.label('Send alerts by'),
+              const SizedBox(height: 6),
+              RadioOptionList(
+                items: model.channelOptions,
+                onSelected: model.setChannel,
+                inCard: true,
+              ),
+            ],
+          ),
+          AppButton(
+            title: 'Save contact',
+            loading: model.isBusy,
+            onPressed: model.save,
+          ),
+        ],
       ),
     );
   }

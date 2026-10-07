@@ -35,22 +35,25 @@ class ResetPasswordViewModel extends BaseViewModel {
 
   static const title = 'Reset password';
   static const passwordHint =
-      'At least 8 characters, with no spaces at the start or end.';
+      'At least 8 characters, with no spaces at the start or end';
 
   ResetStep get step => _step;
   String? errorFor(String field) => _errors[field];
 
+  int get stepNumber => _step.index + 1;
+  static const stepCount = 3;
+  String get stepTitle => 'Step $stepNumber of $stepCount';
+
   String get heading => switch (_step) {
     ResetStep.email => 'Forgot your password?',
-    ResetStep.code => 'Check your email',
-    ResetStep.password => 'Choose a new password',
+    ResetStep.code => 'Check your email.',
+    ResetStep.password => 'Choose a new password.',
   };
 
   String get explainer => switch (_step) {
     ResetStep.email => 'Enter your email and we will send you a code.',
-    ResetStep.code =>
-      'If an account uses ${emailController.text.trim()}, we sent it a code.',
-    ResetStep.password => passwordHint,
+    ResetStep.code => 'We sent a code to ${emailController.text.trim()}.',
+    ResetStep.password => 'You will sign in with it next.',
   };
 
   String get primaryLabel => switch (_step) {
@@ -70,6 +73,20 @@ class ResetPasswordViewModel extends BaseViewModel {
     ResetStep.code => _confirmCode(),
     ResetStep.password => _save(),
   };
+
+  bool _hidePassword = true;
+  bool get hidePassword => _hidePassword;
+  IconData get passwordIcon =>
+      _hidePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
+  String get passwordToggleLabel =>
+      _hidePassword ? 'Show password' : 'Hide password';
+
+  void togglePassword() {
+    _hidePassword = !_hidePassword;
+    notifyListeners();
+  }
+
+  Future<void> resendCode() => _sendCode();
 
   Future<void> _sendCode() async {
     final email = emailController.text.trim();

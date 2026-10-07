@@ -32,32 +32,42 @@ class ClaimViewModel extends BaseViewModel {
   final contactNameController = TextEditingController();
   final deskCodeController = TextEditingController();
 
-  final List<FacilityDocument> _documents = [];
+  final List<({FacilityDocument doc, String meta})> _documents = [];
   String? _deskCodeSentTo;
+  bool _deskCodeFailed = false;
   String? _contactError;
   bool _submitted = false;
 
   static const _uploadKey = 'upload';
   static const _codeKey = 'code';
 
-  String get title => 'Claim ${args?.name ?? 'this hospital'}';
+  static const title = 'Join Emergencyhr';
+  String get heading => 'Claim ${args?.name ?? 'this hospital'}';
   static const intro =
-      'Tell us who you are and upload the hospital registration document. '
-      'A platform admin reviews every claim.';
+      'Prove you run this hospital to take over its listing. A platform '
+      'admin reviews every claim.';
+  static const deskTitle = 'Desk phone check';
+  static const deskHint =
+      'Recommended. We text a code to the desk phone on this listing.';
+  static const deskFailed =
+      'We could not send a code right now. You can send your claim without '
+      'it.';
   bool get submitted => _submitted;
   static const submittedTitle = 'Claim sent';
   static const submittedMessage =
-      'We will review it and text you. Once approved you can manage this '
-      'hospital and update its status.';
+      'We will review it and text you when it is approved.';
 
   bool get isUploading => busy(_uploadKey);
   bool get isSendingCode => busy(_codeKey);
   bool get canUseCamera => _files.canUseCamera;
-  String get addDocumentLabel =>
-      canUseCamera ? 'Photograph the document' : 'Upload the document';
   String? get contactError => _contactError;
-  List<String> get documentNames => [for (final d in _documents) d.fileName];
+  List<({String name, String meta, VoidCallback onRemove})> get documents => [
+    for (final (i, d) in _documents.indexed)
+      (name: d.doc.fileName, meta: d.meta, onRemove: () => removeDocument(i)),
+  ];
+  bool get hasDocuments => _documents.isNotEmpty;
   bool get codeSent => _deskCodeSentTo != null;
+  bool get deskCodeFailed => _deskCodeFailed;
   String get codeSentLabel =>
       'We texted a code to the desk phone ending $_deskCodeSentTo. Ask the '
       'desk for it and enter it here.';
@@ -70,16 +80,17 @@ class ClaimViewModel extends BaseViewModel {
     contactNameController.text = _session.currentUser?.user.name ?? '';
   }
 
-  Future<void> addDocument() async {
-    final picked = _files.canUseCamera
-        ? await _files.takePhoto()
-        : await _files.pickFile();
-    await _upload(picked);
+  Future<void> photograph() async =>
+      _upload(await _files.takePhoto(), photo: true);
+
+  Future<void> upload() async => _upload(await _files.pickFile());
+
+  void removeDocument(int index) {
+    _documents.removeAt(index);
+    notifyListeners();
   }
 
-  Future<void> addDocumentFile() async => _upload(await _files.pickFile());
-
-  Future<void> _upload(PickedDocument? picked) async {
+  Future<void> _upload(PickedDocument? picked, {bool photo = false}) async {
     if (picked == null) return;
     final response = await runBusyFuture(
       _api.uploadDocument(
@@ -90,7 +101,12 @@ class ClaimViewModel extends BaseViewModel {
       busyObject: _uploadKey,
     );
     if (response.success) {
-      _documents.add(response.data!);
+      _documents.add((
+        doc: response.data!,
+        meta:
+            '${photo ? 'Photo' : 'File'} · '
+            '${Formatters.fileSize(picked.bytes.length)}',
+      ));
     } else {
       _snackbar.error(message: response.message!);
     }
@@ -102,10 +118,9 @@ class ClaimViewModel extends BaseViewModel {
       _api.requestClaimCode(args!.facilityId),
       busyObject: _codeKey,
     );
+    _deskCodeFailed = !response.success;
     if (response.success) {
       _deskCodeSentTo = response.data!.phone.replaceAll(RegExp(r'\D'), '');
-    } else {
-      _snackbar.error(message: response.message!);
     }
     notifyListeners();
   }
@@ -125,7 +140,7 @@ class ClaimViewModel extends BaseViewModel {
       _api.submitClaim(
         facilityId: args!.facilityId,
         contactName: contactNameController.text.trim(),
-        documentPaths: [for (final d in _documents) d.storagePath],
+        documentPaths: [for (final d in _documents) d.doc.storagePath],
         deskPhoneCode: code.isEmpty ? null : code,
       ),
     );

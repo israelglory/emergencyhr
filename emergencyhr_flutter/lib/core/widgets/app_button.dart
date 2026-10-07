@@ -2,22 +2,35 @@ import 'package:flutter/material.dart';
 
 import '../constants/dimens.dart';
 import '../theme/app_palette.dart';
+import '../theme/theme.dart';
 import 'app_loader.dart';
-import 'app_text.dart';
 
 enum AppButtonVariant {
-  /// Near-black fill. The default action on a screen.
+  /// Blue fill. Everyday actions.
   primary,
 
-  /// Outlined. Secondary actions.
+  /// White with a grey outline.
   secondary,
 
-  /// Emergency red. Only for the Emergency flow, Call 112 and critical acts.
+  /// Light blue fill with blue text, e.g. Sign in on Home.
+  tonal,
+
+  /// Emergency red fill. Only for Emergency and Call 112.
   danger,
 
-  /// No fill or border.
+  /// White with a red outline, e.g. "No answer? Call 112".
+  dangerOutline,
+
+  /// Dark red fill for destructive confirmations, e.g. Suspend.
+  destructive,
+
+  /// Primary-coloured link text.
   text,
 }
+
+/// 56 (extraLarge, alert cards), 52 (large), 44 (medium) or 36 (small
+/// pill) high.
+enum AppButtonSize { extraLarge, large, medium, small }
 
 class AppButton extends StatelessWidget {
   const AppButton({
@@ -25,10 +38,11 @@ class AppButton extends StatelessWidget {
     required this.title,
     required this.onPressed,
     this.variant = AppButtonVariant.primary,
+    this.size = AppButtonSize.large,
     this.icon,
     this.loading = false,
     this.expand = true,
-    this.large = false,
+    this.color,
     this.semanticsLabel,
   });
 
@@ -36,10 +50,11 @@ class AppButton extends StatelessWidget {
     super.key,
     required this.title,
     required this.onPressed,
+    this.size = AppButtonSize.large,
     this.icon,
     this.loading = false,
     this.expand = true,
-    this.large = false,
+    this.color,
     this.semanticsLabel,
   }) : variant = AppButtonVariant.secondary;
 
@@ -47,21 +62,35 @@ class AppButton extends StatelessWidget {
     super.key,
     required this.title,
     required this.onPressed,
+    this.size = AppButtonSize.large,
     this.icon,
     this.loading = false,
     this.expand = true,
-    this.large = false,
+    this.color,
     this.semanticsLabel,
   }) : variant = AppButtonVariant.danger;
+
+  const AppButton.dangerOutline({
+    super.key,
+    required this.title,
+    required this.onPressed,
+    this.size = AppButtonSize.large,
+    this.icon,
+    this.loading = false,
+    this.expand = true,
+    this.color,
+    this.semanticsLabel,
+  }) : variant = AppButtonVariant.dangerOutline;
 
   const AppButton.text({
     super.key,
     required this.title,
     required this.onPressed,
+    this.size = AppButtonSize.large,
     this.icon,
     this.loading = false,
     this.expand = false,
-    this.large = false,
+    this.color,
     this.semanticsLabel,
   }) : variant = AppButtonVariant.text;
 
@@ -70,78 +99,113 @@ class AppButton extends StatelessWidget {
   /// Null disables the button.
   final VoidCallback? onPressed;
   final AppButtonVariant variant;
+  final AppButtonSize size;
   final IconData? icon;
   final bool loading;
   final bool expand;
-  final bool large;
+
+  /// Overrides the text colour of a text button (e.g. grey links).
+  final Color? color;
   final String? semanticsLabel;
 
   @override
   Widget build(BuildContext context) {
     final p = context.palette;
     final enabled = onPressed != null && !loading;
-    final (Color bg, Color fg, BorderSide side) = switch (variant) {
-      AppButtonVariant.primary => (
-        p.primaryAction,
-        p.onPrimaryAction,
-        BorderSide.none,
-      ),
-      AppButtonVariant.secondary => (
+    final isText = variant == AppButtonVariant.text;
+
+    final (Color bg, Color fg, Color? outline) = switch (variant) {
+      AppButtonVariant.primary => (p.primary, p.onPrimary, null),
+      AppButtonVariant.secondary => (p.surface, p.text, p.inputBorder),
+      AppButtonVariant.tonal => (p.primaryContainer, p.primaryText, null),
+      AppButtonVariant.danger => (p.emergency, p.onEmergency, null),
+      AppButtonVariant.destructive => (p.critical, p.onEmergency, null),
+      AppButtonVariant.dangerOutline => (
         p.surface,
-        p.text,
-        BorderSide(color: p.border),
+        p.emergencyText,
+        p.emergencyText,
       ),
-      AppButtonVariant.danger => (p.emergency, p.onEmergency, BorderSide.none),
       AppButtonVariant.text => (
         Colors.transparent,
-        p.text,
-        BorderSide.none,
+        color ?? p.primaryText,
+        null,
       ),
     };
-    final disabledFg = p.textTertiary;
-    final disabledBg = variant == AppButtonVariant.text
-        ? Colors.transparent
-        : p.surfaceMuted;
+    final disabledBg = isText ? Colors.transparent : p.disabledBg;
+    final disabledFg = isText ? p.textTertiary : p.textSecondary;
+    final currentFg = enabled ? fg : disabledFg;
+
+    final (
+      double height,
+      double radius,
+      double fontSize,
+      double padX,
+    ) = switch (size) {
+      AppButtonSize.extraLarge => (56.0, AppRadius.control, 17.0, 18.0),
+      AppButtonSize.large => (
+        AppSizes.buttonLarge,
+        AppRadius.control,
+        15.0,
+        18.0,
+      ),
+      AppButtonSize.medium => (
+        AppSizes.buttonMedium,
+        AppRadius.mediumButton,
+        15.0,
+        16.0,
+      ),
+      AppButtonSize.small => (
+        AppSizes.buttonSmall,
+        AppSizes.buttonSmall / 2,
+        13.0,
+        14.0,
+      ),
+    };
+
+    final textStyle = AppTypography.bodyStrong.copyWith(
+      fontSize: isText ? 14 : fontSize,
+      color: currentFg,
+      height: 1.2,
+    );
 
     final style = ButtonStyle(
       minimumSize: WidgetStatePropertyAll(
         Size(
-          expand ? double.infinity : AppSizes.tapTarget,
-          large ? AppSizes.buttonLarge : AppSizes.tapTarget,
+          expand ? double.infinity : 0,
+          isText ? AppSizes.tapTarget : height,
         ),
       ),
-      padding: const WidgetStatePropertyAll(
-        EdgeInsets.symmetric(horizontal: AppSpacing.x2),
+      fixedSize: isText
+          ? null
+          : WidgetStatePropertyAll(Size.fromHeight(height)),
+      padding: WidgetStatePropertyAll(
+        EdgeInsets.symmetric(horizontal: isText ? 0 : padX),
       ),
       backgroundColor: WidgetStatePropertyAll(enabled ? bg : disabledBg),
-      foregroundColor: WidgetStatePropertyAll(enabled ? fg : disabledFg),
+      foregroundColor: WidgetStatePropertyAll(currentFg),
       overlayColor: WidgetStateProperty.resolveWith(
-        (states) => states.contains(WidgetState.pressed)
+        (states) => isText
+            ? Colors.transparent
+            : states.contains(WidgetState.pressed)
             ? fg.withValues(alpha: 0.12)
             : states.contains(WidgetState.hovered) ||
                   states.contains(WidgetState.focused)
             ? fg.withValues(alpha: 0.08)
             : null,
       ),
-      side: WidgetStateProperty.resolveWith(
-        (states) => states.contains(WidgetState.focused)
-            ? BorderSide(color: p.text, width: 2)
-            : side,
-      ),
-      shape: const WidgetStatePropertyAll(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(AppRadius.control)),
-        ),
+      side: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.focused)) {
+          return BorderSide(color: p.primary, width: 2);
+        }
+        if (outline != null && enabled) return BorderSide(color: outline);
+        return BorderSide.none;
+      }),
+      shape: WidgetStatePropertyAll(
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
       ),
       elevation: const WidgetStatePropertyAll(0),
       tapTargetSize: MaterialTapTargetSize.padded,
-    );
-
-    final label = AppText(
-      title,
-      variant: large ? AppTextVariant.subtitle : AppTextVariant.label,
-      color: enabled ? fg : disabledFg,
-      alignment: TextAlign.center,
+      textStyle: WidgetStatePropertyAll(textStyle),
     );
 
     return Semantics(
@@ -157,9 +221,17 @@ class AppButton extends StatelessWidget {
             if (loading)
               AppLoader(size: 18, color: fg)
             else if (icon != null)
-              Icon(icon, size: 20, color: enabled ? fg : disabledFg),
+              Icon(icon, size: 18, color: currentFg),
             if (loading || icon != null) const SizedBox(width: AppSpacing.x1),
-            Flexible(child: label),
+            Flexible(
+              child: Text(
+                title,
+                style: textStyle,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+            ),
           ],
         ),
       ),

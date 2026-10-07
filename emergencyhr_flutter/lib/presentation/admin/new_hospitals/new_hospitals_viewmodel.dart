@@ -39,7 +39,7 @@ class NewHospitalsViewModel extends BaseViewModel {
             Formatters.count(r.statusUpdates, 'update'),
             r.lastUpdateAt == null
                 ? 'never updated'
-                : 'last ${Formatters.ago(r.lastUpdateAt!, now)}',
+                : 'last update ${Formatters.ago(r.lastUpdateAt!, now)}',
             if (r.agentName != null) 'agent ${r.agentName}',
           ].join(' · '),
           badge: r.quiet ? 'Quiet 48 h. Follow up' : 'Updating',

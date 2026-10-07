@@ -21,40 +21,24 @@ class ReportSheetView extends StatelessWidget {
         facilityId: facilityId,
         facilityName: facilityName,
       ),
-      builder: (context, model, _) => SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(
-          AppSpacing.x3,
-          0,
-          AppSpacing.x3,
-          AppSpacing.x3,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            AppText.title(model.title),
-            const SizedBox(height: AppSpacing.x1),
-            const AppText(
-              ReportSheetViewModel.hint,
-              tone: AppTextTone.secondary,
-            ),
-            const SizedBox(height: AppSpacing.x2),
-            ChipGroup(items: model.options, onSelected: model.select),
-            const SizedBox(height: AppSpacing.x2),
-            AppTextField(
-              label: 'Details (optional)',
-              controller: model.detailsController,
-              maxLines: 3,
-              minLines: 2,
-              maxLength: 400,
-            ),
-            const SizedBox(height: AppSpacing.x2),
-            AppButton(
-              title: 'Send report',
-              loading: model.isBusy,
-              onPressed: model.onSubmit,
-            ),
-          ],
-        ),
+      builder: (context, model, _) => AppSheet(
+        title: model.title,
+        children: [
+          RadioOptionList(items: model.options, onSelected: model.select),
+          AppTextField(
+            label: 'Details (optional)',
+            hintText: 'Up to 400 characters',
+            controller: model.detailsController,
+            maxLines: 3,
+            minLines: 3,
+            maxLength: 400,
+          ),
+          AppButton(
+            title: 'Send report',
+            loading: model.isBusy,
+            onPressed: model.onSubmit,
+          ),
+        ],
       ),
     );
   }

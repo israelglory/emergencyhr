@@ -2,58 +2,155 @@ import 'package:flutter/material.dart';
 
 import '../constants/dimens.dart';
 import '../theme/app_palette.dart';
-import 'app_text.dart';
+import '../theme/theme.dart';
 
-/// Status colours. Green = confirmed accepting, amber = stale,
-/// grey = unverified or paused. [critical] uses the emergency red.
-enum StatusTone { positive, warning, neutral, critical }
+/// Status colours. Positive = confirmed accepting, warning = stale,
+/// neutral = paused, unverified = neutral with a hollow dot, critical =
+/// under review and errors. Always shown with words.
+enum StatusTone { positive, warning, neutral, unverified, critical }
 
-/// Text plus colour, never colour alone.
+(Color fg, Color bg) statusColours(AppPalette p, StatusTone tone) =>
+    switch (tone) {
+      StatusTone.positive => (p.positive, p.positiveBg),
+      StatusTone.warning => (p.warning, p.warningBg),
+      StatusTone.neutral || StatusTone.unverified => (p.neutral, p.neutralBg),
+      StatusTone.critical => (p.critical, p.criticalBg),
+    };
+
+class _Dot extends StatelessWidget {
+  const _Dot({required this.color, required this.hollow});
+
+  final Color color;
+  final bool hollow;
+
+  @override
+  Widget build(BuildContext context) => Container(
+    width: 8,
+    height: 8,
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      color: hollow ? Colors.transparent : color,
+      border: hollow ? Border.all(color: color, width: 1.5) : null,
+    ),
+  );
+}
+
+/// The full-width status line used in hospital rows: dot plus words on a
+/// tinted background, 14 / 600.
+class StatusLabel extends StatelessWidget {
+  const StatusLabel({super.key, required this.label, required this.tone});
+
+  final String label;
+  final StatusTone tone;
+
+  @override
+  Widget build(BuildContext context) {
+    final (fg, bg) = statusColours(context.palette, tone);
+    return Semantics(
+      label: label,
+      excludeSemantics: true,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+        decoration: BoxDecoration(
+          color: bg,
+          borderRadius: BorderRadius.circular(AppRadius.status),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 6),
+              child: _Dot(color: fg, hollow: tone == StatusTone.unverified),
+            ),
+            const SizedBox(width: AppSpacing.x1),
+            Expanded(
+              child: Text(
+                label,
+                style: AppTypography.label.copyWith(color: fg),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// A small pill: 24 high, 12 / 600, optional dot.
 class StatusBadge extends StatelessWidget {
   const StatusBadge({
     super.key,
     required this.label,
     required this.tone,
+    this.dot = true,
     this.icon,
   });
 
   final String label;
   final StatusTone tone;
+  final bool dot;
   final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
-    final p = context.palette;
-    final (Color fg, Color bg) = switch (tone) {
-      StatusTone.positive => (p.positive, p.positiveBg),
-      StatusTone.warning => (p.warning, p.warningBg),
-      StatusTone.neutral => (p.neutral, p.neutralBg),
-      StatusTone.critical => (p.emergencyText, p.surfaceMuted),
-    };
+    final (fg, bg) = statusColours(context.palette, tone);
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.x1,
-        vertical: AppSpacing.half,
-      ),
+      height: 24,
+      padding: const EdgeInsets.symmetric(horizontal: 9),
       decoration: BoxDecoration(
         color: bg,
-        borderRadius: BorderRadius.circular(AppRadius.control),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           if (icon != null) ...[
-            Icon(icon, size: 16, color: fg),
-            const SizedBox(width: AppSpacing.half),
+            Icon(icon, size: 14, color: fg),
+            const SizedBox(width: 6),
+          ] else if (dot && tone != StatusTone.unverified) ...[
+            _Dot(color: fg, hollow: tone == StatusTone.unverified),
+            const SizedBox(width: 6),
           ],
           Flexible(
-            child: AppText(
+            child: Text(
               label,
-              variant: AppTextVariant.captionStrong,
-              color: fg,
+              style: AppTypography.badge.copyWith(color: fg),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// A blue tag such as a capability: 30 high, 13 / 500.
+class AppChip extends StatelessWidget {
+  const AppChip(this.label, {super.key});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    return Container(
+      height: 30,
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      decoration: BoxDecoration(
+        color: p.primaryContainer,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Center(
+        widthFactor: 1,
+        child: Text(
+          label,
+          style: AppTypography.meta.copyWith(
+            color: p.primaryText,
+            fontWeight: FontWeight.w500,
+            height: 1.2,
+          ),
+        ),
       ),
     );
   }

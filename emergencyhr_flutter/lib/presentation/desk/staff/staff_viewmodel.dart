@@ -11,6 +11,7 @@ typedef StaffRow = ({
   String detail,
   String role,
   StaffMember member,
+  bool canRemove,
 });
 typedef InviteRow = ({String label, String detail, FacilityInvite invite});
 
@@ -57,8 +58,14 @@ class StaffViewModel extends BaseViewModel {
             '${Formatters.date(m.since)}',
         role: m.role.label,
         member: m,
+        canRemove: m.role != UserRole.hospitalAdmin || _adminCount > 1,
       ),
   ];
+
+  int get _adminCount =>
+      _staff.where((m) => m.role == UserRole.hospitalAdmin).length;
+
+  static const lastAdminHint = 'The last hospital admin cannot be removed.';
 
   List<InviteRow> get pendingInvites {
     final now = DateTime.now().toUtc();
@@ -68,9 +75,9 @@ class StaffViewModel extends BaseViewModel {
           (
             label: '${i.role.label} invite · ${i.shortCode}',
             detail: i.email == null
-                ? 'Expires ${Formatters.dateTime(i.expiresAt)}'
+                ? 'Expires ${Formatters.dayMonth(i.expiresAt)}'
                 : 'For ${i.email} · expires '
-                      '${Formatters.dateTime(i.expiresAt)}',
+                      '${Formatters.dayMonth(i.expiresAt)}',
             invite: i,
           ),
     ];

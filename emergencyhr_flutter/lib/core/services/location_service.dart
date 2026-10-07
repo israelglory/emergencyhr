@@ -51,6 +51,25 @@ class LocationService {
   bool get isLikelySupported =>
       _isWeb || defaultTargetPlatform != TargetPlatform.linux;
 
+  /// The location without asking, for the Home location line: only when
+  /// permission was already given. Never shows a prompt.
+  Future<LocationResult> withoutPrompt() async {
+    try {
+      final permission = await _platform.checkPermission();
+      if (permission != LocationPermission.always &&
+          permission != LocationPermission.whileInUse) {
+        return const LocationDenied();
+      }
+      if (!_isWeb) {
+        final last = await _platform.getLastKnownPosition();
+        if (last != null) return LocationFound(last.latitude, last.longitude);
+      }
+      return await current();
+    } catch (_) {
+      return const LocationUnavailable();
+    }
+  }
+
   Future<LocationResult> current() async {
     try {
       return await (_isWeb ? _fromBrowser() : _fromDevice()).timeout(

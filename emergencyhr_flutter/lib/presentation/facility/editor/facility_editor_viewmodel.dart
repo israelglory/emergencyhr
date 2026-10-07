@@ -73,7 +73,8 @@ class FacilityEditorViewModel extends BaseViewModel {
   static const _saveKey = 'save';
 
   bool get isNew => args.facilityId == null;
-  String get title => isNew ? 'New hospital listing' : 'Hospital details';
+  String get title => isNew ? 'Onboarding' : 'Hospital';
+  String get heading => isNew ? 'New hospital listing' : 'Hospital details';
   String get saveLabel => isNew ? 'Check and create listing' : 'Save details';
   bool get isLoading => !_loaded && !hasError;
   String? get errorMessage => modelError?.toString();
@@ -88,7 +89,7 @@ class FacilityEditorViewModel extends BaseViewModel {
 
   List<ChipOption<FacilityType>> get typeOptions => [
     for (final t in FacilityType.values)
-      (label: t.label, value: t, selected: t == _type),
+      (label: t.label.split(' ').first, value: t, selected: t == _type),
   ];
 
   List<ChipOption<Capability>> get capabilityOptions => [
@@ -96,7 +97,9 @@ class FacilityEditorViewModel extends BaseViewModel {
       (label: c.label, value: c, selected: _capabilities.contains(c)),
   ];
 
-  List<String> get areaOptions => PilotAreas.names;
+  List<({String value, String label})> get areaOptions => [
+    for (final a in PilotAreas.names) (value: a, label: a),
+  ];
   String get area => _area;
 
   bool get alwaysOpen => _alwaysOpen;

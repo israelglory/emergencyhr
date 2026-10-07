@@ -25,6 +25,13 @@ void main() {
 
   setUp(() {
     api = MockStatusApi();
+    when(
+      () => api.auditLog(
+        any(),
+        limit: any(named: 'limit'),
+        offset: any(named: 'offset'),
+      ),
+    ).thenAnswer((_) async => ok(<AuditEntry>[]));
     facilities = MockFacilityApi();
     snackbar = MockSnackbarService();
     when(() => facilities.detail(1)).thenAnswer(

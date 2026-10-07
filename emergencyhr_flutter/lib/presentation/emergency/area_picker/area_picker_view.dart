@@ -1,4 +1,3 @@
-import 'package:emergencyhr_client/emergencyhr_client.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -6,45 +5,47 @@ import '../../../core/cores.dart';
 import 'area_picker_viewmodel.dart';
 
 class AreaPickerView extends StatelessWidget {
-  const AreaPickerView({super.key, required this.type});
-
-  final EmergencyType type;
+  const AreaPickerView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<AreaPickerViewModel>.reactive(
-      viewModelBuilder: () => AreaPickerViewModel(type: type),
+      viewModelBuilder: AreaPickerViewModel.new,
       builder: (context, model, _) => AppPage(
         title: AreaPickerViewModel.title,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        bottom: AppButton.dangerOutline(
+          title: 'Call 112',
+          onPressed: model.call112,
+        ),
+        body: SectionColumn(
+          gap: AppSpacing.x2,
           children: [
-            const AppText(
-              AreaPickerViewModel.hint,
-              tone: AppTextTone.secondary,
+            const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppText.headline(AreaPickerViewModel.heading),
+                SizedBox(height: 6),
+                AppText(AreaPickerViewModel.hint, tone: AppTextTone.secondary),
+              ],
             ),
-            const SizedBox(height: AppSpacing.x2),
             AppTextField(
-              label: 'Search areas',
+              hintText: 'Search areas',
+              semanticsLabel: 'Search areas',
               controller: model.searchController,
               onChanged: model.onSearchChanged,
               prefixIcon: const Icon(Icons.search),
             ),
-            const SizedBox(height: AppSpacing.x2),
-            if (model.noMatches)
-              const AppText(
-                'No pilot area matches. Pick the closest one below.',
-                tone: AppTextTone.secondary,
-              ),
-            for (final row in model.areas) ...[
-              ChoiceTile(
-                title: row.name,
-                subtitle: row.description,
-                icon: Icons.place_outlined,
-                onTap: () => model.choose(row.area),
-              ),
-              const SizedBox(height: AppSpacing.x1),
-            ],
+            AppListCard(
+              children: [
+                for (final row in model.areas)
+                  AppListRow(
+                    title: row.name,
+                    subtitle: row.description,
+                    onTap: row.onTap,
+                  ),
+              ],
+            ),
+            const AppText.caption(AreaPickerViewModel.noMatchHint),
           ],
         ),
       ),

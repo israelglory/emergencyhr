@@ -19,7 +19,17 @@ class FirstAidCardView extends StatelessWidget {
         if (!model.found) return const NotFoundView();
         return AppPage(
           title: 'First aid',
-          bottom: AppButton.secondary(
+          actions: [
+            if (model.card!.showDraft)
+              const Center(
+                child: StatusBadge(
+                  label: 'Draft content',
+                  tone: StatusTone.warning,
+                ),
+              ),
+            const SizedBox(width: AppSpacing.small),
+          ],
+          bottom: AppButton.danger(
             title: 'Call 112',
             icon: Icons.call_outlined,
             onPressed: model.call112,

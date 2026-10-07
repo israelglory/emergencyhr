@@ -71,17 +71,12 @@ void main() {
     vm.dispose();
   });
 
-  test('Given a red flag, when Find emergency care is tapped, then Emergency '
-      'opens with the type filled in', () {
+  test('Given a red flag, when Find emergency care is tapped, then '
+      'Hospitals near you opens for all types', () {
     final vm = build();
-    vm.findCare(EmergencyType.chestPain);
-    expect(emergency.type, EmergencyType.chestPain);
-    verify(
-      () => navigation.pushNamed<void>(
-        AppRoutes.emergency,
-        args: EmergencyType.chestPain,
-      ),
-    ).called(1);
+    vm.findCare();
+    expect(emergency.type, EmergencyType.skipped);
+    verify(() => navigation.pushNamed<void>(AppRoutes.emergency)).called(1);
     vm.dispose();
   });
 

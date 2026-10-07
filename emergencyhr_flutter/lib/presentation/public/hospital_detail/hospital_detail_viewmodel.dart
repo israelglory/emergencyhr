@@ -40,6 +40,7 @@ class HospitalDetailViewModel extends BaseViewModel {
   String get name => _f?.name ?? '';
   String get typeLabel => _f?.type.label ?? '';
   String get address => '${_f?.address ?? ''}, ${_f?.area ?? ''}';
+
   String get phoneLabel => _f?.deskPhone == null
       ? 'No phone listed'
       : Formatters.phone(_f!.deskPhone!);
@@ -63,10 +64,10 @@ class HospitalDetailViewModel extends BaseViewModel {
     final s = _f?.status;
     if (s == null) return const [];
     return [
-      (label: 'ER beds free', value: '${s.erBedsFree}'),
-      (label: 'ICU beds free', value: '${s.icuBedsFree}'),
-      (label: 'Doctor on duty', value: Formatters.yesNo(s.doctorOnDuty)),
-      (label: 'Deposit required', value: Formatters.yesNo(s.depositRequired)),
+      TileMetric('ER beds free', '${s.erBedsFree}'),
+      TileMetric('ICU beds free', '${s.icuBedsFree}'),
+      TileMetric('Doctor on duty', Formatters.yesNo(s.doctorOnDuty)),
+      TileMetric('Deposit required', Formatters.yesNo(s.depositRequired)),
     ];
   }
 
@@ -74,6 +75,9 @@ class HospitalDetailViewModel extends BaseViewModel {
     for (final c in _f?.capabilities ?? const <Capability>[]) c.label,
   ];
   bool get hasCapabilities => capabilities.isNotEmpty;
+
+  /// One line per opening period, joined for the contact card.
+  String get openingHoursLabel => openingHours.join('\n');
 
   List<String> get openingHours {
     final h = _f?.openingHours;
@@ -103,7 +107,11 @@ class HospitalDetailViewModel extends BaseViewModel {
     final f = _f;
     if (f?.deskPhone == null) return;
     _recordIfInSession(EmergencyAction.call);
-    await _calls.callNumber(number: f!.deskPhone!, title: 'Call ${f.name}');
+    await _calls.callNumber(
+      number: f!.deskPhone!,
+      title: 'Call this number',
+      message: '${f.name}, emergency desk',
+    );
   }
 
   Future<void> directions() async {

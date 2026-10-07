@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../constants/dimens.dart';
+import '../theme/app_palette.dart';
+import '../theme/theme.dart';
 import 'app_button.dart';
+import 'app_sheet.dart';
 import 'app_text.dart';
 
-/// On web and desktop, a phone number shown large with copy and dial links.
+/// On web and desktop, a phone number shown large with copy and dial
+/// buttons.
 class CallNumberSheet extends StatelessWidget {
   const CallNumberSheet({
     super.key,
@@ -17,50 +21,48 @@ class CallNumberSheet extends StatelessWidget {
 
   final String title;
   final String number;
+
+  /// Who answers, e.g. "Harbour Point Hospital, emergency desk".
   final String? message;
   final VoidCallback onCopy;
   final VoidCallback onDial;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.x3,
-        0,
-        AppSpacing.x3,
-        AppSpacing.x3,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          AppText.title(title),
-          const SizedBox(height: AppSpacing.x2),
-          SelectableText(
-            number,
-            style: AppText.styleFor(
-              context,
-              AppTextVariant.display,
-            )?.copyWith(fontFeatures: const [FontFeature.tabularFigures()]),
+    final p = context.palette;
+    return AppSheet(
+      title: title,
+      children: [
+        if (message != null) AppText.caption(message!),
+        SelectableText(
+          number,
+          style: AppTypography.heading.copyWith(
+            fontSize: 32,
+            height: 40 / 32,
+            letterSpacing: 0.5,
+            color: p.text,
           ),
-          if (message != null) ...[
-            const SizedBox(height: AppSpacing.x1),
-            AppText(message!, tone: AppTextTone.secondary),
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: AppButton.secondary(
+                title: 'Copy number',
+                size: AppButtonSize.medium,
+                onPressed: onCopy,
+              ),
+            ),
+            const SizedBox(width: AppSpacing.tight),
+            Expanded(
+              child: AppButton(
+                title: 'Open in phone app',
+                size: AppButtonSize.medium,
+                onPressed: onDial,
+              ),
+            ),
           ],
-          const SizedBox(height: AppSpacing.x3),
-          AppButton(
-            title: 'Copy number',
-            icon: Icons.copy_outlined,
-            onPressed: onCopy,
-          ),
-          const SizedBox(height: AppSpacing.x1),
-          AppButton.secondary(
-            title: 'Open in phone app',
-            icon: Icons.call_outlined,
-            onPressed: onDial,
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -40,7 +40,7 @@ class CreateAccountViewModel extends BaseViewModel {
 
   static const title = 'Create an account';
   static const passwordHint =
-      'At least 8 characters, with no spaces at the start or end.';
+      'At least 8 characters, with no spaces at the start or end';
 
   CreateAccountStep get step => _step;
   String? errorFor(String field) => _errors[field];
@@ -50,10 +50,14 @@ class CreateAccountViewModel extends BaseViewModel {
   String get passwordToggleLabel =>
       _hidePassword ? 'Show password' : 'Hide password';
 
+  int get stepNumber => _step.index + 1;
+  static const stepCount = 3;
+  String get stepTitle => 'Step $stepNumber of $stepCount';
+
   String get heading => switch (_step) {
     CreateAccountStep.email => 'What is your email?',
-    CreateAccountStep.code => 'Check your email',
-    CreateAccountStep.details => 'Finish your account',
+    CreateAccountStep.code => 'Check your email.',
+    CreateAccountStep.details => 'Finish your account.',
   };
 
   String get explainer => switch (_step) {
@@ -62,9 +66,7 @@ class CreateAccountViewModel extends BaseViewModel {
     CreateAccountStep.code =>
       'We sent a code to ${emailController.text.trim()}. It may take a '
           'minute, and can land in spam.',
-    CreateAccountStep.details =>
-      'Add your name, used in family alerts, and choose a password. You can '
-          'add a phone number later in your profile.',
+    CreateAccountStep.details => 'Almost done.',
   };
 
   String get primaryLabel => switch (_step) {

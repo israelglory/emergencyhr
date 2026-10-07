@@ -46,13 +46,25 @@ Future<TestServices> setUpTestLocator() async {
     ..registerSingleton<EmergencyCache>(s.cache)
     ..registerSingleton<FirstAidService>(s.firstAid)
     ..registerSingleton<EmergencySessionService>(EmergencySessionService())
+    ..registerSingleton<PublicTabsService>(PublicTabsService())
     ..registerSingleton<SessionService>(s.session);
 
   when(() => s.session.isSignedIn).thenReturn(false);
+  when(() => s.session.currentUser).thenReturn(null);
+  when(
+    () => s.location.withoutPrompt(),
+  ).thenAnswer((_) async => const LocationDenied());
   when(() => s.session.availableShells).thenReturn([ShellKind.public]);
   when(() => s.cache.save(any())).thenAnswer((_) async {});
   when(() => s.cache.read()).thenReturn(null);
   when(() => s.launcher.canComposeSms).thenReturn(false);
+  when(
+    () => s.statusApi.auditLog(
+      any(),
+      limit: any(named: 'limit'),
+      offset: any(named: 'offset'),
+    ),
+  ).thenAnswer((_) async => ok(<AuditEntry>[]));
   when(() => s.launcher.canDialDirectly).thenReturn(true);
   when(() => s.firstAid.forType(any())).thenReturn(
     FirstAidCard(

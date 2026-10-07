@@ -11,7 +11,7 @@ typedef AgentFacilityRow = ({
   String detail,
   String progress,
   StatusTone progressTone,
-  String? nextAction,
+  String nextAction,
 });
 
 class AgentFacilitiesViewModel extends BaseViewModel {
@@ -45,13 +45,13 @@ class AgentFacilitiesViewModel extends BaseViewModel {
           detail:
               '${i.facility.area} · ${i.facility.onboardingStage.label}'
               '${i.submitted ? ' · submitted' : ''}',
-          progress: '${i.checklistDone}/${i.checklistTotal} checklist',
+          progress: '${i.checklistDone}/${i.checklistTotal}',
           progressTone: i.checklistDone == i.checklistTotal
               ? StatusTone.positive
               : StatusTone.neutral,
           nextAction: i.nextActionAt == null
-              ? null
-              : 'Next action ${Formatters.date(i.nextActionAt!)}',
+              ? 'No date set'
+              : 'Next action ${Formatters.dayMonth(i.nextActionAt!)}',
         ),
     ];
   }

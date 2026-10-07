@@ -27,9 +27,8 @@ class AppSwitchTile extends StatelessWidget {
     return MergeSemantics(
       child: InkWell(
         onTap: onChanged == null ? null : () => onChanged!(!value),
-        borderRadius: BorderRadius.circular(AppRadius.control),
         child: ConstrainedBox(
-          constraints: const BoxConstraints(minHeight: AppSizes.tapTarget),
+          constraints: const BoxConstraints(minHeight: 52),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: AppSpacing.x1),
             child: Row(
@@ -38,14 +37,14 @@ class AppSwitchTile extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AppText.subtitle(label),
+                      AppText(label),
                       if (description != null) AppText.caption(description!),
                     ],
                   ),
                 ),
                 if (valueLabel != null) ...[
-                  AppText.label(valueLabel!),
-                  const SizedBox(width: AppSpacing.x1),
+                  AppText.label(valueLabel!, tone: AppTextTone.secondary),
+                  const SizedBox(width: AppSpacing.tight),
                 ],
                 Switch(value: value, onChanged: onChanged),
               ],

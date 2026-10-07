@@ -16,10 +16,15 @@ class HospitalDetailView extends StatelessWidget {
       onViewModelReady: (model) => model.load(),
       builder: (context, model, _) {
         if (model.isLoading) {
-          return const AppPage(scrollable: false, body: LoadingState());
+          return const AppPage(
+            title: 'Hospital',
+            scrollable: false,
+            body: LoadingState(),
+          );
         }
         if (model.hasError) {
           return AppPage(
+            title: 'Hospital',
             scrollable: false,
             body: ErrorState(message: model.errorMessage!, onRetry: model.load),
           );
@@ -32,52 +37,74 @@ class HospitalDetailView extends StatelessWidget {
                 child: AppButton(
                   title: 'Call',
                   icon: Icons.call_outlined,
-                  large: true,
                   onPressed: model.onCall,
                 ),
               ),
-              const SizedBox(width: AppSpacing.x1),
+              const SizedBox(width: AppSpacing.tight),
               Expanded(
                 child: AppButton.secondary(
                   title: 'Directions',
-                  icon: Icons.directions_outlined,
-                  large: true,
+                  icon: Icons.near_me_outlined,
                   onPressed: model.directions,
                 ),
               ),
             ],
           ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          body: SectionColumn(
+            gap: AppSpacing.x2,
             children: [
-              AppText.headline(model.name),
-              AppText.caption(model.typeLabel),
-              const SizedBox(height: AppSpacing.x2),
-              StatusBadge(label: model.statusLabel, tone: model.statusTone),
-              const SizedBox(height: AppSpacing.x2),
-              for (final f in model.figures)
-                KeyValueRow(label: f.label, value: f.value),
-              const SizedBox(height: AppSpacing.x3),
-              const SectionHeader('Contact'),
-              KeyValueRow(label: 'Emergency desk', value: model.phoneLabel),
-              KeyValueRow(label: 'Address', value: model.address),
-              const SizedBox(height: AppSpacing.x3),
-              const SectionHeader('Can treat'),
-              if (model.hasCapabilities)
-                Wrap(
-                  spacing: AppSpacing.x1,
-                  runSpacing: AppSpacing.x1,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText.headline(model.name),
+                  const SizedBox(height: 6),
+                  AppText.caption(model.typeLabel),
+                ],
+              ),
+              StatusLabel(label: model.statusLabel, tone: model.statusTone),
+              if (model.figures.isNotEmpty)
+                AppListCard(
                   children: [
-                    for (final c in model.capabilities)
-                      StatusBadge(label: c, tone: StatusTone.neutral),
+                    for (final f in model.figures)
+                      KeyValueRow(label: f.label, value: f.value, inCard: true),
                   ],
-                )
-              else
-                const AppText('Not provided', tone: AppTextTone.secondary),
-              const SizedBox(height: AppSpacing.x3),
-              const SectionHeader('Opening hours'),
-              for (final line in model.openingHours)
-                AppText(line, numeric: true),
+                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const AppText.caps('Can treat'),
+                  const SizedBox(height: AppSpacing.x1),
+                  if (model.hasCapabilities)
+                    Wrap(
+                      spacing: 6,
+                      runSpacing: 6,
+                      children: [
+                        for (final c in model.capabilities) AppChip(c),
+                      ],
+                    )
+                  else
+                    const AppText('Not provided', tone: AppTextTone.secondary),
+                ],
+              ),
+              AppListCard(
+                children: [
+                  LabelledValueRow(
+                    icon: Icons.call_outlined,
+                    label: 'Emergency desk',
+                    value: model.phoneLabel,
+                  ),
+                  LabelledValueRow(
+                    icon: Icons.place_outlined,
+                    label: 'Address',
+                    value: model.address,
+                  ),
+                  LabelledValueRow(
+                    icon: Icons.schedule_outlined,
+                    label: 'Opening hours',
+                    value: model.openingHoursLabel,
+                  ),
+                ],
+              ),
             ],
           ),
         );

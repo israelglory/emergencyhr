@@ -29,7 +29,7 @@ void main() {
     await tester.pumpWidget(testApp());
     unawaited(
       navigationService.pushNamed<void>(
-        AppRoutes.emergencyResults,
+        AppRoutes.emergency,
         args: const EmergencyResultsArgs(
           lat: 6.6,
           lng: 3.35,

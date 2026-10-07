@@ -47,6 +47,7 @@ account:
 emergency:
   - start:
   - refresh:
+  - updateSearch:
   - watch:
   - recordAction:
   - reportWrongStatus:

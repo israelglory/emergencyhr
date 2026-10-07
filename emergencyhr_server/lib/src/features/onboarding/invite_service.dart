@@ -140,12 +140,17 @@ class InviteService {
     if (invite == null) throw Errors.notFound('Invite');
     final facility = await Facility.db.findById(session, invite.facilityId);
     final reason = problem(invite, clock.now());
+    final inviter = await AppUser.db.findById(session, invite.createdByUserId);
+    final inviterName = inviter?.name?.trim();
     return InvitePreview(
       facilityName: facility?.name ?? 'Unknown facility',
       role: invite.role,
       expiresAt: invite.expiresAt,
       valid: reason == null,
       reason: reason,
+      invitedBy: inviterName == null || inviterName.isEmpty
+          ? null
+          : inviterName,
     );
   }
 

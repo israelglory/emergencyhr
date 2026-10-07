@@ -54,6 +54,7 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton<EmergencySessionService>(
     () => EmergencySessionService(),
   );
+  locator.registerLazySingleton<PublicTabsService>(() => PublicTabsService());
   locator.registerLazySingleton<SessionService>(
     () => SessionService(locator()),
   );
@@ -64,6 +65,7 @@ Future<void> setupLocator() async {
 
 // UI services
 NavigationService get navigationService => locator<NavigationService>();
+PublicTabsService get publicTabsService => locator<PublicTabsService>();
 SnackbarService get snackbarService => locator<SnackbarService>();
 BottomSheetService get bottomSheetService => locator<BottomSheetService>();
 DialogService get dialogService => locator<DialogService>();

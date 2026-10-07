@@ -11,7 +11,8 @@ typedef FirstAidDisplay = ({
   bool showDraft,
 });
 
-/// Lays out a first-aid card: numbered Do steps, then Don't.
+/// Lays out a first-aid card: heading and summary, numbered Do steps, then
+/// Don't.
 class FirstAidContent extends StatelessWidget {
   const FirstAidContent({super.key, required this.card});
 
@@ -19,57 +20,50 @@ class FirstAidContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final p = context.palette;
+    return SectionColumn(
+      gap: AppSpacing.x2,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText.headline(card.title),
+            const SizedBox(height: 6),
+            AppText(card.summary, tone: AppTextTone.secondary),
+          ],
+        ),
+        _Group(
+          title: 'Do',
+          children: [
+            for (final (i, step) in card.doSteps.indexed)
+              NumberedStepRow(number: i + 1, text: step),
+          ],
+        ),
+        if (card.dontSteps.isNotEmpty)
+          _Group(
+            title: "Don't",
+            children: [
+              for (final step in card.dontSteps) DontStepRow(text: step),
+            ],
+          ),
+      ],
+    );
+  }
+}
+
+class _Group extends StatelessWidget {
+  const _Group({required this.title, required this.children});
+
+  final String title;
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (card.showDraft) ...[
-          const Align(
-            alignment: Alignment.centerLeft,
-            child: StatusBadge(
-              label: 'Draft content',
-              tone: StatusTone.warning,
-            ),
-          ),
-          const SizedBox(height: AppSpacing.x1),
-        ],
-        AppText.title(card.title),
-        const SizedBox(height: AppSpacing.half),
-        AppText(card.summary, tone: AppTextTone.secondary),
-        const SizedBox(height: AppSpacing.x2),
-        const AppText.label('Do'),
+        Semantics(header: true, child: AppText.caps(title)),
         const SizedBox(height: AppSpacing.x1),
-        for (final (i, step) in card.doSteps.indexed)
-          Padding(
-            padding: const EdgeInsets.only(bottom: AppSpacing.x1),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 28,
-                  child: AppText.label('${i + 1}.', numeric: true),
-                ),
-                Expanded(child: AppText(step)),
-              ],
-            ),
-          ),
-        const SizedBox(height: AppSpacing.x1),
-        const AppText.label("Don't"),
-        const SizedBox(height: AppSpacing.x1),
-        for (final step in card.dontSteps)
-          Padding(
-            padding: const EdgeInsets.only(bottom: AppSpacing.x1),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 28,
-                  child: Icon(Icons.close, size: 18, color: p.emergencyText),
-                ),
-                Expanded(child: AppText(step)),
-              ],
-            ),
-          ),
+        AppListCard(children: children),
       ],
     );
   }

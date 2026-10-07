@@ -9,8 +9,12 @@ import '../../../data/models/labels.dart';
 import '../../../data/models/route_args.dart';
 import '../invite_sheet/invite_sheet_view.dart';
 
-typedef DocumentRow = ({String name, String detail});
-typedef StageOption = ({String label, OnboardingStage stage});
+typedef DocumentLine = ({String name, String detail});
+typedef StageOption = ({
+  String label,
+  OnboardingStage stage,
+  bool selected,
+});
 
 /// One facility's path to go-live, for field agents and hospital admins.
 class FacilitySetupViewModel extends ReactiveViewModel {
@@ -74,7 +78,16 @@ class FacilitySetupViewModel extends ReactiveViewModel {
   String get name => _f?.name ?? '';
   String get subtitle => '${_f?.address ?? ''} · ${_f?.area ?? ''}';
   String get stageLabel => 'Stage: ${_f?.onboardingStage.label ?? ''}';
-  String get verificationLabel => _f?.verificationStatus.label ?? '';
+  String get verificationLabel => switch (_f?.verificationStatus) {
+    VerificationStatus.seeded || null => 'Not submitted',
+    final s? => s.label,
+  };
+  StatusTone get verificationTone => switch (_f?.verificationStatus) {
+    VerificationStatus.verified => StatusTone.positive,
+    VerificationStatus.rejected ||
+    VerificationStatus.suspended => StatusTone.critical,
+    _ => StatusTone.warning,
+  };
 
   List<ChecklistLine> get checklist => [
     for (final i in _detail?.checklist.items ?? const <ChecklistItem>[])
@@ -84,30 +97,40 @@ class FacilitySetupViewModel extends ReactiveViewModel {
   String get checklistSummary {
     final items = _detail?.checklist.items ?? const <ChecklistItem>[];
     final done = items.where((i) => i.done).length;
-    return _detail?.checklist.complete == true
-        ? 'Complete. The hospital goes live automatically once verified.'
-        : '$done of ${items.length} done';
+    return '$done of ${items.length} done';
   }
 
   // Documents
   bool get isUploading => busy(_uploadKey);
   bool get canUseCamera => _files.canUseCamera;
   bool get hasDocuments => documents.isNotEmpty;
-  List<DocumentRow> get documents => [
+  List<DocumentLine> get documents => [
     for (final d in _detail?.documents ?? const <FacilityDocument>[])
       (
-        name: d.fileName,
-        detail: '${_docKind(d.kind)} · ${Formatters.dateTime(d.createdAt)}',
+        name: _docKind(d.kind),
+        detail:
+            '${_isImage(d.fileName) ? 'Photo' : 'File'} · '
+            '${Formatters.date(d.createdAt)}',
       ),
   ];
+
+  static bool _isImage(String name) =>
+      RegExp(r'\.(jpe?g|png|webp|heic)$', caseSensitive: false).hasMatch(name);
 
   // Desk phone
   bool get hasDeskPhone => _f?.deskPhone != null;
   bool get deskPhoneConfirmed => _f?.deskPhoneConfirmedAt != null;
   String get deskPhoneLabel => hasDeskPhone
-      ? '${Formatters.phone(_f!.deskPhone!)} · '
-            '${deskPhoneConfirmed ? 'confirmed' : 'not confirmed'}'
+      ? Formatters.maskedPhone(_f!.deskPhone!)
       : 'No desk phone yet. Add it in the details.';
+  String get deskPhoneStatus =>
+      deskPhoneConfirmed ? 'Confirmed' : 'Not confirmed';
+  StatusTone get deskPhoneTone =>
+      deskPhoneConfirmed ? StatusTone.positive : StatusTone.warning;
+  String? _deskError;
+
+  /// Why the code could not be sent, e.g. texts are not available yet.
+  String? get deskError => _deskError;
   bool get showDeskConfirm => hasDeskPhone && !deskPhoneConfirmed;
   bool get codeSent => _codeSent;
   bool get isConfirmingDesk => busy(_deskKey);
@@ -121,7 +144,7 @@ class FacilitySetupViewModel extends ReactiveViewModel {
   // Agent record
   String get nextActionLabel => _nextActionAt == null
       ? 'Set next action date'
-      : 'Next action ${Formatters.date(_nextActionAt!)}';
+      : 'Next action: ${Formatters.date(_nextActionAt!)}';
   bool get isSavingNotes => busy(_notesKey);
 
   List<StageOption> get stageOptions => [
@@ -131,7 +154,7 @@ class FacilitySetupViewModel extends ReactiveViewModel {
       OnboardingStage.paused,
       OnboardingStage.declined,
     ])
-      if (s != _f?.onboardingStage) (label: s.label, stage: s),
+      (label: s.label, stage: s, selected: s == _f?.onboardingStage),
   ];
 
   // Verification
@@ -204,11 +227,10 @@ class FacilitySetupViewModel extends ReactiveViewModel {
       _onboarding.requestDeskPhoneCode(facilityId),
       busyObject: _deskKey,
     );
+    _deskError = response.success ? null : response.message;
     if (response.success) {
       _codeSent = true;
       _snackbar.success(message: 'Code sent to the desk phone');
-    } else {
-      _snackbar.error(message: response.message!);
     }
     notifyListeners();
   }

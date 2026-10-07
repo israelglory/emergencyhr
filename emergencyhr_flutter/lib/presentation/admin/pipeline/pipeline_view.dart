@@ -12,108 +12,95 @@ class PipelineView extends StatelessWidget {
     return ViewModelBuilder<PipelineViewModel>.reactive(
       viewModelBuilder: PipelineViewModel.new,
       onViewModelReady: (model) => model.load(),
-      builder: (context, model, _) {
-        if (model.isLoading) return const LoadingState();
-        if (model.hasError) {
-          return ErrorState(message: model.errorMessage!, onRetry: model.load);
-        }
-        return ShellPageFrame(
-          child: ListView(
-            padding: const EdgeInsets.all(AppSpacing.x2),
-            children: [
-              AppText.title(model.targetLabel),
-              const SizedBox(height: AppSpacing.x1),
-              Wrap(
-                spacing: AppSpacing.x1,
-                runSpacing: AppSpacing.x1,
-                children: [
-                  for (final c in model.stageCounts)
-                    StatusBadge(label: c, tone: StatusTone.neutral),
-                ],
-              ),
-              const SizedBox(height: AppSpacing.x2),
-              Wrap(
-                spacing: AppSpacing.x2,
-                runSpacing: AppSpacing.x1,
-                children: [
-                  DropdownMenu<String>(
-                    label: const Text('Area'),
-                    initialSelection: model.area,
-                    onSelected: model.setArea,
-                    dropdownMenuEntries: [
-                      for (final a in model.areaOptions)
-                        DropdownMenuEntry(value: a, label: a),
-                    ],
-                  ),
-                  DropdownMenu<int?>(
-                    label: const Text('Agent'),
-                    initialSelection: model.agentId,
-                    onSelected: model.setAgent,
-                    dropdownMenuEntries: [
-                      for (final a in model.agentOptions)
-                        DropdownMenuEntry(value: a.id, label: a.label),
-                    ],
-                  ),
-                ],
-              ),
-              if (model.hasSelection) ...[
-                const SizedBox(height: AppSpacing.x2),
-                Row(
-                  children: [
-                    Expanded(child: AppText.label(model.selectionLabel)),
-                    AppButton(
-                      title: 'Assign to agent',
-                      icon: Icons.assignment_ind_outlined,
-                      expand: false,
-                      onPressed: model.assignSelected,
-                    ),
-                  ],
-                ),
+      builder: (context, model, _) => WebPageState(
+        isLoading: model.isLoading,
+        error: model.hasError ? model.errorMessage : null,
+        onRetry: model.load,
+        child: WebPage(
+          title: 'Pipeline',
+          subtitle: model.targetLabel,
+          onRefresh: model.load,
+          children: [
+            Wrap(
+              spacing: AppSpacing.tight,
+              runSpacing: AppSpacing.tight,
+              children: [
+                for (final c in model.stageCounts)
+                  CountTile(label: c.label, value: c.value),
               ],
-              const SizedBox(height: AppSpacing.x2),
-              for (final row in model.rows)
-                Column(
-                  children: [
-                    InkWell(
-                      onTap: () => model.open(row.id),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: AppSpacing.x1,
-                        ),
-                        child: Row(
-                          children: [
-                            Checkbox(
-                              value: row.selected,
-                              onChanged: (_) => model.toggle(row.id),
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  AppText.label(row.name),
-                                  AppText.caption(
-                                    '${row.stage} · ${row.agent}',
-                                  ),
-                                  if (row.nextAction != null)
-                                    AppText.caption(row.nextAction!),
-                                ],
-                              ),
-                            ),
-                            StatusBadge(
-                              label: row.progress,
-                              tone: StatusTone.neutral,
-                            ),
-                          ],
-                        ),
+            ),
+            Wrap(
+              spacing: AppSpacing.tight,
+              runSpacing: AppSpacing.tight,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                ToolbarSelect<String>(
+                  semanticsLabel: 'Area',
+                  value: model.area,
+                  options: model.areaOptions,
+                  onChanged: model.setArea,
+                ),
+                ToolbarSelect<int?>(
+                  semanticsLabel: 'Agent',
+                  value: model.agentId,
+                  options: model.agentOptions,
+                  onChanged: model.setAgent,
+                ),
+                if (model.hasSelection) ...[
+                  AppText(
+                    model.selectionLabel,
+                    variant: AppTextVariant.caption,
+                    tone: AppTextTone.primary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  AppButton(
+                    title: 'Assign to agent',
+                    size: AppButtonSize.medium,
+                    expand: false,
+                    onPressed: model.assignSelected,
+                  ),
+                ],
+              ],
+            ),
+            DataTableCard(
+              columns: const [
+                TableColumn('', width: 32),
+                TableColumn('Hospital', flex: 20),
+                TableColumn('Stage · agent', flex: 14),
+                TableColumn('Next action', flex: 10),
+                TableColumn('Checklist', width: 110),
+              ],
+              rows: [
+                for (final row in model.rows)
+                  [
+                    SizedBox.square(
+                      dimension: 20,
+                      child: Checkbox(
+                        value: row.selected,
+                        semanticLabel: 'Select ${row.name}',
+                        onChanged: (_) => model.toggle(row.id),
                       ),
                     ),
-                    const Divider(),
+                    InkWell(
+                      onTap: () => model.open(row.id),
+                      child: NameCell(row.name, detail: row.area),
+                    ),
+                    AppText.small(row.stageAgent),
+                    AppText.small(row.nextAction),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: StatusBadge(
+                        label: row.progress,
+                        tone: row.progressTone,
+                        dot: false,
+                      ),
+                    ),
                   ],
-                ),
-            ],
-          ),
-        );
-      },
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -7,7 +7,6 @@ abstract final class AppRoutes {
   static const emergency = '/emergency';
   static const emergencyArea = '/emergency/area';
   static const emergencyType = '/emergency/type';
-  static const emergencyResults = '/emergency/results';
   static const emergencyAfter = '/emergency/next';
   static const hospital = '/hospitals'; // /hospitals/:id
   static const firstAid = '/first-aid'; // /first-aid/:type

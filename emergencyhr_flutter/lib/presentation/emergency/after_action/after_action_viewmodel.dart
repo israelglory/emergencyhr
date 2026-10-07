@@ -3,8 +3,6 @@ import 'package:stacked/stacked.dart';
 
 import '../../../core/cores.dart';
 import '../../../data/api/profile_api.dart';
-import '../../first_aid/components/first_aid_content.dart';
-import '../../first_aid/first_aid_presenter.dart';
 import '../report_sheet/report_sheet_view.dart';
 
 enum FamilyAlertState { signedOut, loading, noContacts, ready, sent }
@@ -67,6 +65,10 @@ class AfterActionViewModel extends ReactiveViewModel {
 
   static const tip =
       'If the hospital cannot take you, go back and choose another one.';
+  static const familyTitle = 'Tell your family';
+  static const familyHint =
+      'We text your emergency contacts where you are going.';
+  static const reportPrompt = 'Was the hospital status wrong? ';
 
   // Family alert
   bool get isSignedIn => _session.isSignedIn;
@@ -90,7 +92,7 @@ class AfterActionViewModel extends ReactiveViewModel {
     for (final r in _alert?.results ?? const <ContactAlertResult>[])
       (
         name: r.name,
-        detail: Formatters.phone(r.phone),
+        detail: Formatters.maskedPhone(r.phone),
         tone: r.sentVia == null ? StatusTone.critical : StatusTone.positive,
         label: switch (r.sentVia) {
           ContactChannel.sms => 'Sent by SMS',
@@ -108,10 +110,16 @@ class AfterActionViewModel extends ReactiveViewModel {
   bool get showSmsFallback =>
       _failedPhones.isNotEmpty && _launcher.canComposeSms;
 
-  // First aid
-  FirstAidDisplay? get firstAid {
-    final card = _firstAid.forType(_emergency.type);
-    return card == null ? null : FirstAidPresenter.display(card);
+  // First aid: the first three steps, with a link to the full card.
+  FirstAidCard? get _card => _firstAid.forType(_emergency.type);
+  bool get hasFirstAid => firstAidSteps.isNotEmpty;
+  List<String> get firstAidSteps =>
+      (_card?.doSteps ?? const []).take(3).toList();
+
+  void openFirstAid() {
+    final card = _card;
+    if (card == null) return;
+    _navigation.pushNamed<void>(AppRoutes.firstAidCard(card.type.name));
   }
 
   // Report
@@ -166,13 +174,16 @@ class AfterActionViewModel extends ReactiveViewModel {
   Future<void> callAgain() async {
     final h = _hospital;
     if (h?.deskPhone == null) return;
-    await _calls.callNumber(number: h!.deskPhone!, title: 'Call ${h.name}');
+    await _calls.callNumber(
+      number: h!.deskPhone!,
+      title: 'Call this number',
+      message: '${h.name}, emergency desk',
+    );
   }
 
   Future<void> call112() => _calls.callNumber(number: '112', title: 'Call 112');
 
-  void backToResults() =>
-      _navigation.popUntilOrShow(AppRoutes.emergencyResults);
+  void backToResults() => _navigation.popUntilOrShow(AppRoutes.emergency);
 
   VoidCallback? get onCallAgain => canCallAgain ? callAgain : null;
 }

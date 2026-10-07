@@ -21,13 +21,7 @@ class AgentShellView extends StatelessWidget {
           destinations: AgentShellViewModel.destinations,
           selectedIndex: model.selectedIndex,
           onSelect: model.select,
-          actions: [
-            IconButton(
-              tooltip: 'Public home',
-              icon: const Icon(Icons.home_outlined),
-              onPressed: model.goHome,
-            ),
-          ],
+          onHome: model.goHome,
           body: switch (model.currentTab) {
             AgentTab.onboard => const OnboardStartView(),
             AgentTab.facilities => const AgentFacilitiesView(),

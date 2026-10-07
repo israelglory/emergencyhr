@@ -4,7 +4,12 @@ import 'package:stacked/stacked.dart';
 import '../../../core/cores.dart';
 import '../../../data/api/admin_api.dart';
 
-typedef MetricTile = ({String label, String value, String note});
+typedef MetricTile = ({
+  String label,
+  String value,
+  String note,
+  StatusTone tone,
+});
 
 class MetricsViewModel extends BaseViewModel {
   MetricsViewModel({AdminApi? api}) : _api = api ?? adminApi;
@@ -28,27 +33,35 @@ class MetricsViewModel extends BaseViewModel {
         label: 'Median time to action',
         value: median == null
             ? 'No data'
-            : median < 120
+            : median < 60
             ? '$median s'
-            : '${(median / 60).toStringAsFixed(1)} min',
-        note:
-            'From tapping Emergency to calling or getting directions. '
-            'Target under 2 minutes.',
+            : '${median ~/ 60} min ${median % 60} s',
+        note: 'Target under 2 min',
+        tone: median != null && median < 120
+            ? StatusTone.positive
+            : StatusTone.warning,
       ),
       (
         label: 'Emergency sessions',
         value: '${m.sessions}',
-        note: '${m.actedSessions} led to a call or directions.',
+        note: '${m.actedSessions} led to a call or directions',
+        tone: StatusTone.neutral,
       ),
       (
-        label: 'Status under 60 min old',
+        label: 'Live hospitals under 60 min old',
         value: pct(m.freshUnder60Share),
-        note: 'Share of ${m.liveFacilities} live hospitals.',
+        note: 'Target 70%',
+        tone: m.freshUnder60Share >= 0.7
+            ? StatusTone.positive
+            : StatusTone.warning,
       ),
       (
         label: 'Empty result rate',
         value: pct(m.emptyResultRate),
-        note: 'Sessions with no accepting hospital within 25 km.',
+        note: 'Target under 10%',
+        tone: m.emptyResultRate < 0.1
+            ? StatusTone.positive
+            : StatusTone.warning,
       ),
     ];
   }

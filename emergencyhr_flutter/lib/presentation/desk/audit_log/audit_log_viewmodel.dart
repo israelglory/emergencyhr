@@ -26,7 +26,9 @@ class AuditLogViewModel extends BaseViewModel {
   List<AuditRow> get rows => [
     for (final e in _entries)
       (
-        meta: '${e.userName} · ${Formatters.dateTime(e.at)}',
+        meta:
+            '${e.userName} · '
+            '${Formatters.auditTime(e.at, DateTime.now().toUtc())}',
         summary: e.summary,
         practice: e.practice,
       ),

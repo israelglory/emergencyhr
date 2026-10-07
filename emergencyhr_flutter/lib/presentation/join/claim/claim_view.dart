@@ -18,84 +18,113 @@ class ClaimView extends StatelessWidget {
       onViewModelReady: (model) => model.onReady(),
       builder: (context, model, _) {
         if (model.submitted) {
-          return AppPage(
-            title: model.title,
-            scrollable: false,
-            body: EmptyState(
-              icon: Icons.mark_email_read_outlined,
-              title: ClaimViewModel.submittedTitle,
-              message: ClaimViewModel.submittedMessage,
-              actionLabel: 'Back to home',
-              onAction: model.done,
+          return Scaffold(
+            body: SafeArea(
+              child: MessagePage(
+                icon: Icons.check_rounded,
+                tone: IconTileTone.positive,
+                title: ClaimViewModel.submittedTitle,
+                message: ClaimViewModel.submittedMessage,
+                children: [
+                  AppButton.secondary(
+                    title: 'Back to home',
+                    onPressed: model.done,
+                  ),
+                ],
+              ),
             ),
           );
         }
         return AppPage(
-          title: model.title,
+          title: ClaimViewModel.title,
           bottom: AppButton(
             title: 'Send claim',
-            large: true,
             loading: model.isBusy,
             onPressed: model.submit,
           ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          body: SectionColumn(
             children: [
-              const AppText(ClaimViewModel.intro, tone: AppTextTone.secondary),
-              const SizedBox(height: AppSpacing.x3),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText.headline(model.heading),
+                  const SizedBox(height: AppSpacing.x1),
+                  const AppText(
+                    ClaimViewModel.intro,
+                    tone: AppTextTone.secondary,
+                  ),
+                ],
+              ),
               AppTextField(
                 label: 'Your full name',
                 controller: model.contactNameController,
                 textCapitalization: TextCapitalization.words,
                 errorText: model.contactError,
               ),
-              const SizedBox(height: AppSpacing.x3),
-              const SectionHeader('Registration document'),
-              for (final name in model.documentNames)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: AppSpacing.x1),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.description_outlined),
-                      const SizedBox(width: AppSpacing.x1),
-                      Expanded(child: AppText.label(name)),
-                    ],
+              SectionColumn(
+                gap: AppSpacing.tight,
+                children: [
+                  const AppText.label('Registration document'),
+                  if (model.hasDocuments)
+                    AppListCard(
+                      children: [
+                        for (final d in model.documents)
+                          DocumentRow(
+                            name: d.name,
+                            meta: d.meta,
+                            onRemove: d.onRemove,
+                          ),
+                      ],
+                    ),
+                  DocumentButtons(
+                    canUseCamera: model.canUseCamera,
+                    loading: model.isUploading,
+                    onPhotograph: model.photograph,
+                    onUpload: model.upload,
                   ),
-                ),
-              AppButton.secondary(
-                title: model.addDocumentLabel,
-                icon: Icons.upload_file_outlined,
-                loading: model.isUploading,
-                onPressed: model.addDocument,
+                ],
               ),
-              if (model.canUseCamera)
-                AppButton.text(
-                  title: 'Choose a file instead',
-                  onPressed: model.addDocumentFile,
+              AppCard(
+                child: SectionColumn(
+                  gap: AppSpacing.small,
+                  children: [
+                    const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppText.title(ClaimViewModel.deskTitle),
+                        SizedBox(height: 3),
+                        AppText.caption(ClaimViewModel.deskHint),
+                      ],
+                    ),
+                    if (model.codeSent)
+                      AppText.caption(model.codeSentLabel)
+                    else
+                      AppButton.secondary(
+                        title: 'Text a code to the listed desk phone',
+                        size: AppButtonSize.medium,
+                        loading: model.isSendingCode,
+                        onPressed: model.sendDeskCode,
+                      ),
+                    if (model.deskCodeFailed)
+                      const NoticeBanner(
+                        message: ClaimViewModel.deskFailed,
+                        tone: StatusTone.warning,
+                      ),
+                    if (model.codeSent)
+                      AppTextField(
+                        label: 'Code',
+                        hintText: '6 digits',
+                        controller: model.deskCodeController,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        maxLength: 6,
+                        large: true,
+                      ),
+                  ],
                 ),
-              const SizedBox(height: AppSpacing.x3),
-              const SectionHeader(
-                'Desk phone check (recommended)',
-                subtitle: 'Speeds up approval.',
               ),
-              if (model.codeSent) ...[
-                AppText(model.codeSentLabel, tone: AppTextTone.secondary),
-                const SizedBox(height: AppSpacing.x1),
-                AppTextField(
-                  label: 'Code from the desk phone',
-                  controller: model.deskCodeController,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  maxLength: 6,
-                  large: true,
-                ),
-              ] else
-                AppButton.secondary(
-                  title: 'Text a code to the listed desk phone',
-                  icon: Icons.sms_outlined,
-                  loading: model.isSendingCode,
-                  onPressed: model.sendDeskCode,
-                ),
             ],
           ),
         );

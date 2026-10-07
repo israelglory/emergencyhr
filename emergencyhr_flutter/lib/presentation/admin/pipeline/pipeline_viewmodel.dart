@@ -5,15 +5,15 @@ import '../../../core/cores.dart';
 import '../../../data/api/admin_api.dart';
 import '../../../data/models/labels.dart';
 import '../../../data/models/pilot_areas.dart';
-import '../components/option_picker_sheet.dart';
 
 typedef PipelineItem = ({
   int id,
   String name,
-  String stage,
-  String agent,
+  String area,
+  String stageAgent,
   String progress,
-  String? nextAction,
+  StatusTone progressTone,
+  String nextAction,
   bool selected,
 });
 
@@ -51,18 +51,20 @@ class PipelineViewModel extends BaseViewModel {
     return '${b.liveCount} live. Pilot target ${b.targetMin} to ${b.targetMax}.';
   }
 
-  List<String> get stageCounts => [
+  List<({String label, String value})> get stageCounts => [
     for (final c in _board?.counts ?? const <StageCount>[])
-      '${c.stage.label} ${c.count}',
+      (label: c.stage.label, value: '${c.count}'),
   ];
 
-  List<String> get areaOptions => [allAreas, ...PilotAreas.names];
+  List<({String value, String label})> get areaOptions => [
+    for (final a in [allAreas, ...PilotAreas.names]) (value: a, label: a),
+  ];
   String get area => _area ?? allAreas;
-  List<({int? id, String label})> get agentOptions => [
-    (id: null, label: allAgents),
+  List<({int? value, String label})> get agentOptions => [
+    (value: null, label: allAgents),
     for (final a in _agents)
       (
-        id: a.userId,
+        value: a.userId,
         label: Formatters.person(name: a.name, email: a.email, phone: a.phone),
       ),
   ];
@@ -76,12 +78,17 @@ class PipelineViewModel extends BaseViewModel {
       (
         id: r.facility.id,
         name: r.facility.name,
-        stage: r.facility.onboardingStage.label,
-        agent: r.agentName ?? 'Unassigned',
+        area: r.facility.area,
+        stageAgent:
+            '${r.facility.onboardingStage.label} · '
+            '${r.agentName ?? 'Unassigned'}',
         progress: '${r.checklistDone}/${r.checklistTotal}',
+        progressTone: r.checklistDone == r.checklistTotal
+            ? StatusTone.positive
+            : StatusTone.neutral,
         nextAction: r.nextActionAt == null
-            ? null
-            : 'Next ${Formatters.date(r.nextActionAt!)}',
+            ? 'None'
+            : Formatters.dayMonth(r.nextActionAt!),
         selected: _selected.contains(r.facility.id),
       ),
   ];
@@ -123,7 +130,8 @@ class PipelineViewModel extends BaseViewModel {
   Future<void> assignSelected() async {
     final agentId = await _sheets.show<int>(
       OptionPickerSheet<int>(
-        title: 'Assign to field agent',
+        title: 'Pick an agent',
+        subtitle: 'Assign ${Formatters.count(_selected.length, 'hospital')}',
         options: [
           for (final a in _agents)
             (

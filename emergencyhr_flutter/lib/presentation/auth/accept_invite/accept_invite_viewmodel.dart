@@ -49,8 +49,20 @@ class AcceptInviteViewModel extends ReactiveViewModel {
   String get heading => 'Join ${_preview?.facilityName ?? ''}';
   String get message => isValid
       ? 'You have been invited as ${_preview!.role.label.toLowerCase()}. '
-            'Invite expires ${Formatters.dateTime(_preview!.expiresAt)}.'
-      : _preview?.reason ?? '';
+            'Invite expires ${Formatters.date(_preview!.expiresAt)}.'
+      : '${_preview?.reason ?? ''} Ask the hospital admin to send you a new '
+            'one.';
+
+  static const unusableTitle = 'This invite cannot be used';
+  static const notFoundTitle = 'Invite not found';
+  static const notFoundMessage = 'Check the link or code and try again.';
+
+  /// Role and inviter for the details card.
+  List<({String label, String value})> get details => [
+    if (_preview case final p?) (label: 'Role', value: p.role.label),
+    if (_preview?.invitedBy case final name?)
+      (label: 'Invited by', value: name),
+  ];
   String get actionLabel => isSignedIn ? 'Accept invite' : 'Sign in to accept';
 
   Future<void> load() async {

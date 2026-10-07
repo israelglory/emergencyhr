@@ -5,7 +5,14 @@ import '../../../core/cores.dart';
 import '../../../data/api/admin_api.dart';
 import 'agent_form_sheet.dart';
 
-typedef AgentItem = ({int id, String name, String detail, AgentRow agent});
+typedef AgentItem = ({
+  int id,
+  String name,
+  String contact,
+  String areas,
+  String hospitals,
+  AgentRow agent,
+});
 
 class AgentsViewModel extends BaseViewModel {
   AgentsViewModel({
@@ -33,11 +40,9 @@ class AgentsViewModel extends BaseViewModel {
       (
         id: a.userId,
         name: Formatters.person(name: a.name, email: a.email, phone: a.phone),
-        detail: [
-          Formatters.contact(email: a.email, phone: a.phone),
-          a.areas.isEmpty ? 'No areas' : a.areas.join(', '),
-          Formatters.count(a.facilityCount, 'hospital'),
-        ].join(' · '),
+        contact: Formatters.contact(email: a.email, phone: a.phone),
+        areas: a.areas.isEmpty ? 'No areas' : a.areas.join(', '),
+        hospitals: '${a.facilityCount}',
         agent: a,
       ),
   ];

@@ -32,9 +32,8 @@ class MedicalProfileViewModel extends BaseViewModel {
 
   static const title = 'Medical details';
   static const consentText =
-      'I agree that Emergencyhr stores these health details, encrypted, so I '
-      'can see them in an emergency. Only I can see them. I can delete them '
-      'at any time.';
+      'I agree that Emergencyhr stores these health details, encrypted. I can '
+      'delete them at any time.';
   static const explainer =
       'Optional. These details are not shared with hospitals or family '
       'automatically.';

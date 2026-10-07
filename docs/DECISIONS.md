@@ -81,8 +81,13 @@ a choice open, the decision and why.
 
 ## App
 
-21. **Location starts when Emergency is tapped**, in parallel with the type
-    picker, to meet the time-to-action goal.
+21. **Emergency goes straight to Hospitals near you** (approved design,
+    `design/DESIGN_HANDOFF.md`). Location starts the moment Emergency is
+    tapped and the list loads for all types. "What happened" is an optional
+    filter and "Location" opens Choose your area; both refine the same
+    server session through `emergency.updateSearch`, so time to action is
+    still measured from the first tap. The Health Assistant red-flag card
+    also opens the list for all types.
 22. **Location on the web** asks the browser directly instead of checking
     permission first (older Safari cannot report it), accepts a fix up to a
     minute old for speed, and gives up after 15 seconds so an unanswered
@@ -98,3 +103,37 @@ a choice open, the decision and why.
     the browser or system viewer.
 27. **Golden tests run on macOS only.** Pixel output differs across
     platforms, so CI skips the `golden` tag.
+
+## Design (October 2026)
+
+The owner approved the design in `design/` (see `DESIGN_HANDOFF.md`). Where
+it differs from the original brief, the design wins:
+
+28. **Look:** blue (#1A56DB) for everyday actions, red only for Emergency
+    and Call 112, soft cards with a 1 px border and a light shadow, radius
+    12 / 16 / 24. Status is always words plus colour.
+29. **Font:** Plus Jakarta Sans, bundled in `assets/fonts/` (OFL licence)
+    so it works offline, with tabular figures everywhere.
+30. **Navigation:** public bottom tabs Home, Assistant, Profile (hidden in
+    the emergency flow; Assistant and Profile are built on first open).
+    Desk tabs Status, Audit log, Staff, Hospital. Agent tabs Onboard, My
+    hospitals. Staff shells show a side menu from 840 px wide; Admin uses a
+    drawer on phones.
+31. **Unavailable status on Paused / Unverified:** the design table lists
+    #EEF2F6 for offBg, every screen uses #F2F4F7. We use #F2F4F7 for badges
+    and #EEF2F6 for the Accepting / Paused track.
+32. **Where the design had no state** (signed-out Profile, family alert
+    without contacts, practice prompt on the desk, empty admin lists) we
+    reuse the closest designed pattern and the existing copy.
+33. **Home location line** shows the nearest pilot area, only when location
+    was already allowed. Home never triggers a location prompt.
+34. **Document upload** offers Photograph (phones) and Upload. The design's
+    extra "Choose a file instead" link is not shown because Upload already
+    opens the file picker.
+35. **Medical consent** uses the design wording: "I agree that Emergencyhr
+    stores these health details, encrypted. I can delete them at any time."
+36. **First-aid text** stays in `content/first_aid/` (clinician review
+    pending); the design's list summaries are placeholders and are not
+    copied over the content files.
+37. **Accept invite** shows "Invited by" from the inviter's name
+    (`InvitePreview.invitedBy`), when they gave one.

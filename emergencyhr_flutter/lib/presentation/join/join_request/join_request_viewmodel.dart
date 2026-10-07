@@ -27,16 +27,17 @@ class JoinRequestViewModel extends BaseViewModel {
   Map<String, String> _errors = {};
   bool _sent = false;
 
-  static const title = 'Join request';
-  static const intro =
-      'Leave your details and an Emergencyhr field agent will contact you to '
-      'arrange a visit.';
+  static const title = 'Join Emergencyhr';
+  static const heading = 'Request a visit';
+  static const intro = 'A field agent will call you to set things up.';
   static const sentTitle = 'Request sent';
   static const sentMessage = 'Thank you. A field agent will call you soon.';
 
   bool get sent => _sent;
   String get area => _area;
-  List<String> get areaOptions => PilotAreas.names;
+  List<({String value, String label})> get areaOptions => [
+    for (final a in PilotAreas.names) (value: a, label: a),
+  ];
   String? errorFor(String field) => _errors[field];
 
   void setArea(String? value) {

@@ -30,6 +30,26 @@ class EmergencyApi {
         () => _client.emergency.refresh(sessionId, token),
       );
 
+  /// New "What happened" filter or area for an open session.
+  Future<ApiResponse<EmergencySearch>> updateSearch(
+    int sessionId,
+    String token,
+    EmergencyType type, {
+    ({double lat, double lng, String area})? place,
+  }) => ApiResponse.guard(
+    _tag,
+    () => _client.emergency
+        .updateSearch(
+          sessionId,
+          token,
+          type,
+          lat: place?.lat,
+          lng: place?.lng,
+          area: place?.area,
+        )
+        .timeout(const Duration(seconds: 12)),
+  );
+
   /// Live re-ranked results. Errors close the stream; callers fall back to
   /// periodic refresh.
   Stream<EmergencySearch> watch(int sessionId, String token) =>

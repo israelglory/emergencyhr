@@ -1,6 +1,7 @@
 import 'package:emergencyhr_client/emergencyhr_client.dart';
 import 'package:emergencyhr_flutter/core/cores.dart';
 import 'package:emergencyhr_flutter/data/local/emergency_cache.dart';
+import 'package:emergencyhr_flutter/data/models/pilot_areas.dart';
 import 'package:emergencyhr_flutter/data/models/route_args.dart';
 import 'package:emergencyhr_flutter/presentation/emergency/results/results_viewmodel.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -17,6 +18,7 @@ void main() {
   late MockNavigationService navigation;
   late MockPhoneCallService calls;
   late MockLauncherService launcher;
+  late MockLocationService location;
 
   const args = EmergencyResultsArgs(
     lat: 6.6,
@@ -24,8 +26,12 @@ void main() {
     type: EmergencyType.roadAccident,
   );
 
-  ResultsViewModel build({int minutesLater = 0}) => ResultsViewModel(
-    args: args,
+  ResultsViewModel build({
+    int minutesLater = 0,
+    EmergencyResultsArgs? withArgs = args,
+  }) => ResultsViewModel(
+    args: withArgs,
+    location: location,
     api: api,
     cache: cache,
     emergency: emergency,
@@ -43,6 +49,7 @@ void main() {
     navigation = MockNavigationService();
     calls = MockPhoneCallService();
     launcher = MockLauncherService();
+    location = MockLocationService();
     when(() => cache.save(any())).thenAnswer((_) async {});
     when(() => api.watch(any(), any())).thenAnswer((_) => silentStream());
     when(
@@ -146,7 +153,7 @@ void main() {
     serve(searchFixture(call112: true, results: [resultFixture(tier: 3)]));
     final vm = build();
     await vm.onReady();
-    expect(vm.showCall112, isTrue);
+    expect(vm.state, ResultsState.nothingAccepting);
     vm.dispose();
   });
 
@@ -171,6 +178,82 @@ void main() {
       () => navigation.pushNamed<void>(AppRoutes.emergencyAfter),
     ).called(1);
     expect(emergency.action, EmergencyAction.call);
+    vm.dispose();
+  });
+
+  test('Given Emergency was tapped and location is found, then hospitals '
+      'load straight away for all types', () async {
+    serve(searchFixture());
+    emergency.begin(Future.value(const LocationFound(6.6, 3.35)));
+    final vm = build(withArgs: null);
+    await vm.onReady();
+    verify(
+      () => api.start(
+        lat: 6.6,
+        lng: 3.35,
+        type: EmergencyType.skipped,
+        area: null,
+        tappedAt: any(named: 'tappedAt'),
+      ),
+    ).called(1);
+    expect(vm.state, ResultsState.results);
+    expect(vm.locationValue, 'Near you');
+    expect(vm.typeValue, 'All types');
+    expect(vm.typeSelected, isFalse);
+    vm.dispose();
+  });
+
+  test('Given location is denied, then Choose your area opens and the '
+      'chosen area is searched (never a dead end)', () async {
+    serve(searchFixture());
+    emergency.begin(Future.value(const LocationDenied()));
+    when(
+      () => navigation.pushNamed<PilotArea>(AppRoutes.emergencyArea),
+    ).thenAnswer((_) async => PilotAreas.all.first);
+    final vm = build(withArgs: null);
+    await vm.onReady();
+    verify(
+      () => api.start(
+        lat: PilotAreas.all.first.lat,
+        lng: PilotAreas.all.first.lng,
+        type: EmergencyType.skipped,
+        area: 'Ikeja',
+        tappedAt: any(named: 'tappedAt'),
+      ),
+    ).called(1);
+    expect(vm.locationValue, 'Ikeja');
+    vm.dispose();
+  });
+
+  test('Given open results, when What happened is set, then the same '
+      'session is re-ranked and the button shows the type', () async {
+    serve(searchFixture());
+    when(
+      () => navigation.pushNamed<EmergencyType>(
+        AppRoutes.emergencyType,
+        args: any(named: 'args'),
+      ),
+    ).thenAnswer((_) async => EmergencyType.chestPain);
+    when(
+      () => api.updateSearch(
+        any(),
+        any(),
+        any(),
+        place: any(named: 'place'),
+      ),
+    ).thenAnswer(
+      (_) async => ok(searchFixture(type: EmergencyType.chestPain)),
+    );
+    emergency.begin(Future.value(const LocationFound(6.6, 3.35)));
+    final vm = build(withArgs: null);
+    await vm.onReady();
+    await vm.chooseType();
+    verify(
+      () => api.updateSearch(10, 'token', EmergencyType.chestPain, place: null),
+    ).called(1);
+    expect(vm.typeValue, 'Chest pain');
+    expect(vm.typeSelected, isTrue);
+    expect(vm.state, ResultsState.results);
     vm.dispose();
   });
 }

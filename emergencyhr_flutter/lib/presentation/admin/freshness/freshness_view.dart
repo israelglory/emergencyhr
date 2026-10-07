@@ -12,52 +12,43 @@ class FreshnessView extends StatelessWidget {
     return ViewModelBuilder<FreshnessViewModel>.reactive(
       viewModelBuilder: FreshnessViewModel.new,
       onViewModelReady: (model) => model.load(),
-      builder: (context, model, _) => switch (model.state) {
-        ViewState.loading => const LoadingState(),
-        ViewState.error => ErrorState(
-          message: model.errorMessage!,
-          onRetry: model.load,
-        ),
-        ViewState.empty => const EmptyState(
-          icon: Icons.schedule,
-          title: 'No live hospitals yet',
-        ),
-        ViewState.ready => ShellPageFrame(
-          child: RefreshIndicator(
-            onRefresh: model.load,
-            child: ListView.separated(
-              padding: const EdgeInsets.all(AppSpacing.x2),
-              itemCount: model.rows.length,
-              separatorBuilder: (_, _) => const Divider(),
-              itemBuilder: (context, i) {
-                final row = model.rows[i];
-                return InkWell(
-                  onTap: () => model.open(row.id),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: AppSpacing.x1,
+      builder: (context, model, _) => WebPageState(
+        isLoading: model.state == ViewState.loading,
+        error: model.state == ViewState.error ? model.errorMessage : null,
+        onRetry: model.load,
+        child: WebPage(
+          title: 'Freshness',
+          subtitle: 'Live hospitals, stalest first',
+          onRefresh: model.load,
+          children: [
+            DataTableCard(
+              columns: const [
+                TableColumn('Hospital', flex: 20),
+                TableColumn('Area · status · hours', flex: 16),
+                TableColumn('Last update', width: 160),
+              ],
+              empty: const AppText(
+                'No live hospitals yet',
+                tone: AppTextTone.secondary,
+              ),
+              rows: [
+                for (final row in model.rows)
+                  [
+                    InkWell(
+                      onTap: () => model.open(row.id),
+                      child: AppText.subtitle(row.name),
                     ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              AppText.label(row.name),
-                              AppText.caption(row.detail),
-                            ],
-                          ),
-                        ),
-                        StatusBadge(label: row.age, tone: row.tone),
-                      ],
+                    AppText.caption(row.detail),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: StatusBadge(label: row.age, tone: row.tone),
                     ),
-                  ),
-                );
-              },
+                  ],
+              ],
             ),
-          ),
+          ],
         ),
-      },
+      ),
     );
   }
 }

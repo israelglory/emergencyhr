@@ -2,50 +2,66 @@ import 'package:flutter/material.dart';
 
 import '../constants/dimens.dart';
 import '../theme/app_palette.dart';
-import 'app_text.dart';
+import '../theme/theme.dart';
 import 'status_badge.dart';
 
-/// A full-width inline notice, e.g. offline, disclaimer, or practice mode.
+/// A full-width inline notice in the status label style (padding 8 10,
+/// radius 8, 14 / 500), e.g. offline, practice mode or "Not public yet".
 class NoticeBanner extends StatelessWidget {
   const NoticeBanner({
     super.key,
     required this.message,
     this.tone = StatusTone.neutral,
-    this.icon = Icons.info_outline,
+    this.icon,
     this.action,
   });
 
   final String message;
   final StatusTone tone;
-  final IconData icon;
+  final IconData? icon;
+
+  /// Shown on the right, e.g. a small "Exit" button.
   final Widget? action;
 
   @override
   Widget build(BuildContext context) {
     final p = context.palette;
-    final (Color fg, Color bg) = switch (tone) {
-      StatusTone.positive => (p.positive, p.positiveBg),
-      StatusTone.warning => (p.warning, p.warningBg),
-      StatusTone.neutral => (p.text, p.surfaceMuted),
-      StatusTone.critical => (p.emergencyText, p.surfaceMuted),
-    };
+    final (fg, bg) = statusColours(p, tone);
     return Semantics(
       container: true,
       liveRegion: true,
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.x2,
-          vertical: AppSpacing.x1 + AppSpacing.half,
+        padding: EdgeInsets.fromLTRB(
+          action == null ? 10 : AppSpacing.small,
+          action == null ? AppSpacing.x1 : 6,
+          action == null ? 10 : 6,
+          action == null ? AppSpacing.x1 : 6,
         ),
         decoration: BoxDecoration(
           color: bg,
-          borderRadius: BorderRadius.circular(AppRadius.control),
+          borderRadius: BorderRadius.circular(AppRadius.status),
         ),
         child: Row(
+          crossAxisAlignment: action == null
+              ? CrossAxisAlignment.start
+              : CrossAxisAlignment.center,
           children: [
-            Icon(icon, size: 20, color: fg),
-            const SizedBox(width: AppSpacing.x1 + AppSpacing.half),
-            Expanded(child: AppText.small(message, color: fg)),
+            if (icon != null) ...[
+              Padding(
+                padding: const EdgeInsets.only(top: 1),
+                child: Icon(icon, size: 18, color: fg),
+              ),
+              const SizedBox(width: AppSpacing.x1),
+            ],
+            Expanded(
+              child: Text(
+                message,
+                style: AppTypography.label.copyWith(
+                  color: fg,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
             if (action != null) ...[
               const SizedBox(width: AppSpacing.x1),
               action!,

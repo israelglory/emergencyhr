@@ -24,42 +24,76 @@ class AgentFacilitiesView extends StatelessWidget {
             message: 'A platform admin assigns hospitals and areas to you.',
           );
         }
-        return ShellPageFrame(
-          child: RefreshIndicator(
-            onRefresh: model.load,
-            child: ListView.separated(
-              padding: const EdgeInsets.all(AppSpacing.x2),
-              itemCount: model.rows.length,
-              separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.x1),
-              itemBuilder: (context, index) {
-                final row = model.rows[index];
-                return AppCard(
-                  onTap: () => model.open(row.id),
-                  child: Row(
+        return RefreshIndicator(
+          onRefresh: model.load,
+          child: ListView(
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.screen,
+              AppSpacing.x2,
+              AppSpacing.screen,
+              AppSpacing.screen,
+            ),
+            children: [
+              Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxWidth: AppSizes.contentMaxWidth,
+                  ),
+                  child: SectionColumn(
+                    gap: AppSpacing.small,
                     children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AppText.subtitle(row.name),
-                            AppText.caption(row.detail),
-                            if (row.nextAction != null)
-                              AppText.caption(
-                                row.nextAction!,
-                                tone: AppTextTone.primary,
+                      const AppText.headline('My hospitals'),
+                      const AppText.caption('Sorted by next action date'),
+                      AppListCard(
+                        children: [
+                          for (final row in model.rows)
+                            InkWell(
+                              onTap: () => model.open(row.id),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 14,
+                                ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          AppText.subtitle(row.name),
+                                          const SizedBox(
+                                            height: AppSpacing.half,
+                                          ),
+                                          AppText.caption(row.detail),
+                                          const SizedBox(
+                                            height: AppSpacing.half,
+                                          ),
+                                          AppText.caption(
+                                            row.nextAction,
+                                            tone: AppTextTone.primary,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    StatusBadge(
+                                      label: row.progress,
+                                      tone: row.progressTone,
+                                      dot: false,
+                                    ),
+                                  ],
+                                ),
                               ),
-                          ],
-                        ),
-                      ),
-                      StatusBadge(
-                        label: row.progress,
-                        tone: row.progressTone,
+                            ),
+                        ],
                       ),
                     ],
                   ),
-                );
-              },
-            ),
+                ),
+              ),
+            ],
           ),
         );
       },

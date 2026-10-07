@@ -14,24 +14,26 @@ class SignInView extends StatelessWidget {
     return ViewModelBuilder<SignInViewModel>.reactive(
       viewModelBuilder: () => SignInViewModel(next: next),
       builder: (context, model, _) => AppPage(
-        title: SignInViewModel.title,
         bottom: AppButton(
           title: 'Sign in',
           loading: model.isBusy,
           onPressed: model.signIn,
-          large: true,
         ),
         body: AutofillGroup(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          child: SectionColumn(
+            gap: 18,
             children: [
-              const AppText.headline(SignInViewModel.heading),
-              const SizedBox(height: AppSpacing.x1),
-              const AppText(
-                SignInViewModel.explainer,
-                tone: AppTextTone.secondary,
+              const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText.headline(SignInViewModel.heading),
+                  SizedBox(height: AppSpacing.x1),
+                  AppText(
+                    SignInViewModel.explainer,
+                    tone: AppTextTone.secondary,
+                  ),
+                ],
               ),
-              const SizedBox(height: AppSpacing.x3),
               AppTextField(
                 label: 'Email',
                 hintText: 'you@example.com',
@@ -43,7 +45,6 @@ class SignInView extends StatelessWidget {
                 onChanged: model.onChanged,
                 autofocus: true,
               ),
-              const SizedBox(height: AppSpacing.x2),
               AppTextField(
                 label: 'Password',
                 controller: model.passwordController,
@@ -55,11 +56,11 @@ class SignInView extends StatelessWidget {
                 onSubmitted: (_) => model.signIn(),
                 suffixIcon: IconButton(
                   tooltip: model.passwordToggleLabel,
+                  color: context.palette.textSecondary,
                   icon: Icon(model.passwordIcon),
                   onPressed: model.togglePassword,
                 ),
               ),
-              const SizedBox(height: AppSpacing.x1),
               Align(
                 alignment: Alignment.centerLeft,
                 child: AppButton.text(
@@ -67,15 +68,31 @@ class SignInView extends StatelessWidget {
                   onPressed: model.forgotPassword,
                 ),
               ),
-              const SizedBox(height: AppSpacing.x3),
-              const Divider(),
-              const SizedBox(height: AppSpacing.x2),
-              const AppText('New to Emergencyhr?', tone: AppTextTone.secondary),
-              const SizedBox(height: AppSpacing.x1),
-              AppButton.secondary(
-                title: 'Create an account',
-                icon: Icons.person_add_alt_outlined,
-                onPressed: model.createAccount,
+              Padding(
+                padding: const EdgeInsets.only(top: AppSpacing.x1),
+                child: AppCard(
+                  child: Row(
+                    children: [
+                      const Expanded(
+                        child: AppText.small(
+                          SignInViewModel.newHere,
+                          tone: AppTextTone.secondary,
+                        ),
+                      ),
+                      AppButton.secondary(
+                        title: 'Create an account',
+                        size: AppButtonSize.small,
+                        expand: false,
+                        onPressed: model.createAccount,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              AppButton.dangerOutline(
+                title: 'Emergency, no account needed',
+                size: AppButtonSize.medium,
+                onPressed: model.startEmergency,
               ),
             ],
           ),

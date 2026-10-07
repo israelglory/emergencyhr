@@ -4,7 +4,6 @@ import 'package:stacked/stacked.dart';
 import '../../../core/cores.dart';
 import '../../../data/api/admin_api.dart';
 import '../../../data/models/pilot_areas.dart';
-import '../components/option_picker_sheet.dart';
 
 typedef JoinItem = ({
   int id,
@@ -12,6 +11,7 @@ typedef JoinItem = ({
   String detail,
   String? message,
   String status,
+  StatusTone tone,
   bool open,
   JoinRequest request,
 });
@@ -46,7 +46,8 @@ class JoinsViewModel extends BaseViewModel {
           id: r.id!,
           title: r.hospitalName,
           detail:
-              '${r.contactName} · ${Formatters.phone(r.phone)} · ${r.area} · '
+              '${r.contactName} · ${Formatters.maskedPhone(r.phone)} · '
+              '${r.area} · '
               '${Formatters.ago(r.createdAt, now)}',
           message: r.message,
           status: switch (r.status) {
@@ -54,6 +55,11 @@ class JoinsViewModel extends BaseViewModel {
             JoinRequestStatus.contacted => 'Contacted',
             JoinRequestStatus.converted => 'Converted',
             JoinRequestStatus.closed => 'Closed',
+          },
+          tone: switch (r.status) {
+            JoinRequestStatus.received => StatusTone.warning,
+            JoinRequestStatus.converted => StatusTone.positive,
+            _ => StatusTone.neutral,
           },
           open:
               r.status == JoinRequestStatus.received ||

@@ -13,9 +13,18 @@ class ProfileView extends StatelessWidget {
       viewModelBuilder: ProfileViewModel.new,
       onViewModelReady: (model) => model.onReady(),
       builder: (context, model, _) {
+        final p = context.palette;
+        final appBar = AppBar(
+          automaticallyImplyLeading: false,
+          titleSpacing: AppSpacing.screen,
+          title: Text(
+            'Profile',
+            style: AppTypography.heading.copyWith(fontSize: 22, color: p.text),
+          ),
+        );
         if (!model.isSignedIn) {
           return AppPage(
-            title: 'Profile',
+            appBar: appBar,
             scrollable: false,
             body: EmptyState(
               icon: Icons.person_outline,
@@ -27,43 +36,69 @@ class ProfileView extends StatelessWidget {
           );
         }
         if (model.isLoading) {
-          return const AppPage(
-            title: 'Profile',
+          return AppPage(
+            appBar: appBar,
             scrollable: false,
-            body: LoadingState(label: 'Loading your profile'),
+            body: const LoadingState(label: 'Loading your profile'),
           );
         }
         return AppPage(
-          title: 'Profile',
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          appBar: appBar,
+          body: SectionColumn(
+            gap: 22,
             children: [
-              const SectionHeader('Account'),
               AppCard(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                child: SectionColumn(
+                  gap: AppSpacing.x2,
                   children: [
-                    KeyValueRow(label: 'Email', value: model.emailLabel),
-                    const SizedBox(height: AppSpacing.x2),
+                    Row(
+                      children: [
+                        Container(
+                          width: 48,
+                          height: 48,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: p.disabledBg,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Text(
+                            model.initials,
+                            style: AppTypography.bodyStrong.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: p.textStrong,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: AppSpacing.small),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AppText.subtitle(model.displayName),
+                              AppText.caption(model.emailLabel),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                     AppTextField(
                       label: 'Your name',
-                      hintText: 'Used in family alerts',
+                      helperText: ProfileViewModel.nameHint,
                       controller: model.nameController,
                       textCapitalization: TextCapitalization.words,
                       autofillHints: const [AutofillHints.name],
                       errorText: model.nameError,
                       onChanged: model.onNameChanged,
                     ),
-                    const SizedBox(height: AppSpacing.x2),
                     AppButton.secondary(
                       title: 'Save name',
+                      size: AppButtonSize.medium,
                       loading: model.isSavingName,
                       onPressed: model.saveName,
                     ),
-                    const SizedBox(height: AppSpacing.x3),
                     AppTextField(
-                      label: 'Phone number',
-                      hintText: '0803 123 4567',
+                      label: 'Phone number (optional)',
+                      hintText: '0803 000 0000',
                       helperText: ProfileViewModel.phoneHint,
                       controller: model.phoneController,
                       keyboardType: TextInputType.phone,
@@ -71,94 +106,124 @@ class ProfileView extends StatelessWidget {
                       errorText: model.phoneError,
                       onChanged: model.onPhoneChanged,
                     ),
-                    const SizedBox(height: AppSpacing.x2),
                     AppButton.secondary(
                       title: 'Save phone number',
+                      size: AppButtonSize.medium,
                       loading: model.isSavingPhone,
                       onPressed: model.savePhone,
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: AppSpacing.x3),
-              SectionHeader(
-                'Emergency contacts',
+              _Group(
+                title: 'Emergency contacts',
                 subtitle: model.contactsSubtitle,
-              ),
-              for (final row in model.contacts)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: AppSpacing.x1),
-                  child: AppCard(
-                    onTap: () => model.editContact(row.contact),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.x2,
-                      vertical: AppSpacing.x1,
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              AppText.subtitle(row.name),
-                              AppText.caption(row.detail, numeric: true),
-                            ],
-                          ),
-                        ),
-                        IconButton(
-                          tooltip: 'Remove ${row.name}',
+                child: AppListCard(
+                  children: [
+                    for (final row in model.contacts)
+                      AppListRow(
+                        title: row.name,
+                        subtitle: row.detail,
+                        onTap: () => model.editContact(row.contact),
+                        trailing: IconButton(
+                          tooltip: 'Delete ${row.name}',
+                          color: p.textSecondary,
                           icon: const Icon(Icons.delete_outline),
                           onPressed: () => model.deleteContact(row.contact),
                         ),
-                      ],
-                    ),
+                      ),
+                    if (model.canAddContact)
+                      AppListRow(
+                        leading: Icon(Icons.add, size: 20, color: p.text),
+                        title: 'Add contact',
+                        showChevron: false,
+                        onTap: model.addContact,
+                      ),
+                  ],
+                ),
+              ),
+              AppListCard(
+                children: [
+                  AppListRow(
+                    leading: const IconTile(Icons.health_and_safety_outlined),
+                    title: 'Medical details',
+                    subtitle:
+                        'Blood group, allergies, conditions, medicines. '
+                        'Optional. Saved only with your consent.',
+                    onTap: model.openMedical,
                   ),
-                ),
-              if (model.canAddContact)
-                AppButton.secondary(
-                  title: 'Add contact',
-                  icon: Icons.person_add_alt_outlined,
-                  onPressed: model.addContact,
-                ),
-              const SizedBox(height: AppSpacing.x3),
-              const SectionHeader('Medical details'),
-              ChoiceTile(
-                title: 'Blood group, allergies, conditions, medicines',
-                subtitle: 'Optional. Saved only with your consent.',
-                icon: Icons.health_and_safety_outlined,
-                onTap: model.openMedical,
+                ],
               ),
-              const SizedBox(height: AppSpacing.x3),
-              const SectionHeader('Roles'),
-              for (final role in model.roleLabels)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: AppSpacing.x1),
-                  child: AppText(role),
+              _Group(
+                title: 'Roles',
+                child: Wrap(
+                  spacing: 6,
+                  runSpacing: 6,
+                  children: [
+                    for (final role in model.roleLabels)
+                      StatusBadge(
+                        label: role,
+                        tone: StatusTone.neutral,
+                        dot: false,
+                      ),
+                  ],
                 ),
-              const SizedBox(height: AppSpacing.x3),
-              const SectionHeader('Your data'),
-              AppButton.secondary(
-                title: 'Export my data',
-                icon: Icons.download_outlined,
-                loading: model.isExporting,
-                onPressed: model.exportData,
               ),
-              const SizedBox(height: AppSpacing.x1),
-              AppButton.secondary(
-                title: 'Sign out',
-                icon: Icons.logout,
-                onPressed: model.signOut,
-              ),
-              const SizedBox(height: AppSpacing.x1),
-              AppButton.text(
-                title: 'Delete my account',
-                icon: Icons.delete_forever_outlined,
-                onPressed: model.deleteAccount,
+              _Group(
+                title: 'Your data',
+                child: AppListCard(
+                  children: [
+                    AppListRow(
+                      title: 'Export my data',
+                      strongTitle: false,
+                      trailing: model.isExporting
+                          ? const AppLoader(size: 18)
+                          : null,
+                      showChevron: !model.isExporting,
+                      onTap: model.exportData,
+                    ),
+                    AppListRow(
+                      title: 'Sign out',
+                      strongTitle: false,
+                      onTap: model.signOut,
+                    ),
+                    AppListRow(
+                      title: 'Delete my account',
+                      titleTone: AppTextTone.critical,
+                      showChevron: false,
+                      onTap: model.deleteAccount,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
         );
       },
+    );
+  }
+}
+
+class _Group extends StatelessWidget {
+  const _Group({required this.title, required this.child, this.subtitle});
+
+  final String title;
+  final String? subtitle;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Semantics(header: true, child: AppText.caps(title)),
+        if (subtitle != null) ...[
+          const SizedBox(height: AppSpacing.x1),
+          AppText.caption(subtitle!),
+        ],
+        const SizedBox(height: AppSpacing.x1),
+        child,
+      ],
     );
   }
 }

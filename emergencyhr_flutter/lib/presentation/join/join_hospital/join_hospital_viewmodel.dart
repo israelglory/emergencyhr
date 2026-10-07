@@ -30,7 +30,8 @@ class JoinHospitalViewModel extends BaseViewModel {
   List<FacilitySearchResult> _results = const [];
   bool _searched = false;
 
-  static const title = 'Join Emergencyhr';
+  static const title = 'For hospitals';
+  static const heading = 'Join Emergencyhr';
   static const intro =
       'Hospitals on Emergencyhr publish whether they can take emergencies '
       'right now. Start by finding your hospital. It may already be listed.';

@@ -8,5 +8,6 @@ export 'launcher_service.dart';
 export 'location_service.dart';
 export 'navigation_service.dart';
 export 'phone_call_service.dart';
+export 'public_tabs_service.dart';
 export 'session_service.dart';
 export 'snackbar_service.dart';

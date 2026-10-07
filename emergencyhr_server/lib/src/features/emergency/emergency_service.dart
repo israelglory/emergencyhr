@@ -182,6 +182,45 @@ class EmergencyService {
     );
   }
 
+  /// Changes the type filter, the place, or both, for an open session and
+  /// re-ranks. Hospitals shown earlier stay on the session so actions and
+  /// reports on them remain valid.
+  Future<EmergencySearch> updateSearch(
+    Session session,
+    EmergencySession row,
+    String accessToken, {
+    required EmergencyType type,
+    ({double lat, double lng, String? area})? place,
+  }) async {
+    final lat = place?.lat ?? row.lat;
+    final lng = place?.lng ?? row.lng;
+    final ranked = await rankNear(session, lat: lat, lng: lng, type: type);
+    final shown = {
+      ...row.resultsShown,
+      for (final r in ranked.results) r.facilityId,
+    };
+    await EmergencySession.db.updateRow(
+      session,
+      row.copyWith(
+        emergencyType: type,
+        lat: lat,
+        lng: lng,
+        area: place == null ? row.area : place.area,
+        resultsShown: shown.toList(),
+        emptyResult: Ranking.noAccepting(ranked.results),
+      ),
+    );
+    return EmergencySearch(
+      sessionId: row.id!,
+      accessToken: accessToken,
+      emergencyType: type,
+      radiusKm: ranked.radiusKm,
+      results: ranked.results,
+      showCall112: Ranking.noAccepting(ranked.results),
+      computedAt: clock.now(),
+    );
+  }
+
   /// Records the first action; later actions update the action only, so
   /// time-to-action stays the time to the first call or directions.
   Future<void> recordAction(

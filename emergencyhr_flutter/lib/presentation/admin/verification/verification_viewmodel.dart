@@ -7,13 +7,14 @@ import 'package:stacked/stacked.dart';
 import '../../../core/cores.dart';
 import '../../../data/api/admin_api.dart';
 
-typedef DocRow = ({int id, String name});
+typedef DocRow = ({int id, String name, bool image});
 typedef VerificationRow = ({
   int facilityId,
   String name,
   String detail,
   String submitted,
   String? notes,
+  String checklistTitle,
   List<ChecklistLine> checklist,
   List<DocRow> documents,
 });
@@ -39,6 +40,8 @@ class VerificationViewModel extends BaseViewModel {
   bool get isLoading => isBusy && _items.isEmpty;
   String? get errorMessage => modelError?.toString();
   bool get isEmpty => !isBusy && !hasError && _items.isEmpty;
+  String get subtitle =>
+      '${Formatters.count(_items.length, 'hospital')} waiting';
 
   List<VerificationRow> get rows {
     final now = DateTime.now().toUtc();
@@ -47,17 +50,30 @@ class VerificationViewModel extends BaseViewModel {
         (
           facilityId: i.facility.id,
           name: i.facility.name,
-          detail: '${i.address} · ${i.facility.area}',
+          detail: '${i.address}, ${i.facility.area}',
           submitted: i.submittedAt == null
               ? 'Submitted'
               : 'Submitted ${Formatters.ago(i.submittedAt!, now)}'
                     '${i.submittedByName == null ? '' : ' by ${i.submittedByName}'}',
-          notes: i.notes,
+          notes: i.notes == null || i.notes!.trim().isEmpty
+              ? null
+              : 'Notes: ${i.notes!.trim()}',
+          checklistTitle:
+              'Checklist ${i.checklist.items.where((c) => c.done).length} of '
+              '${i.checklist.items.length}',
           checklist: [
             for (final c in i.checklist.items) (label: c.label, done: c.done),
           ],
           documents: [
-            for (final d in i.documents) (id: d.id!, name: d.fileName),
+            for (final d in i.documents)
+              (
+                id: d.id!,
+                name: d.fileName,
+                image: RegExp(
+                  r'\.(jpe?g|png|webp|heic)$',
+                  caseSensitive: false,
+                ).hasMatch(d.fileName),
+              ),
           ],
         ),
     ];
@@ -101,9 +117,7 @@ class VerificationViewModel extends BaseViewModel {
   Future<void> approve(int facilityId, String name) async {
     final ok = await _dialogs.confirm(
       title: 'Approve $name?',
-      message:
-          'It will go live automatically once the rest of the checklist is '
-          'complete.',
+      message: 'It goes live as soon as the go-live checklist is complete.',
       confirmLabel: 'Approve',
     );
     if (!ok) return;

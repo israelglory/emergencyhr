@@ -12,45 +12,52 @@ class MetricsView extends StatelessWidget {
     return ViewModelBuilder<MetricsViewModel>.reactive(
       viewModelBuilder: MetricsViewModel.new,
       onViewModelReady: (model) => model.load(),
-      builder: (context, model, _) => switch (model.state) {
-        ViewState.loading => const LoadingState(),
-        ViewState.error => ErrorState(
-          message: model.errorMessage!,
-          onRetry: model.load,
-        ),
-        ViewState.empty => const EmptyState(title: 'No metrics yet'),
-        ViewState.ready => ShellPageFrame(
-          child: ListView(
-            padding: const EdgeInsets.all(AppSpacing.x2),
-            children: [
-              AppText.caption(model.period),
-              const SizedBox(height: AppSpacing.x2),
-              Wrap(
-                spacing: AppSpacing.x2,
-                runSpacing: AppSpacing.x2,
-                children: [
-                  for (final t in model.tiles)
-                    SizedBox(
-                      width: 280,
-                      child: AppCard(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AppText.label(t.label, tone: AppTextTone.secondary),
-                            const SizedBox(height: AppSpacing.x1),
-                            AppText.display(t.value, numeric: true),
-                            const SizedBox(height: AppSpacing.x1),
-                            AppText.caption(t.note),
-                          ],
-                        ),
+      builder: (context, model, _) => WebPageState(
+        isLoading: model.state == ViewState.loading,
+        error: model.state == ViewState.error ? model.errorMessage : null,
+        onRetry: model.load,
+        child: WebPage(
+          title: 'Metrics',
+          subtitle: model.period,
+          onRefresh: model.load,
+          children: [
+            Wrap(
+              spacing: AppSpacing.x2,
+              runSpacing: AppSpacing.x2,
+              children: [
+                for (final t in model.tiles)
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      minWidth: 240,
+                      maxWidth: 360,
+                    ),
+                    child: AppCard(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AppText.caption(t.label, fontWeight: FontWeight.w600),
+                          const SizedBox(height: AppSpacing.x1),
+                          Text(
+                            t.value,
+                            style: AppTypography.heading.copyWith(
+                              fontSize: 34,
+                              height: 40 / 34,
+                              letterSpacing: -0.6,
+                              color: context.palette.text,
+                            ),
+                          ),
+                          const SizedBox(height: AppSpacing.x1),
+                          StatusBadge(label: t.note, tone: t.tone, dot: false),
+                        ],
                       ),
                     ),
-                ],
-              ),
-            ],
-          ),
+                  ),
+              ],
+            ),
+          ],
         ),
-      },
+      ),
     );
   }
 }

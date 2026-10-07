@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../constants/dimens.dart';
+import '../theme/app_palette.dart';
+import '../theme/theme.dart';
 import 'app_text.dart';
 
-/// Labelled text input. The label sits above the field so it stays readable
-/// at 200% text size.
+/// Labelled text input: 14/600 label, 48 high field with a 12 radius, hint
+/// or error underneath.
 class AppTextField extends StatelessWidget {
   const AppTextField({
     super.key,
@@ -34,6 +35,7 @@ class AppTextField extends StatelessWidget {
     this.textCapitalization = TextCapitalization.none,
     this.textAlign = TextAlign.start,
     this.large = false,
+    this.rounded = false,
     this.semanticsLabel,
   });
 
@@ -62,20 +64,28 @@ class AppTextField extends StatelessWidget {
   final TextCapitalization textCapitalization;
   final TextAlign textAlign;
 
-  /// Bigger text, for codes and phone numbers.
+  /// 20 / 600 with letter spacing 4, for codes.
   final bool large;
+
+  /// Pill shape, 44 high, e.g. the Health Assistant composer.
+  final bool rounded;
   final String? semanticsLabel;
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final p = context.palette;
+    final multiline = (maxLines ?? 2) > 1 && !rounded;
+    OutlineInputBorder pill(Color c, [double w = 1]) => OutlineInputBorder(
+      borderRadius: BorderRadius.circular(22),
+      borderSide: BorderSide(color: c, width: w),
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
         if (label != null) ...[
           AppText.label(label!),
-          const SizedBox(height: AppSpacing.x1),
+          const SizedBox(height: 6),
         ],
         TextField(
           controller: controller,
@@ -88,7 +98,7 @@ class AppTextField extends StatelessWidget {
           onSubmitted: onSubmitted,
           onTap: onTap,
           maxLines: maxLines,
-          minLines: minLines,
+          minLines: minLines ?? (multiline ? 3 : null),
           maxLength: maxLength,
           enabled: enabled,
           readOnly: readOnly,
@@ -96,24 +106,37 @@ class AppTextField extends StatelessWidget {
           autofocus: autofocus,
           textCapitalization: textCapitalization,
           textAlign: textAlign,
+          cursorColor: p.primary,
           style: large
-              ? textTheme.headlineSmall?.copyWith(
-                  fontFeatures: const [FontFeature.tabularFigures()],
-                  letterSpacing: 2,
+              ? AppTypography.title.copyWith(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 4,
+                  color: p.text,
                 )
-              : textTheme.bodyLarge,
+              : AppTypography.body.copyWith(color: p.text),
           decoration: InputDecoration(
             hintText: hintText,
-            helperText: helperText,
             errorText: errorText,
             errorMaxLines: 3,
-            helperMaxLines: 3,
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
             counterText: '',
             semanticCounterText: '',
+            contentPadding: rounded
+                ? const EdgeInsets.symmetric(horizontal: 16, vertical: 11)
+                : multiline
+                ? const EdgeInsets.symmetric(horizontal: 14, vertical: 12)
+                : null,
+            enabledBorder: rounded ? pill(p.inputBorder) : null,
+            focusedBorder: rounded ? pill(p.primary, 1.5) : null,
+            border: rounded ? pill(p.inputBorder) : null,
           ),
         ),
+        if (helperText != null && errorText == null) ...[
+          const SizedBox(height: 6),
+          AppText.caption(helperText!),
+        ],
       ],
     );
   }

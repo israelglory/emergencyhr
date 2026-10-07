@@ -210,12 +210,8 @@ class AssistantViewModel extends ReactiveViewModel {
     unawaited(loadConversations());
   }
 
-  /// Opens the Emergency flow with the type already chosen.
-  void findCare(EmergencyType type) {
-    _emergency.begin(_location.current());
-    _emergency.setType(type);
-    _navigation.pushNamed<void>(AppRoutes.emergency, args: type);
-  }
+  /// Opens Hospitals near you for all types, like the Emergency button.
+  void findCare() => startEmergency();
 
   void startEmergency() {
     _emergency.begin(_location.current());
