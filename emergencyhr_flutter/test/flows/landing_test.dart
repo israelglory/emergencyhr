@@ -90,10 +90,10 @@ void main() {
       300,
       scrollable: find.byType(Scrollable).first,
     );
-    expect(find.text('Using Emergencyhr is free.'), findsNothing);
+    expect(find.text('Using EmergencyHr is free.'), findsNothing);
     await tester.tap(find.text(question));
     await tester.pumpAndSettle();
-    expect(find.text('Using Emergencyhr is free.'), findsOneWidget);
+    expect(find.text('Using EmergencyHr is free.'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 
@@ -104,11 +104,31 @@ void main() {
       await open(tester, size: Size(width, 900));
       final scrollable = find.byType(Scrollable).first;
       await tester.scrollUntilVisible(
-        find.text('© 2026 Emergencyhr'),
+        find.text('© 2026 EmergencyHr'),
         400,
         scrollable: scrollable,
       );
       expect(tester.takeException(), isNull);
     });
   }
+
+  testWidgets('Given a visitor in dark mode, then the landing page is light', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(1440, 1000);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    await setUpTestLocator();
+    await tester.pumpWidget(
+      testApp(initialRoute: AppRoutes.landing, brightness: Brightness.dark),
+    );
+    await tester.pumpAndSettle();
+    final scaffold = tester.widget<Scaffold>(
+      find.descendant(
+        of: find.byType(LandingView),
+        matching: find.byType(Scaffold),
+      ),
+    );
+    expect(scaffold.backgroundColor, AppColors.background);
+  });
 }

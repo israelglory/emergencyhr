@@ -3,7 +3,7 @@
 <plist version="1.0">
 	<dict>
 		<key>NSLocationWhenInUseUsageDescription</key>
-		<string>Emergencyhr uses your location once to find hospitals near you that can receive a patient now.</string>
+		<string>EmergencyHr uses your location once to find hospitals near you that can receive a patient now.</string>
 		<key>NSCameraUsageDescription</key>
 		<string>Take a photo of the hospital registration document during onboarding.</string>
 		<key>NSPhotoLibraryUsageDescription</key>
@@ -19,7 +19,7 @@
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
-		<string>Emergencyhr Flutter</string>
+		<string>EmergencyHr</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>

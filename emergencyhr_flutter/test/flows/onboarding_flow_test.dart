@@ -55,7 +55,7 @@ void main() {
 
     await tester.tap(find.widgetWithText(AppButton, 'Get started'));
     await tester.pumpAndSettle();
-    expect(find.text('Welcome to Emergencyhr'), findsOneWidget);
+    expect(find.text('Welcome to EmergencyHr'), findsOneWidget);
   });
 
   testWidgets('Given the intro, when Skip intro is tapped, then Welcome '
@@ -63,7 +63,7 @@ void main() {
     final s = await openIntro(tester);
     await tester.tap(find.text('Skip intro'));
     await tester.pumpAndSettle();
-    expect(find.text('Welcome to Emergencyhr'), findsOneWidget);
+    expect(find.text('Welcome to EmergencyHr'), findsOneWidget);
     verify(() => s.intro.markIntroSeen()).called(1);
   });
 
@@ -129,7 +129,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Skip intro'));
     await tester.pumpAndSettle();
-    expect(find.text('Welcome to Emergencyhr'), findsOneWidget);
+    expect(find.text('Welcome to EmergencyHr'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 }

@@ -31,9 +31,9 @@ class JoinHospitalViewModel extends BaseViewModel {
   bool _searched = false;
 
   static const title = 'For hospitals';
-  static const heading = 'Join Emergencyhr';
+  static const heading = 'Join EmergencyHr';
   static const intro =
-      'Hospitals on Emergencyhr publish whether they can take emergencies '
+      'Hospitals on EmergencyHr publish whether they can take emergencies '
       'right now. Start by finding your hospital. It may already be listed.';
 
   bool get showResults => _searched;

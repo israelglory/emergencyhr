@@ -453,7 +453,7 @@ class OnboardingService {
     }
     final missing = checklist.items.where((i) => !i.done).map((i) => i.label);
     final message =
-        'Emergencyhr: ${facility.name} no longer meets the go-live checklist '
+        'EmergencyHr: ${facility.name} no longer meets the go-live checklist '
         '(${missing.join('; ')}). Please fix this so your status stays visible.';
     final admins = await RoleAssignment.db.find(
       session,

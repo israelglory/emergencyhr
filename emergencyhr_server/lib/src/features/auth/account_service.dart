@@ -3,13 +3,15 @@ import 'package:serverpod/serverpod.dart';
 import '../../core/clock.dart';
 import '../../core/errors.dart';
 import '../../generated/protocol.dart';
+import '../admin/admin_bootstrap.dart';
 
 /// Account lookups and the signed-in user's role context.
 class AccountService {
   const AccountService();
 
   /// Called by the email sign-in provider when a new email account is
-  /// created: creates the matching [AppUser] with the public role.
+  /// created: creates the matching [AppUser] with the public role, plus
+  /// platform admin when the email is in `adminEmails`.
   static Future<void> onEmailAccountCreated(
     Session session, {
     required String email,
@@ -17,12 +19,13 @@ class AccountService {
     required UuidValue emailAccountId,
     required Transaction? transaction,
   }) async {
-    await const AccountService().ensureFor(
+    final user = await const AccountService().ensureFor(
       session,
       authUserId: authUserId,
       email: email,
       transaction: transaction,
     );
+    await AdminBootstrap.grantIfListed(session, user, transaction: transaction);
   }
 
   /// Finds the account for an auth user, creating it if missing.

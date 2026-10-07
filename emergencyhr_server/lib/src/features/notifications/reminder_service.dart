@@ -73,7 +73,7 @@ class ReminderService {
           kind: 'stale_reminder',
           facilityId: f.id,
           message:
-              'Emergencyhr: the status for ${f.name} $age. Open the app and '
+              'EmergencyHr: the status for ${f.name} $age. Open the app and '
               'tap Still accurate, or reply C to confirm, A for accepting, '
               'P for paused.',
         );
@@ -110,7 +110,7 @@ class ReminderService {
         kind: 'quiet_newcomer',
         facilityId: row.facility.id,
         message:
-            'Emergencyhr: ${row.facility.name} went live recently but has not '
+            'EmergencyHr: ${row.facility.name} went live recently but has not '
             'updated its status for 48 hours. Please follow up with the desk.',
       );
       sent++;

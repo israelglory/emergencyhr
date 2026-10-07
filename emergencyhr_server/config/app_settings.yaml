@@ -35,13 +35,16 @@ test:
     doctorsV2: false
 
 staging:
+  # Accounts with these emails become platform admins (see AdminBootstrap).
+  adminEmails:
+    - iglory6@gmail.com
   # Replace with the staging web app URL.
   appBaseUrl: https://staging.emergencyhr.example
   # No SMS provider yet. Family alerts fall back to the phone's SMS app.
   smsAdapter: off
   whatsappAdapter: off
   aiAdapter: live
-  smsSenderId: Emergencyhr
+  smsSenderId: EmergencyHr
   aiProvider: gemini
   aiModel: gemini-2.5-flash
   aiFallbackModels:
@@ -52,13 +55,19 @@ staging:
     doctorsV2: false
 
 production:
-  # Replace with the production web app URL.
-  appBaseUrl: https://app.emergencyhr.example
+  # Accounts with these emails become platform admins (see AdminBootstrap).
+  adminEmails:
+    - iglory6@gmail.com
+  # Serverpod Cloud web address. Change when your own domain is attached.
+  appBaseUrl: https://emergencyhr.serverpod.space
+  # Serverpod Cloud uploads only the server folder, so read the first-aid
+  # cards from the web build's copy (identical; a test checks they match).
+  firstAidPath: web/app/assets/assets/first_aid
   # No SMS provider yet. Family alerts fall back to the phone's SMS app.
   smsAdapter: off
   whatsappAdapter: off
   aiAdapter: live
-  smsSenderId: Emergencyhr
+  smsSenderId: EmergencyHr
   aiProvider: gemini
   aiModel: gemini-2.5-flash
   aiFallbackModels:

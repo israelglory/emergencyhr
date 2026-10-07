@@ -20,7 +20,7 @@ class AppConfig {
     this.aiAdapter = AdapterKind.dev,
     this.aiProvider = AiProviderKind.gemini,
     this.aiFallbackModels = const [],
-    this.smsSenderId = 'Emergencyhr',
+    this.smsSenderId = 'EmergencyHr',
     this.aiModel = 'gemini-2.5-flash',
     this.aiEffort = 'low',
     this.urbanSpeedKmh = 20,
@@ -29,6 +29,7 @@ class AppConfig {
     this.logOtpCodes = false,
     this.appBaseUrl = 'http://localhost:9998',
     this.firstAidPath = '../content/first_aid',
+    this.adminEmails = const [],
   });
 
   final AdapterKind smsAdapter;
@@ -59,6 +60,10 @@ class AppConfig {
   /// Prints OTP codes to the server log. Only ever true in development.
   final bool logOtpCodes;
 
+  /// Accounts with these emails (lower case) are made platform admins, so
+  /// a new server has its first admin. See `AdminBootstrap`.
+  final List<String> adminEmails;
+
   /// The active config. Replaced at startup and in tests.
   static AppConfig instance = AppConfig();
 
@@ -84,7 +89,7 @@ class AppConfig {
       smsAdapter: adapter('smsAdapter'),
       whatsappAdapter: adapter('whatsappAdapter'),
       aiAdapter: adapter('aiAdapter'),
-      smsSenderId: section['smsSenderId']?.toString() ?? 'Emergencyhr',
+      smsSenderId: section['smsSenderId']?.toString() ?? 'EmergencyHr',
       aiProvider: section['aiProvider'] == 'anthropic'
           ? AiProviderKind.anthropic
           : AiProviderKind.gemini,
@@ -101,6 +106,10 @@ class AppConfig {
       appBaseUrl: section['appBaseUrl']?.toString() ?? 'http://localhost:9998',
       firstAidPath:
           section['firstAidPath']?.toString() ?? '../content/first_aid',
+      adminEmails: [
+        for (final e in (section['adminEmails'] as YamlList?) ?? const [])
+          e.toString().trim().toLowerCase(),
+      ],
     );
   }
 }

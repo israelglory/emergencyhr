@@ -37,7 +37,7 @@ class FamilyAlertService {
         ? 'is getting emergency help'
         : 'is heading to $hospital';
     return '$name may be having a medical emergency and $where. '
-        'Location: ${mapsLink(lat, lng)}. Sent via Emergencyhr.';
+        'Location: ${mapsLink(lat, lng)}. Sent via EmergencyHr.';
   }
 
   Future<FamilyAlertResult> notify(

@@ -29,7 +29,7 @@ class AgentFormViewModel extends BaseViewModel {
 
   bool get isNew => userId == null;
   static const addExplainer =
-      'They need an Emergencyhr account first. Ask them to create one, then '
+      'They need an EmergencyHr account first. Ask them to create one, then '
       'enter its email here.';
   String get title => isNew ? 'Add field agent' : 'Agent areas';
 

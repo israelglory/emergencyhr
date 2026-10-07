@@ -41,7 +41,7 @@ void main() {
           'Seed Hospital 01, Ikeja. Location: https://www.google.com/maps',
         ),
       );
-      expect(text, endsWith('Sent via Emergencyhr.'));
+      expect(text, endsWith('Sent via EmergencyHr.'));
     });
   });
 

@@ -32,7 +32,7 @@ class MedicalProfileViewModel extends BaseViewModel {
 
   static const title = 'Medical details';
   static const consentText =
-      'I agree that Emergencyhr stores these health details, encrypted. I can '
+      'I agree that EmergencyHr stores these health details, encrypted. I can '
       'delete them at any time.';
   static const explainer =
       'Optional. These details are not shared with hospitals or family '
@@ -95,7 +95,7 @@ class MedicalProfileViewModel extends BaseViewModel {
   Future<void> delete() async {
     final ok = await _dialogs.confirm(
       title: 'Delete medical details?',
-      message: 'This removes them from Emergencyhr permanently.',
+      message: 'This removes them from EmergencyHr permanently.',
       confirmLabel: 'Delete',
       destructive: true,
     );

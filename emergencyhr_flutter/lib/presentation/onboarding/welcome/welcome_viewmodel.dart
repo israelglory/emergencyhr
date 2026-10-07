@@ -24,7 +24,7 @@ class WelcomeViewModel extends BaseViewModel {
       _emergencyOverride ?? emergencySession;
   LocationService get _location => _locationOverride ?? locationService;
 
-  static const title = 'Welcome to Emergencyhr';
+  static const title = 'Welcome to EmergencyHr';
   static const subtitle = 'An account lets you do more when it matters.';
   static const benefits = [
     'Alert up to three family members in one tap',

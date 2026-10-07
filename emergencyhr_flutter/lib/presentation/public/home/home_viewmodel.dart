@@ -37,12 +37,12 @@ class HomeViewModel extends ReactiveViewModel {
   @override
   List<ListenableServiceMixin> get listenableServices => [_session];
 
-  static const appName = 'Emergencyhr';
+  static const appName = 'EmergencyHr';
   static const disclaimer =
-      'Emergencyhr is an information and navigation service, not a medical '
+      'EmergencyHr is an information and navigation service, not a medical '
       'provider. If in doubt, call 112.';
   static const joinPrompt = 'Work at a hospital? ';
-  static const joinLink = 'Join Emergencyhr';
+  static const joinLink = 'Join EmergencyHr';
 
   String? _areaName;
 

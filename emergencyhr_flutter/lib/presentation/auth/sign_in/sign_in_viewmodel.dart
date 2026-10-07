@@ -39,9 +39,9 @@ class SignInViewModel extends BaseViewModel {
   bool _hidePassword = true;
 
   static const title = 'Sign in';
-  static const heading = 'Sign in to Emergencyhr';
+  static const heading = 'Sign in to EmergencyHr';
   static const explainer = 'You do not need an account to use Emergency.';
-  static const newHere = 'New to Emergencyhr?';
+  static const newHere = 'New to EmergencyHr?';
 
   String? errorFor(String field) => _errors[field];
   bool get hidePassword => _hidePassword;

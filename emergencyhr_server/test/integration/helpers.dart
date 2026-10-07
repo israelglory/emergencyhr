@@ -17,7 +17,7 @@ void setUpAuthServices() {
       tokenManagerBuilders: [JwtConfigFromPasswords()],
       identityProviderBuilders: [
         ServerpodCloudEmailIdpConfig(
-          appDisplayName: 'Emergencyhr',
+          appDisplayName: 'EmergencyHr',
           runMode: 'test',
           onAfterAccountCreated: AccountService.onEmailAccountCreated,
         ),

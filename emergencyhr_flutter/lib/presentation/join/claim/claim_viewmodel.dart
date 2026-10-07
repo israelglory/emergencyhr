@@ -41,7 +41,7 @@ class ClaimViewModel extends BaseViewModel {
   static const _uploadKey = 'upload';
   static const _codeKey = 'code';
 
-  static const title = 'Join Emergencyhr';
+  static const title = 'Join EmergencyHr';
   String get heading => 'Claim ${args?.name ?? 'this hospital'}';
   static const intro =
       'Prove you run this hospital to take over its listing. A platform '

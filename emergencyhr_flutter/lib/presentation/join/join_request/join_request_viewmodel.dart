@@ -27,7 +27,7 @@ class JoinRequestViewModel extends BaseViewModel {
   Map<String, String> _errors = {};
   bool _sent = false;
 
-  static const title = 'Join Emergencyhr';
+  static const title = 'Join EmergencyHr';
   static const heading = 'Request a visit';
   static const intro = 'A field agent will call you to set things up.';
   static const sentTitle = 'Request sent';

@@ -7,9 +7,9 @@ import '../../core/cores.dart';
 abstract final class LandingContent {
   // Placeholders to fill in before launch. Anything in square brackets is
   // shown as written and is not a link until it is replaced.
-  static const appStoreLink = '[App Store link]';
-  static const googlePlayLink = '[Google Play link]';
-  static const contactEmail = '[Contact email]';
+  static const appStoreLink = 'App Store';
+  static const googlePlayLink = 'Google Play';
+  static const contactEmail = 'gloryolaifa@gmail.com';
 
   /// No Privacy or Terms pages exist yet; set these to make them links.
   static const String? privacyUrl = null;
@@ -17,7 +17,7 @@ abstract final class LandingContent {
 
   static bool isPlaceholder(String value) => value.startsWith('[');
 
-  static const appName = 'Emergencyhr';
+  static const appName = 'EmergencyHr';
   static const navLinks = [
     ('How it works', LandingSection.how),
     ('For hospitals', LandingSection.hospitals),
@@ -29,7 +29,7 @@ abstract final class LandingContent {
   static const pilotBadge = 'Now in pilot across Lagos';
   static const heroTitle = 'When every minute matters, know where to go.';
   static const heroBody =
-      'Emergencyhr shows hospitals near you that can take the patient right '
+      'EmergencyHr shows hospitals near you that can take the patient right '
       'now: free beds, a doctor on duty, and how recently the hospital itself '
       'confirmed it.';
   static const heroEmergency = 'Emergency: find a hospital now';
@@ -168,11 +168,11 @@ abstract final class LandingContent {
           'is not recent.',
     ),
     (
-      'Is Emergencyhr a medical service?',
-      'No. Emergencyhr is an information and navigation service, not a '
+      'Is EmergencyHr a medical service?',
+      'No. EmergencyHr is an information and navigation service, not a '
           'medical provider. If in doubt, call 112.',
     ),
-    ('What does it cost?', 'Using Emergencyhr is free.'),
+    ('What does it cost?', 'Using EmergencyHr is free.'),
     (
       'What happens to my health details?',
       'Medical details are optional, stored encrypted only with your '
@@ -189,9 +189,9 @@ abstract final class LandingContent {
 
   // Footer
   static const disclaimer =
-      'Emergencyhr is an information and navigation service, not a medical '
+      'EmergencyHr is an information and navigation service, not a medical '
       'provider. If in doubt, call 112.';
-  static const copyright = '© 2026 Emergencyhr';
+  static const copyright = '© 2026 EmergencyHr';
 }
 
 /// Page anchors: `#how`, `#hospitals`, `#areas`, `#faq`, `#app`.

@@ -97,7 +97,7 @@ void main() {
           );
           expect(result.results.single.sentVia, ContactChannel.sms);
           expect(sms.messages.last.to, '+2348036662001');
-          expect(sms.messages.last.message, contains('Sent via Emergencyhr.'));
+          expect(sms.messages.last.message, contains('Sent via EmergencyHr.'));
         },
       );
 

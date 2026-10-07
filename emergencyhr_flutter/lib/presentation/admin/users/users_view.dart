@@ -14,7 +14,7 @@ class UsersView extends StatelessWidget {
       onViewModelReady: (model) => model.load(),
       builder: (context, model, _) => WebPage(
         title: 'Accounts',
-        subtitle: 'Everyone with an Emergencyhr account',
+        subtitle: 'Everyone with an EmergencyHr account',
         onRefresh: model.load,
         children: [
           ToolbarSearch(

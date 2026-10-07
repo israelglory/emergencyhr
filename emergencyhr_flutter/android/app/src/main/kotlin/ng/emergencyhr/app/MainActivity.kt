@@ -1,4 +1,4 @@
-package com.example.emergencyhr_flutter
+package ng.emergencyhr.app
 
 import io.flutter.embedding.android.FlutterActivity
 

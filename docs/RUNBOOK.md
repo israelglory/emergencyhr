@@ -68,6 +68,7 @@ both test suites (goldens excluded), and builds for Android, web and Linux.
 | `urbanSpeedKmh` | Average urban speed for travel time estimates. |
 | `appBaseUrl` | Public URL of the web app, used in invite links. |
 | `firstAidPath` | Folder with the first-aid cards. |
+| `adminEmails` | Accounts made platform admins (staging and production), so a new server has its first admin. Only adds the role. |
 | `features.whatsappQuickUpdate`, `features.doctorsV2` | Feature flags. |
 
 ### Secrets (`config/passwords.yaml` or `SERVERPOD_PASSWORD_<name>` env vars)

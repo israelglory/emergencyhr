@@ -1,11 +1,11 @@
 {
-    "name": "emergencyhr_flutter",
-    "short_name": "emergencyhr_flutter",
+    "name": "EmergencyHr",
+    "short_name": "EmergencyHr",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#D92D20",
     "theme_color": "#D92D20",
-    "description": "A new Flutter project.",
+    "description": "EmergencyHr shows hospitals near you that can take the patient right now: free beds, a doctor on duty, and how recently the hospital itself confirmed it.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

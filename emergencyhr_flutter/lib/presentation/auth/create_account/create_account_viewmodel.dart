@@ -159,7 +159,7 @@ class CreateAccountViewModel extends BaseViewModel {
       return;
     }
     await _api.updateName(name);
-    _snackbar.success(message: 'Welcome to Emergencyhr');
+    _snackbar.success(message: 'Welcome to EmergencyHr');
     await openAfterSignIn(
       session: _session,
       navigation: _navigation,

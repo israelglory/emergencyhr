@@ -188,4 +188,25 @@ pointed at `docs/design/...`; the files live in `design/` and
     design widths; the phone illustration scales down on very small
     screens. The landing page follows the device's light or dark setting
     like the rest of the app; the For hospitals band stays dark in both.
+48. **Name:** the product is spelled **EmergencyHr** in everything people
+    see (screens, texts and emails, the Health Assistant, permission
+    prompts, home-screen name, web title). Code names stay lower case
+    (`emergencyhr_flutter`, `emergencyhr_server`). The design files and older
+    docs still say "Emergencyhr".
+49. **App ID:** `ng.emergencyhr.app` on Android, iOS, macOS and Linux (iOS
+    tests: `ng.emergencyhr.app.RunnerTests`). Checked unused on Google Play
+    and the App Store on 7 October 2026. It cannot change after the first
+    store release.
+50. **First admin:** `adminEmails` in `config/app_settings.yaml` (staging
+    and production). The listed account gets the platform admin role at
+    server start or when it signs up, whichever comes later. Sign-up
+    confirms the email with a code, so only the inbox owner can get it.
+    The list only adds the role; removing an email does not take it away.
+51. **Serverpod Cloud** (project `emergencyhr`): the web app is at
+    https://emergencyhr.serverpod.space and the API at
+    https://emergencyhr.api.serverpod.space. Cloud uploads only the server
+    folder, so production reads first-aid cards from the web build's copy
+    (`web/app/assets/assets/first_aid`, rebuilt by the pre-deploy step in
+    `scloud.yaml`). Production secrets were generated fresh; a copy is in
+    the local `config/passwords.yaml` (never uploaded or committed).
 

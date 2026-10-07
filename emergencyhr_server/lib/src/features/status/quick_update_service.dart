@@ -13,7 +13,7 @@ class QuickUpdateService {
   final StatusService status;
 
   static const help =
-      'Emergencyhr quick update: reply A for accepting, P for paused, or C '
+      'EmergencyHr quick update: reply A for accepting, P for paused, or C '
       'to confirm your status is still accurate.';
 
   /// Returns the reply to send back.
@@ -41,7 +41,7 @@ class QuickUpdateService {
       where: (t) => t.phone.equals(phone),
     );
     if (user == null || user.suspendedAt != null) {
-      return 'This number is not registered as hospital staff on Emergencyhr.';
+      return 'This number is not registered as hospital staff on EmergencyHr.';
     }
     final roles = await RoleAssignment.db.find(
       session,
@@ -51,7 +51,7 @@ class QuickUpdateService {
     );
     final facilityIds = {for (final r in roles) ?r.facilityId};
     if (facilityIds.isEmpty) {
-      return 'This number is not registered as hospital staff on Emergencyhr.';
+      return 'This number is not registered as hospital staff on EmergencyHr.';
     }
     if (facilityIds.length > 1) {
       return 'You work at more than one hospital. Please update in the app.';

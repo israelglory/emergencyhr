@@ -79,7 +79,7 @@ class OtpService {
       session,
       to: phone,
       message:
-          '$code is your Emergencyhr code. It expires in 5 minutes. '
+          '$code is your EmergencyHr code. It expires in 5 minutes. '
           'Do not share it.',
     );
 

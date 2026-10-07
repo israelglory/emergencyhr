@@ -6,6 +6,7 @@ import 'package:serverpod_cloud_storage/serverpod_cloud_storage.dart';
 
 import 'src/cache_busting.dart';
 import 'src/core/app_config.dart';
+import 'src/features/admin/admin_bootstrap.dart';
 import 'src/features/admin/seed/seeder.dart';
 import 'src/features/auth/account_service.dart';
 import 'src/features/notifications/reminder_future_call.dart';
@@ -36,7 +37,7 @@ void run(List<String> args) async {
       // Self-hosted servers need EmailIdpConfigFromPasswords with their own
       // email sender (see docs/RUNBOOK.md).
       ServerpodCloudEmailIdpConfig(
-        appDisplayName: 'Emergencyhr',
+        appDisplayName: 'EmergencyHr',
         onAfterAccountCreated: AccountService.onEmailAccountCreated,
       ),
     ],
@@ -113,15 +114,39 @@ void run(List<String> args) async {
   // Start the server.
   await pod.start();
 
-  // Stale-status reminders and early-health alerts every 5 minutes. The
-  // identifier replaces any schedule left from a previous start, and the
-  // call itself is idempotent.
-  await pod.futureCalls.cancel(ReminderFutureCall.identifier);
-  await pod.futureCalls
-      .callRecurring(identifier: ReminderFutureCall.identifier)
-      .every(const Duration(minutes: 5))
-      .reminder
-      .run();
+  final startup = await pod.createSession();
+  try {
+    // Stale-status reminders and early-health alerts every 5 minutes. The
+    // identifier replaces any schedule left from a previous start, and the
+    // call itself is idempotent. Hosts that switch future calls off (such
+    // as a default Serverpod Cloud project) skip it instead of failing to
+    // start; the reminders only send SMS and WhatsApp anyway.
+    if (pod.config.futureCall.enabled) {
+      try {
+        await pod.futureCalls.cancel(ReminderFutureCall.identifier);
+        await pod.futureCalls
+            .callRecurring(identifier: ReminderFutureCall.identifier)
+            .every(const Duration(minutes: 5))
+            .reminder
+            .run();
+      } on StateError catch (e) {
+        startup.log(
+          'Reminders not scheduled: $e',
+          level: LogLevel.warning,
+        );
+      }
+    } else {
+      startup.log(
+        'Reminders not scheduled: future calls are disabled on this host.',
+        level: LogLevel.warning,
+      );
+    }
+
+    // First admin(s): accounts listed in adminEmails get the admin role.
+    await AdminBootstrap.run(startup);
+  } finally {
+    await startup.close();
+  }
 
   // Development only: load the fictional Lagos pilot data into an empty
   // database, and keep the seed status ages covering every freshness tier.

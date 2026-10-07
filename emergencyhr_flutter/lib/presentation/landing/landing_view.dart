@@ -10,7 +10,8 @@ import 'landing_viewmodel.dart';
 
 typedef _C = LandingContent;
 
-/// The web landing page at `/`. Phones and computers never see it.
+/// The web landing page at `/`. Phones and computers never see it. Always
+/// light, as in the design, whatever the visitor's dark mode setting.
 class LandingView extends StatelessWidget {
   const LandingView({super.key, this.initialSection});
 
@@ -18,66 +19,74 @@ class LandingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<LandingViewModel>.reactive(
-      viewModelBuilder: () => LandingViewModel(initialSection: initialSection),
-      onViewModelReady: (model) => model.onReady(),
-      builder: (context, model, _) {
-        final p = context.palette;
-        return Scaffold(
-          backgroundColor: p.background,
-          body: SingleChildScrollView(
-            controller: model.scrollController,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _Header(model: model),
-                _Hero(model: model),
-                const LandingFrame(
-                  top: 80,
-                  bottom: 40,
-                  child: _ProblemAnswer(),
-                ),
-                KeyedSubtree(
-                  key: model.sectionKeys[LandingSection.how],
-                  child: const LandingFrame(top: 64, bottom: 40, child: _How()),
-                ),
-                const LandingFrame(top: 64, bottom: 40, child: _Trust()),
-                const LandingFrame(top: 64, bottom: 40, child: _Features()),
-                const SizedBox(height: 64),
-                KeyedSubtree(
-                  key: model.sectionKeys[LandingSection.hospitals],
-                  child: _ForHospitals(model: model),
-                ),
-                KeyedSubtree(
-                  key: model.sectionKeys[LandingSection.areas],
-                  child: LandingFrame(
+    return Theme(
+      data: AppTheme.lightTheme,
+      child: ViewModelBuilder<LandingViewModel>.reactive(
+        viewModelBuilder: () =>
+            LandingViewModel(initialSection: initialSection),
+        onViewModelReady: (model) => model.onReady(),
+        builder: (context, model, _) {
+          final p = context.palette;
+          return Scaffold(
+            backgroundColor: p.background,
+            body: SingleChildScrollView(
+              controller: model.scrollController,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _Header(model: model),
+                  _Hero(model: model),
+                  const LandingFrame(
                     top: 80,
                     bottom: 40,
-                    child: _Areas(model: model),
+                    child: _ProblemAnswer(),
                   ),
-                ),
-                KeyedSubtree(
-                  key: model.sectionKeys[LandingSection.faq],
-                  child: LandingFrame(
-                    top: 64,
-                    bottom: 40,
-                    child: _Faq(model: model),
+                  KeyedSubtree(
+                    key: model.sectionKeys[LandingSection.how],
+                    child: const LandingFrame(
+                      top: 64,
+                      bottom: 40,
+                      child: _How(),
+                    ),
                   ),
-                ),
-                KeyedSubtree(
-                  key: model.sectionKeys[LandingSection.app],
-                  child: LandingFrame(
-                    top: 64,
-                    bottom: 80,
-                    child: _AppCallToAction(model: model),
+                  const LandingFrame(top: 64, bottom: 40, child: _Trust()),
+                  const LandingFrame(top: 64, bottom: 40, child: _Features()),
+                  const SizedBox(height: 64),
+                  KeyedSubtree(
+                    key: model.sectionKeys[LandingSection.hospitals],
+                    child: _ForHospitals(model: model),
                   ),
-                ),
-                _Footer(model: model),
-              ],
+                  KeyedSubtree(
+                    key: model.sectionKeys[LandingSection.areas],
+                    child: LandingFrame(
+                      top: 80,
+                      bottom: 40,
+                      child: _Areas(model: model),
+                    ),
+                  ),
+                  KeyedSubtree(
+                    key: model.sectionKeys[LandingSection.faq],
+                    child: LandingFrame(
+                      top: 64,
+                      bottom: 40,
+                      child: _Faq(model: model),
+                    ),
+                  ),
+                  KeyedSubtree(
+                    key: model.sectionKeys[LandingSection.app],
+                    child: LandingFrame(
+                      top: 64,
+                      bottom: 80,
+                      child: _AppCallToAction(model: model),
+                    ),
+                  ),
+                  _Footer(model: model),
+                ],
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
@@ -577,7 +586,7 @@ class _ForHospitals extends StatelessWidget {
           runSpacing: AppSpacing.small,
           children: [
             LandingButton(
-              title: 'Join Emergencyhr',
+              title: 'Join EmergencyHr',
               background: white,
               foreground: AppColors.ink,
               height: AppSizes.buttonLarge,
@@ -614,7 +623,7 @@ class _ForHospitals extends StatelessWidget {
               basis: 360,
               flex: 1,
               child: Center(
-                child: Theme(data: _lightTheme, child: const DeskMockup()),
+                child: DeskMockup(),
               ),
             ),
           ],
@@ -623,9 +632,6 @@ class _ForHospitals extends StatelessWidget {
     );
   }
 }
-
-/// The desk card stays light on the dark band, as in the design.
-final _lightTheme = AppTheme.lightTheme;
 
 class _Areas extends StatelessWidget {
   const _Areas({required this.model});
@@ -909,7 +915,7 @@ class _Footer extends StatelessWidget {
                       ('FAQ', () => model.scrollTo(LandingSection.faq)),
                     ]),
                     column('Hospitals', [
-                      ('Join Emergencyhr', model.joinHospital),
+                      ('Join EmergencyHr', model.joinHospital),
                       ('Request a visit', model.requestVisit),
                       ('Desk sign in', model.deskSignIn),
                     ]),

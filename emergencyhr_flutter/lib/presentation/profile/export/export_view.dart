@@ -15,7 +15,7 @@ class ExportSheet extends StatelessWidget {
     return AppSheet(
       title: 'Your data',
       children: [
-        const AppText.caption('Everything Emergencyhr stores about you.'),
+        const AppText.caption('Everything EmergencyHr stores about you.'),
         Container(
           constraints: const BoxConstraints(maxHeight: 330),
           padding: const EdgeInsets.all(14),
