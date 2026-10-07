@@ -229,7 +229,7 @@ void main() {
       setUpAuthServices();
 
       test(
-        'when an agent tries to approve their own submission then denied',
+        'when an admin approves their own submission then it is verified',
         () async {
           final f = await createFacility(
             sessionBuilder,
@@ -251,14 +251,12 @@ void main() {
             session,
             record.copyWith(submittedByUserId: both.user.id),
           );
-          await expectLater(
-            const OnboardingService().approve(
-              session,
-              facility: f,
-              admin: both.user,
-            ),
-            throwsA(isA<NotAuthorizedException>()),
+          final approved = await const OnboardingService().approve(
+            session,
+            facility: f,
+            admin: both.user,
           );
+          expect(approved.verificationStatus, VerificationStatus.verified);
         },
       );
 

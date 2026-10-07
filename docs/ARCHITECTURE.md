@@ -94,7 +94,8 @@ accepting.
 
 Stages: seeded, contacted, visited, staffTrained, verified, live (plus
 paused and declined). `verified` is reached only by a platform admin
-approving a submission (never the submitter). `live` is set automatically
+approving a submission (the admin may be the submitter) or verifying a
+listing directly. `live` is set automatically
 when the go-live checklist is complete: verified, hospital admin accepted,
 desk staff active, capabilities and hours, desk phone confirmed, training
 done, first real status. Field agents onboard on site; hospitals self-serve

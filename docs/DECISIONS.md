@@ -238,4 +238,8 @@ pointed at `docs/design/...`; the files live in `design/` and
     hospitals inside the six pilot areas use those names; the rest use their
     LGA (for example Alimosho). The landing page now reads "Live across Lagos
     and Ogbomoso".
-
+56. **Admins may verify their own work.** The spec says agents never approve
+    their own submissions. Field agents still cannot approve anything (only
+    platform admins can), but a platform admin may now add a hospital, submit
+    it and approve it themselves. Every approval is still in the audit log
+    with the admin's name.

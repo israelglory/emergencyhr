@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../core/cores.dart';
+import '../../../data/api/admin_api.dart';
 import '../../../data/api/facility_api.dart';
 import '../../../data/api/onboarding_api.dart';
 import '../../../data/models/labels.dart';
@@ -22,6 +23,7 @@ class FacilitySetupViewModel extends ReactiveViewModel {
     required this.facilityId,
     FacilityApi? facilities,
     OnboardingApi? onboarding,
+    AdminApi? admin,
     SessionService? session,
     NavigationService? navigation,
     SnackbarService? snackbar,
@@ -31,6 +33,7 @@ class FacilitySetupViewModel extends ReactiveViewModel {
     PhoneCallService? calls,
   }) : _facilities = facilities ?? locator<FacilityApi>(),
        _onboarding = onboarding ?? locator<OnboardingApi>(),
+       _admin = admin ?? adminApi,
        _session = session ?? sessionService,
        _navigation = navigation ?? navigationService,
        _snackbar = snackbar ?? snackbarService,
@@ -42,6 +45,7 @@ class FacilitySetupViewModel extends ReactiveViewModel {
   final int facilityId;
   final FacilityApi _facilities;
   final OnboardingApi _onboarding;
+  final AdminApi _admin;
   final SessionService _session;
   final NavigationService _navigation;
   final SnackbarService _snackbar;
@@ -64,6 +68,7 @@ class FacilitySetupViewModel extends ReactiveViewModel {
   static const _uploadKey = 'upload';
   static const _deskKey = 'desk';
   static const _submitKey = 'submit';
+  static const _verifyKey = 'verify';
   static const _notesKey = 'notes';
 
   Facility? get _f => _detail?.facility;
@@ -159,10 +164,26 @@ class FacilitySetupViewModel extends ReactiveViewModel {
 
   // Verification
   bool get isSubmitting => busy(_submitKey);
+  bool get isVerifying => busy(_verifyKey);
   bool get canSubmit =>
       _f?.verificationStatus == VerificationStatus.seeded ||
       _f?.verificationStatus == VerificationStatus.rejected;
+
+  /// Platform admins verify directly, including listings they added or
+  /// submitted themselves.
+  bool get canVerifyNow =>
+      isPlatformAdmin &&
+      (canSubmit || _f?.verificationStatus == VerificationStatus.pending);
+  bool get showSubmit => canSubmit && !canVerifyNow;
+  bool get hasFooter => showSubmit || canVerifyNow;
   String get verificationNote => switch (_f?.verificationStatus) {
+    _
+        when canVerifyNow &&
+            _f?.verificationStatus == VerificationStatus.pending =>
+      'Submitted. You can verify it now.',
+    _ when canVerifyNow =>
+      'Verify this hospital once you have checked it, for example by phone '
+          'or a visit.',
     VerificationStatus.pending => 'Submitted. A platform admin will review it.',
     VerificationStatus.verified => 'Verified.',
     VerificationStatus.rejected =>
@@ -344,6 +365,28 @@ class FacilitySetupViewModel extends ReactiveViewModel {
     );
     if (response.success) {
       _snackbar.success(message: 'Submitted for verification');
+      await load();
+    } else {
+      _snackbar.error(message: response.message!);
+    }
+  }
+
+  Future<void> verifyNow() async {
+    final ok = await _dialogs.confirm(
+      title: 'Verify $name?',
+      message:
+          'Only verify a hospital you have checked, for example by phone or '
+          'a visit. The public still sees "Unverified. Call before going." '
+          'until its desk confirms a status.',
+      confirmLabel: 'Verify',
+    );
+    if (!ok) return;
+    final response = await runBusyFuture(
+      _admin.verifyListing(facilityId),
+      busyObject: _verifyKey,
+    );
+    if (response.success) {
+      _snackbar.success(message: 'Verified');
       await load();
     } else {
       _snackbar.error(message: response.message!);

@@ -297,7 +297,7 @@ class FacilitySetupView extends StatelessWidget {
                                 model.verificationNote,
                                 tone: AppTextTone.secondary,
                               ),
-                              if (model.canSubmit)
+                              if (model.showSubmit)
                                 AppTextField(
                                   label: 'Notes for the reviewer (optional)',
                                   controller: model.submitNotesController,
@@ -315,16 +315,22 @@ class FacilitySetupView extends StatelessWidget {
             ),
           ],
         );
-        if (!model.canSubmit) return list;
+        if (!model.hasFooter) return list;
         return Column(
           children: [
             Expanded(child: list),
             PageFooter(
-              child: AppButton(
-                title: 'Submit for verification',
-                loading: model.isSubmitting,
-                onPressed: model.submit,
-              ),
+              child: model.canVerifyNow
+                  ? AppButton(
+                      title: 'Verify now',
+                      loading: model.isVerifying,
+                      onPressed: model.verifyNow,
+                    )
+                  : AppButton(
+                      title: 'Submit for verification',
+                      loading: model.isSubmitting,
+                      onPressed: model.submit,
+                    ),
             ),
           ],
         );

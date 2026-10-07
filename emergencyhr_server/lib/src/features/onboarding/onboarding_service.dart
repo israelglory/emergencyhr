@@ -268,16 +268,13 @@ class OnboardingService {
     });
   }
 
-  /// Platform admins only. The approver can never be the submitter.
+  /// Platform admins only. An admin may approve a submission they made
+  /// themselves (owner's choice, docs/DECISIONS.md 56).
   Future<Facility> approve(
     Session session, {
     required Facility facility,
     required AppUser admin,
   }) async {
-    final record = await recordFor(session, facility);
-    if (record.submittedByUserId == admin.id) {
-      throw Errors.notAuthorized('You cannot approve your own submission.');
-    }
     if (facility.verificationStatus != VerificationStatus.pending) {
       throw Errors.invalidState('This facility is not awaiting verification.');
     }
