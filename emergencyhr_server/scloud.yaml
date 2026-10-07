@@ -14,5 +14,6 @@ project:
       # Regenerate server code, then build the Flutter web app into
       # web/app so the server hosts it at the web address.
       - serverpod generate
+      - dart run tool/embed_app_settings.dart
       - serverpod run flutter_build
     post_deploy: []

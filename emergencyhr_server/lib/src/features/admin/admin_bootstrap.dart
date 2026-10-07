@@ -13,15 +13,31 @@ import '../../generated/protocol.dart';
 /// get the role. It only ever adds the role: removing an email from the list
 /// does not remove it (suspend the account in Admin, Accounts instead).
 abstract final class AdminBootstrap {
-  /// Every listed email that already has an account.
+  /// Every listed email that already has an account. Logs what it found
+  /// at warning level so it shows in hosted logs.
   static Future<void> run(Session session) async {
     for (final email in AppConfig.instance.adminEmails) {
       final user = await AppUser.db.findFirstRow(
         session,
         where: (t) => t.email.equals(email),
       );
-      if (user != null) await grantIfListed(session, user);
+      if (user == null) {
+        session.log(
+          'Admin setup: no account uses ${_mask(email)} yet. It becomes '
+          'admin when it signs up.',
+          level: LogLevel.warning,
+        );
+        continue;
+      }
+      await grantIfListed(session, user);
     }
+  }
+
+  /// "ig****@gmail.com", so logs do not carry full addresses.
+  static String _mask(String email) {
+    final at = email.indexOf('@');
+    if (at < 2) return '***${at < 0 ? '' : email.substring(at)}';
+    return '${email.substring(0, 2)}****${email.substring(at)}';
   }
 
   static Future<void> grantIfListed(
@@ -41,7 +57,13 @@ abstract final class AdminBootstrap {
           t.facilityId.equals(null),
       transaction: transaction,
     );
-    if (existing > 0) return;
+    if (existing > 0) {
+      session.log(
+        'Admin setup: account ${user.id} (${_mask(email)}) is already admin.',
+        level: LogLevel.warning,
+      );
+      return;
+    }
     await RoleAssignment.db.insertRow(
       session,
       RoleAssignment(
@@ -52,7 +74,9 @@ abstract final class AdminBootstrap {
       transaction: transaction,
     );
     session.log(
-      'Platform admin role given to account ${user.id} (adminEmails).',
+      'Admin setup: platform admin role given to account ${user.id} '
+      '(${_mask(email)}).',
+      level: LogLevel.warning,
     );
   }
 }

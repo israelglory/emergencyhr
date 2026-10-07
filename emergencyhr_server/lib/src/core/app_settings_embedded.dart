@@ -1,0 +1,85 @@
+// Copy of config/app_settings.yaml compiled into the server, for hosts
+// that do not ship the config folder (Serverpod Cloud). Do not edit:
+// change config/app_settings.yaml and run
+// `dart run tool/embed_app_settings.dart` (the deploy does this).
+
+const embeddedAppSettings = r'''
+# App settings and feature flags per run mode. Secrets (API keys) belong in
+# config/passwords.yaml, never here.
+#
+# Adapters: "dev" logs messages to the server console, "live" calls the real
+# provider, "off" sends nothing and tells the user so (use until an account
+# is set up) (SMS: Termii, WhatsApp: Meta Cloud API, AI: see aiProvider).
+#
+# aiProvider: gemini (Google, key geminiApiKey) or anthropic (key
+# anthropicApiKey). aiFallbackModels are tried when aiModel is overloaded.
+
+development:
+  appBaseUrl: http://localhost:9998
+  smsAdapter: dev
+  whatsappAdapter: dev
+  # Live Gemini in development. Set to dev to use the fixed test answer.
+  aiAdapter: live
+  aiProvider: gemini
+  aiModel: gemini-2.5-flash
+  aiFallbackModels:
+    - gemini-flash-latest
+  logOtpCodes: true
+  urbanSpeedKmh: 20
+  features:
+    whatsappQuickUpdate: true
+    doctorsV2: false
+
+test:
+  appBaseUrl: http://localhost:9998
+  smsAdapter: dev
+  whatsappAdapter: dev
+  aiAdapter: dev
+  urbanSpeedKmh: 20
+  features:
+    whatsappQuickUpdate: true
+    doctorsV2: false
+
+staging:
+  # Accounts with these emails become platform admins (see AdminBootstrap).
+  adminEmails:
+    - iglory6@gmail.com
+  # Replace with the staging web app URL.
+  appBaseUrl: https://staging.emergencyhr.example
+  # No SMS provider yet. Family alerts fall back to the phone's SMS app.
+  smsAdapter: off
+  whatsappAdapter: off
+  aiAdapter: live
+  smsSenderId: EmergencyHr
+  aiProvider: gemini
+  aiModel: gemini-2.5-flash
+  aiFallbackModels:
+    - gemini-flash-latest
+  urbanSpeedKmh: 20
+  features:
+    whatsappQuickUpdate: true
+    doctorsV2: false
+
+production:
+  # Accounts with these emails become platform admins (see AdminBootstrap).
+  adminEmails:
+    - iglory6@gmail.com
+  # Serverpod Cloud web address. Change when your own domain is attached.
+  appBaseUrl: https://emergencyhr.serverpod.space
+  # Serverpod Cloud uploads only the server folder, so read the first-aid
+  # cards from the web build's copy (identical; a test checks they match).
+  firstAidPath: web/app/assets/assets/first_aid
+  # No SMS provider yet. Family alerts fall back to the phone's SMS app.
+  smsAdapter: off
+  whatsappAdapter: off
+  aiAdapter: live
+  smsSenderId: EmergencyHr
+  aiProvider: gemini
+  aiModel: gemini-2.5-flash
+  aiFallbackModels:
+    - gemini-flash-latest
+  urbanSpeedKmh: 20
+  features:
+    whatsappQuickUpdate: false
+    doctorsV2: false
+''';

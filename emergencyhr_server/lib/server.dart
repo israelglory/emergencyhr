@@ -142,6 +142,17 @@ void run(List<String> args) async {
       );
     }
 
+    // Report which settings are in force, so a missing file is obvious.
+    final config = AppConfig.instance;
+    startup.log(
+      'App settings loaded from ${AppConfig.loadedFrom} (${pod.runMode}): '
+      'ai ${config.aiAdapter.name}, '
+      '${config.adminEmails.length} admin email(s), '
+      'appBaseUrl ${config.appBaseUrl}, firstAidPath ${config.firstAidPath} '
+      '(${Directory(config.firstAidPath).existsSync() ? 'found' : 'MISSING'}).',
+      level: LogLevel.warning,
+    );
+
     // First admin(s): accounts listed in adminEmails get the admin role.
     await AdminBootstrap.run(startup);
   } finally {

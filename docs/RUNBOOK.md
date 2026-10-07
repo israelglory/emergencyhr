@@ -108,11 +108,27 @@ and `sendPasswordResetVerificationCode` callbacks for its own email provider.
 
 ### Serverpod Cloud
 
-1. `scloud launch` from the repository root and follow the prompts.
-2. Set the secrets above with `scloud password set <name> <value>`.
-3. Set `appBaseUrl` for production in `config/app_settings.yaml`.
-4. Copy `content/first_aid/` next to the server or set `firstAidPath`.
-5. `scloud deploy`. Migrations apply on deploy.
+Live project: `emergencyhr`. Web app https://emergencyhr.serverpod.space,
+API https://emergencyhr.api.serverpod.space.
+
+1. Sign in once: `scloud auth login`. The repository is already linked
+   (`emergencyhr_server/scloud.yaml`).
+2. From the repository root: `scloud deploy`. The pre-deploy steps in
+   `scloud.yaml` run `serverpod generate` and build the Flutter web app into
+   `emergencyhr_server/web/app`, which the server hosts. Migrations apply on
+   start.
+3. Secrets: Serverpod Cloud manages the database, service and sign-in keys.
+   The app's own secrets (`otpHashPepper`, `dataEncryptionKey`,
+   `geminiApiKey`) were set with `scloud password set <name> --from-file
+   <file>`; copies are in the local `config/passwords.yaml` under
+   `production`. Keep a safe copy of `dataEncryptionKey`.
+4. Production reads first-aid cards from `web/app/assets/assets/first_aid`
+   (`firstAidPath`), because only the server folder is uploaded.
+5. Future calls are off on the Cloud project, so the 5-minute reminders are
+   not scheduled (the server logs a warning and carries on). They only send
+   SMS and WhatsApp, which are off in production.
+6. Own domain: `scloud domain attach`, then set `appBaseUrl` in
+   `config/app_settings.yaml` and deploy again.
 
 ### Self-hosted Docker
 

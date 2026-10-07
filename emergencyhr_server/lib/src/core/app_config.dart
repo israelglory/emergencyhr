@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:yaml/yaml.dart';
 
+import 'app_settings_embedded.dart';
+
 /// Which adapter an external service uses. `dev` adapters log to the console
 /// so the app runs locally without paid accounts. `off` means the service is
 /// not set up: nothing is sent and callers are told so.
@@ -67,13 +69,30 @@ class AppConfig {
   /// The active config. Replaced at startup and in tests.
   static AppConfig instance = AppConfig();
 
+  /// Where [load] found the settings file, or null when it used defaults.
+  static String? loadedFrom;
+
+  /// Every place [load] looked, for the start-up log.
+  static List<String> searched = const [];
+
   static AppConfig load(
     String runMode, {
     String path = 'config/app_settings.yaml',
   }) {
-    final file = File(path);
-    if (!file.existsSync()) return AppConfig();
-    final root = loadYaml(file.readAsStringSync());
+    // Hosts may start the server from a different working directory, so
+    // also look next to the server executable.
+    final scriptDir = File.fromUri(Platform.script).parent;
+    final candidates = [
+      File(path),
+      File('${scriptDir.path}/../$path'),
+      File('${scriptDir.path}/$path'),
+    ];
+    searched = [for (final c in candidates) c.absolute.path];
+    final file = candidates.where((c) => c.existsSync()).firstOrNull;
+    // Without the file (e.g. on Serverpod Cloud), use the copy compiled into
+    // the server from the same file.
+    loadedFrom = file?.absolute.path ?? 'the copy built into the server';
+    final root = loadYaml(file?.readAsStringSync() ?? embeddedAppSettings);
     final section = root is YamlMap ? root[runMode] : null;
     if (section is! YamlMap) return AppConfig();
 
