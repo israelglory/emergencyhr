@@ -21,6 +21,11 @@ import '../../presentation/first_aid/card/first_aid_card_view.dart';
 import '../../presentation/first_aid/list/first_aid_list_view.dart';
 import '../../presentation/facility/pages/facility_pages.dart';
 import '../../presentation/join/claim/claim_view.dart';
+import '../../presentation/landing/landing_content.dart';
+import '../../presentation/landing/landing_view.dart';
+import '../../presentation/onboarding/intro/intro_view.dart';
+import '../../presentation/onboarding/splash/splash_view.dart';
+import '../../presentation/onboarding/welcome/welcome_view.dart';
 import '../../presentation/join/join_hospital/join_hospital_view.dart';
 import '../../presentation/join/join_request/join_request_view.dart';
 import '../../presentation/profile/medical/medical_profile_view.dart';
@@ -32,6 +37,16 @@ import 'app_routes.dart';
 /// Maps URLs to views. Access checks happen in viewmodels and, always, on
 /// the server.
 abstract final class AppRouter {
+  /// The web shows the landing page at `/`; phones and computers show the
+  /// startup splash there instead.
+  static bool showLanding = kIsWeb;
+
+  /// Builds only the requested page on start, so a deep link never stacks
+  /// the landing page or splash underneath it.
+  static List<Route<dynamic>> onGenerateInitialRoutes(String initialRoute) => [
+    onGenerateRoute(RouteSettings(name: initialRoute)),
+  ];
+
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     final uri = Uri.parse(settings.name ?? AppRoutes.home);
     return MaterialPageRoute<dynamic>(
@@ -47,6 +62,16 @@ abstract final class AppRouter {
     int? idAt(int i) => s.length > i ? int.tryParse(s[i]) : null;
 
     switch (path) {
+      case AppRoutes.landing:
+        return showLanding
+            ? LandingView(
+                initialSection: LandingSection.fromFragment(uri.fragment),
+              )
+            : const SplashView();
+      case AppRoutes.intro:
+        return const IntroView();
+      case AppRoutes.welcome:
+        return const WelcomeView();
       case AppRoutes.home:
         return const PublicTabsView();
       case AppRoutes.signIn:
@@ -60,6 +85,7 @@ abstract final class AppRouter {
       case AppRoutes.medicalProfile:
         return const MedicalProfileView();
       case AppRoutes.emergency:
+      case AppRoutes.emergencyResults:
         return ResultsView(args: args is EmergencyResultsArgs ? args : null);
       case AppRoutes.emergencyArea:
         return const AreaPickerView();

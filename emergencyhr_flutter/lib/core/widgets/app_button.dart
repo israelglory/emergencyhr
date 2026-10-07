@@ -24,13 +24,16 @@ enum AppButtonVariant {
   /// Dark red fill for destructive confirmations, e.g. Suspend.
   destructive,
 
+  /// Pale red with dark red text: the small Emergency pill on the intro.
+  emergencySoft,
+
   /// Primary-coloured link text.
   text,
 }
 
-/// 56 (extraLarge, alert cards), 52 (large), 44 (medium) or 36 (small
-/// pill) high.
-enum AppButtonSize { extraLarge, large, medium, small }
+/// 56 (extraLarge, alert cards; tall, intro and Welcome), 52 (large), 44
+/// (medium) or 36 (small pill) high.
+enum AppButtonSize { extraLarge, tall, large, medium, small }
 
 class AppButton extends StatelessWidget {
   const AppButton({
@@ -120,6 +123,11 @@ class AppButton extends StatelessWidget {
       AppButtonVariant.tonal => (p.primaryContainer, p.primaryText, null),
       AppButtonVariant.danger => (p.emergency, p.onEmergency, null),
       AppButtonVariant.destructive => (p.critical, p.onEmergency, null),
+      AppButtonVariant.emergencySoft => (
+        p.emergencyContainer,
+        p.critical,
+        null,
+      ),
       AppButtonVariant.dangerOutline => (
         p.surface,
         p.emergencyText,
@@ -142,6 +150,7 @@ class AppButton extends StatelessWidget {
       double padX,
     ) = switch (size) {
       AppButtonSize.extraLarge => (56.0, AppRadius.control, 17.0, 18.0),
+      AppButtonSize.tall => (56.0, 14.0, 16.0, 18.0),
       AppButtonSize.large => (
         AppSizes.buttonLarge,
         AppRadius.control,
@@ -163,6 +172,9 @@ class AppButton extends StatelessWidget {
     };
 
     final textStyle = AppTypography.bodyStrong.copyWith(
+      fontWeight: variant == AppButtonVariant.emergencySoft
+          ? FontWeight.w700
+          : FontWeight.w600,
       fontSize: isText ? 14 : fontSize,
       color: currentFg,
       height: 1.2,

@@ -10,6 +10,7 @@ import 'package:emergencyhr_flutter/data/api/facility_api.dart';
 import 'package:emergencyhr_flutter/data/api/profile_api.dart';
 import 'package:emergencyhr_flutter/data/api/status_api.dart';
 import 'package:emergencyhr_flutter/data/local/emergency_cache.dart';
+import 'package:emergencyhr_flutter/data/local/intro_storage.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockAuthApi extends Mock implements AuthApi {}
@@ -43,6 +44,8 @@ class MockLocationService extends Mock implements LocationService {}
 class MockSessionService extends Mock implements SessionService {}
 
 class MockFirstAidService extends Mock implements FirstAidService {}
+
+class MockIntroStorage extends Mock implements IntroStorage {}
 
 final now = DateTime.utc(2026, 10, 6, 12);
 

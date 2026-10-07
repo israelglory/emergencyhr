@@ -21,6 +21,9 @@ abstract final class AppColors {
   static const primary = Color(0xFF1A56DB);
   static const primaryContainer = Color(0xFFEEF4FF);
   static const primarySelected = Color(0xFFF5F8FF);
+
+  /// Border of the highlighted "Our answer" card on the landing page.
+  static const primaryBorder = Color(0xFFD1E0FF);
   static const emergency = Color(0xFFD92D20);
   static const emergencyContainer = Color(0xFFFEF3F2);
   static const emergencyBorder = Color(0xFFFECDCA);

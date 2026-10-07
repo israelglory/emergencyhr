@@ -123,6 +123,21 @@ Four sections chosen by role: Public (everyone), Hospital desk, Field agent,
 Admin. Guests land on Public; the Emergency button is first on the home
 screen.
 
+Start-up and addresses:
+
+- **Web:** `/` is the public landing page (`presentation/landing/`); the
+  app's Home is `/home`. Signed-in people can still open `/`; its header
+  then shows Open app.
+- **Phones and computers:** `/` is the splash. First launch goes Splash,
+  Intro (three slides), Welcome; later launches and signed-in people go
+  straight to Home. The "intro seen" flag is kept with `IntroStorage`
+  (Hive, through `LocalStorageService`).
+- Every Emergency button (landing page, intro, Welcome, Home) opens
+  Hospitals near you (`/emergency`, also reachable as `/emergency/results`)
+  with no sign-in.
+- Deep links open only the requested page (`AppRouter.onGenerateInitialRoutes`),
+  so the landing page or splash never sits underneath.
+
 ## Security and privacy
 
 - Authorization on every endpoint, server side.

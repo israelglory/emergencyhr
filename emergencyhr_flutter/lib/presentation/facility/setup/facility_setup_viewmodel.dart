@@ -80,7 +80,7 @@ class FacilitySetupViewModel extends ReactiveViewModel {
   String get stageLabel => 'Stage: ${_f?.onboardingStage.label ?? ''}';
   String get verificationLabel => switch (_f?.verificationStatus) {
     VerificationStatus.seeded || null => 'Not submitted',
-    final s? => s.label,
+    final s => s.label,
   };
   StatusTone get verificationTone => switch (_f?.verificationStatus) {
     VerificationStatus.verified => StatusTone.positive,

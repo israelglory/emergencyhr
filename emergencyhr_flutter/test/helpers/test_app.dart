@@ -6,6 +6,7 @@ import 'package:emergencyhr_flutter/data/api/facility_api.dart';
 import 'package:emergencyhr_flutter/data/api/profile_api.dart';
 import 'package:emergencyhr_flutter/data/api/status_api.dart';
 import 'package:emergencyhr_flutter/data/local/emergency_cache.dart';
+import 'package:emergencyhr_flutter/data/local/intro_storage.dart';
 import 'package:emergencyhr_flutter/data/models/shell_kind.dart';
 import 'package:flutter/material.dart';
 import 'package:mocktail/mocktail.dart';
@@ -24,6 +25,7 @@ class TestServices {
   final calls = MockPhoneCallService();
   final launcher = MockLauncherService();
   final firstAid = MockFirstAidService();
+  final intro = MockIntroStorage();
   final navigation = NavigationService();
   final snackbar = SnackbarService();
 }
@@ -45,6 +47,7 @@ Future<TestServices> setUpTestLocator() async {
     ..registerSingleton<ProfileApi>(s.profileApi)
     ..registerSingleton<EmergencyCache>(s.cache)
     ..registerSingleton<FirstAidService>(s.firstAid)
+    ..registerSingleton<IntroStorage>(s.intro)
     ..registerSingleton<EmergencySessionService>(EmergencySessionService())
     ..registerSingleton<PublicTabsService>(PublicTabsService())
     ..registerSingleton<SessionService>(s.session);
@@ -58,6 +61,8 @@ Future<TestServices> setUpTestLocator() async {
   when(() => s.cache.save(any())).thenAnswer((_) async {});
   when(() => s.cache.read()).thenReturn(null);
   when(() => s.launcher.canComposeSms).thenReturn(false);
+  when(() => s.intro.introSeen).thenReturn(false);
+  when(() => s.intro.markIntroSeen()).thenAnswer((_) async {});
   when(
     () => s.statusApi.auditLog(
       any(),
@@ -92,6 +97,7 @@ Widget testApp({
     navigatorKey: navigationService.navigatorKey,
     scaffoldMessengerKey: snackbarService.scaffoldMessengerKey,
     initialRoute: initialRoute,
+    onGenerateInitialRoutes: AppRouter.onGenerateInitialRoutes,
     onGenerateRoute: AppRouter.onGenerateRoute,
   );
 }

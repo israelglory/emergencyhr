@@ -5,6 +5,7 @@ import '../../data/api/assistant_api.dart';
 import '../../data/api/auth_api.dart';
 import '../../data/api/emergency_api.dart';
 import '../../data/local/emergency_cache.dart';
+import '../../data/local/intro_storage.dart';
 import '../../data/api/facility_api.dart';
 import '../../data/api/onboarding_api.dart';
 import '../../data/api/profile_api.dart';
@@ -45,6 +46,7 @@ Future<void> setupLocator() async {
 
   // Local cache
   locator.registerLazySingleton<EmergencyCache>(() => EmergencyCache());
+  locator.registerLazySingleton<IntroStorage>(() => IntroStorage());
 
   locator.registerLazySingleton<FirstAidService>(
     () => FirstAidService(locator()),
@@ -85,6 +87,7 @@ OnboardingApi get onboardingApi => locator<OnboardingApi>();
 
 EmergencyApi get emergencyApi => locator<EmergencyApi>();
 EmergencyCache get emergencyCache => locator<EmergencyCache>();
+IntroStorage get introStorage => locator<IntroStorage>();
 ProfileApi get profileApi => locator<ProfileApi>();
 FirstAidService get firstAidService => locator<FirstAidService>();
 

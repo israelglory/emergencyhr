@@ -38,10 +38,24 @@ class _Dot extends StatelessWidget {
 /// The full-width status line used in hospital rows: dot plus words on a
 /// tinted background, 14 / 600.
 class StatusLabel extends StatelessWidget {
-  const StatusLabel({super.key, required this.label, required this.tone});
+  const StatusLabel({
+    super.key,
+    required this.label,
+    required this.tone,
+    this.fontSize = 14,
+    this.padding = const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+    this.background,
+  });
 
   final String label;
   final StatusTone tone;
+
+  /// 14 normally; the landing page uses 16, and 11.5 in the phone mockup.
+  final double fontSize;
+  final EdgeInsets padding;
+
+  /// Replaces the tinted background, e.g. white on the intro illustration.
+  final Color? background;
 
   @override
   Widget build(BuildContext context) {
@@ -50,23 +64,26 @@ class StatusLabel extends StatelessWidget {
       label: label,
       excludeSemantics: true,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+        padding: padding,
         decoration: BoxDecoration(
-          color: bg,
+          color: background ?? bg,
           borderRadius: BorderRadius.circular(AppRadius.status),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 6),
+              padding: EdgeInsets.only(top: fontSize * 19 / 14 / 2 - 3.5),
               child: _Dot(color: fg, hollow: tone == StatusTone.unverified),
             ),
             const SizedBox(width: AppSpacing.x1),
             Expanded(
               child: Text(
                 label,
-                style: AppTypography.label.copyWith(color: fg),
+                style: AppTypography.label.copyWith(
+                  color: fg,
+                  fontSize: fontSize,
+                ),
               ),
             ),
           ],

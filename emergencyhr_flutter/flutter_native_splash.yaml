@@ -1,0 +1,15 @@
+# Native launch screen, shown by the phone before Flutter starts. Run
+# `dart run flutter_native_splash:create` after changing it.
+flutter_native_splash:
+  color: "#D92D20"
+  image: assets/images/brand/splash_logo.png
+  # Android 12+ draws the splash icon inside a circle.
+  android_12:
+    image: assets/images/brand/splash_logo.png
+    color: "#D92D20"
+    icon_background_color: "#D92D20"
+  android: true
+  ios: true
+  # The web shows the landing page straight away, with no splash.
+  web: false
+  fullscreen: false

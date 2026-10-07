@@ -5,4 +5,5 @@ class StorageKeys {
   static const lastArea = 'last_area';
   static const agentDrafts = 'agent_drafts';
   static const pendingSubmissions = 'pending_submissions';
+  static const introSeen = 'intro_seen';
 }

@@ -16,7 +16,8 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       navigatorKey: navigationService.navigatorKey,
       scaffoldMessengerKey: snackbarService.scaffoldMessengerKey,
-      initialRoute: AppRoutes.home,
+      initialRoute: AppRoutes.landing,
+      onGenerateInitialRoutes: AppRouter.onGenerateInitialRoutes,
       onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }

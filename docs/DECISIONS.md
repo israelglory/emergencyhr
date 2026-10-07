@@ -137,3 +137,55 @@ it differs from the original brief, the design wins:
     copied over the content files.
 37. **Accept invite** shows "Invited by" from the inviter's name
     (`InvitePreview.invitedBy`), when they gave one.
+
+## Landing page and mobile intro (October 2026)
+
+Source: `landing-intro/HANDOFF.md` and `landing-intro/screens/`. The prompt
+pointed at `docs/design/...`; the files live in `design/` and
+`landing-intro/`.
+
+38. **Assets** live in `assets/images/intro/` and `assets/images/brand/`
+    with their `2.0x/` and `3.0x/` folders. The SVG sources are kept next to
+    the PNGs for future edits; the app only uses the PNGs.
+39. **App icon** (`flutter_launcher_icons.yaml`): `app_icon` everywhere;
+    Android adaptive icon is `app_icon_foreground` on #D92D20 with no extra
+    inset, because the foreground already sits inside Android's safe zone.
+    iOS corners are filled with #D92D20 so no white shows at the edges. The
+    generator also writes a wrong value into the iOS project
+    (`ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS =
+    AppIcon`); set it back to `YES` after every run.
+40. **Native splash** (`flutter_native_splash.yaml`): #D92D20 with
+    `splash_logo` centred on Android and iOS; Android 12+ shows it inside
+    its circle on the same red. No native splash on the web, so visitors
+    see the landing page without a red flash.
+41. **Addresses:** `/` is the landing page on the web and the splash on
+    phones and computers; Home moved to `/home`. All links use
+    `AppRoutes.home`, so nothing else changed. `/emergency/results` (named
+    in the handoff) opens the same Hospitals near you page as `/emergency`.
+    Deep links open only the requested page, so Back never lands on the
+    landing page or splash by surprise.
+42. **Splash:** the native splash covers start-up; the Flutter splash shows
+    for one frame and then moves on, so it never adds waiting time.
+43. **Intro seen** is saved when Welcome opens (via Skip intro, Get started
+    or the last slide). Tapping Emergency on the intro does not count, so
+    the intro is still there next launch. Computers (macOS, Windows, Linux)
+    get the same splash and intro as phones; only the web shows the
+    landing page.
+44. **Intro pictures** use the supplied PNGs rather than rebuilding the
+    HTML drawings in the design files.
+45. **Landing links:** Join Emergencyhr goes to `/hospitals/join` everywhere
+    (the footer design pointed it at the For hospitals section; the handoff
+    wins). Desk sign in goes to Sign in and then the hospital desk (straight
+    to the desk if already signed in). Privacy and Terms have no pages yet,
+    so they show as plain text until `LandingContent.privacyUrl` and
+    `termsUrl` are set. `[App Store link]`, `[Google Play link]` and
+    `[Contact email]` are constants in `LandingContent`; they show as
+    written and do nothing until replaced.
+46. **To confirm before launch:** "Free to join during the pilot" and
+    "Using Emergencyhr is free" (flagged in the handoff as assumptions).
+47. **Landing at narrow widths:** buttons wrap their words instead of
+    cutting them short; columns stack when there is not room for their
+    design widths; the phone illustration scales down on very small
+    screens. The landing page follows the device's light or dark setting
+    like the rest of the app; the For hospitals band stays dark in both.
+

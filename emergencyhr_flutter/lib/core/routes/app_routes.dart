@@ -3,8 +3,15 @@ import '../../data/models/shell_kind.dart';
 /// Every screen's URL. Routes work as web URLs and deep links.
 abstract final class AppRoutes {
   // Public
-  static const home = '/';
+  /// Web: the landing page. Phones and computers: the startup splash.
+  static const landing = '/';
+  static const home = '/home';
+  static const intro = '/intro';
+  static const welcome = '/welcome';
   static const emergency = '/emergency';
+
+  /// Older address for Hospitals near you, kept working for links.
+  static const emergencyResults = '/emergency/results';
   static const emergencyArea = '/emergency/area';
   static const emergencyType = '/emergency/type';
   static const emergencyAfter = '/emergency/next';

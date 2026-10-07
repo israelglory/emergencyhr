@@ -16,7 +16,6 @@ class ChecklistView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final p = context.palette;
     return AppListCard(
       children: [
         for (final item in items)

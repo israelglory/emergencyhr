@@ -131,6 +131,10 @@ All are triggered from viewmodels through services:
 - `snackbarService.success / error / info`.
 - `phoneCallService.callNumber(...)`: the dialler on phones, a large number
   with copy and `tel:` link on web and desktop.
+- Home is `AppRoutes.home` (`/home`). `/` is `AppRoutes.landing`: the web
+  landing page, or the start-up splash everywhere else
+  (`AppRouter.showLanding`, which tests can switch on).
+- Images are referenced through `AppAssets` (`core/constants/app_assets.dart`).
 
 Every screen has a URL in `AppRoutes`. `AppRouter` maps URLs to views, so
 routes work as web URLs and deep links. Route arguments are typed classes in

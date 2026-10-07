@@ -150,3 +150,17 @@ does this). Or host `build/web` on any static host and set
   in `build/start_up_info.json`.
 
 Neither target has been measured on a device yet.
+
+## App icon and launch screen
+
+The images live in `emergencyhr_flutter/assets/images/brand/`. After
+changing them, regenerate from the `emergencyhr_flutter` folder:
+
+- `dart run flutter_launcher_icons` (settings in `flutter_launcher_icons.yaml`).
+  Afterwards set `ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS`
+  back to `YES` in `ios/Runner.xcodeproj/project.pbxproj`; the tool writes a
+  wrong value there.
+- `dart run flutter_native_splash:create` (settings in
+  `flutter_native_splash.yaml`).
+
+Reinstall the app on the phone to see a new icon or launch screen.
