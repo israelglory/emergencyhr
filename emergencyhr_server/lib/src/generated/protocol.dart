@@ -156,6 +156,9 @@ import 'features/status/models/facility_status_changed.dart' as _i1gorcse;
 import 'features/status/models/freshness_tier.dart' as _itvk3dud;
 import 'features/status/models/status_change_log.dart' as _ijeqxb1v;
 import 'features/status/models/status_input.dart' as _iv1sb3gj;
+import 'features/telegram/models/telegram_connection.dart' as _ipflena9;
+import 'features/telegram/models/telegram_link.dart' as _ic0zbo3h;
+import 'features/telegram/models/telegram_link_code.dart' as _inz8k4am;
 export 'core/errors/app_error_code.dart';
 export 'core/errors/conflict_exception.dart';
 export 'core/errors/invalid_state_exception.dart';
@@ -253,6 +256,9 @@ export 'features/status/models/facility_status_changed.dart';
 export 'features/status/models/freshness_tier.dart';
 export 'features/status/models/status_change_log.dart';
 export 'features/status/models/status_input.dart';
+export 'features/telegram/models/telegram_connection.dart';
+export 'features/telegram/models/telegram_link.dart';
+export 'features/telegram/models/telegram_link_code.dart';
 
 class Protocol extends _is.DatabaseSerializationManager {
   Protocol._();
@@ -2807,6 +2813,153 @@ class Protocol extends _is.DatabaseSerializationManager {
       ],
       managed: true,
     ),
+    _isp.TableDefinition(
+      name: 'telegram_link',
+      dartName: 'TelegramLink',
+      schema: 'public',
+      module: 'emergencyhr',
+      columns: [
+        _isp.ColumnDefinition(
+          name: 'id',
+          columnType: _isp.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'serial',
+        ),
+        _isp.ColumnDefinition(
+          name: 'userId',
+          columnType: _isp.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _isp.ColumnDefinition(
+          name: 'telegramUserId',
+          columnType: _isp.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _isp.ColumnDefinition(
+          name: 'chatId',
+          columnType: _isp.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _isp.ColumnDefinition(
+          name: 'linkedAt',
+          columnType: _isp.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+      ],
+      foreignKeys: [
+        _isp.ForeignKeyDefinition(
+          constraintName: 'telegram_link_fk_0',
+          columns: ['userId'],
+          referenceTable: 'app_user',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _isp.ForeignKeyAction.noAction,
+          onDelete: _isp.ForeignKeyAction.cascade,
+          matchType: null,
+        ),
+      ],
+      indexes: [
+        _isp.IndexDefinition(
+          indexName: 'telegram_link_user_idx',
+          tableSpace: null,
+          elements: [
+            _isp.IndexElementDefinition(
+              type: _isp.IndexElementDefinitionType.column,
+              definition: 'userId',
+            ),
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: false,
+        ),
+        _isp.IndexDefinition(
+          indexName: 'telegram_link_telegram_user_idx',
+          tableSpace: null,
+          elements: [
+            _isp.IndexElementDefinition(
+              type: _isp.IndexElementDefinitionType.column,
+              definition: 'telegramUserId',
+            ),
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: false,
+        ),
+      ],
+      managed: true,
+    ),
+    _isp.TableDefinition(
+      name: 'telegram_link_code',
+      dartName: 'TelegramLinkCode',
+      schema: 'public',
+      module: 'emergencyhr',
+      columns: [
+        _isp.ColumnDefinition(
+          name: 'id',
+          columnType: _isp.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'serial',
+        ),
+        _isp.ColumnDefinition(
+          name: 'userId',
+          columnType: _isp.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _isp.ColumnDefinition(
+          name: 'codeHash',
+          columnType: _isp.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _isp.ColumnDefinition(
+          name: 'expiresAt',
+          columnType: _isp.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+        _isp.ColumnDefinition(
+          name: 'usedAt',
+          columnType: _isp.ColumnType.timestampWithoutTimeZone,
+          isNullable: true,
+          dartType: 'DateTime?',
+        ),
+      ],
+      foreignKeys: [
+        _isp.ForeignKeyDefinition(
+          constraintName: 'telegram_link_code_fk_0',
+          columns: ['userId'],
+          referenceTable: 'app_user',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _isp.ForeignKeyAction.noAction,
+          onDelete: _isp.ForeignKeyAction.cascade,
+          matchType: null,
+        ),
+      ],
+      indexes: [
+        _isp.IndexDefinition(
+          indexName: 'telegram_link_code_hash_idx',
+          tableSpace: null,
+          elements: [
+            _isp.IndexElementDefinition(
+              type: _isp.IndexElementDefinitionType.column,
+              definition: 'codeHash',
+            ),
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: false,
+        ),
+      ],
+      managed: true,
+    ),
     ..._iais.Protocol.targetTableDefinitions,
     ..._iacs.Protocol.targetTableDefinitions,
     ..._isp.Protocol.targetTableDefinitions,
@@ -3129,6 +3282,15 @@ class Protocol extends _is.DatabaseSerializationManager {
     }
     if (t == _iv1sb3gj.StatusInput) {
       return _iv1sb3gj.StatusInput.fromJson(data) as T;
+    }
+    if (t == _ipflena9.TelegramConnection) {
+      return _ipflena9.TelegramConnection.fromJson(data) as T;
+    }
+    if (t == _ic0zbo3h.TelegramLink) {
+      return _ic0zbo3h.TelegramLink.fromJson(data) as T;
+    }
+    if (t == _inz8k4am.TelegramLinkCode) {
+      return _inz8k4am.TelegramLinkCode.fromJson(data) as T;
     }
     if (t == _is.getType<_i4wtqx69.AppErrorCode?>()) {
       return (data != null ? _i4wtqx69.AppErrorCode.fromJson(data) : null) as T;
@@ -3499,6 +3661,17 @@ class Protocol extends _is.DatabaseSerializationManager {
     if (t == _is.getType<_iv1sb3gj.StatusInput?>()) {
       return (data != null ? _iv1sb3gj.StatusInput.fromJson(data) : null) as T;
     }
+    if (t == _is.getType<_ipflena9.TelegramConnection?>()) {
+      return (data != null ? _ipflena9.TelegramConnection.fromJson(data) : null)
+          as T;
+    }
+    if (t == _is.getType<_ic0zbo3h.TelegramLink?>()) {
+      return (data != null ? _ic0zbo3h.TelegramLink.fromJson(data) : null) as T;
+    }
+    if (t == _is.getType<_inz8k4am.TelegramLinkCode?>()) {
+      return (data != null ? _inz8k4am.TelegramLinkCode.fromJson(data) : null)
+          as T;
+    }
     if (t == List<String>) {
       return (data as List).map((e) => deserialize<String>(e)).toList() as T;
     }
@@ -3814,6 +3987,9 @@ class Protocol extends _is.DatabaseSerializationManager {
       _itvk3dud.FreshnessTier => 'FreshnessTier',
       _ijeqxb1v.StatusChangeLog => 'StatusChangeLog',
       _iv1sb3gj.StatusInput => 'StatusInput',
+      _ipflena9.TelegramConnection => 'TelegramConnection',
+      _ic0zbo3h.TelegramLink => 'TelegramLink',
+      _inz8k4am.TelegramLinkCode => 'TelegramLinkCode',
       _ => null,
     };
   }
@@ -4022,6 +4198,12 @@ class Protocol extends _is.DatabaseSerializationManager {
         return 'StatusChangeLog';
       case _iv1sb3gj.StatusInput():
         return 'StatusInput';
+      case _ipflena9.TelegramConnection():
+        return 'TelegramConnection';
+      case _ic0zbo3h.TelegramLink():
+        return 'TelegramLink';
+      case _inz8k4am.TelegramLinkCode():
+        return 'TelegramLinkCode';
     }
     className = _iais.Protocol().getClassNameForObject(data);
     if (className != null) {
@@ -4339,6 +4521,15 @@ class Protocol extends _is.DatabaseSerializationManager {
     if (dataClassName == 'StatusInput') {
       return deserialize<_iv1sb3gj.StatusInput>(data['data']);
     }
+    if (dataClassName == 'TelegramConnection') {
+      return deserialize<_ipflena9.TelegramConnection>(data['data']);
+    }
+    if (dataClassName == 'TelegramLink') {
+      return deserialize<_ic0zbo3h.TelegramLink>(data['data']);
+    }
+    if (dataClassName == 'TelegramLinkCode') {
+      return deserialize<_inz8k4am.TelegramLinkCode>(data['data']);
+    }
     if (dataClassName.startsWith('serverpod_auth_idp.')) {
       data['className'] = dataClassName.substring(19);
       return _iais.Protocol().deserializeByClassName(data);
@@ -4434,6 +4625,10 @@ class Protocol extends _is.DatabaseSerializationManager {
         return _iqjk2hc4.FacilityStatus.t;
       case _ijeqxb1v.StatusChangeLog:
         return _ijeqxb1v.StatusChangeLog.t;
+      case _ic0zbo3h.TelegramLink:
+        return _ic0zbo3h.TelegramLink.t;
+      case _inz8k4am.TelegramLinkCode:
+        return _inz8k4am.TelegramLinkCode.t;
     }
     return null;
   }

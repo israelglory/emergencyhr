@@ -1,0 +1,8 @@
+### Whether the signed-in staff member has connected Telegram.
+class: TelegramConnection
+fields:
+  ### False when the bot is switched off on this server.
+  enabled: bool
+  connected: bool
+  ### e.g. EmergencyHrBot.
+  botUsername: String?

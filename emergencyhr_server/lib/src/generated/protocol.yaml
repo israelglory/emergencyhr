@@ -108,3 +108,7 @@ status:
   - current:
   - practice:
   - auditLog:
+telegram:
+  - connection:
+  - createLink:
+  - disconnect:

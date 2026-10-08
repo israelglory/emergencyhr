@@ -98,6 +98,32 @@ class _ExitButton extends StatelessWidget {
   }
 }
 
+/// "Update from Telegram" with Connect or Disconnect.
+class _TelegramCard extends StatelessWidget {
+  const _TelegramCard({required this.model});
+
+  final StatusViewModel model;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppListCard(
+      children: [
+        AppListRow(
+          title: StatusViewModel.telegramTitle,
+          subtitle: model.telegramSubtitle,
+          trailing: AppButton.secondary(
+            title: model.telegramAction,
+            size: AppButtonSize.small,
+            expand: false,
+            loading: model.isTelegramBusy,
+            onPressed: model.onTelegramPressed,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class _AcceptingToggle extends StatelessWidget {
   const _AcceptingToggle({required this.model});
 
@@ -239,6 +265,7 @@ class _PhoneStatus extends StatelessWidget {
                           ),
                         ],
                       ),
+                      if (model.showTelegram) _TelegramCard(model: model),
                     ],
                   ),
                 ),
@@ -409,27 +436,33 @@ class _WideStatus extends StatelessWidget {
                       ),
                       SizedBox(
                         width: full >= 760 ? 320 : full,
-                        child: AppListCard(
+                        child: SectionColumn(
+                          gap: 20,
                           children: [
-                            const AppListRow(title: 'Recent changes'),
-                            for (final r in model.recentChanges)
-                              AppListRow(
-                                title: r.summary,
-                                subtitle: r.meta,
-                              ),
-                            if (onSeeAuditLog != null)
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                ),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: AppButton.text(
-                                    title: 'See audit log',
-                                    onPressed: onSeeAuditLog,
+                            AppListCard(
+                              children: [
+                                const AppListRow(title: 'Recent changes'),
+                                for (final r in model.recentChanges)
+                                  AppListRow(
+                                    title: r.summary,
+                                    subtitle: r.meta,
                                   ),
-                                ),
-                              ),
+                                if (onSeeAuditLog != null)
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                    ),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: AppButton.text(
+                                        title: 'See audit log',
+                                        onPressed: onSeeAuditLog,
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                            if (model.showTelegram) _TelegramCard(model: model),
                           ],
                         ),
                       ),

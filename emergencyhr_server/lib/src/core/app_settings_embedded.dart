@@ -11,6 +11,10 @@ const embeddedAppSettings = r'''
 # provider, "off" sends nothing and tells the user so (use until an account
 # is set up) (SMS: Termii, WhatsApp: Meta Cloud API, AI: see aiProvider).
 #
+# Telegram bot (key telegramBotToken): "live" talks to Telegram, "dev" logs
+# the bot's replies, "off" ignores Telegram. telegramBotUsername is the bot's
+# username without @, used in the app's "Connect Telegram" link.
+#
 # aiProvider: gemini (Google, key geminiApiKey) or anthropic (key
 # anthropicApiKey). aiFallbackModels are tried when aiModel is overloaded.
 
@@ -18,6 +22,8 @@ development:
   appBaseUrl: http://localhost:9998
   smsAdapter: dev
   whatsappAdapter: dev
+  telegramAdapter: dev
+  telegramBotUsername: EmergencyHrBot
   # Live Gemini in development. Set to dev to use the fixed test answer.
   aiAdapter: live
   aiProvider: gemini
@@ -34,6 +40,8 @@ test:
   appBaseUrl: http://localhost:9998
   smsAdapter: dev
   whatsappAdapter: dev
+  telegramAdapter: dev
+  telegramBotUsername: EmergencyHrBot
   aiAdapter: dev
   urbanSpeedKmh: 20
   features:
@@ -72,6 +80,8 @@ production:
   # No SMS provider yet. Family alerts fall back to the phone's SMS app.
   smsAdapter: off
   whatsappAdapter: off
+  telegramAdapter: live
+  telegramBotUsername: EmergencyHrBot
   aiAdapter: live
   smsSenderId: EmergencyHr
   aiProvider: gemini

@@ -19,6 +19,8 @@ class AppConfig {
   AppConfig({
     this.smsAdapter = AdapterKind.dev,
     this.whatsappAdapter = AdapterKind.dev,
+    this.telegramAdapter = AdapterKind.off,
+    this.telegramBotUsername,
     this.aiAdapter = AdapterKind.dev,
     this.aiProvider = AiProviderKind.gemini,
     this.aiFallbackModels = const [],
@@ -36,6 +38,13 @@ class AppConfig {
 
   final AdapterKind smsAdapter;
   final AdapterKind whatsappAdapter;
+
+  /// The Telegram bot: hospital search for the public and quick status
+  /// updates for connected staff. `off` ignores Telegram entirely.
+  final AdapterKind telegramAdapter;
+
+  /// The bot's username without @, used in "Connect Telegram" links.
+  final String? telegramBotUsername;
   final AdapterKind aiAdapter;
   final String smsSenderId;
   final AiProviderKind aiProvider;
@@ -107,6 +116,10 @@ class AppConfig {
     return AppConfig(
       smsAdapter: adapter('smsAdapter'),
       whatsappAdapter: adapter('whatsappAdapter'),
+      telegramAdapter: section['telegramAdapter'] == null
+          ? AdapterKind.off
+          : adapter('telegramAdapter'),
+      telegramBotUsername: section['telegramBotUsername']?.toString(),
       aiAdapter: adapter('aiAdapter'),
       smsSenderId: section['smsSenderId']?.toString() ?? 'EmergencyHr',
       aiProvider: section['aiProvider'] == 'anthropic'

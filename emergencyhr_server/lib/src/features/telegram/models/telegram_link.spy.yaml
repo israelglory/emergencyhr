@@ -1,0 +1,18 @@
+### A hospital staff member's Telegram account, connected from the app with
+### a one-time link. The bot acts as this user for status updates.
+class: TelegramLink
+table: telegram_link
+serverOnly: true
+fields:
+  userId: int, relation(parent=app_user, onDelete=Cascade)
+  ### Telegram's id for the person (from.id), set by Telegram, not the user.
+  telegramUserId: int
+  chatId: int
+  linkedAt: DateTime
+indexes:
+  telegram_link_user_idx:
+    fields: userId
+    unique: true
+  telegram_link_telegram_user_idx:
+    fields: telegramUserId
+    unique: true

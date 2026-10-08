@@ -12,6 +12,7 @@ void main() {
   late MockStatusApi api;
   late MockFacilityApi facilities;
   late MockSnackbarService snackbar;
+  late MockTelegramApi telegram;
 
   StatusViewModel build({bool practice = false, int minutesSince = 5}) =>
       StatusViewModel(
@@ -20,6 +21,8 @@ void main() {
         statusApi: api,
         facilities: facilities,
         snackbar: snackbar,
+        telegram: telegram,
+        launcher: MockLauncherService(),
         now: () => now.add(Duration(minutes: minutesSince - 5)),
       );
 
@@ -34,6 +37,10 @@ void main() {
     ).thenAnswer((_) async => ok(<AuditEntry>[]));
     facilities = MockFacilityApi();
     snackbar = MockSnackbarService();
+    telegram = MockTelegramApi();
+    when(() => telegram.connection()).thenAnswer(
+      (_) async => ok(TelegramConnection(enabled: false, connected: false)),
+    );
     when(() => facilities.detail(1)).thenAnswer(
       (_) async => ok(detailFixture(status: statusFixture())),
     );

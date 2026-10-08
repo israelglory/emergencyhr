@@ -6,6 +6,7 @@ import 'package:stacked/stacked.dart';
 import '../../../core/cores.dart';
 import '../../../data/api/facility_api.dart';
 import '../../../data/api/status_api.dart';
+import '../../../data/api/telegram_api.dart';
 import '../../../data/models/freshness.dart';
 import '../../../data/models/labels.dart';
 
@@ -17,24 +18,31 @@ class StatusViewModel extends BaseViewModel {
     this.startInPractice = false,
     StatusApi? statusApi,
     FacilityApi? facilities,
+    TelegramApi? telegram,
     SnackbarService? snackbar,
+    LauncherService? launcher,
     DateTime Function()? now,
   }) : _api = statusApi ?? locator<StatusApi>(),
        _facilities = facilities ?? locator<FacilityApi>(),
+       _telegram = telegram ?? locator<TelegramApi>(),
        _snackbar = snackbar ?? snackbarService,
+       _launcher = launcher ?? launcherService,
        _now = now ?? (() => DateTime.now().toUtc());
 
   final int facilityId;
   final bool startInPractice;
   final StatusApi _api;
   final FacilityApi _facilities;
+  final TelegramApi _telegram;
   final SnackbarService _snackbar;
+  final LauncherService _launcher;
   final DateTime Function() _now;
   Timer? _ticker;
 
   FacilityDetail? _detail;
   FacilityStatus? _saved;
   List<AuditEntry> _recent = const [];
+  TelegramConnection? _telegramConnection;
 
   bool _accepting = true;
   int _erBeds = 0;
@@ -45,6 +53,7 @@ class StatusViewModel extends BaseViewModel {
 
   static const _saveKey = 'save';
   static const _confirmKey = 'confirm';
+  static const _telegramKey = 'telegram';
 
   // Load state
   bool get isLoading => _detail == null && !hasError;
@@ -120,6 +129,17 @@ class StatusViewModel extends BaseViewModel {
   ];
   bool get hasRecentChanges => _recent.isNotEmpty;
 
+  // Telegram
+  bool get showTelegram => _telegramConnection?.enabled ?? false;
+  bool get telegramConnected => _telegramConnection?.connected ?? false;
+  bool get isTelegramBusy => busy(_telegramKey);
+  static const telegramTitle = 'Update from Telegram';
+  String get telegramSubtitle => telegramConnected
+      ? 'Connected. Open @${_telegramConnection?.botUsername ?? ''} and tap '
+            'Update hospital status.'
+      : 'Change status and beds from Telegram, without opening the app.';
+  String get telegramAction => telegramConnected ? 'Disconnect' : 'Connect';
+
   /// "Still accurate" refreshes the time without changes.
   bool get canConfirm => !_practice && _saved != null && !hasChanges;
   VoidCallback? get onConfirm => canConfirm ? confirmStillAccurate : null;
@@ -154,6 +174,47 @@ class StatusViewModel extends BaseViewModel {
     _applySaved(detail.data!.status);
     notifyListeners();
     unawaited(_loadRecent());
+    unawaited(_loadTelegram());
+  }
+
+  Future<void> _loadTelegram() async {
+    final response = await _telegram.connection();
+    if (!response.success) return;
+    _telegramConnection = response.data;
+    notifyListeners();
+  }
+
+  /// Opens the bot with a one-time link, or disconnects Telegram.
+  Future<void> onTelegramPressed() async {
+    if (telegramConnected) {
+      final response = await runBusyFuture(
+        _telegram.disconnect(),
+        busyObject: _telegramKey,
+      );
+      if (!response.success) {
+        _snackbar.error(message: response.message!);
+        return;
+      }
+      _snackbar.success(message: 'Telegram disconnected');
+      await _loadTelegram();
+      return;
+    }
+    final response = await runBusyFuture(
+      _telegram.createLink(),
+      busyObject: _telegramKey,
+    );
+    if (!response.success) {
+      _snackbar.error(message: response.message!);
+      return;
+    }
+    final opened = await _launcher.openUrl(Uri.parse(response.data!));
+    if (!opened) {
+      _snackbar.error(message: 'Could not open Telegram. Is it installed?');
+      return;
+    }
+    _snackbar.success(
+      message: 'In Telegram, tap Start to finish connecting.',
+    );
   }
 
   Future<void> _loadRecent() async {

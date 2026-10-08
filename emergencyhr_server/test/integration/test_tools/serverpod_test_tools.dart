@@ -114,6 +114,8 @@ import 'package:emergencyhr_server/src/generated/features/status/models/facility
     as _iibbu17i;
 import 'package:emergencyhr_server/src/generated/features/status/models/status_input.dart'
     as _idur43kt;
+import 'package:emergencyhr_server/src/generated/features/telegram/models/telegram_connection.dart'
+    as _i8j0zahu;
 import 'package:emergencyhr_server/src/generated/future_calls.dart'
     as _ivh67sjw;
 import 'package:serverpod/serverpod.dart' as _is;
@@ -286,6 +288,8 @@ class TestEndpoints {
   late final _ProfileEndpoint profile;
 
   late final _StatusEndpoint status;
+
+  late final _TelegramEndpoint telegram;
 }
 
 class _InternalTestEndpoints extends TestEndpoints
@@ -356,6 +360,10 @@ class _InternalTestEndpoints extends TestEndpoints
       serializationManager,
     );
     status = _StatusEndpoint(
+      endpoints,
+      serializationManager,
+    );
+    telegram = _TelegramEndpoint(
       endpoints,
       serializationManager,
     );
@@ -3715,6 +3723,103 @@ class _StatusEndpoint {
                   _localCallContext.arguments,
                 )
                 as _ida.Future<List<_i7grn9qx.AuditEntry>>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+}
+
+class _TelegramEndpoint {
+  _TelegramEndpoint(
+    this._endpointDispatch,
+    this._serializationManager,
+  );
+
+  final _is.EndpointDispatch _endpointDispatch;
+
+  final _is.SerializationManager _serializationManager;
+
+  _ida.Future<_i8j0zahu.TelegramConnection> connection(
+    _ist.TestSessionBuilder sessionBuilder,
+  ) async {
+    return _ist.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _ist.InternalTestSessionBuilder).internalBuild(
+            endpoint: 'telegram',
+            method: 'connection',
+          );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'telegram',
+          methodName: 'connection',
+          parameters: _ist.testObjectToJson({}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue =
+            await (_localCallContext.method.call(
+                  _localUniqueSession,
+                  _localCallContext.arguments,
+                )
+                as _ida.Future<_i8j0zahu.TelegramConnection>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+
+  _ida.Future<String> createLink(_ist.TestSessionBuilder sessionBuilder) async {
+    return _ist.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _ist.InternalTestSessionBuilder).internalBuild(
+            endpoint: 'telegram',
+            method: 'createLink',
+          );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'telegram',
+          methodName: 'createLink',
+          parameters: _ist.testObjectToJson({}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue =
+            await (_localCallContext.method.call(
+                  _localUniqueSession,
+                  _localCallContext.arguments,
+                )
+                as _ida.Future<String>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+
+  _ida.Future<void> disconnect(_ist.TestSessionBuilder sessionBuilder) async {
+    return _ist.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _ist.InternalTestSessionBuilder).internalBuild(
+            endpoint: 'telegram',
+            method: 'disconnect',
+          );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'telegram',
+          methodName: 'disconnect',
+          parameters: _ist.testObjectToJson({}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue =
+            await (_localCallContext.method.call(
+                  _localUniqueSession,
+                  _localCallContext.arguments,
+                )
+                as _ida.Future<void>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();

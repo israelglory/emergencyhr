@@ -29,6 +29,7 @@ Organised by feature under `lib/src/features/`. Each feature holds its
 | `emergency` | Ranking, results stream, emergency sessions, wrong-status reports. |
 | `assistant` | Health Assistant: red-flag rules, AI adapters, encrypted chat history. |
 | `notifications` | SMS and WhatsApp adapters, notification log, stale reminders (future call). |
+| `telegram` | Telegram bot: hospital search for anyone, status updates for connected staff (webhook, one-time connect links). |
 | `admin` | Queues, pipeline, directory, dashboards, suspensions, metrics, development seed data. |
 | `doctors` | V2 schema only (profiles, availability, consultations, payments, payouts). |
 

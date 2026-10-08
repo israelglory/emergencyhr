@@ -11,6 +11,7 @@ import '../../data/api/onboarding_api.dart';
 import '../../data/api/profile_api.dart';
 import '../../data/api/staff_api.dart';
 import '../../data/api/status_api.dart';
+import '../../data/api/telegram_api.dart';
 import '../services/services.dart';
 
 final locator = GetIt.instance;
@@ -40,6 +41,7 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton<FacilityApi>(() => FacilityApi());
   locator.registerLazySingleton<EmergencyApi>(() => EmergencyApi());
   locator.registerLazySingleton<StatusApi>(() => StatusApi());
+  locator.registerLazySingleton<TelegramApi>(() => TelegramApi());
   locator.registerLazySingleton<StaffApi>(() => StaffApi());
   locator.registerLazySingleton<OnboardingApi>(() => OnboardingApi());
   locator.registerLazySingleton<ProfileApi>(() => ProfileApi());

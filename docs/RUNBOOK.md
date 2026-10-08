@@ -70,6 +70,7 @@ both test suites (goldens excluded), and builds for Android, web and Linux.
 | `firstAidPath` | Folder with the first-aid cards. |
 | `adminEmails` | Accounts made platform admins (staging and production), so a new server has its first admin. Only adds the role. |
 | `features.whatsappQuickUpdate`, `features.doctorsV2` | Feature flags. |
+| `telegramAdapter`, `telegramBotUsername` | Telegram bot: `live` (production), `dev` logs replies, `off` (the default, staging) ignores Telegram. The username (no @) builds the app's Connect Telegram link. |
 
 ### Secrets (`config/passwords.yaml` or `SERVERPOD_PASSWORD_<name>` env vars)
 
@@ -83,6 +84,7 @@ both test suites (goldens excluded), and builds for Android, web and Linux.
 | `termiiApiKey` | Live SMS. |
 | `whatsappAccessToken`, `whatsappPhoneNumberId` | Live WhatsApp messages. |
 | `whatsappAppSecret`, `whatsappVerifyToken` | WhatsApp webhook verification. |
+| `telegramBotToken` | The Telegram bot (from @BotFather). The webhook secret is derived from it. |
 | `geminiApiKey` | Live Health Assistant with Gemini (set for development). Use a paid (billing enabled) key before real users: on the free tier Google may use prompts to improve its products. |
 | `anthropicApiKey` | Live Health Assistant with Anthropic, if `aiProvider: anthropic`. |
 
@@ -94,6 +96,18 @@ Point the Meta webhook at `https://<web server host>/webhooks/whatsapp`, set
 the verify token to `whatsappVerifyToken`, subscribe to `messages`, and turn
 on `features.whatsappQuickUpdate`. Staff text `A` (accepting), `P` (paused)
 or `C` (still accurate) from their registered number.
+
+### Telegram bot
+
+@EmergencyHrBot. With `telegramAdapter: live` and `telegramBotToken` set,
+the server registers its webhook (`<appBaseUrl>/webhooks/telegram`), the
+command menu and the bot description at every start; the start-up log says
+"Telegram bot connected". Anyone can share a location or pick an area to see
+the five best hospitals with directions. Staff connect from the app (Status,
+Update from Telegram, Connect); the one-time link expires in 15 minutes.
+Connected staff tap Update hospital status to change accepting and beds;
+every save is in the audit log under their name. If the token leaks, send
+/revoke to @BotFather, set the new token and redeploy.
 
 ## Deploy
 

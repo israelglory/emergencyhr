@@ -243,3 +243,11 @@ pointed at `docs/design/...`; the files live in `design/` and
     platform admins can), but a platform admin may now add a hospital, submit
     it and approve it themselves. Every approval is still in the audit log
     with the admin's name.
+57. **Telegram bot (October 2026).** @EmergencyHrBot gives anyone the five
+    best hospitals near a shared location or picked area, using the same
+    ranking as the app, with directions links and the "What happened"
+    filter. Nothing about public users is stored. Staff connect their
+    Telegram from the app with a one-time link (not by phone number, which
+    is not verified); the bot then updates status as them, re-checking
+    their role on every tap. Accepting and beds change from Telegram; doctor
+    on duty and deposit stay as saved and change in the app.

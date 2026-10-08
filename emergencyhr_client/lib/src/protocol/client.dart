@@ -112,6 +112,8 @@ import 'package:emergencyhr_client/src/protocol/features/status/models/facility_
     as _ikh3pjuy;
 import 'package:emergencyhr_client/src/protocol/features/status/models/status_input.dart'
     as _ic5rdr82;
+import 'package:emergencyhr_client/src/protocol/features/telegram/models/telegram_connection.dart'
+    as _ihh21rfy;
 import 'package:http/http.dart' as _i85jenna;
 import 'package:serverpod_auth_core_client/serverpod_auth_core_client.dart'
     as _iacc;
@@ -1434,6 +1436,37 @@ class EndpointStatus extends _isc.EndpointRef {
   );
 }
 
+/// "Connect Telegram" for hospital staff. Who may call: hospital admins and
+/// desk staff of any hospital.
+/// {@category Endpoint}
+class EndpointTelegram extends _isc.EndpointRef {
+  EndpointTelegram(_isc.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'telegram';
+
+  _ida.Future<_ihh21rfy.TelegramConnection> connection() =>
+      caller.callServerEndpoint<_ihh21rfy.TelegramConnection>(
+        'telegram',
+        'connection',
+        {},
+      );
+
+  /// A one-time link that opens the bot and connects this account. It
+  /// expires in 15 minutes.
+  _ida.Future<String> createLink() => caller.callServerEndpoint<String>(
+    'telegram',
+    'createLink',
+    {},
+  );
+
+  _ida.Future<void> disconnect() => caller.callServerEndpoint<void>(
+    'telegram',
+    'disconnect',
+    {},
+  );
+}
+
 class Modules {
   Modules(Client client) {
     serverpod_auth_idp = _iaic.Caller(client);
@@ -1488,6 +1521,7 @@ class Client extends _isc.ServerpodClientShared {
     firstAid = EndpointFirstAid(this);
     profile = EndpointProfile(this);
     status = EndpointStatus(this);
+    telegram = EndpointTelegram(this);
     modules = Modules(this);
   }
 
@@ -1523,6 +1557,8 @@ class Client extends _isc.ServerpodClientShared {
 
   late final EndpointStatus status;
 
+  late final EndpointTelegram telegram;
+
   late final Modules modules;
 
   @override
@@ -1543,6 +1579,7 @@ class Client extends _isc.ServerpodClientShared {
     'firstAid': firstAid,
     'profile': profile,
     'status': status,
+    'telegram': telegram,
   };
 
   @override

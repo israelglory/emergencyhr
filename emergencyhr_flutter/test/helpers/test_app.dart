@@ -5,6 +5,7 @@ import 'package:emergencyhr_flutter/data/api/emergency_api.dart';
 import 'package:emergencyhr_flutter/data/api/facility_api.dart';
 import 'package:emergencyhr_flutter/data/api/profile_api.dart';
 import 'package:emergencyhr_flutter/data/api/status_api.dart';
+import 'package:emergencyhr_flutter/data/api/telegram_api.dart';
 import 'package:emergencyhr_flutter/data/local/emergency_cache.dart';
 import 'package:emergencyhr_flutter/data/local/intro_storage.dart';
 import 'package:emergencyhr_flutter/data/models/shell_kind.dart';
@@ -17,6 +18,7 @@ import 'mocks.dart';
 class TestServices {
   final emergencyApi = MockEmergencyApi();
   final statusApi = MockStatusApi();
+  final telegramApi = MockTelegramApi();
   final facilityApi = MockFacilityApi();
   final profileApi = MockProfileApi();
   final cache = MockEmergencyCache();
@@ -43,6 +45,7 @@ Future<TestServices> setUpTestLocator() async {
     ..registerSingleton<LocationService>(s.location)
     ..registerSingleton<EmergencyApi>(s.emergencyApi)
     ..registerSingleton<StatusApi>(s.statusApi)
+    ..registerSingleton<TelegramApi>(s.telegramApi)
     ..registerSingleton<FacilityApi>(s.facilityApi)
     ..registerSingleton<ProfileApi>(s.profileApi)
     ..registerSingleton<EmergencyCache>(s.cache)
@@ -71,6 +74,9 @@ Future<TestServices> setUpTestLocator() async {
     ),
   ).thenAnswer((_) async => ok(<AuditEntry>[]));
   when(() => s.launcher.canDialDirectly).thenReturn(true);
+  when(() => s.telegramApi.connection()).thenAnswer(
+    (_) async => ok(TelegramConnection(enabled: false, connected: false)),
+  );
   when(() => s.firstAid.forType(any())).thenReturn(
     FirstAidCard(
       type: EmergencyType.roadAccident,

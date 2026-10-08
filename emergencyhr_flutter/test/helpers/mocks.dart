@@ -9,6 +9,7 @@ import 'package:emergencyhr_flutter/data/api/emergency_api.dart';
 import 'package:emergencyhr_flutter/data/api/facility_api.dart';
 import 'package:emergencyhr_flutter/data/api/profile_api.dart';
 import 'package:emergencyhr_flutter/data/api/status_api.dart';
+import 'package:emergencyhr_flutter/data/api/telegram_api.dart';
 import 'package:emergencyhr_flutter/data/local/emergency_cache.dart';
 import 'package:emergencyhr_flutter/data/local/intro_storage.dart';
 import 'package:mocktail/mocktail.dart';
@@ -16,6 +17,8 @@ import 'package:mocktail/mocktail.dart';
 class MockAuthApi extends Mock implements AuthApi {}
 
 class MockStatusApi extends Mock implements StatusApi {}
+
+class MockTelegramApi extends Mock implements TelegramApi {}
 
 class MockFacilityApi extends Mock implements FacilityApi {}
 

@@ -152,6 +152,7 @@ import 'features/status/models/facility_status_changed.dart' as _i1gorcse;
 import 'features/status/models/freshness_tier.dart' as _itvk3dud;
 import 'features/status/models/status_change_log.dart' as _ijeqxb1v;
 import 'features/status/models/status_input.dart' as _iv1sb3gj;
+import 'features/telegram/models/telegram_connection.dart' as _ipflena9;
 export 'core/errors/app_error_code.dart';
 export 'core/errors/conflict_exception.dart';
 export 'core/errors/invalid_state_exception.dart';
@@ -246,6 +247,7 @@ export 'features/status/models/facility_status_changed.dart';
 export 'features/status/models/freshness_tier.dart';
 export 'features/status/models/status_change_log.dart';
 export 'features/status/models/status_input.dart';
+export 'features/telegram/models/telegram_connection.dart';
 export 'client.dart';
 
 class Protocol extends _isc.SerializationManager {
@@ -563,6 +565,9 @@ class Protocol extends _isc.SerializationManager {
     }
     if (t == _iv1sb3gj.StatusInput) {
       return _iv1sb3gj.StatusInput.fromJson(data) as T;
+    }
+    if (t == _ipflena9.TelegramConnection) {
+      return _ipflena9.TelegramConnection.fromJson(data) as T;
     }
     if (t == _isc.getType<_i4wtqx69.AppErrorCode?>()) {
       return (data != null ? _i4wtqx69.AppErrorCode.fromJson(data) : null) as T;
@@ -922,6 +927,10 @@ class Protocol extends _isc.SerializationManager {
     if (t == _isc.getType<_iv1sb3gj.StatusInput?>()) {
       return (data != null ? _iv1sb3gj.StatusInput.fromJson(data) : null) as T;
     }
+    if (t == _isc.getType<_ipflena9.TelegramConnection?>()) {
+      return (data != null ? _ipflena9.TelegramConnection.fromJson(data) : null)
+          as T;
+    }
     if (t == List<String>) {
       return (data as List).map((e) => deserialize<String>(e)).toList() as T;
     }
@@ -1231,6 +1240,7 @@ class Protocol extends _isc.SerializationManager {
       _itvk3dud.FreshnessTier => 'FreshnessTier',
       _ijeqxb1v.StatusChangeLog => 'StatusChangeLog',
       _iv1sb3gj.StatusInput => 'StatusInput',
+      _ipflena9.TelegramConnection => 'TelegramConnection',
       _ => null,
     };
   }
@@ -1433,6 +1443,8 @@ class Protocol extends _isc.SerializationManager {
         return 'StatusChangeLog';
       case _iv1sb3gj.StatusInput():
         return 'StatusInput';
+      case _ipflena9.TelegramConnection():
+        return 'TelegramConnection';
     }
     className = _iaic.Protocol().getClassNameForObject(data);
     if (className != null) {
@@ -1736,6 +1748,9 @@ class Protocol extends _isc.SerializationManager {
     }
     if (dataClassName == 'StatusInput') {
       return deserialize<_iv1sb3gj.StatusInput>(data['data']);
+    }
+    if (dataClassName == 'TelegramConnection') {
+      return deserialize<_ipflena9.TelegramConnection>(data['data']);
     }
     if (dataClassName.startsWith('serverpod_auth_idp.')) {
       data['className'] = dataClassName.substring(19);

@@ -1,0 +1,14 @@
+### Single-use code inside a "Connect Telegram" link. Only the hash is
+### stored.
+class: TelegramLinkCode
+table: telegram_link_code
+serverOnly: true
+fields:
+  userId: int, relation(parent=app_user, onDelete=Cascade)
+  codeHash: String
+  expiresAt: DateTime
+  usedAt: DateTime?
+indexes:
+  telegram_link_code_hash_idx:
+    fields: codeHash
+    unique: true

@@ -10,6 +10,8 @@ import 'src/features/admin/admin_bootstrap.dart';
 import 'src/features/admin/seed/seeder.dart';
 import 'src/features/auth/account_service.dart';
 import 'src/features/notifications/reminder_future_call.dart';
+import 'src/features/telegram/telegram_gateway.dart';
+import 'src/web/routes/telegram_webhook_route.dart';
 import 'src/web/routes/whatsapp_webhook_route.dart';
 import 'src/generated/serverpod.dart';
 import 'src/web/routes/app_config_route.dart';
@@ -52,6 +54,9 @@ void run(List<String> args) async {
 
   // WhatsApp quick status updates (behind the whatsappQuickUpdate flag).
   pod.webServer.addRoute(WhatsAppWebhookRoute(), '/webhooks/whatsapp');
+
+  // Telegram bot (hospital search and staff status updates).
+  pod.webServer.addRoute(TelegramWebhookRoute(), '/webhooks/telegram');
 
   // Setup the app config route.
   // We build this configuration based on the servers api url and serve it to
@@ -155,6 +160,23 @@ void run(List<String> args) async {
 
     // First admin(s): accounts listed in adminEmails get the admin role.
     await AdminBootstrap.run(startup);
+
+    // Point the Telegram bot at this server.
+    final telegramToken = startup.passwords['telegramBotToken'];
+    if (config.telegramAdapter == AdapterKind.live) {
+      final url = '${config.appBaseUrl}/webhooks/telegram';
+      final ok = telegramToken != null && telegramToken.isNotEmpty
+          ? await LiveTelegramGateway(
+              telegramToken,
+            ).register(startup, webhookUrl: url)
+          : false;
+      startup.log(
+        ok
+            ? 'Telegram bot connected at $url.'
+            : 'Telegram bot not connected (check telegramBotToken).',
+        level: LogLevel.warning,
+      );
+    }
   } finally {
     await startup.close();
   }

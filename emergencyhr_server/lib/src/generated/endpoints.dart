@@ -58,6 +58,7 @@ import '../features/onboarding/staff_endpoint.dart' as _i162w4na;
 import '../features/profile/first_aid_endpoint.dart' as _iuv1rm65;
 import '../features/profile/profile_endpoint.dart' as _iohh3cg0;
 import '../features/status/status_endpoint.dart' as _iwwegfni;
+import '../features/telegram/telegram_endpoint.dart' as _i8l210bi;
 export 'future_calls.dart' show ServerpodFutureCallsGetter;
 
 class Endpoints extends _is.EndpointDispatch {
@@ -158,6 +159,12 @@ class Endpoints extends _is.EndpointDispatch {
         ..initialize(
           server,
           'status',
+          null,
+        ),
+      'telegram': _i8l210bi.TelegramEndpoint()
+        ..initialize(
+          server,
+          'telegram',
           null,
         ),
     };
@@ -2453,6 +2460,42 @@ class Endpoints extends _is.EndpointDispatch {
                     limit: params['limit'],
                     offset: params['offset'],
                   ),
+        ),
+      },
+    );
+    connectors['telegram'] = _is.EndpointConnector(
+      name: 'telegram',
+      endpoint: endpoints['telegram']!,
+      methodConnectors: {
+        'connection': _is.MethodConnector(
+          name: 'connection',
+          params: {},
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['telegram'] as _i8l210bi.TelegramEndpoint)
+                  .connection(session),
+        ),
+        'createLink': _is.MethodConnector(
+          name: 'createLink',
+          params: {},
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['telegram'] as _i8l210bi.TelegramEndpoint)
+                  .createLink(session),
+        ),
+        'disconnect': _is.MethodConnector(
+          name: 'disconnect',
+          params: {},
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['telegram'] as _i8l210bi.TelegramEndpoint)
+                  .disconnect(session),
         ),
       },
     );
