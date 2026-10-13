@@ -44,51 +44,93 @@ class AgentFacilitiesView extends StatelessWidget {
                     children: [
                       const AppText.headline('My hospitals'),
                       const AppText.caption('Sorted by next action date'),
-                      AppListCard(
+                      AppTextField(
+                        hintText: 'Search name or address',
+                        semanticsLabel: 'Search hospitals',
+                        controller: model.searchController,
+                        onChanged: model.onSearchChanged,
+                        prefixIcon: const Icon(Icons.search),
+                      ),
+                      Wrap(
+                        spacing: AppSpacing.tight,
+                        runSpacing: AppSpacing.tight,
+                        crossAxisAlignment: WrapCrossAlignment.center,
                         children: [
-                          for (final row in model.rows)
-                            InkWell(
-                              onTap: () => model.open(row.id),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                  vertical: 14,
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          AppText.subtitle(row.name),
-                                          const SizedBox(
-                                            height: AppSpacing.half,
-                                          ),
-                                          AppText.caption(row.detail),
-                                          const SizedBox(
-                                            height: AppSpacing.half,
-                                          ),
-                                          AppText.caption(
-                                            row.nextAction,
-                                            tone: AppTextTone.primary,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    StatusBadge(
-                                      label: row.progress,
-                                      tone: row.progressTone,
-                                      dot: false,
-                                    ),
-                                  ],
-                                ),
-                              ),
+                          ToolbarSelect<String>(
+                            semanticsLabel: 'Area',
+                            value: model.area,
+                            options: model.areaOptions,
+                            onChanged: model.setArea,
+                          ),
+                          AppText.caption(model.countLabel),
+                          if (model.isFiltered)
+                            AppButton.text(
+                              title: 'Clear',
+                              onPressed: model.clearFilters,
                             ),
                         ],
                       ),
+                      if (model.noMatches)
+                        const AppText(
+                          'No hospitals match. Try another name or area.',
+                          tone: AppTextTone.secondary,
+                        )
+                      else
+                        AppListCard(
+                          children: [
+                            for (final row in model.rows)
+                              InkWell(
+                                onTap: () => model.open(row.id),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                    vertical: 14,
+                                  ),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            AppText.subtitle(row.name),
+                                            const SizedBox(
+                                              height: AppSpacing.half,
+                                            ),
+                                            AppText.caption(row.detail),
+                                            const SizedBox(
+                                              height: AppSpacing.half,
+                                            ),
+                                            AppText.caption(
+                                              row.nextAction,
+                                              tone: AppTextTone.primary,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      StatusBadge(
+                                        label: row.progress,
+                                        tone: row.progressTone,
+                                        dot: false,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      if (model.hasMore)
+                        Center(
+                          child: AppButton.secondary(
+                            title: 'Load more',
+                            size: AppButtonSize.medium,
+                            expand: false,
+                            onPressed: model.loadMore,
+                          ),
+                        ),
                     ],
                   ),
                 ),
