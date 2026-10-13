@@ -55,6 +55,75 @@ The public needs no account. Tapping Emergency starts the location lookup and op
 
 ---
 
+## Account roles
+
+Everyone starts as a guest. Signing up with email and password gives a member account; every other role is added on top of it. Hospital roles belong to one hospital, so staff of one hospital can never touch another. The server checks the role on every request, and a suspended account loses every signed-in ability.
+
+| Role | How someone gets it | In one line |
+| --- | --- | --- |
+| **Guest** | Opens the app or the Telegram bot | Finds a hospital in an emergency, no account needed |
+| **Member** | Signs up with email and password | Adds the Health Assistant, family alerts and a private medical profile |
+| **Desk staff** | Accepts an invite from their hospital | Keeps one hospital's live status up to date |
+| **Hospital admin** | Invited by a field agent or platform admin, or adds/claims their hospital | Runs one hospital's listing and its staff |
+| **Field agent** | Added by a platform admin, with areas to cover | Onboards hospitals in their areas until they go live |
+| **Platform admin** | Their email is on the server's admin list | Verifies, imports and oversees every hospital |
+
+#### Guest (no account)
+- Tap Emergency and see hospitals near you, ranked and updating live; filter by what happened; pick an area when location is off
+- Call a hospital or get directions in one tap; open a hospital's public page
+- Read first-aid cards
+- Search hospitals on the Telegram bot by sharing a location or picking an area
+- Send a request for a hospital to join, and open an invite link to see what it is for
+
+#### Member (every signed-in account)
+- Everything a guest can do
+- Health Assistant, with chat history they can delete; red-flag answers open the Emergency flow
+- Emergency contacts, and a family alert that tells them which hospital they are heading to, sent from their phone
+- A medical profile, encrypted and saved only after consent; export all their data or delete their account
+- Report a wrong status for 24 hours after calling a hospital; three reports in 24 hours flag the hospital for review
+- Add a hospital that is not listed yet (duplicates are blocked) and become its hospital admin, or claim an existing listing for an admin to review
+- Accept an invite to a hospital role
+
+#### Desk staff (one hospital)
+- Update the hospital's status: accepting or paused, ER and ICU beds, doctor on duty, deposit required
+- Tap "Still accurate" to refresh the time without changes
+- Practice mode for training, which the public never sees
+- See the hospital's details and the log of every status change
+- Connect Telegram and update status from the bot
+- Cannot edit hospital details, manage staff, or see other hospitals
+
+#### Hospital admin (one hospital)
+- Everything desk staff can do
+- Edit the hospital's details: address, phone numbers, capabilities, opening hours
+- Upload registration documents for verification, and submit the hospital for verification
+- Follow the go-live checklist
+- Invite and remove desk staff; the last hospital admin cannot be removed
+- Cannot invite other hospital admins, verify their own hospital, or confirm their own desk phone
+
+#### Field agent (assigned areas)
+- My hospitals: every hospital in their areas plus any assigned to them, with search and an area filter
+- Onboard on site: find listings within 300 m, add new ones with duplicate detection
+- Edit hospital details, upload documents, set the onboarding stage, keep notes and a next action date
+- Invite hospital admins and desk staff, and remove staff
+- Confirm a desk phone with a test call, and run a practice update with the staff
+- Submit a hospital for verification
+- Cannot verify hospitals or post a hospital's live status
+
+#### Platform admin (whole platform)
+- Verification queue: approve or reject with a reason; verify any listing directly, including ones they added; bulk verify by area
+- Directory of every hospital, with area and "unverified only" filters; add listings; import hospitals from a CSV file (683 imported from GRID3)
+- Pipeline of every hospital's stage and checklist; assign hospitals to field agents
+- Add field agents, set their areas, deactivate them
+- Review hospital claims and join requests, and turn a join request into a listing
+- Freshness board, wrong-status reports, metrics and new hospitals
+- Suspend or reinstate hospitals and accounts, with a reason in the audit log
+- Open hospital documents, confirm desk phones by test call, and manage any hospital's staff and details
+- Cannot post a hospital's live status (only its own staff can), cannot read anyone's medical profile, contacts or Health Assistant chats, and cannot suspend their own account
+
+A further role, **doctor**, is reserved in the data model for a planned doctor consultations feature and is switched off.
+
+---
+
 ## How it uses Serverpod
 
 ### Serverpod is the whole backend: API, database, real time, auth, files, web hosting and deployment
