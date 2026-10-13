@@ -17,3 +17,7 @@ pubspec_overrides.yaml
 
 # Serverpod Cloud CLI
 .scloud/
+
+# Project notes stay on this computer; only the main README is published.
+*.md
+!/README.md
