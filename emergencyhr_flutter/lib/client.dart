@@ -1,19 +1,31 @@
 import 'dart:async';
 
 import 'package:emergencyhr_client/emergencyhr_client.dart';
+import 'package:flutter/foundation.dart';
 import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 
-// When you are running the app on a physical device, you need to set the
-// server URL to the IP address of your computer. You can find the IP
-// address by running `ipconfig` on Windows or `ifconfig` on Mac/Linux.
-//
-// You can set the variable when running or building your app like this:
-// E.g. `flutter run --dart-define=SERVER_URL=https://api.example.com/`.
-//
-// Otherwise, the server URL is fetched from the assets/config.json file or
-// defaults to http://$localhost:8080/ if not found.
-final serverUrl = getServerUrl();
+/// The live EmergencyHr server on Serverpod Cloud.
+const liveServerUrl = 'https://emergencyhr.api.serverpod.space/';
+
+/// Which server the app talks to:
+/// - `--dart-define=SERVER_URL=...` always wins (e.g. a phone testing a
+///   server on this computer: use the computer's IP address).
+/// - Android and iOS use the live server, so phone builds work anywhere.
+/// - Web reads the address the server it was loaded from provides; desktop
+///   reads assets/config.json (localhost while developing).
+final serverUrl = _serverUrl();
+
+Future<String> _serverUrl() async {
+  const fromDefine = String.fromEnvironment('SERVER_URL');
+  if (fromDefine.isNotEmpty) return fromDefine;
+  if (!kIsWeb &&
+      (defaultTargetPlatform == TargetPlatform.android ||
+          defaultTargetPlatform == TargetPlatform.iOS)) {
+    return liveServerUrl;
+  }
+  return getServerUrl();
+}
 
 /// Sets up a global client object that can be used to talk to the server from
 /// anywhere in our app. The client is generated from your server code

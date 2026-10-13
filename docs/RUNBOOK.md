@@ -173,6 +173,15 @@ The server can serve the web app: `flutter build web` output in
 does this). Or host `build/web` on any static host and set
 `SERVER_URL` with `--dart-define=SERVER_URL=https://api.example.com/`.
 
+### Phone apps
+
+Android and iOS builds talk to the live server
+(`https://emergencyhr.api.serverpod.space/`, `liveServerUrl` in
+`emergencyhr_flutter/lib/client.dart`). To try a phone against the server on
+this computer instead, run it with
+`--dart-define=SERVER_URL=http://<this computer's IP>:8080/`. Change
+`liveServerUrl` when your own domain is attached.
+
 ## Performance checks
 
 - **Results in under 3 seconds.** Ranking uses one bounding-box query plus

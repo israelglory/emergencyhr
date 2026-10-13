@@ -274,3 +274,8 @@ pointed at `docs/design/...`; the files live in `design/` and
     a desk phone code says so instead of failing silently, and platform
     admins (as well as the assigned field agent) can confirm the desk phone
     with a test call. Hospital staff cannot confirm their own phone.
+62. **Phone apps use the live server.** Android and iOS builds connect to
+    https://emergencyhr.api.serverpod.space/ by default, so an installed
+    app works anywhere. Web keeps the address the serving server provides;
+    desktop keeps assets/config.json. `--dart-define=SERVER_URL=...`
+    overrides all of them (e.g. to test a phone against this computer).
