@@ -210,7 +210,10 @@ Reinstall the app on the phone to see a new icon or launch screen.
    preview shows how many will be added, already imported, possible
    duplicates and unusable rows. Then Import.
 3. Imported hospitals are unverified. Verify each in the Directory once
-   checked. Importing the same file again is safe.
+   checked, or many at once: pick an Area, tap Select all to verify (or
+   tick rows), then Verify. The app sends 100 per request and reports how
+   many were verified, already verified or skipped (suspended). Each one
+   gets its own audit entry. Importing the same file again is safe.
 
 CSV columns: `source_ref,name,type,address,area,lat,lng` (type is public,
 private or mission). Other sources work too if they use these columns and a

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:emergencyhr_client/emergencyhr_client.dart';
 import 'package:emergencyhr_flutter/core/cores.dart';
+import 'package:emergencyhr_flutter/data/api/admin_api.dart';
 import 'package:emergencyhr_flutter/data/api/api_response.dart';
 import 'package:emergencyhr_flutter/data/api/assistant_api.dart';
 import 'package:emergencyhr_flutter/data/api/auth_api.dart';
@@ -17,6 +18,8 @@ import 'package:mocktail/mocktail.dart';
 class MockAuthApi extends Mock implements AuthApi {}
 
 class MockStatusApi extends Mock implements StatusApi {}
+
+class MockAdminApi extends Mock implements AdminApi {}
 
 class MockTelegramApi extends Mock implements TelegramApi {}
 

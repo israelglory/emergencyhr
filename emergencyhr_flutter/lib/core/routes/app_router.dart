@@ -88,7 +88,9 @@ abstract final class AppRouter {
       case AppRoutes.emergencyResults:
         return ResultsView(args: args is EmergencyResultsArgs ? args : null);
       case AppRoutes.emergencyArea:
-        return const AreaPickerView();
+        return AreaPickerView(
+          args: args is AreaPickerArgs ? args : const AreaPickerArgs(),
+        );
       case AppRoutes.emergencyType:
         return TypeFilterView(
           current: args is EmergencyType ? args : EmergencyType.skipped,

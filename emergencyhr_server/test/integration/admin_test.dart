@@ -56,6 +56,8 @@ void main() {
             () => endpoints.admin.agents(agent.session),
             () => endpoints.admin.approve(agent.session, 1),
             () => endpoints.admin.setUserSuspended(agent.session, 1, true, 'x'),
+            () => endpoints.admin.verifyListings(agent.session, [1]),
+            () => endpoints.admin.directoryVerifiableIds(agent.session),
           ];
           for (final call in calls) {
             await expectLater(call(), throwsA(isA<NotAuthorizedException>()));
@@ -246,6 +248,107 @@ void main() {
             (r) => r.facility.id == bare.id,
           );
           expect(readyRow.checklistDone, greaterThan(bareRow.checklistDone));
+        },
+      );
+
+      test(
+        'when an admin bulk verifies an area then unverified listings are '
+        'verified, each audited, and suspended ones skipped',
+        () async {
+          final admin = await createUser(
+            sessionBuilder,
+            phone: '+2348038880911',
+            roles: [(UserRole.platformAdmin, null)],
+          );
+          const area = 'Bulk Verify Area';
+          final seeded = await createFacility(
+            sessionBuilder,
+            name: 'Bulk A Hospital',
+            area: area,
+            stage: OnboardingStage.seeded,
+            verification: VerificationStatus.seeded,
+          );
+          final pending = await createFacility(
+            sessionBuilder,
+            name: 'Bulk B Hospital',
+            area: area,
+            stage: OnboardingStage.staffTrained,
+            verification: VerificationStatus.pending,
+          );
+          final done = await createFacility(
+            sessionBuilder,
+            name: 'Bulk C Hospital',
+            area: area,
+            stage: OnboardingStage.verified,
+          );
+          final suspended = await createFacility(
+            sessionBuilder,
+            name: 'Bulk D Hospital',
+            area: area,
+            stage: OnboardingStage.seeded,
+            verification: VerificationStatus.suspended,
+          );
+
+          final ids = await endpoints.admin.directoryVerifiableIds(
+            admin.session,
+            area: area,
+          );
+          expect(ids, unorderedEquals([seeded.id, pending.id]));
+          expect(
+            await endpoints.admin.directoryAreas(admin.session),
+            contains(area),
+          );
+
+          final summary = await endpoints.admin.verifyListings(
+            admin.session,
+            [seeded.id!, pending.id!, done.id!, suspended.id!],
+          );
+          expect(summary.verified, 2);
+          expect(summary.alreadyVerified, 1);
+          expect(summary.skipped, ['Bulk D Hospital: suspended']);
+
+          final session = sessionBuilder.build();
+          for (final f in [seeded, pending]) {
+            final after = await Facility.db.findById(session, f.id!);
+            expect(after!.verificationStatus, VerificationStatus.verified);
+            expect(after.onboardingStage, OnboardingStage.verified);
+            final record = await OnboardingRecord.db.findFirstRow(
+              session,
+              where: (t) => t.facilityId.equals(f.id!),
+            );
+            expect(record!.stage, OnboardingStage.verified);
+          }
+          final audit = await AdminActionLog.db.count(
+            session,
+            where: (t) =>
+                t.actorUserId.equals(admin.user.id!) &
+                t.targetId.inSet({seeded.id!, pending.id!}),
+          );
+          expect(audit, 2);
+          expect(
+            await endpoints.admin.directoryVerifiableIds(
+              admin.session,
+              area: area,
+            ),
+            isEmpty,
+          );
+        },
+      );
+
+      test(
+        'when more than 100 listings are sent at once then it is refused',
+        () async {
+          final admin = await createUser(
+            sessionBuilder,
+            phone: '+2348038880912',
+            roles: [(UserRole.platformAdmin, null)],
+          );
+          await expectLater(
+            endpoints.admin.verifyListings(admin.session, [
+              for (var i = 1; i <= 101; i++) i,
+            ]),
+            throwsA(isA<ValidationException>()),
+          );
         },
       );
     },

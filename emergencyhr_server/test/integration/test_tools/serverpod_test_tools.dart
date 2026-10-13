@@ -16,6 +16,8 @@ import 'dart:io' as _idi;
 import 'dart:typed_data' as _idt;
 import 'package:emergencyhr_server/src/generated/features/admin/models/agent_row.dart'
     as _i9rgzcpn;
+import 'package:emergencyhr_server/src/generated/features/admin/models/bulk_verify_summary.dart'
+    as _i6gt5itx;
 import 'package:emergencyhr_server/src/generated/features/admin/models/claim_queue_item.dart'
     as _ig40es56;
 import 'package:emergencyhr_server/src/generated/features/admin/models/directory_row.dart'
@@ -799,6 +801,37 @@ class _AdminEndpoint {
     });
   }
 
+  _ida.Future<_i6gt5itx.BulkVerifySummary> verifyListings(
+    _ist.TestSessionBuilder sessionBuilder,
+    List<int> facilityIds,
+  ) async {
+    return _ist.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _ist.InternalTestSessionBuilder).internalBuild(
+            endpoint: 'admin',
+            method: 'verifyListings',
+          );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'admin',
+          methodName: 'verifyListings',
+          parameters: _ist.testObjectToJson({'facilityIds': facilityIds}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue =
+            await (_localCallContext.method.call(
+                  _localUniqueSession,
+                  _localCallContext.arguments,
+                )
+                as _ida.Future<_i6gt5itx.BulkVerifySummary>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+
   _ida.Future<_iz2jnqcq.FacilityImportSummary> importFacilities(
     _ist.TestSessionBuilder sessionBuilder,
     List<_ijbyy5tt.FacilityImportRow> rows, {
@@ -874,6 +907,7 @@ class _AdminEndpoint {
     String? query,
     String? area,
     _ic7x89it.OnboardingStage? stage,
+    required bool unverifiedOnly,
     required int limit,
     required int offset,
   }) async {
@@ -892,6 +926,7 @@ class _AdminEndpoint {
             'query': query,
             'area': area,
             'stage': stage,
+            'unverifiedOnly': unverifiedOnly,
             'limit': limit,
             'offset': offset,
           }),
@@ -903,6 +938,73 @@ class _AdminEndpoint {
                   _localCallContext.arguments,
                 )
                 as _ida.Future<List<_ip8ei28x.DirectoryRow>>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+
+  _ida.Future<List<int>> directoryVerifiableIds(
+    _ist.TestSessionBuilder sessionBuilder, {
+    String? query,
+    String? area,
+    _ic7x89it.OnboardingStage? stage,
+  }) async {
+    return _ist.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _ist.InternalTestSessionBuilder).internalBuild(
+            endpoint: 'admin',
+            method: 'directoryVerifiableIds',
+          );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'admin',
+          methodName: 'directoryVerifiableIds',
+          parameters: _ist.testObjectToJson({
+            'query': query,
+            'area': area,
+            'stage': stage,
+          }),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue =
+            await (_localCallContext.method.call(
+                  _localUniqueSession,
+                  _localCallContext.arguments,
+                )
+                as _ida.Future<List<int>>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+
+  _ida.Future<List<String>> directoryAreas(
+    _ist.TestSessionBuilder sessionBuilder,
+  ) async {
+    return _ist.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _ist.InternalTestSessionBuilder).internalBuild(
+            endpoint: 'admin',
+            method: 'directoryAreas',
+          );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'admin',
+          methodName: 'directoryAreas',
+          parameters: _ist.testObjectToJson({}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue =
+            await (_localCallContext.method.call(
+                  _localUniqueSession,
+                  _localCallContext.arguments,
+                )
+                as _ida.Future<List<String>>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();

@@ -353,6 +353,161 @@ class OnboardingService {
     }
   }
 
+  /// Most listings one bulk Verify call takes.
+  static const maxBulkVerify = 100;
+
+  /// Platform admins only: verifies many listings in a few queries (the
+  /// admin Directory can select hundreds). Like [verifyListing], each one
+  /// moves to Verified and gets its own audit entry; verified and suspended
+  /// listings are skipped.
+  Future<BulkVerifySummary> verifyListings(
+    Session session, {
+    required List<int> facilityIds,
+    required AppUser admin,
+  }) async {
+    final ids = facilityIds.toSet();
+    if (ids.length > maxBulkVerify) {
+      throw Errors.validation(
+        'Verify at most $maxBulkVerify hospitals at a time.',
+      );
+    }
+    if (ids.isEmpty) {
+      return BulkVerifySummary(verified: 0, alreadyVerified: 0, skipped: []);
+    }
+    final found = await Facility.db.find(
+      session,
+      where: (t) => t.id.inSet(ids),
+    );
+    final skipped = <String>[
+      for (final id in ids.difference({for (final f in found) f.id!}))
+        'Hospital $id: not found',
+      for (final f in found)
+        if (f.verificationStatus == VerificationStatus.suspended ||
+            f.suspendedAt != null)
+          '${f.name}: suspended',
+    ];
+    final already = found
+        .where((f) => f.verificationStatus == VerificationStatus.verified)
+        .length;
+    final eligible = [
+      for (final f in found)
+        if (f.verificationStatus != VerificationStatus.verified &&
+            f.verificationStatus != VerificationStatus.suspended &&
+            f.suspendedAt == null)
+          f,
+    ];
+    if (eligible.isEmpty) {
+      return BulkVerifySummary(
+        verified: 0,
+        alreadyVerified: already,
+        skipped: skipped,
+      );
+    }
+    final now = clock.now();
+    final eligibleIds = {for (final f in eligible) f.id!};
+    final moving = [
+      for (final f in eligible)
+        if (!StageRules.isAtLeast(f.onboardingStage, OnboardingStage.verified))
+          f,
+    ];
+    await session.db.transaction((tx) async {
+      await Facility.db.update(
+        session,
+        [
+          for (final f in eligible)
+            f.copyWith(
+              verificationStatus: VerificationStatus.verified,
+              onboardingStage: moving.contains(f)
+                  ? OnboardingStage.verified
+                  : f.onboardingStage,
+              updatedAt: now,
+            ),
+        ],
+        transaction: tx,
+      );
+      if (moving.isNotEmpty) {
+        final movingIds = {for (final f in moving) f.id!};
+        final records = await OnboardingRecord.db.find(
+          session,
+          where: (t) => t.facilityId.inSet(movingIds),
+          transaction: tx,
+        );
+        final withRecord = {for (final r in records) r.facilityId};
+        await OnboardingRecord.db.update(
+          session,
+          [
+            for (final r in records)
+              r.copyWith(stage: OnboardingStage.verified, updatedAt: now),
+          ],
+          transaction: tx,
+        );
+        await OnboardingRecord.db.insert(
+          session,
+          [
+            for (final id in movingIds.difference(withRecord))
+              OnboardingRecord(
+                facilityId: id,
+                stage: OnboardingStage.verified,
+                updatedAt: now,
+              ),
+          ],
+          transaction: tx,
+        );
+        await OnboardingEvent.db.insert(
+          session,
+          [
+            for (final f in moving)
+              OnboardingEvent(
+                facilityId: f.id!,
+                fromStage: f.onboardingStage,
+                toStage: OnboardingStage.verified,
+                byUserId: admin.id,
+                note: 'Verified by a platform admin',
+                at: now,
+              ),
+          ],
+          transaction: tx,
+        );
+      }
+      await AdminActionLog.db.insert(
+        session,
+        [
+          for (final f in eligible)
+            AdminActionLog(
+              actorUserId: admin.id!,
+              action: f.verificationStatus == VerificationStatus.pending
+                  ? 'verification:approve'
+                  : 'verification:direct',
+              targetType: 'facility',
+              targetId: f.id!,
+              reason: 'Bulk verify',
+              at: now,
+            ),
+        ],
+        transaction: tx,
+      );
+    });
+    session.log(
+      'action=verification:bulk count=${eligible.length} actor=${admin.id}',
+      level: LogLevel.info,
+    );
+    // Only hospitals with staff can complete the go-live checklist.
+    final staffed = await RoleAssignment.db.find(
+      session,
+      where: (t) =>
+          t.facilityId.inSet(eligibleIds) &
+          t.role.inSet(<UserRole>{UserRole.hospitalAdmin, UserRole.deskStaff}),
+    );
+    for (final id in {for (final r in staffed) ?r.facilityId}) {
+      await evaluate(session, id);
+    }
+    return BulkVerifySummary(
+      verified: eligible.length,
+      alreadyVerified: already,
+      skipped: skipped,
+    );
+  }
+
   Future<Facility> _markVerified(
     Session session, {
     required Facility facility,
@@ -472,7 +627,8 @@ class OnboardingService {
     final facilities = await Facility.db.find(
       session,
       where: (t) {
-        final byId = t.id.inSet(ids.isEmpty ? {-1} : ids);
+        // Typed so an empty selection never becomes a Set<int?> at runtime.
+        final byId = t.id.inSet(ids.isEmpty ? <int>{-1} : ids);
         return areaNames.isEmpty ? byId : byId | t.area.inSet(areaNames);
       },
       orderBy: (t) => t.name,

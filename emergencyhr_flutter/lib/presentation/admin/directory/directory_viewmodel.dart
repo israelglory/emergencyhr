@@ -18,6 +18,7 @@ typedef DirectoryItem = ({
   StatusTone tone,
   bool suspended,
   bool canVerify,
+  bool selected,
 });
 
 class DirectoryViewModel extends BaseViewModel {
@@ -49,6 +50,41 @@ class DirectoryViewModel extends BaseViewModel {
   Timer? _debounce;
   List<DirectoryRow> _rows = const [];
 
+  // Filters
+  static const allAreas = 'All areas';
+  static const showAll = 'All hospitals';
+  static const showUnverified = 'Unverified only';
+  List<String> _areas = const [];
+  String? _area;
+  bool _unverifiedOnly = false;
+
+  List<({String value, String label})> get areaOptions => [
+    for (final a in [allAreas, ..._areas]) (value: a, label: a),
+  ];
+  String get area => _area ?? allAreas;
+  List<({String value, String label})> get showOptions => const [
+    (value: showAll, label: showAll),
+    (value: showUnverified, label: showUnverified),
+  ];
+  String get show => _unverifiedOnly ? showUnverified : showAll;
+
+  // Bulk verify
+  final Set<int> _selected = {};
+  bool _selectingAll = false;
+  ({int done, int total})? _progress;
+
+  bool get hasSelection => _selected.isNotEmpty;
+  bool get isBulkRunning => _progress != null;
+  bool get isSelectingAll => _selectingAll;
+  String get selectionLabel => '${_selected.length} selected';
+  String get verifySelectedLabel => 'Verify ${_selected.length}';
+  String? get progressLabel {
+    final p = _progress;
+    return p == null ? null : 'Verifying ${p.done} of ${p.total}…';
+  }
+
+  static const selectAllLabel = 'Select all to verify';
+
   bool get isLoading => isBusy && _rows.isEmpty;
   String? get errorMessage => modelError?.toString();
   ViewState get state => viewStateOf(
@@ -76,23 +112,144 @@ class DirectoryViewModel extends BaseViewModel {
             ? StatusTone.positive
             : StatusTone.neutral,
         suspended: r.suspended,
-        canVerify:
-            !r.suspended &&
-            (r.facility.verificationStatus == VerificationStatus.seeded ||
-                r.facility.verificationStatus == VerificationStatus.pending ||
-                r.facility.verificationStatus == VerificationStatus.rejected),
+        canVerify: _canVerify(r),
+        selected: _selected.contains(r.facility.id),
       ),
   ];
 
+  static bool _canVerify(DirectoryRow r) =>
+      !r.suspended &&
+      (r.facility.verificationStatus == VerificationStatus.seeded ||
+          r.facility.verificationStatus == VerificationStatus.pending ||
+          r.facility.verificationStatus == VerificationStatus.rejected);
+
+  String? get _query {
+    final q = searchController.text.trim();
+    return q.isEmpty ? null : q;
+  }
+
+  Future<void> onReady() async {
+    await load();
+    final areas = await _api.directoryAreas();
+    if (areas.success) {
+      _areas = areas.data!;
+      notifyListeners();
+    }
+  }
+
   Future<void> load() => _load(offset: 0);
+
+  void setArea(String? value) {
+    _area = value == null || value == allAreas ? null : value;
+    _selected.clear();
+    load();
+  }
+
+  void setShow(String? value) {
+    _unverifiedOnly = value == showUnverified;
+    _selected.clear();
+    load();
+  }
+
+  void toggle(int id) {
+    _selected.contains(id) ? _selected.remove(id) : _selected.add(id);
+    notifyListeners();
+  }
+
+  /// The row's tick box, locked while a bulk Verify runs.
+  ValueChanged<bool?>? onToggle(int id) =>
+      isBulkRunning ? null : (_) => toggle(id);
+
+  void clearSelection() {
+    _selected.clear();
+    notifyListeners();
+  }
+
+  /// Selects every listing matching the search and filters that can still
+  /// be verified, not only the rows loaded so far.
+  Future<void> selectAllVerifiable() async {
+    _selectingAll = true;
+    notifyListeners();
+    final response = await _api.directoryVerifiableIds(
+      query: _query,
+      area: _area,
+    );
+    _selectingAll = false;
+    if (response.success) {
+      _selected
+        ..clear()
+        ..addAll(response.data!);
+      if (_selected.isEmpty) {
+        _snackbar.info(message: 'Nothing to verify here.');
+      }
+    } else {
+      _snackbar.error(message: response.message!);
+    }
+    notifyListeners();
+  }
+
+  /// Verifies the selection in batches the server accepts, then reports.
+  Future<void> verifySelected() async {
+    final ids = _selected.toList();
+    if (ids.isEmpty) return;
+    final ok = await _dialogs.confirm(
+      title: 'Verify ${Formatters.count(ids.length, 'hospital')}?',
+      message:
+          'Only verify hospitals you have checked, for example on a list you '
+          'trust or by phone. The public still sees "Unverified. Call before '
+          'going." until each desk confirms a status.',
+      confirmLabel: 'Verify',
+    );
+    if (!ok) return;
+    var verified = 0;
+    var already = 0;
+    final skipped = <String>[];
+    String? failure;
+    _progress = (done: 0, total: ids.length);
+    notifyListeners();
+    for (var i = 0; i < ids.length; i += AdminApi.verifyBatchSize) {
+      final batch = ids.sublist(
+        i,
+        (i + AdminApi.verifyBatchSize).clamp(0, ids.length),
+      );
+      final response = await _api.verifyListings(batch);
+      if (!response.success) {
+        failure = response.message;
+        break;
+      }
+      final r = response.data!;
+      verified += r.verified;
+      already += r.alreadyVerified;
+      skipped.addAll(r.skipped);
+      _selected.removeAll(batch);
+      _progress = (done: i + batch.length, total: ids.length);
+      notifyListeners();
+    }
+    _progress = null;
+    final parts = [
+      '$verified verified',
+      if (already > 0) '$already already verified',
+      if (skipped.isNotEmpty) '${skipped.length} skipped',
+    ];
+    if (failure != null) {
+      _snackbar.error(message: '${parts.join(', ')}. Stopped: $failure');
+    } else {
+      _snackbar.success(message: parts.join(', '));
+    }
+    await load();
+  }
 
   Future<void> loadMore() => _load(offset: _rows.length);
 
   Future<void> _load({required int offset}) async {
     setError(null);
-    final query = searchController.text.trim();
     final response = await runBusyFuture(
-      _api.directory(query: query.isEmpty ? null : query, offset: offset),
+      _api.directory(
+        query: _query,
+        area: _area,
+        unverifiedOnly: _unverifiedOnly,
+        offset: offset,
+      ),
     );
     if (response.success) {
       final page = response.data!;
@@ -132,7 +289,10 @@ class DirectoryViewModel extends BaseViewModel {
 
   void onSearchChanged(String _) {
     _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 350), load);
+    _debounce = Timer(const Duration(milliseconds: 350), () {
+      _selected.clear();
+      load();
+    });
   }
 
   void open(int id) => _navigation.pushNamed<void>(AppRoutes.agentFacility(id));

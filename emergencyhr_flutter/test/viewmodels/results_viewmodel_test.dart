@@ -3,6 +3,7 @@ import 'package:emergencyhr_flutter/core/cores.dart';
 import 'package:emergencyhr_flutter/data/local/emergency_cache.dart';
 import 'package:emergencyhr_flutter/data/models/pilot_areas.dart';
 import 'package:emergencyhr_flutter/data/models/route_args.dart';
+import 'package:emergencyhr_flutter/presentation/emergency/area_picker/area_picker_viewmodel.dart';
 import 'package:emergencyhr_flutter/presentation/emergency/results/results_viewmodel.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -208,7 +209,10 @@ void main() {
     serve(searchFixture());
     emergency.begin(Future.value(const LocationDenied()));
     when(
-      () => navigation.pushNamed<PilotArea>(AppRoutes.emergencyArea),
+      () => navigation.pushNamed<Object>(
+        AppRoutes.emergencyArea,
+        args: any(named: 'args'),
+      ),
     ).thenAnswer((_) async => PilotAreas.all.first);
     final vm = build(withArgs: null);
     await vm.onReady();
@@ -222,6 +226,33 @@ void main() {
       ),
     ).called(1);
     expect(vm.locationValue, 'Ikeja');
+    vm.dispose();
+  });
+
+  test('Given location is blocked, when Use my location is tapped after '
+      'allowing it, then the device location is searched', () async {
+    serve(searchFixture());
+    emergency.begin(Future.value(const LocationDenied()));
+    when(
+      () => navigation.pushNamed<Object>(
+        AppRoutes.emergencyArea,
+        args: any(named: 'args'),
+      ),
+    ).thenAnswer((_) async => const UseMyLocation());
+    when(
+      () => location.current(),
+    ).thenAnswer((_) async => const LocationFound(6.5, 3.4));
+    final vm = build(withArgs: null);
+    await vm.onReady();
+    verify(
+      () => api.start(
+        lat: 6.5,
+        lng: 3.4,
+        type: EmergencyType.skipped,
+        area: null,
+        tappedAt: any(named: 'tappedAt'),
+      ),
+    ).called(1);
     vm.dispose();
   });
 

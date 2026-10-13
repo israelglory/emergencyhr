@@ -93,7 +93,7 @@ void main() {
     });
 
     testWidgets('when the prompt is never answered then it gives up after '
-        '15 seconds instead of waiting forever', (tester) async {
+        '30 seconds instead of waiting forever', (tester) async {
       final fake = FakeGeolocator()
         ..onPosition = () => Completer<Position>().future;
       LocationResult? result;
@@ -103,7 +103,7 @@ void main() {
           isWeb: true,
         ).current().then((r) => result = r),
       );
-      await tester.pump(const Duration(seconds: 14));
+      await tester.pump(const Duration(seconds: 29));
       expect(result, isNull);
       await tester.pump(const Duration(seconds: 2));
       expect(result, isA<LocationUnavailable>());

@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../core/cores.dart';
+import '../../../data/models/route_args.dart';
 import 'area_picker_viewmodel.dart';
 
 class AreaPickerView extends StatelessWidget {
-  const AreaPickerView({super.key});
+  const AreaPickerView({super.key, this.args = const AreaPickerArgs()});
+
+  final AreaPickerArgs args;
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<AreaPickerViewModel>.reactive(
-      viewModelBuilder: AreaPickerViewModel.new,
+      viewModelBuilder: () => AreaPickerViewModel(args: args),
       builder: (context, model, _) => AppPage(
         title: AreaPickerViewModel.title,
         bottom: AppButton.dangerOutline(
@@ -20,12 +23,19 @@ class AreaPickerView extends StatelessWidget {
         body: SectionColumn(
           gap: AppSpacing.x2,
           children: [
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText.headline(AreaPickerViewModel.heading),
-                SizedBox(height: 6),
-                AppText(AreaPickerViewModel.hint, tone: AppTextTone.secondary),
+                const AppText.headline(AreaPickerViewModel.heading),
+                const SizedBox(height: 6),
+                AppText(model.hint, tone: AppTextTone.secondary),
+                const SizedBox(height: AppSpacing.small),
+                AppButton.secondary(
+                  title: AreaPickerViewModel.useMyLocationLabel,
+                  size: AppButtonSize.medium,
+                  expand: false,
+                  onPressed: model.useMyLocation,
+                ),
               ],
             ),
             AppTextField(

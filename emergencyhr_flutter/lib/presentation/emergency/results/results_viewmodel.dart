@@ -10,6 +10,7 @@ import '../../../data/local/emergency_cache.dart';
 import '../../../data/models/labels.dart';
 import '../../../data/models/pilot_areas.dart';
 import '../../../data/models/route_args.dart';
+import '../area_picker/area_picker_viewmodel.dart';
 import '../presenters/result_presenter.dart';
 
 typedef ResultRow = ({
@@ -157,21 +158,26 @@ class ResultsViewModel extends ReactiveViewModel {
       _emergency.setArea(a.area);
       return _load(() => _start(a.lat, a.lng));
     }
-    final pending = _emergency.pendingLocation ?? _beginFresh();
-    final result = await pending;
-    if (result is LocationFound) {
-      return _load(() => _start(result.lat, result.lng));
+    var result = await (_emergency.pendingLocation ?? _beginFresh());
+    // No location: the area picker, which says why and can try again.
+    // Leaving it without a choice goes back.
+    while (result is! LocationFound) {
+      final choice = await _navigation.pushNamed<Object>(
+        AppRoutes.emergencyArea,
+        args: AreaPickerArgs(failure: result),
+      );
+      if (choice is PilotArea) {
+        _emergency.setArea(choice.name);
+        return _load(() => _start(choice.lat, choice.lng));
+      }
+      if (choice is! UseMyLocation) {
+        _navigation.back(fallbackRoute: AppRoutes.home);
+        return;
+      }
+      result = await _location.current();
     }
-    // No location: the area picker. Leaving it without an area goes back.
-    final area = await _navigation.pushNamed<PilotArea>(
-      AppRoutes.emergencyArea,
-    );
-    if (area == null) {
-      _navigation.back(fallbackRoute: AppRoutes.home);
-      return;
-    }
-    _emergency.setArea(area.name);
-    await _load(() => _start(area.lat, area.lng));
+    final found = result;
+    await _load(() => _start(found.lat, found.lng));
   }
 
   Future<Object?> _beginFresh() {
@@ -237,17 +243,36 @@ class ResultsViewModel extends ReactiveViewModel {
     await _refine();
   }
 
-  /// Opens Choose your area.
+  /// Opens Choose your area, which can also switch back to the device
+  /// location.
   Future<void> chooseArea() async {
-    final area = await _navigation.pushNamed<PilotArea>(
+    final choice = await _navigation.pushNamed<Object>(
       AppRoutes.emergencyArea,
+      args: const AreaPickerArgs(),
     );
-    if (area == null) return;
-    _emergency.setArea(area.name);
-    await _refine(place: area);
+    if (choice is PilotArea) {
+      _emergency.setArea(choice.name);
+      return _refine(
+        place: (lat: choice.lat, lng: choice.lng, area: choice.name),
+      );
+    }
+    if (choice is! UseMyLocation) return;
+    final result = await _location.current();
+    if (result is! LocationFound) {
+      _snackbar.error(
+        message: result is LocationDenied
+            ? 'Location is blocked. Allow it for this app, or pick your area.'
+            : 'Could not find your location. Pick your area instead.',
+      );
+      return;
+    }
+    _emergency.setArea(null);
+    await _refine(place: (lat: result.lat, lng: result.lng, area: null));
   }
 
-  Future<void> _refine({PilotArea? place}) async {
+  Future<void> _refine({
+    ({double lat, double lng, String? area})? place,
+  }) async {
     final s = _search;
     final lat = place?.lat ?? _lat;
     final lng = place?.lng ?? _lng;
@@ -260,9 +285,7 @@ class ResultsViewModel extends ReactiveViewModel {
         s.sessionId,
         s.accessToken,
         _emergency.type,
-        place: place == null
-            ? null
-            : (lat: place.lat, lng: place.lng, area: place.name),
+        place: place,
       );
       if (place != null) {
         _lat = place.lat;

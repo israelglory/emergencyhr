@@ -398,6 +398,32 @@ void main() {
           );
         },
       );
+
+      test(
+        'when a field agent covers an area but has no hospital assigned '
+        'directly then My hospitals lists the area',
+        () async {
+          const area = 'Agent Area Only';
+          final f = await createFacility(
+            sessionBuilder,
+            name: 'Area Only Hospital',
+            area: area,
+            stage: OnboardingStage.seeded,
+            verification: VerificationStatus.seeded,
+          );
+          final agent = await createUser(
+            sessionBuilder,
+            phone: '+2348037770911',
+            roles: [(UserRole.fieldAgent, null)],
+          );
+          await FieldAgentArea.db.insertRow(
+            sessionBuilder.build(),
+            FieldAgentArea(userId: agent.user.id!, area: area),
+          );
+          final list = await endpoints.onboarding.myFacilities(agent.session);
+          expect([for (final a in list) a.facility.id], [f.id]);
+        },
+      );
     },
   );
 }

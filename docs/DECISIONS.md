@@ -251,3 +251,16 @@ pointed at `docs/design/...`; the files live in `design/` and
     is not verified); the bot then updates status as them, re-checking
     their role on every tap. Accepting and beds change from Telegram; doctor
     on duty and deposit stay as saved and change in the app.
+58. **Location help on the web (October 2026).** Browsers ask for
+    network (Wi-Fi) accuracy, which works on computers without GPS and is
+    enough to rank hospitals, and get 30 seconds including the permission
+    prompt (phones keep 15). When location fails, Choose your area says why
+    (blocked for the site, or not found, with where to fix it) and offers
+    Use my location to try again. The same button lets anyone switch back
+    from a picked area to their own location.
+59. **Bulk verify (October 2026).** The Directory filters by area and
+    "Unverified only", selects every listing that can still be verified
+    (not just the loaded page), and verifies them in batches of 100 with
+    batched database writes. Each listing still gets its own audit entry
+    and stage event. Verifying does not change what the public sees; that
+    needs staff and a real status (go-live).

@@ -68,6 +68,7 @@ import 'core/errors/rate_limited_exception.dart' as _i5xzqpwc;
 import 'core/errors/validation_exception.dart' as _io4t73gt;
 import 'features/admin/models/admin_action_log.dart' as _id7ceaki;
 import 'features/admin/models/agent_row.dart' as _iqju4b7m;
+import 'features/admin/models/bulk_verify_summary.dart' as _iswb2a4u;
 import 'features/admin/models/claim_queue_item.dart' as _i0snb6d6;
 import 'features/admin/models/directory_row.dart' as _i54iiwsn;
 import 'features/admin/models/facility_import_row.dart' as _ivyrrl9n;
@@ -168,6 +169,7 @@ export 'core/errors/rate_limited_exception.dart';
 export 'core/errors/validation_exception.dart';
 export 'features/admin/models/admin_action_log.dart';
 export 'features/admin/models/agent_row.dart';
+export 'features/admin/models/bulk_verify_summary.dart';
 export 'features/admin/models/claim_queue_item.dart';
 export 'features/admin/models/directory_row.dart';
 export 'features/admin/models/facility_import_row.dart';
@@ -3019,6 +3021,9 @@ class Protocol extends _is.DatabaseSerializationManager {
     if (t == _iqju4b7m.AgentRow) {
       return _iqju4b7m.AgentRow.fromJson(data) as T;
     }
+    if (t == _iswb2a4u.BulkVerifySummary) {
+      return _iswb2a4u.BulkVerifySummary.fromJson(data) as T;
+    }
     if (t == _i0snb6d6.ClaimQueueItem) {
       return _i0snb6d6.ClaimQueueItem.fromJson(data) as T;
     }
@@ -3333,6 +3338,10 @@ class Protocol extends _is.DatabaseSerializationManager {
     }
     if (t == _is.getType<_iqju4b7m.AgentRow?>()) {
       return (data != null ? _iqju4b7m.AgentRow.fromJson(data) : null) as T;
+    }
+    if (t == _is.getType<_iswb2a4u.BulkVerifySummary?>()) {
+      return (data != null ? _iswb2a4u.BulkVerifySummary.fromJson(data) : null)
+          as T;
     }
     if (t == _is.getType<_i0snb6d6.ClaimQueueItem?>()) {
       return (data != null ? _i0snb6d6.ClaimQueueItem.fromJson(data) : null)
@@ -3750,6 +3759,9 @@ class Protocol extends _is.DatabaseSerializationManager {
               .toList()
           as T;
     }
+    if (t == List<int>) {
+      return (data as List).map((e) => deserialize<int>(e)).toList() as T;
+    }
     if (t == List<_ijbyy5tt.FacilityImportRow>) {
       return (data as List)
               .map((e) => deserialize<_ijbyy5tt.FacilityImportRow>(e))
@@ -3762,8 +3774,8 @@ class Protocol extends _is.DatabaseSerializationManager {
               .toList()
           as T;
     }
-    if (t == List<int>) {
-      return (data as List).map((e) => deserialize<int>(e)).toList() as T;
+    if (t == List<String>) {
+      return (data as List).map((e) => deserialize<String>(e)).toList() as T;
     }
     if (t == List<_ig40es56.ClaimQueueItem>) {
       return (data as List)
@@ -3782,9 +3794,6 @@ class Protocol extends _is.DatabaseSerializationManager {
               .map((e) => deserialize<_i9rgzcpn.AgentRow>(e))
               .toList()
           as T;
-    }
-    if (t == List<String>) {
-      return (data as List).map((e) => deserialize<String>(e)).toList() as T;
     }
     if (t == List<_i9cfjb8m.FreshnessRow>) {
       return (data as List)
@@ -3899,6 +3908,7 @@ class Protocol extends _is.DatabaseSerializationManager {
       _io4t73gt.ValidationException => 'ValidationException',
       _id7ceaki.AdminActionLog => 'AdminActionLog',
       _iqju4b7m.AgentRow => 'AgentRow',
+      _iswb2a4u.BulkVerifySummary => 'BulkVerifySummary',
       _i0snb6d6.ClaimQueueItem => 'ClaimQueueItem',
       _i54iiwsn.DirectoryRow => 'DirectoryRow',
       _ivyrrl9n.FacilityImportRow => 'FacilityImportRow',
@@ -4022,6 +4032,8 @@ class Protocol extends _is.DatabaseSerializationManager {
         return 'AdminActionLog';
       case _iqju4b7m.AgentRow():
         return 'AgentRow';
+      case _iswb2a4u.BulkVerifySummary():
+        return 'BulkVerifySummary';
       case _i0snb6d6.ClaimQueueItem():
         return 'ClaimQueueItem';
       case _i54iiwsn.DirectoryRow():
@@ -4256,6 +4268,9 @@ class Protocol extends _is.DatabaseSerializationManager {
     }
     if (dataClassName == 'AgentRow') {
       return deserialize<_iqju4b7m.AgentRow>(data['data']);
+    }
+    if (dataClassName == 'BulkVerifySummary') {
+      return deserialize<_iswb2a4u.BulkVerifySummary>(data['data']);
     }
     if (dataClassName == 'ClaimQueueItem') {
       return deserialize<_i0snb6d6.ClaimQueueItem>(data['data']);

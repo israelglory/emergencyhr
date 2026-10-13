@@ -11,7 +11,7 @@ class DirectoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<DirectoryViewModel>.reactive(
       viewModelBuilder: DirectoryViewModel.new,
-      onViewModelReady: (model) => model.load(),
+      onViewModelReady: (model) => model.onReady(),
       builder: (context, model, _) => WebPage(
         title: 'Directory',
         subtitle: 'Every listing in the pilot areas',
@@ -47,6 +47,59 @@ class DirectoryView extends StatelessWidget {
               ),
             ],
           ),
+          Wrap(
+            spacing: AppSpacing.tight,
+            runSpacing: AppSpacing.tight,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              ToolbarSelect<String>(
+                semanticsLabel: 'Area',
+                value: model.area,
+                options: model.areaOptions,
+                onChanged: model.setArea,
+              ),
+              ToolbarSelect<String>(
+                semanticsLabel: 'Show',
+                value: model.show,
+                options: model.showOptions,
+                onChanged: model.setShow,
+              ),
+              if (model.isBulkRunning)
+                AppText(
+                  model.progressLabel!,
+                  variant: AppTextVariant.caption,
+                  tone: AppTextTone.primary,
+                  fontWeight: FontWeight.w600,
+                )
+              else ...[
+                AppButton.secondary(
+                  title: DirectoryViewModel.selectAllLabel,
+                  size: AppButtonSize.medium,
+                  expand: false,
+                  loading: model.isSelectingAll,
+                  onPressed: model.selectAllVerifiable,
+                ),
+                if (model.hasSelection) ...[
+                  AppText(
+                    model.selectionLabel,
+                    variant: AppTextVariant.caption,
+                    tone: AppTextTone.primary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  AppButton.text(
+                    title: 'Clear',
+                    onPressed: model.clearSelection,
+                  ),
+                  AppButton(
+                    title: model.verifySelectedLabel,
+                    size: AppButtonSize.medium,
+                    expand: false,
+                    onPressed: model.verifySelected,
+                  ),
+                ],
+              ],
+            ],
+          ),
           switch (model.state) {
             ViewState.loading => const LoadingState(),
             ViewState.error => ErrorState(
@@ -55,6 +108,7 @@ class DirectoryView extends StatelessWidget {
             ),
             _ => DataTableCard(
               columns: const [
+                TableColumn('', width: 32),
                 TableColumn('Hospital', flex: 2),
                 TableColumn('Address', flex: 2),
                 TableColumn('Status'),
@@ -67,6 +121,17 @@ class DirectoryView extends StatelessWidget {
               rows: [
                 for (final row in model.rows)
                   [
+                    if (row.canVerify)
+                      SizedBox.square(
+                        dimension: 20,
+                        child: Checkbox(
+                          value: row.selected,
+                          semanticLabel: 'Select ${row.name}',
+                          onChanged: model.onToggle(row.id),
+                        ),
+                      )
+                    else
+                      const SizedBox.shrink(),
                     InkWell(
                       onTap: () => model.open(row.id),
                       child: AppText.subtitle(row.name),

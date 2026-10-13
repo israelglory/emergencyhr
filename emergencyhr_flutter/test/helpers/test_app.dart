@@ -74,6 +74,7 @@ Future<TestServices> setUpTestLocator() async {
     ),
   ).thenAnswer((_) async => ok(<AuditEntry>[]));
   when(() => s.launcher.canDialDirectly).thenReturn(true);
+  when(() => s.location.isWeb).thenReturn(false);
   when(() => s.telegramApi.connection()).thenAnswer(
     (_) async => ok(TelegramConnection(enabled: false, connected: false)),
   );

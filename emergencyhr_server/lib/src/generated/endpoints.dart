@@ -441,6 +441,25 @@ class Endpoints extends _is.EndpointDispatch {
                     params['facilityId'],
                   ),
         ),
+        'verifyListings': _is.MethodConnector(
+          name: 'verifyListings',
+          params: {
+            'facilityIds': _is.ParameterDescription(
+              name: 'facilityIds',
+              type: _is.getType<List<int>>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['admin'] as _i7xoxkop.AdminEndpoint)
+                  .verifyListings(
+                    session,
+                    params['facilityIds'],
+                  ),
+        ),
         'importFacilities': _is.MethodConnector(
           name: 'importFacilities',
           params: {
@@ -508,6 +527,11 @@ class Endpoints extends _is.EndpointDispatch {
               type: _is.getType<_ic7x89it.OnboardingStage?>(),
               nullable: true,
             ),
+            'unverifiedOnly': _is.ParameterDescription(
+              name: 'unverifiedOnly',
+              type: _is.getType<bool>(),
+              nullable: false,
+            ),
             'limit': _is.ParameterDescription(
               name: 'limit',
               type: _is.getType<int>(),
@@ -529,9 +553,51 @@ class Endpoints extends _is.EndpointDispatch {
                     query: params['query'],
                     area: params['area'],
                     stage: params['stage'],
+                    unverifiedOnly: params['unverifiedOnly'],
                     limit: params['limit'],
                     offset: params['offset'],
                   ),
+        ),
+        'directoryVerifiableIds': _is.MethodConnector(
+          name: 'directoryVerifiableIds',
+          params: {
+            'query': _is.ParameterDescription(
+              name: 'query',
+              type: _is.getType<String?>(),
+              nullable: true,
+            ),
+            'area': _is.ParameterDescription(
+              name: 'area',
+              type: _is.getType<String?>(),
+              nullable: true,
+            ),
+            'stage': _is.ParameterDescription(
+              name: 'stage',
+              type: _is.getType<_ic7x89it.OnboardingStage?>(),
+              nullable: true,
+            ),
+          },
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['admin'] as _i7xoxkop.AdminEndpoint)
+                  .directoryVerifiableIds(
+                    session,
+                    query: params['query'],
+                    area: params['area'],
+                    stage: params['stage'],
+                  ),
+        ),
+        'directoryAreas': _is.MethodConnector(
+          name: 'directoryAreas',
+          params: {},
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['admin'] as _i7xoxkop.AdminEndpoint)
+                  .directoryAreas(session),
         ),
         'pipeline': _is.MethodConnector(
           name: 'pipeline',

@@ -71,25 +71,43 @@ class AdminService {
     ];
   }
 
+  static Expression<dynamic> _directoryWhere(
+    FacilityTable t, {
+    String? query,
+    String? area,
+    OnboardingStage? stage,
+    bool unverifiedOnly = false,
+  }) {
+    final q = query?.trim();
+    Expression<dynamic> e = Constant.bool(true);
+    if (q != null && q.isNotEmpty) e = e & t.name.ilike('%$q%');
+    if (area != null) e = e & t.area.equals(area);
+    if (stage != null) e = e & t.onboardingStage.equals(stage);
+    if (unverifiedOnly) {
+      e = e & t.verificationStatus.notEquals(VerificationStatus.verified);
+    }
+    return e;
+  }
+
   Future<List<DirectoryRow>> directory(
     Session session, {
     String? query,
     String? area,
     OnboardingStage? stage,
+    bool unverifiedOnly = false,
     required int limit,
     required int offset,
   }) async {
     final page = Validate.page(limit, offset);
-    final q = query?.trim();
     final rows = await Facility.db.find(
       session,
-      where: (t) {
-        Expression<dynamic> e = Constant.bool(true);
-        if (q != null && q.isNotEmpty) e = e & t.name.ilike('%$q%');
-        if (area != null) e = e & t.area.equals(area);
-        if (stage != null) e = e & t.onboardingStage.equals(stage);
-        return e;
-      },
+      where: (t) => _directoryWhere(
+        t,
+        query: query,
+        area: area,
+        stage: stage,
+        unverifiedOnly: unverifiedOnly,
+      ),
       orderBy: (t) => t.name,
       limit: page.limit,
       offset: page.offset,
@@ -104,6 +122,39 @@ class AdminService {
           flagged: f.flaggedAt != null,
         ),
     ];
+  }
+
+  /// Every listing matching the Directory filters that Verify can act on
+  /// (not verified, not suspended), for "Select all".
+  Future<List<int>> directoryVerifiableIds(
+    Session session, {
+    String? query,
+    String? area,
+    OnboardingStage? stage,
+  }) async {
+    final rows = await Facility.db.find(
+      session,
+      where: (t) =>
+          _directoryWhere(
+            t,
+            query: query,
+            area: area,
+            stage: stage,
+            unverifiedOnly: true,
+          ) &
+          t.verificationStatus.notEquals(VerificationStatus.suspended) &
+          t.suspendedAt.equals(null),
+      orderBy: (t) => t.name,
+    );
+    return [for (final f in rows) f.id!];
+  }
+
+  /// Areas that have listings, for the Directory filter.
+  Future<List<String>> directoryAreas(Session session) async {
+    final rows = await session.db.unsafeQuery(
+      'SELECT DISTINCT "area" FROM "facility" ORDER BY "area"',
+    );
+    return [for (final r in rows) r.first as String];
   }
 
   Future<PipelineBoard> pipeline(

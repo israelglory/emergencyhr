@@ -44,8 +44,14 @@ class LocationService {
   /// has not answered. After this the app moves on to the area picker.
   static const overallTimeout = Duration(seconds: 15);
 
+  /// Browsers include the time the person spends reading the permission
+  /// prompt, so they get longer.
+  static const webOverallTimeout = Duration(seconds: 30);
+
   /// Accept a browser fix up to this old; it is much faster than a new one.
-  static const webMaximumAge = Duration(minutes: 1);
+  static const webMaximumAge = Duration(minutes: 5);
+
+  bool get isWeb => _isWeb;
 
   /// Desktop Linux often has no location provider; go straight to the picker.
   bool get isLikelySupported =>
@@ -73,7 +79,7 @@ class LocationService {
   Future<LocationResult> current() async {
     try {
       return await (_isWeb ? _fromBrowser() : _fromDevice()).timeout(
-        overallTimeout,
+        _isWeb ? webOverallTimeout : overallTimeout,
         onTimeout: () => const LocationUnavailable(),
       );
     } on PermissionDeniedException {
@@ -87,11 +93,15 @@ class LocationService {
   /// Permission is not checked first: some browsers (older Safari) cannot
   /// report it, and the check would wrongly skip the prompt. Browsers only
   /// share location on HTTPS pages (and localhost).
+  ///
+  /// Network (Wi-Fi) accuracy is enough to rank hospitals kilometres away
+  /// and, unlike high accuracy, works on computers without GPS. No time
+  /// limit is passed: geolocator_web 4.1 sends it in the wrong unit, so the
+  /// overall timeout above is the only limit.
   Future<LocationResult> _fromBrowser() async {
     final position = await _platform.getCurrentPosition(
       locationSettings: WebSettings(
-        accuracy: LocationAccuracy.high,
-        timeLimit: fixTimeout,
+        accuracy: LocationAccuracy.medium,
         maximumAge: webMaximumAge,
       ),
     );

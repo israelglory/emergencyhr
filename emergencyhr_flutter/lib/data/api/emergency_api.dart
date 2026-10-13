@@ -35,7 +35,7 @@ class EmergencyApi {
     int sessionId,
     String token,
     EmergencyType type, {
-    ({double lat, double lng, String area})? place,
+    ({double lat, double lng, String? area})? place,
   }) => ApiResponse.guard(
     _tag,
     () => _client.emergency

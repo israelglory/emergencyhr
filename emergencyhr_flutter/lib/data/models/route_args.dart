@@ -18,6 +18,14 @@ class ClaimArgs {
   final String? name;
 }
 
+/// Choose your area. [failure] is why the device location could not be
+/// used, or null when the person opened it to search somewhere else.
+class AreaPickerArgs {
+  const AreaPickerArgs({this.failure});
+
+  final Object? failure;
+}
+
 /// Where to search and for what.
 class EmergencyResultsArgs {
   const EmergencyResultsArgs({

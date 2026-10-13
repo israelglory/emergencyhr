@@ -13,9 +13,12 @@ admin:
   - verificationQueue:
   - approve:
   - verifyListing:
+  - verifyListings:
   - importFacilities:
   - reject:
   - directory:
+  - directoryVerifiableIds:
+  - directoryAreas:
   - pipeline:
   - assignAgent:
   - claims:

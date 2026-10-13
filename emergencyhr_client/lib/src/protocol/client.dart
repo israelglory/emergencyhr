@@ -14,6 +14,8 @@ import 'dart:async' as _ida;
 import 'dart:typed_data' as _idt;
 import 'package:emergencyhr_client/src/protocol/features/admin/models/agent_row.dart'
     as _i3t6hodj;
+import 'package:emergencyhr_client/src/protocol/features/admin/models/bulk_verify_summary.dart'
+    as _iptu80hz;
 import 'package:emergencyhr_client/src/protocol/features/admin/models/claim_queue_item.dart'
     as _ib27qxyi;
 import 'package:emergencyhr_client/src/protocol/features/admin/models/directory_row.dart'
@@ -384,6 +386,16 @@ class EndpointAdmin extends _isc.EndpointRef {
 
   /// Adds hospitals from an open dataset. With [dryRun] nothing is saved
   /// and the summary says what would happen.
+  /// Verifies up to 100 listings at once (the app sends larger selections
+  /// in batches). Each still gets its own audit entry.
+  _ida.Future<_iptu80hz.BulkVerifySummary> verifyListings(
+    List<int> facilityIds,
+  ) => caller.callServerEndpoint<_iptu80hz.BulkVerifySummary>(
+    'admin',
+    'verifyListings',
+    {'facilityIds': facilityIds},
+  );
+
   _ida.Future<_irupva58.FacilityImportSummary> importFacilities(
     List<_ifhgg7r5.FacilityImportRow> rows, {
     required bool dryRun,
@@ -412,6 +424,7 @@ class EndpointAdmin extends _isc.EndpointRef {
     String? query,
     String? area,
     _imd9hu5k.OnboardingStage? stage,
+    required bool unverifiedOnly,
     required int limit,
     required int offset,
   }) => caller.callServerEndpoint<List<_ilxv0wae.DirectoryRow>>(
@@ -421,10 +434,33 @@ class EndpointAdmin extends _isc.EndpointRef {
       'query': query,
       'area': area,
       'stage': stage,
+      'unverifiedOnly': unverifiedOnly,
       'limit': limit,
       'offset': offset,
     },
   );
+
+  /// Ids of the listings matching the filters that can still be verified.
+  _ida.Future<List<int>> directoryVerifiableIds({
+    String? query,
+    String? area,
+    _imd9hu5k.OnboardingStage? stage,
+  }) => caller.callServerEndpoint<List<int>>(
+    'admin',
+    'directoryVerifiableIds',
+    {
+      'query': query,
+      'area': area,
+      'stage': stage,
+    },
+  );
+
+  _ida.Future<List<String>> directoryAreas() =>
+      caller.callServerEndpoint<List<String>>(
+        'admin',
+        'directoryAreas',
+        {},
+      );
 
   _ida.Future<_ii9l9p46.PipelineBoard> pipeline({
     String? area,

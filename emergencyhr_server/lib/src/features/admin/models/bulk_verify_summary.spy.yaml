@@ -1,0 +1,8 @@
+### What a bulk Verify did.
+class: BulkVerifySummary
+fields:
+  verified: int
+  ### Already verified before; nothing changed.
+  alreadyVerified: int
+  ### Skipped, with the reason, e.g. "Alpha Hospital: suspended".
+  skipped: List<String>

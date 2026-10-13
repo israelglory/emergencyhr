@@ -39,16 +39,34 @@ class AdminApi {
     String? query,
     String? area,
     OnboardingStage? stage,
+    bool unverifiedOnly = false,
     int offset = 0,
   }) => _g(
     () => _admin.directory(
       query: query,
       area: area,
       stage: stage,
+      unverifiedOnly: unverifiedOnly,
       limit: 50,
       offset: offset,
     ),
   );
+
+  /// Ids matching the filters that Verify can still act on.
+  Future<ApiResponse<List<int>>> directoryVerifiableIds({
+    String? query,
+    String? area,
+  }) => _g(() => _admin.directoryVerifiableIds(query: query, area: area));
+
+  Future<ApiResponse<List<String>>> directoryAreas() =>
+      _g(() => _admin.directoryAreas());
+
+  /// At most [verifyBatchSize] ids per call.
+  Future<ApiResponse<BulkVerifySummary>> verifyListings(List<int> ids) =>
+      _g(() => _admin.verifyListings(ids));
+
+  /// Matches the server's limit per bulk Verify call.
+  static const verifyBatchSize = 100;
 
   Future<ApiResponse<PipelineBoard>> pipeline({
     String? area,

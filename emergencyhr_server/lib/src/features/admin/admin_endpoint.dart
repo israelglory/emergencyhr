@@ -55,6 +55,20 @@ class AdminEndpoint extends Endpoint {
 
   /// Adds hospitals from an open dataset. With [dryRun] nothing is saved
   /// and the summary says what would happen.
+  /// Verifies up to 100 listings at once (the app sends larger selections
+  /// in batches). Each still gets its own audit entry.
+  Future<BulkVerifySummary> verifyListings(
+    Session session,
+    List<int> facilityIds,
+  ) async {
+    final admin = await _requireAdmin(session);
+    return _onboarding.verifyListings(
+      session,
+      facilityIds: facilityIds,
+      admin: admin,
+    );
+  }
+
   Future<FacilityImportSummary> importFacilities(
     Session session,
     List<FacilityImportRow> rows, {
@@ -89,6 +103,7 @@ class AdminEndpoint extends Endpoint {
     String? query,
     String? area,
     OnboardingStage? stage,
+    bool unverifiedOnly = false,
     int limit = 50,
     int offset = 0,
   }) async {
@@ -98,9 +113,31 @@ class AdminEndpoint extends Endpoint {
       query: query,
       area: area,
       stage: stage,
+      unverifiedOnly: unverifiedOnly,
       limit: limit,
       offset: offset,
     );
+  }
+
+  /// Ids of the listings matching the filters that can still be verified.
+  Future<List<int>> directoryVerifiableIds(
+    Session session, {
+    String? query,
+    String? area,
+    OnboardingStage? stage,
+  }) async {
+    await _requireAdmin(session);
+    return _admin.directoryVerifiableIds(
+      session,
+      query: query,
+      area: area,
+      stage: stage,
+    );
+  }
+
+  Future<List<String>> directoryAreas(Session session) async {
+    await _requireAdmin(session);
+    return _admin.directoryAreas(session);
   }
 
   // Pipeline
