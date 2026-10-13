@@ -158,7 +158,7 @@ class FacilitySetupView extends StatelessWidget {
                                     message: model.deskError!,
                                     tone: StatusTone.warning,
                                   ),
-                                if (model.isAgent)
+                                if (model.canRecordTestCall)
                                   AppButton(
                                     title: 'Confirm with a test call instead',
                                     size: AppButtonSize.medium,

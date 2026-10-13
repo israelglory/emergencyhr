@@ -95,17 +95,23 @@ void main() {
   });
 
   group('Given ChecklistRules', () {
-    ChecklistFacts facts({bool verified = true, int desk = 1}) =>
-        ChecklistFacts(
-          verified: verified,
-          hospitalAdminCount: 1,
-          activeDeskStaffCount: desk,
-          capabilityCount: 2,
-          hasOpeningHours: true,
-          deskPhoneConfirmed: true,
-          trainingCompleted: true,
-          hasRealStatus: true,
-        );
+    ChecklistFacts facts({
+      bool verified = true,
+      int admins = 1,
+      int desk = 1,
+      bool phone = true,
+      bool training = true,
+      bool status = true,
+    }) => ChecklistFacts(
+      verified: verified,
+      hospitalAdminCount: admins,
+      activeDeskStaffCount: desk,
+      capabilityCount: 2,
+      hasOpeningHours: true,
+      deskPhoneConfirmed: phone,
+      trainingCompleted: training,
+      hasRealStatus: status,
+    );
 
     test('when every fact holds then complete', () {
       expect(ChecklistRules.build(1, facts()).complete, isTrue);
@@ -115,15 +121,28 @@ void main() {
       expect(ChecklistRules.build(1, facts(verified: false)).complete, isFalse);
     });
 
-    test('when no active desk staff then incomplete', () {
-      final list = ChecklistRules.build(1, facts(desk: 0));
-      expect(list.complete, isFalse);
-      expect(
-        list.items
-            .firstWhere((i) => i.key == ChecklistKey.deskStaffActive)
-            .done,
-        isFalse,
+    test('when there is no hospital admin then incomplete', () {
+      expect(ChecklistRules.build(1, facts(admins: 0)).complete, isFalse);
+    });
+
+    test('when no real status was sent then incomplete', () {
+      expect(ChecklistRules.build(1, facts(status: false)).complete, isFalse);
+    });
+
+    test('when verified with an admin and a real status, then complete '
+        'even without desk staff, desk phone or training (optional)', () {
+      final list = ChecklistRules.build(
+        1,
+        facts(desk: 0, phone: false, training: false),
       );
+      expect(list.complete, isTrue);
+      final desk = list.items.firstWhere(
+        (i) => i.key == ChecklistKey.deskStaffActive,
+      );
+      expect(desk.done, isFalse);
+      expect(desk.required, isFalse);
+      expect(list.requiredDone, 3);
+      expect(list.requiredTotal, 3);
     });
   });
 

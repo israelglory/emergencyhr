@@ -141,8 +141,9 @@ class OnboardingEndpoint extends Endpoint {
     );
   }
 
-  /// The agent called the desk and someone answered. Who may call: the
-  /// assigned field agent.
+  /// Someone called the desk and it answered. Who may call: the assigned
+  /// field agent, platform admins. Not hospital staff: the check is meant
+  /// to be independent.
   Future<Facility> recordTestCall(
     Session session,
     int facilityId, {
@@ -150,6 +151,7 @@ class OnboardingEndpoint extends Endpoint {
   }) async {
     final user = await AuthGuard.requireRole(session, {
       UserRole.fieldAgent,
+      UserRole.platformAdmin,
     }, facilityId: facilityId);
     return _deskPhone.recordTestCall(
       session,

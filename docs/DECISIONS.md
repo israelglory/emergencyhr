@@ -264,3 +264,13 @@ pointed at `docs/design/...`; the files live in `design/` and
     batched database writes. Each listing still gets its own audit entry
     and stage event. Verifying does not change what the public sees; that
     needs staff and a real status (go-live).
+60. **Shorter go-live rule (October 2026, owner's choice).** A hospital
+    goes live once it is verified, a hospital admin has joined and one real
+    status update was sent. Desk staff, capabilities and hours, desk phone
+    and training stay on the checklist as optional. The spec required all
+    seven. Hospitals already meeting the rule go live at the next server
+    start.
+61. **Desk phone without SMS.** While no SMS provider is set up, asking for
+    a desk phone code says so instead of failing silently, and platform
+    admins (as well as the assigned field agent) can confirm the desk phone
+    with a test call. Hospital staff cannot confirm their own phone.

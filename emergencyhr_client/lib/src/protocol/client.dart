@@ -1275,8 +1275,9 @@ class EndpointOnboarding extends _isc.EndpointRef {
     },
   );
 
-  /// The agent called the desk and someone answered. Who may call: the
-  /// assigned field agent.
+  /// Someone called the desk and it answered. Who may call: the assigned
+  /// field agent, platform admins. Not hospital staff: the check is meant
+  /// to be independent.
   _ida.Future<_ibcfwqdd.Facility> recordTestCall(
     int facilityId, {
     String? note,

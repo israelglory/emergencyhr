@@ -130,6 +130,29 @@ class OnboardingService {
     };
   }
 
+  /// Re-checks every verified hospital that already has a real status, so
+  /// a change to the go-live rule takes effect without waiting for the next
+  /// update. Run at server start. Returns how many went live.
+  Future<int> evaluateWaiting(Session session) async {
+    final waiting = await Facility.db.find(
+      session,
+      where: (t) =>
+          t.onboardingStage.equals(OnboardingStage.verified) &
+          t.verificationStatus.equals(VerificationStatus.verified) &
+          t.suspendedAt.equals(null),
+    );
+    if (waiting.isEmpty) return 0;
+    final withStatus = await FacilityStatus.db.find(
+      session,
+      where: (t) => t.facilityId.inSet({for (final f in waiting) f.id!}),
+    );
+    var promoted = 0;
+    for (final id in {for (final s in withStatus) s.facilityId}) {
+      if ((await evaluate(session, id)).complete) promoted++;
+    }
+    return promoted;
+  }
+
   /// Re-checks the go-live checklist. Promotes a verified facility to live
   /// when complete, and warns the hospital admin and agent when a live
   /// facility stops meeting it.
@@ -650,8 +673,8 @@ class OnboardingService {
           address: f.address,
           nextActionAt: record?.nextActionAt,
           notes: record?.notes,
-          checklistDone: list.items.where((i) => i.done).length,
-          checklistTotal: list.items.length,
+          checklistDone: list.requiredDone,
+          checklistTotal: list.requiredTotal,
           submitted: record?.submittedAt != null,
           distanceMeters: lat == null || lng == null
               ? null

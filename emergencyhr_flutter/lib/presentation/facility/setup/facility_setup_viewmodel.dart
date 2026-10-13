@@ -6,6 +6,7 @@ import '../../../core/cores.dart';
 import '../../../data/api/admin_api.dart';
 import '../../../data/api/facility_api.dart';
 import '../../../data/api/onboarding_api.dart';
+import '../../../data/models/checklist_labels.dart';
 import '../../../data/models/labels.dart';
 import '../../../data/models/route_args.dart';
 import '../invite_sheet/invite_sheet_view.dart';
@@ -80,6 +81,9 @@ class FacilitySetupViewModel extends ReactiveViewModel {
   bool get isPlatformAdmin => _session.hasAnyRole({UserRole.platformAdmin});
   bool get canInviteAdmin => isAgent || isPlatformAdmin;
 
+  /// An independent check: the agent or a platform admin calls the desk.
+  bool get canRecordTestCall => isAgent || isPlatformAdmin;
+
   String get name => _f?.name ?? '';
   String get subtitle => '${_f?.address ?? ''} · ${_f?.area ?? ''}';
   String get stageLabel => 'Stage: ${_f?.onboardingStage.label ?? ''}';
@@ -96,14 +100,10 @@ class FacilitySetupViewModel extends ReactiveViewModel {
 
   List<ChecklistLine> get checklist => [
     for (final i in _detail?.checklist.items ?? const <ChecklistItem>[])
-      (label: i.label, done: i.done),
+      (label: i.displayLabel, done: i.done),
   ];
 
-  String get checklistSummary {
-    final items = _detail?.checklist.items ?? const <ChecklistItem>[];
-    final done = items.where((i) => i.done).length;
-    return '$done of ${items.length} done';
-  }
+  String get checklistSummary => _detail?.checklist.requiredSummary ?? '';
 
   // Documents
   bool get isUploading => busy(_uploadKey);

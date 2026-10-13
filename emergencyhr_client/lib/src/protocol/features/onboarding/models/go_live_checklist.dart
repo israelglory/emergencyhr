@@ -14,7 +14,8 @@ import 'package:emergencyhr_client/src/protocol/protocol.dart' as _ivwsyfsq;
 import 'package:serverpod_client/serverpod_client.dart' as _isc;
 import '../../../features/onboarding/models/checklist_item.dart' as _i3rd1u4b;
 
-/// Computed server-side. When every item is done the facility goes live.
+/// Computed server-side. When every required item is done the facility
+/// goes live.
 abstract class GoLiveChecklist
     implements _isc.SerializableModel, _isc.ProtocolSerialization {
   GoLiveChecklist._({

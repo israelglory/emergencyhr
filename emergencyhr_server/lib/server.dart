@@ -10,6 +10,7 @@ import 'src/features/admin/admin_bootstrap.dart';
 import 'src/features/admin/seed/seeder.dart';
 import 'src/features/auth/account_service.dart';
 import 'src/features/notifications/reminder_future_call.dart';
+import 'src/features/onboarding/onboarding_service.dart';
 import 'src/features/telegram/telegram_gateway.dart';
 import 'src/web/routes/telegram_webhook_route.dart';
 import 'src/web/routes/whatsapp_webhook_route.dart';
@@ -160,6 +161,16 @@ void run(List<String> args) async {
 
     // First admin(s): accounts listed in adminEmails get the admin role.
     await AdminBootstrap.run(startup);
+
+    // Hospitals that meet the go-live rule but have not posted since it
+    // changed go live now rather than at their next update.
+    final promoted = await const OnboardingService().evaluateWaiting(startup);
+    if (promoted > 0) {
+      startup.log(
+        '$promoted hospital(s) went live after the go-live check.',
+        level: LogLevel.warning,
+      );
+    }
 
     // Point the Telegram bot at this server.
     final telegramToken = startup.passwords['telegramBotToken'];

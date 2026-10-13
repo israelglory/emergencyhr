@@ -1,3 +1,4 @@
+import 'package:emergencyhr_server/src/core/app_config.dart';
 import 'package:emergencyhr_server/src/core/clock.dart';
 import 'package:emergencyhr_server/src/features/notifications/messaging.dart';
 import 'package:emergencyhr_server/src/features/onboarding/onboarding_service.dart';
@@ -422,6 +423,103 @@ void main() {
           );
           final list = await endpoints.onboarding.myFacilities(agent.session);
           expect([for (final a in list) a.facility.id], [f.id]);
+        },
+      );
+
+      test(
+        'when texts are off then the desk phone code is refused with a '
+        'clear reason, and a platform admin can confirm by test call',
+        () async {
+          final created = await createFacility(
+            sessionBuilder,
+            name: 'Test Call Hospital',
+            area: 'Test Call Area',
+            stage: OnboardingStage.verified,
+          );
+          final f = await Facility.db.updateRow(
+            sessionBuilder.build(),
+            created.copyWith(deskPhone: '+2348031112233'),
+          );
+          final hospitalAdmin = await createUser(
+            sessionBuilder,
+            phone: '+2348037770921',
+            roles: [(UserRole.hospitalAdmin, f.id)],
+          );
+          final admin = await createUser(
+            sessionBuilder,
+            phone: '+2348037770922',
+            roles: [(UserRole.platformAdmin, null)],
+          );
+          // No SMS provider, as on the live server today.
+          Messaging.smsOverride = null;
+          AppConfig.instance = AppConfig(smsAdapter: AdapterKind.off);
+          addTearDown(() => AppConfig.instance = AppConfig());
+
+          await expectLater(
+            endpoints.onboarding.requestDeskPhoneCode(
+              hospitalAdmin.session,
+              f.id!,
+            ),
+            throwsA(
+              isA<InvalidStateException>().having(
+                (e) => e.message,
+                'message',
+                contains('test call'),
+              ),
+            ),
+          );
+          // Hospital staff cannot vouch for their own phone.
+          await expectLater(
+            endpoints.onboarding.recordTestCall(hospitalAdmin.session, f.id!),
+            throwsA(isA<NotAuthorizedException>()),
+          );
+          final confirmed = await endpoints.onboarding.recordTestCall(
+            admin.session,
+            f.id!,
+            note: 'Test call answered',
+          );
+          expect(confirmed.deskPhoneConfirmedAt, isNotNull);
+        },
+      );
+
+      test(
+        'when a verified hospital has an admin and a real status but no desk '
+        'staff or confirmed phone then the start-up check makes it live',
+        () async {
+          final f = await createFacility(
+            sessionBuilder,
+            name: 'Waiting Live Hospital',
+            area: 'Waiting Area',
+            stage: OnboardingStage.verified,
+          );
+          final admin = await createUser(
+            sessionBuilder,
+            phone: '+2348037770931',
+            roles: [(UserRole.hospitalAdmin, f.id)],
+          );
+          final session = sessionBuilder.build();
+          await FacilityStatus.db.insertRow(
+            session,
+            FacilityStatus(
+              facilityId: f.id!,
+              accepting: true,
+              erBedsFree: 2,
+              icuBedsFree: 0,
+              doctorOnDuty: true,
+              depositRequired: false,
+              updatedByUserId: admin.user.id,
+              updatedAt: DateTime.now().toUtc(),
+            ),
+          );
+
+          final promoted = await const OnboardingService().evaluateWaiting(
+            session,
+          );
+
+          expect(promoted, greaterThanOrEqualTo(1));
+          final after = await Facility.db.findById(session, f.id!);
+          expect(after!.onboardingStage, OnboardingStage.live);
+          expect(after.liveAt, isNotNull);
         },
       );
     },

@@ -6,6 +6,8 @@ import '../../core/errors.dart';
 import '../../core/validation.dart';
 import '../../generated/protocol.dart';
 import '../auth/otp_service.dart';
+import '../notifications/messaging.dart';
+import '../notifications/sms_gateway.dart';
 import '../onboarding/onboarding_service.dart';
 
 /// Confirms a facility's desk phone by SMS code or a recorded test call.
@@ -24,12 +26,19 @@ class DeskPhoneService {
     return phone;
   }
 
-  Future<OtpRequestResult> requestCode(Session session, Facility facility) =>
-      otp.request(
-        session,
-        phone: _phone(facility),
-        purpose: OtpPurpose.deskPhone,
+  Future<OtpRequestResult> requestCode(Session session, Facility facility) {
+    if (Messaging.sms(session) is UnavailableSmsGateway) {
+      throw Errors.invalidState(
+        'Text messages are not set up yet. A field agent or platform admin '
+        'can confirm the desk phone with a test call.',
       );
+    }
+    return otp.request(
+      session,
+      phone: _phone(facility),
+      purpose: OtpPurpose.deskPhone,
+    );
+  }
 
   Future<Facility> confirmWithCode(
     Session session, {

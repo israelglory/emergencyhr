@@ -3,3 +3,5 @@ fields:
   key: ChecklistKey
   label: String
   done: bool
+  ### Needed to go live. Optional items are good practice but do not block.
+  required: bool

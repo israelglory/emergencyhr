@@ -5,6 +5,7 @@ import '../../core/clock.dart';
 import '../../core/errors.dart';
 import '../../generated/protocol.dart';
 import '../notifications/messaging.dart';
+import '../notifications/sms_gateway.dart';
 import 'otp_codes.dart';
 
 /// Issues and checks one-time codes sent by SMS. Rate limited per phone and
@@ -38,11 +39,16 @@ class OtpService {
     return value;
   }
 
+  static const smsUnavailable =
+      'Text messages are not set up yet, so no code can be sent.';
+
   Future<OtpRequestResult> request(
     Session session, {
     required String phone,
     required OtpPurpose purpose,
   }) async {
+    final sms = Messaging.sms(session);
+    if (sms is UnavailableSmsGateway) throw Errors.invalidState(smsUnavailable);
     final now = clock.now();
     final latest = await OtpChallenge.db.findFirstRow(
       session,
@@ -75,13 +81,18 @@ class OtpService {
       ),
     );
 
-    await Messaging.sms(session).send(
+    final sent = await sms.send(
       session,
       to: phone,
       message:
           '$code is your EmergencyHr code. It expires in 5 minutes. '
           'Do not share it.',
     );
+    if (!sent) {
+      throw Errors.invalidState(
+        'We could not send the text. Please try again in a few minutes.',
+      );
+    }
 
     return OtpRequestResult(
       phone: phone,

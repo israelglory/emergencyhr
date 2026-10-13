@@ -23,49 +23,72 @@ class ChecklistFacts {
   final bool hasRealStatus;
 }
 
+/// Go-live needs a verified listing, a hospital admin and one real status
+/// update (owner's rule, docs/DECISIONS.md 60). The other items are shown
+/// as optional good practice.
 abstract final class ChecklistRules {
+  static const requiredKeys = {
+    ChecklistKey.verified,
+    ChecklistKey.hospitalAdminAccepted,
+    ChecklistKey.firstRealStatus,
+  };
+
+  static ChecklistItem _item(ChecklistKey key, String label, bool done) =>
+      ChecklistItem(
+        key: key,
+        label: label,
+        done: done,
+        required: requiredKeys.contains(key),
+      );
+
   static GoLiveChecklist build(int facilityId, ChecklistFacts f) {
     final items = [
-      ChecklistItem(
-        key: ChecklistKey.verified,
-        label: 'Verified by a platform admin',
-        done: f.verified,
+      _item(
+        ChecklistKey.verified,
+        'Verified by a platform admin',
+        f.verified,
       ),
-      ChecklistItem(
-        key: ChecklistKey.hospitalAdminAccepted,
-        label: 'A hospital admin has accepted their invite',
-        done: f.hospitalAdminCount > 0,
+      _item(
+        ChecklistKey.hospitalAdminAccepted,
+        'A hospital admin has accepted their invite',
+        f.hospitalAdminCount > 0,
       ),
-      ChecklistItem(
-        key: ChecklistKey.deskStaffActive,
-        label: 'At least one desk staff account active',
-        done: f.activeDeskStaffCount > 0,
+      _item(
+        ChecklistKey.deskStaffActive,
+        'At least one desk staff account active',
+        f.activeDeskStaffCount > 0,
       ),
-      ChecklistItem(
-        key: ChecklistKey.capabilitiesAndHours,
-        label: 'Capabilities and opening hours set',
-        done: f.capabilityCount > 0 && f.hasOpeningHours,
+      _item(
+        ChecklistKey.capabilitiesAndHours,
+        'Capabilities and opening hours set',
+        f.capabilityCount > 0 && f.hasOpeningHours,
       ),
-      ChecklistItem(
-        key: ChecklistKey.deskPhoneConfirmed,
-        label: 'Desk phone confirmed',
-        done: f.deskPhoneConfirmed,
+      _item(
+        ChecklistKey.deskPhoneConfirmed,
+        'Desk phone confirmed',
+        f.deskPhoneConfirmed,
       ),
-      ChecklistItem(
-        key: ChecklistKey.trainingCompleted,
-        label: 'Training mode completed',
-        done: f.trainingCompleted,
+      _item(
+        ChecklistKey.trainingCompleted,
+        'Training mode completed',
+        f.trainingCompleted,
       ),
-      ChecklistItem(
-        key: ChecklistKey.firstRealStatus,
-        label: 'First real status update submitted',
-        done: f.hasRealStatus,
+      _item(
+        ChecklistKey.firstRealStatus,
+        'First real status update submitted',
+        f.hasRealStatus,
       ),
     ];
     return GoLiveChecklist(
       facilityId: facilityId,
       items: items,
-      complete: items.every((i) => i.done),
+      complete: items.where((i) => i.required).every((i) => i.done),
     );
   }
+}
+
+/// Progress against what is needed to go live.
+extension ChecklistProgress on GoLiveChecklist {
+  int get requiredDone => items.where((i) => i.required && i.done).length;
+  int get requiredTotal => items.where((i) => i.required).length;
 }

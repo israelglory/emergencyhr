@@ -6,6 +6,7 @@ import 'package:stacked/stacked.dart';
 
 import '../../../core/cores.dart';
 import '../../../data/api/admin_api.dart';
+import '../../../data/models/checklist_labels.dart';
 
 typedef DocRow = ({int id, String name, bool image});
 typedef VerificationRow = ({
@@ -58,11 +59,10 @@ class VerificationViewModel extends BaseViewModel {
           notes: i.notes == null || i.notes!.trim().isEmpty
               ? null
               : 'Notes: ${i.notes!.trim()}',
-          checklistTitle:
-              'Checklist ${i.checklist.items.where((c) => c.done).length} of '
-              '${i.checklist.items.length}',
+          checklistTitle: 'Checklist: ${i.checklist.requiredSummary}',
           checklist: [
-            for (final c in i.checklist.items) (label: c.label, done: c.done),
+            for (final c in i.checklist.items)
+              (label: c.displayLabel, done: c.done),
           ],
           documents: [
             for (final d in i.documents)

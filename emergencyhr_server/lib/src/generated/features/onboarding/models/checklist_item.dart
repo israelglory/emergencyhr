@@ -19,12 +19,14 @@ abstract class ChecklistItem
     required this.key,
     required this.label,
     required this.done,
+    required this.required,
   });
 
   factory ChecklistItem({
     required _is370f8w.ChecklistKey key,
     required String label,
     required bool done,
+    required bool required,
   }) = _ChecklistItemImpl;
 
   factory ChecklistItem.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -34,6 +36,7 @@ abstract class ChecklistItem
       ),
       label: jsonSerialization['label'] as String,
       done: _is.BoolJsonExtension.fromJson(jsonSerialization['done']),
+      required: _is.BoolJsonExtension.fromJson(jsonSerialization['required']),
     );
   }
 
@@ -43,6 +46,9 @@ abstract class ChecklistItem
 
   bool done;
 
+  /// Needed to go live. Optional items are good practice but do not block.
+  bool required;
+
   /// Returns a shallow copy of this [ChecklistItem]
   /// with some or all fields replaced by the given arguments.
   @_is.useResult
@@ -50,6 +56,7 @@ abstract class ChecklistItem
     _is370f8w.ChecklistKey? key,
     String? label,
     bool? done,
+    bool? required,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -58,6 +65,7 @@ abstract class ChecklistItem
       'key': key.toJson(),
       'label': label,
       'done': done,
+      'required': required,
     };
   }
 
@@ -68,6 +76,7 @@ abstract class ChecklistItem
       'key': key.toJson(),
       'label': label,
       'done': done,
+      'required': required,
     };
   }
 
@@ -82,10 +91,12 @@ class _ChecklistItemImpl extends ChecklistItem {
     required _is370f8w.ChecklistKey key,
     required String label,
     required bool done,
+    required bool required,
   }) : super._(
          key: key,
          label: label,
          done: done,
+         required: required,
        );
 
   /// Returns a shallow copy of this [ChecklistItem]
@@ -96,11 +107,13 @@ class _ChecklistItemImpl extends ChecklistItem {
     _is370f8w.ChecklistKey? key,
     String? label,
     bool? done,
+    bool? required,
   }) {
     return ChecklistItem(
       key: key ?? this.key,
       label: label ?? this.label,
       done: done ?? this.done,
+      required: required ?? this.required,
     );
   }
 }

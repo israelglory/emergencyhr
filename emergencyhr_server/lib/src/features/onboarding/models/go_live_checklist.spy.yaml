@@ -1,4 +1,5 @@
-### Computed server-side. When every item is done the facility goes live.
+### Computed server-side. When every required item is done the facility
+### goes live.
 class: GoLiveChecklist
 fields:
   facilityId: int

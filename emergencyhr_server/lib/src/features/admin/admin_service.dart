@@ -8,6 +8,7 @@ import '../../core/validation.dart';
 import '../../generated/protocol.dart';
 import '../auth/account_service.dart';
 import '../facilities/logic/opening_hours_rules.dart';
+import '../onboarding/logic/checklist_rules.dart';
 import '../onboarding/onboarding_service.dart';
 import '../status/status_service.dart';
 
@@ -190,8 +191,8 @@ class AdminService {
           agentName: names[r?.assignedAgentUserId],
           notes: r?.notes,
           nextActionAt: r?.nextActionAt,
-          checklistDone: list.items.where((i) => i.done).length,
-          checklistTotal: list.items.length,
+          checklistDone: list.requiredDone,
+          checklistTotal: list.requiredTotal,
         ),
       );
     }

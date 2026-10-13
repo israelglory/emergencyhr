@@ -1,5 +1,6 @@
 import 'package:emergencyhr_server/src/features/admin/admin_service.dart';
 import 'package:emergencyhr_server/src/features/notifications/messaging.dart';
+import 'package:emergencyhr_server/src/features/onboarding/logic/checklist_rules.dart';
 import 'package:emergencyhr_server/src/features/onboarding/onboarding_service.dart';
 import 'package:emergencyhr_server/src/generated/protocol.dart';
 import 'package:test/test.dart';
@@ -235,11 +236,8 @@ void main() {
               session,
               facility,
             );
-            expect(
-              row.checklistDone,
-              single.items.where((i) => i.done).length,
-            );
-            expect(row.checklistTotal, single.items.length);
+            expect(row.checklistDone, single.requiredDone);
+            expect(row.checklistTotal, single.requiredTotal);
           }
           final readyRow = board.rows.singleWhere(
             (r) => r.facility.id == ready.id,
